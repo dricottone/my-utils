@@ -1,0 +1,16 @@
+#!/bin/sh
+
+# whisper
+# =======
+# Usage: whisper [TEXT]
+#
+# Wrapper on `espeak` to mirror macOS's `say` using whisper voice.
+
+if [ $# -lt 1 ]; then
+  TEXT="present day <break time='1000ms'/> present time."
+else
+  TEXT="$@"
+fi
+
+espeak -v +whisper -s 8 -m "$TEXT" 2>/dev/null
+

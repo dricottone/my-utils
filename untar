@@ -1,0 +1,60 @@
+#!/bin/sh
+
+# untar
+# =====
+# Usage: untar FILE [OPTIONS]
+#
+# Uncompress a tarball. Expects standardized file names (i.e., '.tar.gz.gpg')
+
+help_msg() {
+  cat <<-EOF
+	Uncompress a tarball
+	Usage: untar FILE [OPTIONS]
+	Options:
+	 -h, --help: print this message
+	EOF
+  exit 1
+}
+
+err_msg() {
+  # Takes one argument:
+  #   error message
+  (>&2 echo "$1")
+  exit 1
+}
+
+gpg_then_tar() {
+  # Takes two arguments:
+  #   path to target file
+  #   tar options
+  TEMP=$(basename "$1" ".gpg")
+  gpg -o "$TEMP" -d "$1" || err_msg "Failed to decrypt '${1}'"
+  tar "${2}" "$TEMP"
+}
+
+for i in "$@"; do
+  case $i in
+    -h|--help) help_msg;;
+  esac
+done
+
+if [ "$#" -lt 1 ]; then
+  err_msg "Usage: untar FILE [OPTIONS]"
+elif ! test -f "$1"; then
+  err_msg "No file '${1}'"
+  exit
+fi
+
+case "$1" in
+  *.tar)         tar -xvf "$1";;
+  *.tar.gz)      tar -xzvf "$1";;
+  *.tar.gz.gpg)  gpg_then_tar "$1" "-xzvf";;
+  *.tar.bz2)     tar -xjvf "$1";;
+  *.tar.bz2.gpg) gpg_then_tar "$1" "-xjvf";;
+  *.tar.xz)      tar -xJvf "$1";;
+  *.tar.xz.gpg)  gpg_then_tar "$1" "-xJvf";;
+  *.tar.zst)     tar --zstd -xvf "$1";;
+  *.tar.zst.gpg) gpg_then_tar "$1" "--zstd -xvf";;
+  *)             err_msg "Not a known file extension '${1}'"
+esac
+

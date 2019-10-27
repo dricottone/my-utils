@@ -1,0 +1,41 @@
+#!/bin/sh
+
+# whichvi
+# =======
+# USAGE: whichvi PROGRAM
+#
+# Open a program in `$VISUAL`
+
+help_msg() {
+  cat <<-EOF
+	Open a program with your visual editor
+	Usage: whichvi PROGRAM [OPTIONS]
+	Options:
+	 -h, --help: print this message
+	EOF
+  exit 1
+}
+
+err_msg() {
+  (>&2 echo "$1")
+  exit 1
+}
+
+for i in "$@"; do
+  case $i in
+    -h|--help) help_msg;;
+  esac
+done
+
+if [ "$#" -lt 1 ]; then
+  err_msg "Usage: whichvi PROGRAM [OPTIONS]"
+fi
+
+BIN=$(which "$1" 2>/dev/null)
+if [ -z "$BIN" ]; then
+  err_msg "No program '${1}'"
+fi
+
+VIS=${VISUAL:-vi}
+"$VIS" "$BIN"
+

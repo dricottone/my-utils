@@ -1,0 +1,39 @@
+#!/bin/sh
+
+# ctdir
+# =====
+# Usage: ctdir TARGET [OPTIONS]
+#
+# Count entries in a directory
+
+help_msg() {
+  cat <<-EOF
+	Count entries in a target directory
+	Usage: ctdir TARGET [OPTIONS]
+	Options:
+	 -a, --all             do not ignore entries starting with .
+	 -A, --almost-all      do not list implied . and ..
+	 -B, --ignore-backups  do not list implied entries ending with ~
+	 -r, --recursive       list subdirectories recursively
+	 -h, --help            print this message
+	EOF
+  exit 1
+}
+err_msg() {
+  (>&2 echo "$1")
+  exit 1
+}
+
+for i in "$@"; do
+  case $i in
+    -h|--help) help_msg;;
+  esac
+done
+
+LISTING=$(ls -1 "$@" 2>/dev/null | wc -l)
+if [ "$LISTING" -eq 0 ]; then
+  err_msg "No files as '${@}'"
+else
+  echo "$LISTING"
+fi
+

@@ -1,0 +1,54 @@
+#!/bin/bash
+
+# rand
+# ====
+# Usage: rand START END [OPTIONS]
+#
+# Returns a random number within a range (inclusive)
+
+help_msg() {
+  cat <<-EOF
+	Returns a random number within a range (inclusive)
+	Usage: rand START END [OPTIONS]
+	Options:
+	 -w, --width N  zero-pad number to be N wide
+	 -h, --help     print this message
+	EOF
+  exit 1
+}
+
+err_msg() {
+  (>&2 echo "$1")
+  exit 1
+}
+
+START=
+END=
+WIDTH=1
+POSITIONAL=()
+
+while [[ $# -gt 0 ]]; do
+  case $1 in
+    -h|--help)  help_msg;;
+    -w|--width) WIDTH="$2"; shift; shift;;
+    *)          POSITIONAL+=("$1"); shift;;
+  esac
+done
+
+if [[ ${#POSITIONAL[@]} -lt 2 ]]; then
+  err_msg "Usage: rand START END"
+  exit 1
+else
+  START="${POSITIONAL[0]}"
+  END="${POSITIONAL[1]}"
+  if ! is-int.sh "$START"; then
+    err_msg "Expected numeric argument (given '${START}')"
+  elif ! is-int.sh "$END"; then
+    err_msg "Expected numeric argument (given '${END}')"
+  elif [[ $START -ge $END ]]; then
+    err_msg "Expected ascending range ('${END}' not greater than '${START}')"
+  fi
+fi
+
+seq -f "%0${WIDTH}g" "$START" "$END" | shuf -n 1
+

@@ -1,0 +1,11 @@
+#!/bin/sh
+
+# weather
+# =======
+# Usage weather [NUMBER]
+#
+# Wrapper aroung `wego`. Show weather for 2 days unless a number is specified.
+# Location should be set in `$WEGORC`.
+
+wego ${1:-2} | sed -e 's/[↘↗↖↙]/ &/g' -e '2,7d'
+

@@ -1,0 +1,42 @@
+#!/bin/sh
+
+# whichcat
+# ========
+# USAGE: whichcat PROGRAM
+#
+# Print all lines of a program
+
+help_msg() {
+  cat <<-EOF
+	Print all lines from a program to the terminal
+	Usage: whichcat PROGRAM [OPTIONS]
+	Options:
+	 -n, --number: number all output lines
+	 -s, --squeeze-blank: suppress repeated empty output lines
+	 -h, --help: print this message
+	EOF
+  exit 1
+}
+
+err_msg() {
+  (>&2 echo "$1")
+  exit 1
+}
+
+for i in "$@"; do
+  case $i in
+    -h|--help) help_msg;;
+  esac
+done
+
+if [ "$#" -lt 1 ]; then
+  err_msg "Usage: whichcat PROGRAM [OPTIONS]"
+fi
+
+BIN=$(which "$1" 2>/dev/null)
+if [ -z "$BIN" ]; then
+  err_msg "No program '${1}'"
+fi
+
+cat "$BIN"
+
