@@ -9,7 +9,7 @@
 if [ $# -lt 1 ]; then
   TEXT="present day <break time='1000ms'/> present time."
 else
-  TEXT="$@"
+  TEXT=$*
 fi
 
 espeak -v +whisper -s 8 -m "$TEXT" 2>/dev/null

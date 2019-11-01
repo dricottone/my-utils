@@ -32,7 +32,7 @@ done
 
 LISTING=$(ls -1 "$@" 2>/dev/null | wc -l)
 if [ "$LISTING" -eq 0 ]; then
-  err_msg "No files as '${@}'"
+  err_msg "No files as '${*}'"
 else
   echo "$LISTING"
 fi
