@@ -1,0 +1,269 @@
+#!/bin/bash
+
+name="mktar"
+version="1.0"
+read -r -d '' help_message <<-EOF
+	Wrapper around 'tar' for easier compression
+	Usage: mktar FILES [..] [OPTIONS]
+	Options:
+	 -c, --compress        compress archive with gzip
+	 --compress=ALGO       compress archive with [none|gzip|xz|zstd|bzip2]
+	 -C, --checksum        create checksum with SHA1
+	 -e, --encrypt         encrypt files with GPG
+	 -h, --help            print this message
+	 -n FILE, --name FILE  name of backup file (Default: archive.tar)
+	 -q, --quiet           suppress error messages and prompts
+	 -v, --verbose         show additional messages
+	 -V, --version         print version number and exit
+EOF
+
+source /usr/local/lib/mylib.bash
+
+positional=()
+quiet=0
+verbose=0
+compress=-1
+encrypt=-1
+checksum=-1
+archive_fn=""
+while [[ $# -gt 0 ]]; do
+  case $1 in
+
+  --compress=xz|--compress=2)
+    debug_msg "Setting compress option to 2 (=xz) (was ${compress})"
+    compress=2
+    shift
+    ;;
+
+  --compress=zst|--compress=zstd|--compress=3)
+    debug_msg "Setting compress option to 3 (=zstd) (was ${compress})"
+    compress=3
+    shift
+    ;;
+
+  --compress=bz2|--compress=bzip2|--compress=4)
+    debug_msg "Setting compress option to 4 (=bzip2) (was ${compress})"
+    compress=4
+    shift
+    ;;
+
+  --compress=gz|--compress=gzip|--compress=1)
+    debug_msg "Setting compress option to 1 (=gzip) (was ${compress})"
+    compress=1
+    shift
+    ;;
+
+  --compress=no|--compress=none|--compress=0)
+    debug_msg "Setting compress option to 0 (=none) (was ${compress})"
+    compress=0
+    shift
+    ;;
+
+  --compress=*)
+    attempted_compression="$(printf "%s\n" "$1" | sed -e 's/^.*=//' )"
+    error_msg "Unknown compression '${attempted_compression}'"
+    ;;
+
+  -c|--compress)
+    debug_msg "Setting compress option to 1 (=gzip) (was ${compress})"
+    compress=1
+    shift
+    ;;
+
+  -C|--checksum)
+    debug_msg "Setting checksum option to 1 (=SHA1) (was ${checksum})"
+    checksum=1
+    shift
+    ;;
+
+  -e|--encrypt)
+    debug_msg "Setting encrypt option to 1 (=GPG) (was ${encrypt})"
+    encrypt=1
+    shift
+    ;;
+
+  -h|--help)
+    help_msg
+    shift
+    ;;
+
+  -n|--name)
+    debug_msg "Setting output filename to ${2} (was ${archive_fn})"
+    archive_fn="$2"
+    shift; shift
+    ;;
+
+  -q|--quiet)
+    debug_msg "Setting quiet option to 1 (was ${quiet})"
+    quiet=1
+    shift
+    ;;
+
+  -v|--verbose)
+    debug_msg "Setting verbose option to 1 (was ${verbose})"
+    verbose=1;
+    shift
+    ;;
+
+  -V|--version)
+    version_msg
+    ;;
+
+  *)
+    debug_msg "Argument '${1}' added to positional array"
+    positional+=("$1")
+    shift
+    ;;
+  esac
+done
+
+# error if no filenames given
+if [[ "${#positional[@]}" -lt 1 ]]; then
+  debug_msg "No input filenames were given"
+  usage_msg
+fi
+
+# determine tar action
+if [[ "$compress" -eq 1 ]]; then
+  archive_action="tar.gz"
+elif [[ "$compress" -eq 2 ]]; then
+  archive_action="tar.xz"
+elif [[ "$compress" -eq 3 ]]; then
+  archive_action="tar.zst"
+elif [[ "$compress" -eq 4 ]]; then
+  archive_action="tar.bz2"
+elif [[ -n "$archive_fn" && "$compress" -eq -1 ]]; then
+  case "$archive_fn" in
+  *.tar)
+    archive_action="tar"
+    ;;
+
+  *.tar.gz)
+    archive_action="tar.gz"
+    ;;
+
+  *.tar.xz)
+    archive_action="tar.xz"
+    ;;
+
+  *.tar.zst)
+    archive_action="tar.zst"
+    ;;
+
+  *.tar.bz2)
+    archive_action="tar.bz2"
+    ;;
+  esac
+else
+  archive_action="tar"
+fi
+if [[ "$encrypt" -eq 1 ]]; then
+  archive_action="${archive_action}.gpg"
+elif [[ -n "$archive_fn" && "$encrypt" -eq -1 ]]; then
+  case "$archive_fn" in
+  *.gpg)
+    archive_action="${archive_action}.gpg"
+    ;;
+  esac
+fi
+
+# output filename
+if [[ -z "$archive_fn" ]]; then
+  archive_fn="archive.${archive_action}"
+  checksum_fn="archive.sha1"
+  debug_msg "No output filename was given, defaulting to '${archive_fn}'"
+else
+  checksum_fn="$(fn_basename "$archive_fn").sha1"
+fi
+
+# check files
+if contains "$archive_fn" "${positional[@]}"; then
+  error_msg "Output file cannot also be input file"
+elif [[ "$checksum" -eq 1 ]] && contains "$checksum_fn" "${positional[@]}"; then
+  error_msg "Output file cannot also be input file"
+fi
+if ! prompt_overwrite "$archive_fn"; then
+  exit 1
+elif [[ "$checksum" -eq 1 ]] && ! prompt_overwrite "$checksum_fn"; then
+  exit 1
+fi
+for target in "${positional[@]}";do
+  if [[ ! -f "$target" ]]; then
+    error_msg "No such file '${target}'"
+  fi
+done
+
+# main routine
+code=0
+case "$archive_action" in
+tar)
+  if ! /usr/bin/tar -cf "$archive_fn" "${positional[@]}"; then
+    code=1
+  fi
+  ;;
+
+tar.gpg)
+  if ! /usr/bin/tar -c "${positional[@]}" | /usr/bin/gpg -c -o "$archive_fn"; then
+    code=1
+  fi
+  ;;
+
+tar.gz)
+  if ! /usr/bin/tar -czf "$archive_fn" "${positional[@]}"; then
+    code=1
+  fi
+  ;;
+
+tar.gz.gpg)
+  if ! /usr/bin/tar -cz "${positional[@]}" | /usr/bin/gpg -c -o "$archive_fn"; then
+    code=1
+  fi
+  ;;
+
+tar.xz)
+  if ! /usr/bin/tar -cJf "$archive_fn" "${positional[@]}"; then
+    code=1
+  fi
+  ;;
+
+tar.xz.gpg)
+  if ! /usr/bin/tar -cJ "${positional[@]}" | /usr/bin/gpg -c -o "$archive_fn"; then
+    code=1
+  fi
+  ;;
+
+tar.zst)
+  if ! /usr/bin/tar --zstd -cf "$archive_fn" "${positional[@]}"; then
+    code=1
+  fi
+  ;;
+
+tar.zst.gpg)
+  if ! /usr/bin/tar --zstd -c "${positional[@]}" | /usr/bin/gpg -c -o "$archive_fn"; then
+    code=1
+  fi
+  ;;
+
+tar.bz2)
+  if ! /usr/bin/tar -cjf "$archive_fn" "${positional[@]}"; then
+    code=1
+  fi
+  ;;
+
+tar.bz2.gpg)
+  if ! /usr/bin/tar -cj "${positional[@]}" | /usr/bin/gpg -c -o "$archive_fn"; then
+    code=1
+  fi
+  ;;
+esac
+
+# checksum routine
+if [[ "$checksum" -eq 1 ]]; then
+  if ! /usr/bin/sha1sum "$archive_fn" | /usr/bin/awk '{print $1}' > "$checksum_fn"; then
+    code=1
+  fi
+fi
+
+# return stored code
+exit "$code"
+

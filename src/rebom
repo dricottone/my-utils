@@ -1,0 +1,41 @@
+#!/bin/sh
+
+name="rebom"
+version="1.0"
+help_message=$(/usr/bin/cat <<-EOF
+	Add BOM to a target file
+	Usage: rebom TARGET [OPTIONS]
+	 -h, --help            print this message
+	 -v, --version         print version number and exit
+EOF
+)
+
+. /usr/local/lib/myminiparse.sh
+
+# re-print first non-option argument, then exit
+for arg; do
+  case "$arg" in
+  -q|--quiet)
+    #ignore these
+    ;;
+
+  *)
+    # main routine
+    if [ ! -f "$arg" ]; then
+      (>&2 printf "%s: No such file '%s'\n" "$name" "$arg")
+      exit 1
+    else
+      /usr/bin/printf "\xEF\xBB\xBF"
+      /usr/bin/cat "$1"
+      exit $?
+    fi
+    ;;
+  esac
+done
+
+# if have not exited, no filename was specified
+if [ "$quiet" -eq 0 ]; then
+  (>&2 /usr/bin/printf "Usage: rebom TARGET [OPTIONS]\n")
+fi
+exit 1
+

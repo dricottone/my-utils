@@ -1,0 +1,41 @@
+#!/bin/sh
+
+name="rmzip"
+version="1.0"
+help_message=$(/usr/bin/cat <<-EOF
+	Delete 'zip' archive files
+	Usage: rmzip TARGET [..] [OPTIONS]
+	Options:
+	 -h, --help     print this message and exit
+	 -v, --version  print version number and exit
+EOF
+)
+
+. /usr/local/lib/myminiparse.sh
+
+# error if no directory names given
+if [ "$#" -eq 0 ]; then
+  (>&2 /usr/bin/printf "Usage: rmzip TARGET [OPTIONS]\n")
+  exit 1
+elif [ "$#" -eq 1 ] && [ "$quiet" -eq 1 ]; then
+  exit 1
+fi
+
+# main routine
+code=0
+for arg; do
+  if [ ! -f "$arg" ]; then
+    if [ "$quiet" -eq 0 ]; then
+      (>&2 printf "%s: No such file '%s'\n" "$name" "$arg")
+    fi
+    code=1
+  else
+    if ! /usr/bin/rm "$arg"; then
+      code=1
+    fi
+  fi
+done
+
+# return stored code
+exit "$code"
+

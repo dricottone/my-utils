@@ -1,0 +1,107 @@
+#!/bin/bash
+
+name="mkbak"
+version="1.0"
+read -r -d '' help_message <<-EOF
+	Create a backup of a target file
+	Usage: mkbak TARGET [OPTIONS]
+	Options:
+	 -d, --diff            diff files before asking to overwrite
+	 -f, --force           overwrite without asking
+	 -h, --help            print this message and exit
+	 -n FILE, --name FILE  name of backup file (Default: TARGET.bak)
+	 -q, --quiet           suppress error messages and prompts
+	 -v, --verbose         show additional messages
+	 -V, --version         print version number and exit
+EOF
+
+source /usr/local/lib/mylib.bash
+
+positional=()
+quiet=0
+verbose=0
+force=0
+backup_fn=""
+while [[ $# -gt 0 ]]; do
+  case $1 in
+
+  -d|--diff)
+    debug_msg "Setting diff option to 1 (was ${diff})"
+    diff=1
+    shift
+    ;;
+
+  -f|--force)
+    debug_msg "Setting force option to 1 (was ${force})"
+    force=1
+    shift
+    ;;
+
+  -h|--help)
+    help_msg
+    shift
+    ;;
+
+  -n|--name)
+    debug_msg "Setting output filename to ${2} (was ${backup_fn})"
+    backup_fn="$2"
+    shift; shift
+    ;;
+
+  -q|--quiet)
+    debug_msg "Setting quiet option to 1 (was ${quiet})"
+    quiet=1
+    shift
+    ;;
+
+  -v|--verbose)
+    debug_msg "Setting verbose option to 1 (was ${verbose})"
+    verbose=1;
+    shift
+    ;;
+
+  -V|--version)
+    version_msg
+    ;;
+
+  *)
+    debug_msg "Argument '${1}' added to positional array"
+    positional+=("$1")
+    shift
+    ;;
+  esac
+done
+
+# error if no filenames given
+if [[ "${#positional[@]}" -lt 1 ]]; then
+  debug_msg "No input filename was given"
+  usage_msg
+fi
+original_fn="${positional[0]}"
+
+# output filename
+if [[ -z "$backup_fn" ]]; then
+  debug_msg "No output filename was given, so defaulting to 'TARGET.bak'"
+  backup_fn="${original_fn}.bak"
+fi
+
+# check files
+if [[ ! -f "$original_fn" ]]; then
+  error_msg "No such file '${original_fn}'"
+elif [[ "$force" -eq 0 && -f "$backup_fn" ]]; then
+  if /usr/bin/cmp "$backup_fn" "$original_fn" >/dev/null 2>&1; then
+    msg "File '${backup_fn}' already exists and is a copy of '${original_fn}'"
+  elif [[ $quiet -eq 0 ]]; then
+    if [[ "$diff" -eq 1 ]]; then
+      /usr/bin/diff --color "$backup_fn" "$original_fn"
+    fi
+    if ! prompt_overwrite "$backup_fn"; then
+      exit 1
+    fi
+  fi
+fi
+
+# main routine
+/usr/bin/cp "$original_fn" "$backup_fn"
+exit "$?"
+

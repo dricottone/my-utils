@@ -1,0 +1,155 @@
+#!/bin/bash
+
+name="epub"
+version="1.0"
+read -r -d '' help_message <<-EOF
+	Dumps HTML from an epub e-book archive
+	Usage: epub TARGET [FILENAMES] [OPTIONS]
+	Options:
+	 -d, --dump            print to STDOUT
+	 -h, --help            print this message
+	 -l, --list            list HTML entries of archive
+	 -q, --quiet           suppress error messages and prompts
+	 -v, --verbose         show additional messages
+	 -V, --version         print version number and exit
+EOF
+
+source /usr/local/lib/mylib.bash
+
+target_archive=""
+positional=()
+quiet=0
+verbose=0
+dump=0
+list=0
+width="$(/usr/bin/tput cols)"
+while [[ $# -gt 0 ]]; do
+  case "$1" in
+
+  -d|--dump)
+    debug_msg "Setting dump option to 1 (was ${dump})"
+    dump=1
+    shift
+    ;;
+
+  -h|--help)
+    help_msg
+    shift
+    ;;
+
+  -l|--list)
+    debug_msg "Setting list option to 1 (was ${list})"
+    list=1
+    shift
+    ;;
+
+  -q|--quiet)
+    debug_msg "Setting quiet option to 1 (was ${quiet})"
+    quiet=1
+    shift
+    ;;
+
+  -v|--verbose)
+    debug_msg "Setting verbose option to 1 (was ${verbose})"
+    verbose=1;
+    shift
+    ;;
+
+  -V|--version)
+    version_msg
+    ;;
+
+  -w|--width)
+    if ! is_positive_integer "$2"; then
+      error_msg "Cannot set column width to '${2}' (not an integer >= 1)"
+    fi
+    debug_msg "Setting column width to ${2} (was ${width})"
+    width="$2";
+    shift; shift
+    ;;
+
+  *)
+    if [ -z "$target_archive" ]; then
+      debug_msg "Setting target filename to '${1}'"
+      target_archive="$1"
+    else
+      debug_msg "Argument '${1}' added to positional array"
+      positional+=("$1")
+    fi
+    shift
+    ;;
+  esac
+done
+
+# error if no filenames given
+if [[ -z "$target_archive" ]]; then
+  debug_msg "No input filename was given"
+  usage_msg
+elif [[ ! -f "$target_archive" ]]; then
+  error_msg "No such file '${target_archive}'"
+fi
+
+# listing subroutine
+list_target_archive() {
+  if ! /usr/bin/zipinfo -1 "$target_archive" 2>/dev/null; then
+    debug_msg "Error in listing subroutine"
+    code=1
+  fi
+}
+
+# extract subroutine
+extract_from_target_archive() {
+  if ! /usr/bin/unzip -caaqq "$target_archive" "$target_fn"; then
+    code=1
+  fi
+}
+
+# render subroutine
+render_html() {
+  if ! /usr/bin/w3m -T text/html -cols "$width" -dump; then
+    code=1
+  fi
+}
+
+# dump subroutine
+dump_target_archive() {
+  if [[ "${#positional[@]}" -eq 0 ]]; then
+    for fn in "${list_fn[@]}"; do
+      target_fn="$fn"
+      extract_from_target_archive | render_html
+    done
+  else
+    for fn in "${positional[@]}"; do
+      target_fn="$fn"
+      extract_from_target_archive | render_html
+    done
+  fi
+}
+
+# main routine
+code=0
+if [[ "$list" -eq 1 ]]; then
+  list_target_archive | sort
+else
+  list_fn=( $(list_target_archive | grep -E '\.xml|\.html|\.xhtml' | sort) )
+
+  if [[ "$code" -eq 1 || "${#list_fn[@]}" -eq 0 ]]; then
+    error_msg "'${target_archive}' is not a valid archive"
+  else
+    for target_fn in "${positional[@]}"; do
+      if ! contains "$target_fn" "${list_fn[@]}"; then
+        error_msg "'${target_fn}' not in archive '${target_archive}'"
+      fi
+    done
+  fi
+
+  if [[ "$dump" -eq 1 ]]; then
+    dump_target_archive
+  else
+    dump_target_archive | ${PAGER:=/usr/bin/less}
+  fi
+fi
+
+# return stored code
+exit "$code"
+

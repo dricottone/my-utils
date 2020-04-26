@@ -1,0 +1,150 @@
+#!/bin/bash
+
+name="debom"
+version="1.0"
+read -r -d '' help_message <<-EOF
+	Remove BOM from a target file
+	Usage: debom TARGET [OPTIONS]
+	Options:
+	 -b, --backup          output a backup file, editing TARGET in-place
+	 -d, --dump            print to STDOUT
+	 -f, --force           overwrite without asking
+	 -h, --help            print this message
+	 -n FILE, --name FILE  set output filename (Default: TARGET.new, or
+	                         TARGET.bak in backup mode)
+	 -q, --quiet           suppress error messages and prompts
+	 -v, --verbose         show additional messages
+	 -V, --version         print version number and exit
+EOF
+
+source /usr/local/lib/mylib.bash
+
+positional=()
+quiet=0
+verbose=0
+backup=0
+dump=0
+force=0
+output_fn=""
+while [[ $# -gt 0 ]]; do
+  case "$1" in
+
+  -b|--backup)
+    debug_msg "Setting backup option to 1 (was ${backup})"
+    backup=1
+    shift
+    ;;
+
+  -d|--dump)
+    debug_msg "Setting dump option to 1 (was ${dump})"
+    dump=1
+    shift
+    ;;
+
+  -f|--force)
+    debug_msg "Setting force option to 1 (was ${force})"
+    force=1
+    shift
+    ;;
+
+  -h|--help)
+    help_msg
+    shift
+    ;;
+
+  -n|--name)
+    debug_msg "Setting output filename to ${2} (was ${output_fn})"
+    output_fn="$2"
+    shift; shift
+    ;;
+
+  -q|--quiet)
+    debug_msg "Setting quiet option to 1 (was ${quiet})"
+    quiet=1
+    shift
+    ;;
+
+  -v|--verbose)
+    debug_msg "Setting verbose option to 1 (was ${verbose})"
+    verbose=1;
+    shift
+    ;;
+
+  -V|--version)
+    version_msg
+    ;;
+
+  *)
+    debug_msg "Argument '${1}' added to positional array"
+    positional+=("$1")
+    shift
+    ;;
+  esac
+done
+
+# error if no filenames given
+if [[ ${#positional[@]} -eq 0 ]]; then
+  debug_msg "No input filename was given"
+  usage_msg
+fi
+original_fn="${positional[0]}"
+
+# output filename
+if [[ "$dump" -eq 1 ]]; then
+  debug_msg "Output is STDOUT"
+elif [[ -z "$output_fn" ]]; then
+  if [[ "$backup" -eq 1 ]]; then
+    debug_msg "No output filename was given, so defaulting to 'TARGET.bak'"
+    output_fn="${original_fn}.bak"
+  else
+    debug_msg "No output filename was given, so defaulting to 'TARGET.new'"
+    output_fn="${original_fn}.new"
+  fi
+else
+  debug_msg "Output filename given as '${output_fn}'"
+fi
+
+# check if files exist
+debug_msg "Beginning file existence checks"
+if [[ ! -f "$original_fn" ]]; then
+  debug_msg "Input file does not exist"
+  error_msg "No such file '${original_fn}'"
+elif [[ "$dump" -eq 0 && "$force" -eq 0 && -f "$output_fn" ]]; then
+  debug_msd "Output file exists; prompting for permission to overwrite"
+  if ! prompt_overwrite "${output_fn}"; then
+    debug_msg "Could not obtain permission to overwrite output file"
+    exit 1
+  fi
+fi
+debug_msg "Finished file existence checks"
+
+# backup routine
+if [[ "$dump" -eq 0 && "$backup" -eq 1 ]]; then
+  debug_msg "Beginning backup routine"
+  backup_fn="${output_fn}"
+  if ! /usr/local/bin/mkbak "${original_fn}" --force --name "${backup_fn}"; then
+    error_msg "Error occured while executing backup"
+    exit 1
+  fi
+  output_fn=${original_fn}
+  original_fn=${backup_fn}
+  debug_msg "Finished backup routine"
+fi
+
+# main routine
+debug_msg "Beginning main routine"
+code=0
+if [[ "$dump" -eq 1 ]]; then
+  if ! /usr/bin/sed '1s/^\xEF\xBB\xBF//' < "${original_fn}"; then
+    code=1
+  fi
+else
+  if ! /usr/bin/sed '1s/^\xEF\xBB\xBF//' < "${original_fn}" > "${output_fn}"; then
+    code=1
+  fi
+fi
+debug_msg "Finished main routine"
+
+# return stored code
+exit "$code"
+

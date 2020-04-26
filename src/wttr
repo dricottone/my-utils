@@ -1,0 +1,17 @@
+#!/bin/sh
+
+name="wttr"
+version="1.0"
+help_message=$(/usr/bin/cat <<-EOF
+	Wrapper around 'wego' to fix double-wide runes for some fonts
+	Usage: wttr
+	Options:
+	 -h, --help     print this message and exit
+	 -V, --version  print version number and exit
+EOF
+)
+
+. /usr/local/lib/myminiparse.sh
+
+wego $@ | sed -e 's/[↘↗↖↙]/ &/g'
+

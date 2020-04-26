@@ -1,0 +1,24 @@
+#!/bin/sh
+
+name="whisper"
+version="1.0"
+help_message=$(/usr/bin/cat <<-EOF
+	Wrapper around 'espeak' to mirror 'say' in macOS
+	Usage: mkbak MESSAGE [OPTIONS]
+	Options:
+	 -h, --help     print this message and exit
+	 -v, --version  print version number and exit
+EOF
+)
+
+. /usr/local/lib/myminiparse.sh
+
+if [ "$#" -eq 0 ]; then
+  my_message="present day <break time='1000ms'/> present time."
+else
+  my_message="$*"
+fi
+
+/usr/bin/espeak -v +whisper -s 8 -m "$my_message" 2>/dev/null
+exit "$?"
+

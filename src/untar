@@ -1,0 +1,105 @@
+#!/bin/sh
+
+name="untar"
+version="1.0"
+help_message=$(/usr/bin/cat <<-EOF
+	Wrapper around 'tar' for easier decompression
+	Usage: untar TARGET [..] [OPTIONS]
+	Options:
+	 -h, --help     print this message and exit
+	 -q, --quiet    suppress error messages
+	 -v, --version  print version number and exit
+EOF
+)
+
+. /usr/local/lib/myminiparse.sh
+
+# error if no directory names given
+if [ "$#" -eq 0 ]; then
+  (>&2 /usr/bin/printf "Usage: untar TARGET [OPTIONS]\n")
+  exit 1
+elif [ "$#" -eq 1 ] && [ "$quiet" -eq 1 ]; then
+  exit 1
+fi
+
+# main routine
+code=0
+for target; do
+  if [ ! -f "$target" ]; then
+    if [ "$quiet" -eq 0 ]; then
+      (>&2 printf "%s: No such file '%s'\n" "$name" "$target")
+    fi
+    code=1
+  else
+    case "$target" in
+    *tar)
+      if ! /usr/bin/tar -xf "$target"; then
+        code=1
+      fi
+      ;;
+
+    *tar.gpg)
+      if ! /usr/bin/gpg -d "$target" | /usr/bin/tar -x; then
+        code=1
+      fi
+      ;;
+
+    *tar.gz)
+      if ! /usr/bin/tar -xzf "$target"; then
+        code=1
+      fi
+      ;;
+
+    *tar.gz.gpg)
+      if ! /usr/bin/gpg -d "$target" | /usr/bin/tar -xz; then
+        code=1
+      fi
+      ;;
+
+    *tar.xz)
+      if ! /usr/bin/tar -xJf "$target"; then
+        code=1
+      fi
+      ;;
+
+    *tar.xz.gpg)
+      if ! /usr/bin/gpg -d "$target" | /usr/bin/tar -xJ; then
+        code=1
+      fi
+      ;;
+
+    *tar.zst)
+      if ! /usr/bin/tar --zstd -xf "$target"; then
+        code=1
+      fi
+      ;;
+
+    *tar.zst.gpg)
+      if ! /usr/bin/gpg -d "$target" | /usr/bin/tar --zstd -x; then
+        code=1
+      fi
+      ;;
+
+    *tar.bz2)
+      if ! /usr/bin/tar -xjf "$target"; then
+        code=1
+      fi
+      ;;
+
+    *tar.bz2.gpg)
+      if ! /usr/bin/gpg -d "$target" | /usr/bin/tar -xj; then
+        code=1
+      fi
+      ;;
+
+    *)
+      if ! /usr/bin/tar -xf "$target"; then
+        code=1
+      fi
+      ;;
+    esac
+  fi
+done
+
+exit "$code"
+

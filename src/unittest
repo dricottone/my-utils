@@ -1,0 +1,80 @@
+#!/bin/sh
+
+name="unittest"
+version="1.0"
+help_message=$(/usr/bin/cat <<-EOF
+	Wrapper around Python's 'unittest' module
+	Usage: unittest TARGET [OPTIONS]
+	Options:
+	 -c, --color       print with color
+	 -h, --help        print this message and exit
+	 -v, --verbose     show verbose 'unittest' output
+	 -V, --version     print version number and exit
+EOF
+)
+
+target=""
+color=0
+verbose=0
+python_executable="/usr/bin/env python3"
+for arg; do
+  case "$arg" in
+  -c|--color)
+    color=1
+    ;;
+
+  -h|--help)
+    printf "%s\n" "$help_message"
+    exit 0
+    ;;
+
+  -v|--verbose)
+    verbose=1
+    ;;
+
+  -V|--version)
+    printf "%s %s\n" "$name" "$version"
+    exit 0
+    ;;
+
+  *)
+    if [ -z "$target" ]; then
+      target="$arg"
+    fi
+    ;;
+  esac
+done
+
+# unittest subroutine
+unittest_subroutine() {
+  if [ "$verbose" -eq 1 ]; then
+    if ! $python_executable -m unittest discover -v -s "$target" 2>&1; then
+      code=1
+    fi
+  else
+    if ! $python_executable -m unittest discover -s "$target" 2>&1 | /usr/bin/tail -n 1; then
+      code=1
+    fi
+  fi
+}
+
+# check directory
+if [ -z "${target+x}" ]; then
+  (>&2 printf "Usage: unittest TARGET [OPTIONS]")
+  exit 1
+elif [ ! -d "$target" ]; then
+  (>&2 printf "%s: No such directory '%s'\n" "$name" "$target")
+  exit 1
+fi
+
+# main routine
+code=0
+if [ "$color" -eq 0 ] || { [ -n "${NO_COLOR+x}" ] && [ "$NO_COLOR" -eq 1 ]; }; then
+  unittest_subroutine
+else
+  unittest_subroutine | /usr/local/lib/unittest-color.awk
+fi
+
+# return stored code
+exit "$code"
+

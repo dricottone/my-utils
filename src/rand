@@ -1,0 +1,98 @@
+#!/bin/bash
+
+name="rand"
+version="1.0"
+read -r -d '' help_message <<-EOF
+	Get a random number within an inclusive range
+	Usage: rand START END [OPTIONS]
+	Options:
+	 -h, --help        print this message
+	 -n N, --number N  print N numbers (Default: 1)
+	 -q, --quiet       suppress error messages and prompts
+	 -v, --verbose     show additional messages
+	 -V, --version     print version number and exit
+	 -w N, --width N   print numbers zero-padded to N-wide (Default: 0)
+EOF
+
+source /usr/local/lib/mylib.bash
+
+positional=()
+quiet=0
+verbose=0
+width=1
+number=1
+while [[ $# -gt 0 ]]; do
+  case "$1" in
+
+  -h|--help)
+    help_msg
+    shift
+    ;;
+
+  -n|--number)
+    if ! is_positive_integer "$2"; then
+      error_msg "Cannot set number of outputs to '${2}' (not an integer >= 1)"
+    fi
+    debug_msg "Setting number of outputs to ${2} (was ${number})"
+    number="$2"
+    shift; shift
+    ;;
+
+  -q|--quiet)
+    debug_msg "Setting quiet option to 1 (was ${quiet})"
+    quiet=1
+    shift
+    ;;
+
+  -v|--verbose)
+    debug_msg "Setting verbose option to 1 (was ${verbose})"
+    verbose=1;
+    shift
+    ;;
+
+  -V|--version)
+    version_msg
+    ;;
+
+  -w|--width)
+    if ! is_natural "$2"; then
+      error_msg "Cannot set zero-padding width to '${2}' (not an integer >= 0)"
+    fi
+    debug_msg "Setting zero-padding width to ${2} (was ${width})"
+    width="$2";
+    shift; shift
+    ;;
+
+  *)
+    debug_msg "Argument '${1}' added to positional array"
+    positional+=("$1")
+    shift
+    ;;
+  esac
+done
+
+# check arguments
+if [[ ${#positional[@]} -lt 2 ]]; then
+  debug_msg "Expected 2 arguments (given ${#positional[@]})"
+  usage_msg
+else
+  range_start="${positional[0]}"
+  range_end="${positional[1]}"
+  if ! is_integer "$range_start"; then
+    error_msg "Expected integer for range start (given '${range_start}')"
+  elif ! is_integer "$range_end"; then
+    error_msg "Expected integer for range end (given '${range_end}')"
+  elif [[ "$range_start" -ge "$range_end" ]]; then
+    error_msg "Expected ascending range (given '${range_start}' and '${range_end}')"
+  fi
+fi
+
+# main routine
+code=0
+if ! seq -f "%0${width}g" "$range_start" "$range_end" | shuf -n "$number"; then
+  code=1
+fi
+
+# return stored code
+exit "$code"
+

@@ -1,0 +1,124 @@
+#!/bin/bash
+
+name="enumerate"
+version="1.0"
+read -r -d '' help_message <<-EOF
+	Rename files in current directory into sequential numbers
+	Usage: enumerate [OPTIONS]
+	Options:
+	 -d, --dry-run     print current and intended filenames side-by-side
+	 -f P, --filter P  filter targets with filename pattern P
+	 -h, --help        print this message
+	 -q, --quiet       suppress error messages
+	 -s N, --start N   start enumeration at N (Default: 1)
+	 -S N, --step N    step enumeration by N (Default: 1)
+	 -v, --verbose     show additional messages
+	 -V, --version     print version number and exit
+	 -w N, --width N   rename files to numbers N wide (Default: 4)
+EOF
+
+source /usr/local/lib/mylib.bash
+
+positional=()
+execute=0
+filter="*"
+enum_start=1
+enum_step=1
+width=4
+quiet=0
+verbose=0
+
+while [[ $# -gt 0 ]]; do
+  case $1 in
+
+  -f|--filter)
+    debug_msg "Setting filter option to ${2} (was ${filter})"
+    filter="$2"
+    shift; shift
+    ;;
+
+  -h|--help)
+    help_msg
+    shift
+    ;;
+
+  -q|--quiet)
+    debug_msg "Setting quiet option to 1 (was ${quiet})"
+    quiet=1
+    shift
+    ;;
+
+  -s|--start)
+    if ! is_natural "$2"; then
+      error_msg "Cannot set enumeration start to '${2}' (not an integer >= 0)"
+    fi
+    debug_msg "Setting enumeration start to ${2} (was ${enum_start})"
+    enum_start="$2"
+    shift; shift
+    ;;
+
+  -S|--step)
+    if ! is_positive_integer "$2"; then
+      error_msg "Cannot set enumeration step to '${2}' (not an integer >= 1)"
+    fi
+    debug_msg "Setting enumeration step to ${2} (was ${enum_step})"
+    enum_step="$2"
+    shift; shift
+    ;;
+
+  -v|--verbose)
+    debug_msg "Setting verbose option to 1 (was ${verbose})"
+    verbose=1;
+    shift
+    ;;
+
+  -V|--version)
+    version_msg
+    ;;
+
+  -w|--width)
+    if ! is_natural "$2"; then
+      error_msg "Cannot set filename width to '${2}' (not an integer >= 0)"
+    fi
+    debug_msg "Setting filename width to ${2} (was ${width})"
+    width="$2";
+    shift; shift
+    ;;
+
+  -x|--execute)
+    debug_msg "Setting execution to 1 (was ${execute})"
+    execute=1
+    shift
+    ;;
+
+  *)
+    debug_msg "Argument '${1}' added to positional array"
+    positional+=("$1")
+    shift
+    ;;
+  esac
+done
+
+# main routine
+n="$enum_start"
+s="$enum_step"
+code=0
+for original_fn in $(find . -maxdepth 1 -name "$filter" -type f -printf "%f\n" | sort); do
+  wide_n=$(printf "%0*d\n" "$width" "$n")
+  enum_fn="${wide_n}.$(fn_extension "$original_fn")"
+  debug_msg "Widened format of '${n}' is '${wide_n}'"
+  debug_msg "Input filename is '${original_fn}'"
+  debug_msg "Output filename is '${enum_fn}'"
+  if [[ "$execute" -eq 1 ]]; then
+    if ! mv "$original_fn" "${enum_fn}"; then
+      code=1
+    fi
+  else
+    printf "#mv %s %s\n" "$original_fn" "$enum_fn"
+  fi
+  n=$((n+s))
+done
+
+# return stored code
+exit "$code"
+

@@ -1,0 +1,78 @@
+#!/bin/bash
+
+name="whichhead"
+version="1.0"
+read -r -d '' help_message <<-EOF
+	Print the first 10 lines from a program
+	Usage: whichhead [PROGRAM ..] [OPTIONS]
+	Options:
+	 -h, --help        print this message
+	 -n N, --number=N  print the first N lines (Default: 10)
+	 -q, --quiet       suppress error messages
+	 -v, --verbose     show additional messages
+	 -V, --version     print version number and exit
+EOF
+
+source /usr/local/lib/mylib.bash
+
+positional=()
+num_lines=10
+quiet=0
+verbose=0
+
+while [[ $# -gt 0 ]]; do
+  case $1 in
+
+  -h|--help)
+    help_msg
+    shift
+    ;;
+
+  -n|--number)
+    if ! is_natural "$2"; then
+      error_msg "Cannot set number of lines to '${2}' (not an integer >= 0)"
+    fi
+    debug_msg "Setting number of lines to ${2} (was ${num_lines})"
+    num_lines="$2"
+    shift; shift
+    ;;
+
+  -q|--quiet)
+    debug_msg "Setting quiet option to 1 (was ${quiet})"
+    quiet=1
+    shift
+    ;;
+
+  -v|--verbose)
+    debug_msg "Setting verbose option to 1 (was ${verbose})"
+    verbose=1;
+    shift
+    ;;
+
+  -V|--version)
+    version_msg
+    ;;
+
+  *)
+    debug_msg "Argument '${1}' added to positional array"
+    positional+=("$1")
+    shift
+    ;;
+  esac
+done
+
+# main routine
+code=0
+for target in "${positional[@]}"; do
+  abs_target=$(command -v "$target")
+  if [[ -z $abs_target ]]; then
+    nonfatal_error_msg "No such program '${target}'"
+    code=1
+  else
+    /usr/bin/head "$abs_target" -n "$num_lines"
+  fi
+done
+
+# return stored code
+exit "$code"
+

@@ -1,0 +1,49 @@
+#!/bin/sh
+
+name="ctdir"
+version="1.0"
+help_message=$(/usr/bin/cat <<-EOF
+	Count entries in target directory(ies)
+	Usage: ctdir TARGETS [..] [OPTIONS]
+	Options:
+	 -h, --help     print this message and exit
+	 -q, --quiet    suppress error messages
+	 -v, --version  print version number and exit
+EOF
+)
+
+. /usr/local/lib/myminiparse.sh
+
+# error if no directory names given
+if [ "$#" -eq 0 ]; then
+  (>&2 /usr/bin/printf "Usage: ctdir TARGET [OPTIONS]\n")
+  exit 1
+elif [ "$#" -eq 1 ] && [ "$quiet" -eq 1 ]; then
+  exit 1
+fi
+
+# loop through arguments
+code=0
+for arg; do
+  case "$arg" in
+  -q|--quiet)
+    #ignore these
+    ;;
+
+  *)
+    # main routine
+    if [ ! -d "$arg" ]; then
+      if [ "$quiet" -eq 0 ]; then
+        (>&2 /usr/bin/printf "%s: No such directory '%s'\n" "$name" "$arg")
+      fi
+      code=1
+    else
+      /usr/bin/ls -1A "$arg" 2>/dev/null | wc -l
+    fi
+    ;;
+  esac
+done
+
+# exit with stored code
+exit "$code"
+

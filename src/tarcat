@@ -1,0 +1,97 @@
+#!/bin/sh
+
+name="tarcat"
+version="1.0"
+help_message=$(/usr/bin/cat <<-EOF
+	Print contents of target archive file(s)
+	Usage: tarcat [TARGET ..] [OPTIONS]
+	Options:
+	 -h, --help     print this message and exit
+	 -q, --quiet    suppress error messages
+	 -v, --version  print version number and exit
+EOF
+)
+
+. /usr/local/lib/myminiparse.sh
+
+code=0
+
+for target; do
+  if [ ! -f "$target" ]; then
+    if [ "$quiet" -eq 0 ]; then
+      (>&2 printf "%s: No such file '%s'\n" "$name" "$target")
+    fi
+    code=1
+  else
+    case "$target" in
+    *tar)
+      if ! /usr/bin/tar -xOf "$target"; then
+        code=1
+      fi
+      ;;
+
+    *tar.gpg)
+      if ! /usr/bin/gpg -d "$target" | /usr/bin/tar -xO; then
+        code=1
+      fi
+      ;;
+
+    *tar.gz)
+      if ! /usr/bin/tar -xzOf "$target"; then
+        code=1
+      fi
+      ;;
+
+    *tar.gz.gpg)
+      if ! /usr/bin/gpg -d "$target" | /usr/bin/tar -xzO; then
+        code=1
+      fi
+      ;;
+
+    *tar.xz)
+      if ! /usr/bin/tar -xJOf "$target"; then
+        code=1
+      fi
+      ;;
+
+    *tar.xz.gpg)
+      if ! /usr/bin/gpg -d "$target" | /usr/bin/tar -xJO; then
+        code=1
+      fi
+      ;;
+
+    *tar.zst)
+      if ! /usr/bin/tar --zstd -xOf "$target"; then
+        code=1
+      fi
+      ;;
+
+    *tar.zst.gpg)
+      if ! /usr/bin/gpg -d "$target" | /usr/bin/tar --zstd -xO; then
+        code=1
+      fi
+      ;;
+
+    *tar.bz2)
+      if ! /usr/bin/tar -xjOf "$target"; then
+        code=1
+      fi
+      ;;
+
+    *tar.bz2.gpg)
+      if ! /usr/bin/gpg -d "$target" | /usr/bin/tar -xjO; then
+        code=1
+      fi
+      ;;
+
+    *)
+      if ! /usr/bin/tar -xOf "$target"; then
+        code=1
+      fi
+      ;;
+    esac
+  fi
+done
+
+exit "$code"
+

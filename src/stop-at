@@ -1,0 +1,22 @@
+#!/bin/awk -f
+
+# stop-at
+# ===========
+# Usage: <command> | stop-at -v pattern='^-+$'
+#
+# Re-print until a pattern is matched
+
+BEGIN {
+  if (pattern == "" || inclusive !~ /^[01]?$/) {
+    print "Usage: stop-at -v pattern=PATTERN -v inclusive=0|1"
+    exit 1
+  }
+}
+{
+  if ($0 ~ pattern) {
+    if (inclusive==1) print;
+    exit 0
+  }
+  print $0
+}
+
