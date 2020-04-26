@@ -40,28 +40,11 @@ wttr       |Wrapper around `wttr` to fix double-wide runes for some fonts |`wego
 
 ## Development
 
-These being re-used scripts, there's been a great deal of feature creep, bikeshedding, and over-engineering. That is to say, there's a lot of uncertainty as to how *reliable* these scripts are. To mitigate these concerns, `shellcheck` is a development dependency.
+These being re-used scripts, there's been a great deal of feature creep, bikeshedding, and over-engineering. That is to say, there's a lot of uncertainty as to how *reliable* these scripts are. To mitigate these concerns, `shellcheck` is a development dependency. A test suite is in the making, and hopefully new entrants to this repository will come with tests.
 
 
 
-## rand
+## License
 
-Returns a random number within a range (inclusive).
-
-Usage: `rand START END [OPTIONS]`
-
-###### Options:
-+ `-w N`, `--width N`: zero-pad number to be N wide
-+ `-h`, `--help`: print help message
-
-
-
-## weather
-
-Wrapper around `wego`--fixes spacing. Shows weather for 2 days unless a number
-is specified. Location should be set in `$WEGORC`
-
-Usage: `weather [NUMBER]`
-
-
+If you really want to use anything in this repository-and I need to stress *if you really want to*-just go right ahead. I'm licensing everything under GPL because I'd appreciate you letting me know I messed something up. But you *really* shouldn't try using anything here in production...
 
