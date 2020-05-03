@@ -9,6 +9,7 @@ read -r -d '' help_message <<-EOF
 	 -d, --dump            print to STDOUT
 	 -h, --help            print this message
 	 -l, --list            list HTML entries of archive
+	 -L, --list-all        list all entries of archive
 	 -q, --quiet           suppress error messages and prompts
 	 -v, --verbose         show additional messages
 	 -V, --version         print version number and exit
@@ -22,6 +23,7 @@ quiet=0
 verbose=0
 dump=0
 list=0
+list_all=0
 width="$(/usr/bin/tput cols)"
 while [[ $# -gt 0 ]]; do
   case "$1" in
@@ -40,6 +42,12 @@ while [[ $# -gt 0 ]]; do
   -l|--list)
     debug_msg "Setting list option to 1 (was ${list})"
     list=1
+    shift
+    ;;
+
+  -L|--list-all)
+    debug_msg "Setting list all option to 1 (was ${list_all})"
+    list_all=1
     shift
     ;;
 
@@ -114,13 +122,16 @@ render_html() {
 # dump subroutine
 dump_target_archive() {
   if [[ "${#positional[@]}" -eq 0 ]]; then
+    debug_msg "Opening all HTML files within '${target_archive}'..."
     for fn in "${list_fn[@]}"; do
       target_fn="$fn"
+      debug_msg "Opening '${target_fn}'..."
       extract_from_target_archive | render_html
     done
   else
     for fn in "${positional[@]}"; do
       target_fn="$fn"
+      debug_msg "Opening '${target_fn}'..."
       extract_from_target_archive | render_html
     done
   fi
@@ -128,15 +139,18 @@ dump_target_archive() {
 
 # main routine
 code=0
-if [[ "$list" -eq 1 ]]; then
+if [[ "$list_all" -eq 1 ]]; then
   list_target_archive | sort
+elif [[ "$list" -eq 1 ]]; then
+  list_target_archive | grep -E '\.xml|\.html|\.xhtml' | sort
 else
-  list_fn=( $(list_target_archive | grep -E '\.xml|\.html|\.xhtml' | sort) )
+  IFS=$'\n' list_fn=( $(list_target_archive | grep -E '\.xml|\.html|\.xhtml' | sort) )
 
   if [[ "$code" -eq 1 || "${#list_fn[@]}" -eq 0 ]]; then
     error_msg "'${target_archive}' is not a valid archive"
   else
     for target_fn in "${positional[@]}"; do
+      debug_msg "Opening '${target_fn}'..."
       if ! contains "$target_fn" "${list_fn[@]}"; then
         error_msg "'${target_fn}' not in archive '${target_archive}'"
       fi
