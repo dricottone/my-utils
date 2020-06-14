@@ -103,7 +103,9 @@ done
 n="$enum_start"
 s="$enum_step"
 code=0
-for original_fn in $(find . -maxdepth 1 -name "$filter" -type f -printf "%f\n" | sort); do
+find . -maxdepth 1 -name "$filter" -type f -printf "%f\0" \
+  | sort -z \
+  | while IFS= read -r -d '' original_fn; do
   wide_n=$(printf "%0*d\n" "$width" "$n")
   enum_fn="${wide_n}.$(fn_extension "$original_fn")"
   debug_msg "Widened format of '${n}' is '${wide_n}'"

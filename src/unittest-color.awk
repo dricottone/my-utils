@@ -18,7 +18,7 @@ BEGIN {
 }
 {
   # color tracebacks
-  if ($0 ~ /^ERROR:/) {
+  if ($0 ~ /^(ERROR|FAIL):/) {
     $1=red $1 reset dim cyan
     $0=$0 reset
   }

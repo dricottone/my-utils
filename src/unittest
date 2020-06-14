@@ -6,21 +6,26 @@ help_message=$(/usr/bin/cat <<-EOF
 	Wrapper around Python's 'unittest' module
 	Usage: unittest TARGET [OPTIONS]
 	Options:
-	 -c, --color       print with color
-	 -h, --help        print this message and exit
-	 -v, --verbose     show verbose 'unittest' output
-	 -V, --version     print version number and exit
+	 -c, --color              print with color
+	 -h, --help               print this message and exit
+	 -v, --verbose            show verbose 'unittest' output
+	 -V, --version            print version number and exit
+	 -w, --working-directory  working directory for tests
 EOF
 )
 
 target=""
+single_target=0
 color=0
 verbose=0
+working_directory="."
 python_executable="/usr/bin/env python3"
-for arg; do
-  case "$arg" in
+
+while [ "$#" -gt 0 ]; do
+  case "$1" in
   -c|--color)
     color=1
+    shift
     ;;
 
   -h|--help)
@@ -28,8 +33,15 @@ for arg; do
     exit 0
     ;;
 
+  -d|--working-directory)
+    working_directory="$2"
+    shift
+    shift
+    ;;
+
   -v|--verbose)
     verbose=1
+    shift
     ;;
 
   -V|--version)
@@ -39,20 +51,47 @@ for arg; do
 
   *)
     if [ -z "$target" ]; then
-      target="$arg"
+      target="$1"
     fi
+    shift
     ;;
   esac
 done
 
 # unittest subroutine
 unittest_subroutine() {
+  if [ "$single_target" -eq 1 ]; then
+    unittest_single_subroutine
+  else
+    unittest_discover_subroutine
+  fi
+}
+
+# unittest single subroutine
+unittest_single_subroutine() {
   if [ "$verbose" -eq 1 ]; then
-    if ! $python_executable -m unittest discover -v -s "$target" 2>&1; then
+    if ! $python_executable -m unittest -v "$target" 2>&1; then
       code=1
     fi
   else
-    if ! $python_executable -m unittest discover -s "$target" 2>&1 | /usr/bin/tail -n 1; then
+    if ! $python_executable -m unittest "$target" 2>&1 \
+        | /usr/bin/tail -n 1; then
+      code=1
+    fi
+  fi
+}
+
+# unittest discover subroutine
+unittest_discover_subroutine() {
+  if [ "$verbose" -eq 1 ]; then
+    if ! $python_executable -m unittest discover -v \
+        -s "$target" -t "$working_directory" 2>&1; then
+      code=1
+    fi
+  else
+    if ! $python_executable -m unittest discover \
+        -s "$target" -t "$working_directory" 2>&1 \
+        | /usr/bin/tail -n 1; then
       code=1
     fi
   fi
@@ -63,7 +102,14 @@ if [ -z "${target+x}" ]; then
   (>&2 printf "Usage: unittest TARGET [OPTIONS]")
   exit 1
 elif [ ! -d "$target" ]; then
-  (>&2 printf "%s: No such directory '%s'\n" "$name" "$target")
+  if printf "%s\n" "$target" | grep -q -e ".*\.py"; then
+    single_target=1
+  else
+    (>&2 printf "%s: No such directory '%s'\n" "$name" "$target")
+    exit 1
+  fi
+elif [ ! -d "$working_directory" ]; then
+  (>&2 printf "%s: No such directory '%s'\n" "$name" "$working_directory")
   exit 1
 fi
 
