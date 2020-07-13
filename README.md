@@ -21,6 +21,7 @@ rmtar      |Delete 'tar' archive files
 rmzip      |Delete 'zip' archive files
 stop-at    |Re-print until a pattern is matched
 tarcat     |Print contents of target archive file(s)                      |*
+tarls      |Print listings of target archive file(s)                      |*
 unittest   |Wrapper around Python's `unittest` module                     |`python3`, GNU or New (AT&T) `awk`
 untar      |Wrapper around `tar` for easier decompression                 |*
 whichcat   |Print all lines from a program

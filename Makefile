@@ -19,6 +19,7 @@ install: clean
 	install -m755 src/rmtar $(BIN_DIR)/rmtar
 	install -m755 src/rmzip $(BIN_DIR)/rmzip
 	install -m755 src/tarcat $(BIN_DIR)/tarcat
+	install -m755 src/tarls $(BIN_DIR)/tarls
 	install -m755 src/unittest $(BIN_DIR)/unittest
 	install -m755 src/untar $(BIN_DIR)/untar
 	install -m755 src/whichcat $(BIN_DIR)/whichcat
@@ -45,6 +46,7 @@ uninstall:
 	rm $(BIN_DIR)/rmtar
 	rm $(BIN_DIR)/rmzip
 	rm $(BIN_DIR)/tarcat
+	rm $(BIN_DIR)/tarls
 	rm $(BIN_DIR)/unittest
 	rm $(BIN_DIR)/untar
 	rm $(BIN_DIR)/whichcat

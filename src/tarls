@@ -1,0 +1,105 @@
+#!/bin/sh
+
+name="tarls"
+version="1.0"
+help_message=$(/usr/bin/cat <<-EOF
+	Wrapper around 'tar' for easier listing
+	Usage: tarls TARGET [..] [OPTIONS]
+	Options:
+	 -h, --help     print this message and exit
+	 -q, --quiet    suppress error messages
+	 -v, --version  print version number and exit
+EOF
+)
+
+. /usr/local/lib/myminiparse.sh
+
+# error if no directory names given
+if [ "$#" -eq 0 ]; then
+  (>&2 /usr/bin/printf "Usage: tarls TARGET [OPTIONS]\n")
+  exit 1
+elif [ "$#" -eq 1 ] && [ "$quiet" -eq 1 ]; then
+  exit 1
+fi
+
+# main routine
+code=0
+for target; do
+  if [ ! -f "$target" ]; then
+    if [ "$quiet" -eq 0 ]; then
+      (>&2 printf "%s: No such file '%s'\n" "$name" "$target")
+    fi
+    code=1
+  else
+    case "$target" in
+    *tar)
+      if ! /usr/bin/tar -tf "$target"; then
+        code=1
+      fi
+      ;;
+
+    *tar.gpg)
+      if ! /usr/bin/gpg -d "$target" | /usr/bin/tar -t; then
+        code=1
+      fi
+      ;;
+
+    *tar.gz)
+      if ! /usr/bin/tar -tzf "$target"; then
+        code=1
+      fi
+      ;;
+
+    *tar.gz.gpg)
+      if ! /usr/bin/gpg -d "$target" | /usr/bin/tar -tz; then
+        code=1
+      fi
+      ;;
+
+    *tar.xz)
+      if ! /usr/bin/tar -tJf "$target"; then
+        code=1
+      fi
+      ;;
+
+    *tar.xz.gpg)
+      if ! /usr/bin/gpg -d "$target" | /usr/bin/tar -tJ; then
+        code=1
+      fi
+      ;;
+
+    *tar.zst)
+      if ! /usr/bin/tar --zstd -tf "$target"; then
+        code=1
+      fi
+      ;;
+
+    *tar.zst.gpg)
+      if ! /usr/bin/gpg -d "$target" | /usr/bin/tar --zstd -t; then
+        code=1
+      fi
+      ;;
+
+    *tar.bz2)
+      if ! /usr/bin/tar -tjf "$target"; then
+        code=1
+      fi
+      ;;
+
+    *tar.bz2.gpg)
+      if ! /usr/bin/gpg -d "$target" | /usr/bin/tar -tj; then
+        code=1
+      fi
+      ;;
+
+    *)
+      if ! /usr/bin/tar -tf "$target"; then
+        code=1
+      fi
+      ;;
+    esac
+  fi
+done
+
+exit "$code"
+
