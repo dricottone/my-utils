@@ -6,7 +6,7 @@ read -r -d '' help_message <<-EOF
 	Rename files in current directory into sequential numbers
 	Usage: enumerate [OPTIONS]
 	Options:
-	 -d, --dry-run     print current and intended filenames side-by-side
+	 -d, --dry-run     print, not execute, changes (Default)
 	 -f P, --filter P  filter targets with filename pattern P
 	 -h, --help        print this message
 	 -q, --quiet       suppress error messages
@@ -15,6 +15,7 @@ read -r -d '' help_message <<-EOF
 	 -v, --verbose     show additional messages
 	 -V, --version     print version number and exit
 	 -w N, --width N   rename files to numbers N wide (Default: 4)
+	 -x, --execute     execute changes
 EOF
 
 source /usr/local/lib/mylib.bash

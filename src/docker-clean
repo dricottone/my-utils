@@ -1,0 +1,6 @@
+#!/bin/sh
+for id in $(docker ps --all --quiet); do
+  docker rm "$id" --force
+done
+docker system prune --all --force
+

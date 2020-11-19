@@ -1,0 +1,58 @@
+#!/bin/sh
+
+name="vimsplit"
+version="1.0"
+help_message=$(/usr/bin/cat <<-EOF
+	Open two files in split windows
+	Usage: vimsplit FILE1 FILE2
+	Options:
+	 -h, --help     print this message and exit
+	 -v, --version  print version number and exit
+EOF
+)
+
+. /usr/local/lib/myminiparse.sh
+
+# check if right number of arguments
+if [ "$#" -eq 0 ]; then
+  (>&2 /usr/bin/printf "Usage: vimsplit FILE1 FILE2\n")
+  exit 1
+elif [ "$quiet" -eq 1 ] && [ "$#" -ne 3 ]; then
+  exit 1
+elif [ "$quiet" -ne 1 ] && [ "$#" -ne 2 ]; then
+  (>&2 /usr/bin/printf "%s: Expected 2 arguments (given $#)\n" "$name")
+  exit 1
+fi
+
+# get first two files
+for arg; do
+  case "$arg" in
+  -q|--quiet)
+    #ignore these
+    ;;
+
+  *)
+    if [ -z "$file1" ]; then
+      file1="$arg"
+    elif [ -z "$file2" ]; then
+      file2="$arg"
+    fi
+    ;;
+  esac
+done
+
+# check files
+if [ ! -f "$file1" ]; then
+  if [ "$quiet" -eq 1 ]; then
+    (>&2 /usr/bin/printf "%s: No such file '%s'\n" "$name" "$file1")
+  fi
+  exit 1
+elif [ ! -f "$file2" ]; then
+  if [ "$quiet" -eq 1 ]; then
+    (>&2 /usr/bin/printf "%s: No such file '%s'\n" "$name" "$file2")
+  fi
+  exit 1
+fi
+
+/usr/bin/nvim "$file1" --cmd ":sp $file2"
+

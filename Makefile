@@ -7,13 +7,25 @@ install: clean
 	install -m755 src/myparse.bash $(LIB_DIR)/myparse.bash
 	install -m755 src/myminiparse.sh $(LIB_DIR)/myminiparse.sh
 	install -m755 src/unittest-color.awk $(LIB_DIR)/unittest-color.awk
+	install -m755 src/android-emulator $(BIN_DIR)/android-emulator
 	install -m755 src/check-x $(BIN_DIR)/check-x
 	install -m755 src/ctdir $(BIN_DIR)/ctdir
 	install -m755 src/debom $(BIN_DIR)/debom
+	install -m755 src/docker-clean $(BIN_DIR)/docker-clean
+	install -m755 src/docker-get-all $(BIN_DIR)/docker-get-all
+	install -m755 src/docker-get-exited $(BIN_DIR)/docker-get-exited
+	install -m755 src/docker-restart $(BIN_DIR)/docker-restart
+	install -m755 src/docker-up $(BIN_DIR)/docker-up
 	install -m755 src/epub $(BIN_DIR)/epub
 	install -m755 src/enumerate $(BIN_DIR)/enumerate
+	install -m755 src/fw-status $(BIN_DIR)/fw-status
 	install -m755 src/mkbak $(BIN_DIR)/mkbak
 	install -m755 src/mktar $(BIN_DIR)/mktar
+	install -m755 src/pactl-get-running-sink $(BIN_DIR)/pactl-get-running-sink
+	install -m755 src/pactl-mute $(BIN_DIR)/pactl-mute
+	install -m755 src/pactl-volume-down $(BIN_DIR)/pactl-volume-down
+	install -m755 src/pactl-volume-printf $(BIN_DIR)/pactl-volume-printf
+	install -m755 src/pactl-volume-up $(BIN_DIR)/pactl-volume-up
 	install -m755 src/rand $(BIN_DIR)/rand
 	install -m755 src/rebom $(BIN_DIR)/rebom
 	install -m755 src/rmtar $(BIN_DIR)/rmtar
@@ -22,6 +34,10 @@ install: clean
 	install -m755 src/tarls $(BIN_DIR)/tarls
 	install -m755 src/unittest $(BIN_DIR)/unittest
 	install -m755 src/untar $(BIN_DIR)/untar
+	install -m755 src/vimsplit $(BIN_DIR)/vimsplit
+	install -m755 src/wg-off $(BIN_DIR)/wg-off
+	install -m755 src/wg-on $(BIN_DIR)/wg-on
+	install -m755 src/wg-status $(BIN_DIR)/wg-status
 	install -m755 src/whichcat $(BIN_DIR)/whichcat
 	install -m755 src/whiched $(BIN_DIR)/whiched
 	install -m755 src/whichhead $(BIN_DIR)/whichhead
@@ -34,13 +50,25 @@ uninstall:
 	rm $(LIB_DIR)/myparse.bash
 	rm $(LIB_DIR)/myminiparse.sh
 	rm $(LIB_DIR)/unittest-color.awk
+	rm $(BIN_DIR)/android-emulator
 	rm $(BIN_DIR)/check-x
 	rm $(BIN_DIR)/ctdir
 	rm $(BIN_DIR)/debom
+	rm $(BIN_DIR)/docker-clean
+	rm $(BIN_DIR)/docker-get-all
+	rm $(BIN_DIR)/docker-get-exited
+	rm $(BIN_DIR)/docker-restart
+	rm $(BIN_DIR)/docker-up
 	rm $(BIN_DIR)/epub
 	rm $(BIN_DIR)/enumerate
+	rm $(BIN_DIR)/fw-status
 	rm $(BIN_DIR)/mkbak
 	rm $(BIN_DIR)/mktar
+	rm $(BIN_DIR)/pactl-get-running-sink
+	rm $(BIN_DIR)/pactl-mute
+	rm $(BIN_DIR)/pactl-volume-down
+	rm $(BIN_DIR)/pactl-volume-printf
+	rm $(BIN_DIR)/pactl-volume-up
 	rm $(BIN_DIR)/rand
 	rm $(BIN_DIR)/rebom
 	rm $(BIN_DIR)/rmtar
@@ -49,6 +77,10 @@ uninstall:
 	rm $(BIN_DIR)/tarls
 	rm $(BIN_DIR)/unittest
 	rm $(BIN_DIR)/untar
+	rm $(BIN_DIR)/vimsplit
+	rm $(BIN_DIR)/wg-off
+	rm $(BIN_DIR)/wg-on
+	rm $(BIN_DIR)/wg-status
 	rm $(BIN_DIR)/whichcat
 	rm $(BIN_DIR)/whiched
 	rm $(BIN_DIR)/whichhead

@@ -1,0 +1,4 @@
+#!/bin/sh
+sudo wg-quick up wg0
+sudo wg show
+

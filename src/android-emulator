@@ -1,0 +1,7 @@
+#!/bin/sh
+
+adb start-server
+trap "adb kill-server" EXIT
+
+emulator -avd $(emulator -list-avds) -dns-server 8.8.8.8
+

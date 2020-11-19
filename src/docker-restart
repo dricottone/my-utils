@@ -1,0 +1,5 @@
+#!/bin/sh
+for container in $(docker-get-exited); do
+  docker start "$container"
+done
+

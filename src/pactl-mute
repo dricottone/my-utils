@@ -1,0 +1,9 @@
+#!/bin/sh
+
+SINK="$(pactl-get-running-sink)"
+if [ -z "$SINK" ]; then
+  SINK=0
+fi
+
+pactl set-sink-mute "$SINK" toggle
+

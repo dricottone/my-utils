@@ -1,0 +1,17 @@
+#!/bin/sh
+
+SINK="$(pactl-get-running-sink)"
+if [ -z "$SINK" ]; then
+  SINK=0
+fi
+
+if [ $# -eq 0 ]; then
+  VOLUME="-10%"
+elif echo "$1" | grep -F "%"; then
+  VOLUME="-${1}"
+else
+  VOLUME="-${1}%"
+fi
+
+pactl set-sink-volume "$SINK" "$VOLUME"
+

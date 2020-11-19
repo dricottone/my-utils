@@ -10,6 +10,7 @@
 # help_msg                   prints built-in documentation
 # usage_msg                  prints usage instructions to STDERR, except if $quiet==1
 # version_msg                prints version to STDERR, except if $quiet==1
+# assert_root                checks if user is root, else errors
 # is_integer VALUE           checks if VALUE is an integer
 # is_natural VALUE           checks if VALUE is an integer >= 0
 # is_positive_integer VALUE  checks if VALUE is an integer
@@ -167,6 +168,13 @@ version_msg() {
 }
 
 
+assert_root() {
+  if [ "${EUID}" -ne 0 ]; then
+    error_msg "Must be run as root"
+  fi
+}
+
+
 # is integer -> 0
 # else       -> 1
 is_integer() {
@@ -208,7 +216,7 @@ contains() {
 prompt_overwrite() {
   code=0
   if [[ -f "$1" ]]; then
-    prompt "File '${1}' already exists. Overwrite? "
+    prompt "File '${1}' already exists. Overwrite? [Y/n] "
     case "$response" in
     [Yy]*)
       msg "Overwriting..."
@@ -244,5 +252,4 @@ fn_extension() {
     printf "%s\n" "$1" | cut -f 2- -d '.'
   fi
 }
-
 

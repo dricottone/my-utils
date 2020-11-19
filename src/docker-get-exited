@@ -1,0 +1,3 @@
+#!/bin/sh
+docker ps --format "{{.ID}}" --filter exited=1 --all
+

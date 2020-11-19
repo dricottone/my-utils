@@ -1,0 +1,4 @@
+#!/bin/sh
+
+pactl list sinks short | grep -F 'RUNNING' | cut -f 1
+

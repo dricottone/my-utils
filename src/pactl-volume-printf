@@ -1,0 +1,17 @@
+#!/bin/sh
+
+volumes=$(pactl list sinks \
+  | grep -F 'Volume:' \
+  | grep -o -e '[0-9]\+%' \
+  | head -n 2)
+
+if [ $# -ge 1 ]; then
+  format="$1"
+else
+  format="%s/%s\n"
+fi
+
+if [ ! -z "$volumes" ]; then
+  printf "$format" $volumes
+fi
+
