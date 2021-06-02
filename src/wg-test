@@ -1,0 +1,32 @@
+#!/bin/sh
+
+name="wg-test"
+version="1.0"
+help_message=$(/usr/bin/cat <<-EOF
+	Check if Wireguard connection is on and working
+	Usage: wg-test
+	Options:
+	 -h, --help     print this message and exit
+	 -v, --version  print version number and exit
+EOF
+)
+
+. /usr/local/lib/myminiparse.sh
+
+if [ $(wg-status | wc -l) -le 1 ]; then
+  printf "Wireguard is not running\n"
+  exit 1
+fi
+
+# NOTE: assume that Wireguard configurations use 10.0.0.0/24, just like pretty
+# much all upstream documentation
+
+if ! pingable 10.0.0.1; then
+  printf "Wireguard server is not reachable; try checking...\n"
+  printf " - if the server is running\n"
+  printf " - if the server can ping peers\n"
+  printf " - if the server firewall is blocking connections\n"
+  exit 1
+fi
+exit 0
+

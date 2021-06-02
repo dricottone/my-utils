@@ -1,4 +1,18 @@
 #!/bin/sh
+
+name="wg-on"
+version="1.0"
+help_message=$(/usr/bin/cat <<-EOF
+	Start the 'wg0' Wireguard connection
+	Usage: wg-on
+	Options:
+	 -h, --help     print this message and exit
+	 -v, --version  print version number and exit
+EOF
+)
+
+. /usr/local/lib/myminiparse.sh
+
 sudo wg-quick up wg0
 sudo wg show
 

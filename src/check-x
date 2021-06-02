@@ -6,6 +6,9 @@ version="1.0"
 help_message=$(/usr/bin/cat <<-EOF
 	Check if an X11 server is running
 	Usage: check-x
+	Options:
+	 -h, --help     print this message and exit
+	 -v, --version  print version number and exit
 EOF
 )
 

@@ -1,6 +1,23 @@
 #!/bin/sh
+
+name="docker-clean"
+version="1.0"
+help_message=$(/usr/bin/cat <<-EOF
+	Stop all containers, remove all images, and clear the cache
+	Usage: docker-clean
+	Options:
+	 -h, --help     print this message and exit
+	 -v, --version  print version number and exit
+EOF
+)
+
+. /usr/local/lib/myminiparse.sh
+
+# Stop all containers to mark everything as prune-able
 for id in $(docker ps --all --quiet); do
   docker rm "$id" --force
 done
+
+# Prune
 docker system prune --all --force
 

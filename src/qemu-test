@@ -1,0 +1,35 @@
+#!/bin/sh
+
+name="qemu-test"
+version="1.0"
+help_message=$(/usr/bin/cat <<-EOF
+	Check if hardware and OS are capable of virtualization
+	Usage: qemu-test
+	Options:
+	 -h, --help     print this message and exit
+	 -v, --version  print version number and exit
+EOF
+)
+
+. /usr/local/lib/myminiparse.sh
+
+printf_then_exec() {
+  printf "%s\n" "$1"
+  $1
+}
+
+if ! LC_ALL=C lscpu | grep Virtualization >/dev/null 2>&1; then
+  printf "Virtualization is not supported by the CPU\n"
+  printf_then_exec "LC_ALL=C lscpu | grep Virtualization"
+  exit 1
+elif ! zgrep CONFIG_KVM /proc/config.gz >/dev/null 2>&1; then
+  printf "Virtualization is not supported by the kernel\n"
+  printf_then_exec "zgrep CONFIG_KVM /proc/config.gz"
+  exit 1
+elif ! lsmod | grep kvm >/dev/null 2>&1; then
+  printf "Kernel modules for virtualization support are not loaded\n"
+  printf_then_exec "lsmod | grep kvm"
+  exit 1
+fi
+exit 0
+

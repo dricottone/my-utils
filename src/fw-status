@@ -1,3 +1,17 @@
 #!/bin/sh
+
+name="fw-status"
+version="1.0"
+help_message=$(/usr/bin/cat <<-EOF
+	Print current firewall status
+	Usage: fw-status
+	Options:
+	 -h, --help     print this message and exit
+	 -v, --version  print version number and exit
+EOF
+)
+
+. /usr/local/lib/myminiparse.sh
+
 sudo ufw status
 

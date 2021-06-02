@@ -24,17 +24,19 @@ _epub_completion() {
 # Complete with function, and fallback to filenames
 complete -o default -F _epub_completion epub
 
-# rmzip
-# Complete with filenames matching pattern '*.zip', and fallback to filenames
-complete -o default -f -X '!*.zip' rmzip
+# rmzip, zipls
+# Complete with filenames matching pattern '*.@(zip|cbr|epub)', and fallback to
+# filenames
+complete -o default -f -X '!*.@(zip|cbr|epub)' rmzip
 
-# untar, tarcat, rmtar
+# rmtar, tarcat, tarls, untar
 # Complete with filenames matching pattern
 # '*.@(tar|tar.@(gz|xz|zst|bz2)|tar.@(gz|xz|zst|bz2).gpg)', and fallback to
 # filenames
-complete -o default -f -X '!*.@(tar|tar.@(gz|xz|zst|bz2)|tar.@(gz|xz|zst|bz2).gpg)' tarcat
-complete -o default -f -X '!*.@(tar|tar.@(gz|xz|zst|bz2)|tar.@(gz|xz|zst|bz2).gpg)' untar
 complete -o default -f -X '!*.@(tar|tar.@(gz|xz|zst|bz2)|tar.@(gz|xz|zst|bz2).gpg)' rmtar
+complete -o default -f -X '!*.@(tar|tar.@(gz|xz|zst|bz2)|tar.@(gz|xz|zst|bz2).gpg)' tarcat
+complete -o default -f -X '!*.@(tar|tar.@(gz|xz|zst|bz2)|tar.@(gz|xz|zst|bz2).gpg)' tarls
+complete -o default -f -X '!*.@(tar|tar.@(gz|xz|zst|bz2)|tar.@(gz|xz|zst|bz2).gpg)' untar
 
 # whichcat, whiched. whichhead, whichvi
 # Complete with program names

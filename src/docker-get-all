@@ -1,3 +1,17 @@
 #!/bin/sh
+
+name="docker-get-all"
+version="1.0"
+help_message=$(/usr/bin/cat <<-EOF
+	List all Docker containers' IDs
+	Usage: docker-get-all
+	Options:
+	 -h, --help     print this message and exit
+	 -v, --version  print version number and exit
+EOF
+)
+
+. /usr/local/lib/myminiparse.sh
+
 docker ps --format "{{.ID}}" --all
 

@@ -3,7 +3,7 @@
 name="tarls"
 version="1.0"
 help_message=$(/usr/bin/cat <<-EOF
-	Wrapper around 'tar' for easier listing
+	List files within 'tar' archive file(s)
 	Usage: tarls TARGET [..] [OPTIONS]
 	Options:
 	 -h, --help     print this message and exit

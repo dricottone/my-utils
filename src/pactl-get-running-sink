@@ -1,4 +1,17 @@
 #!/bin/sh
 
+name="pactl-get-running-sink"
+version="1.0"
+help_message=$(/usr/bin/cat <<-EOF
+	Get the currently running Pulseaudio sink ID
+	Usage: pactl-get-running-sink
+	Options:
+	 -h, --help     print this message and exit
+	 -v, --version  print version number and exit
+EOF
+)
+
+. /usr/local/lib/myminiparse.sh
+
 pactl list sinks short | grep -F 'RUNNING' | cut -f 1
 

@@ -1,10 +1,10 @@
 #!/bin/sh
 
-name="docker-restart"
+name="vpn-off"
 version="1.0"
 help_message=$(/usr/bin/cat <<-EOF
-	Restart all exited Docker containers
-	Usage: docker-restart
+	Stop the OpenVPN connection
+	Usage: vpn-off
 	Options:
 	 -h, --help     print this message and exit
 	 -v, --version  print version number and exit
@@ -13,7 +13,5 @@ EOF
 
 . /usr/local/lib/myminiparse.sh
 
-for container in $(docker-get-exited); do
-  docker start "$container"
-done
+sudo killall openvpn
 

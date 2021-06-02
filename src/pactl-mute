@@ -1,5 +1,18 @@
 #!/bin/sh
 
+name="pactl-mute"
+version="1.0"
+help_message=$(/usr/bin/cat <<-EOF
+	Toggle mute on the currently running Pulseaudio sink
+	Usage: pactl-mute
+	Options:
+	 -h, --help     print this message and exit
+	 -v, --version  print version number and exit
+EOF
+)
+
+. /usr/local/lib/myminiparse.sh
+
 SINK="$(pactl-get-running-sink)"
 if [ -z "$SINK" ]; then
   SINK=0

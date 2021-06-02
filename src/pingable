@@ -1,0 +1,23 @@
+#!/bin/sh
+
+name="pingable"
+version="1.0"
+help_message=$(/usr/bin/cat <<-EOF
+	Check if an address or name is ping-able
+	Usage: pingable [ ADDRESS | NAME ]
+	Options:
+	 -h, --help     print this message and exit
+	 -v, --version  print version number and exit
+EOF
+)
+
+# Note: `ping` will set the return code to...
+#  0 on success
+#  1 on failure to ping
+#  2 on name resolution failure for most (i.e. Linux) platforms
+# 68 on name resolution failure for some (i.e. macOS) platforms
+
+. /usr/local/lib/myminiparse.sh
+
+ping -c 1 $1 >/dev/null 2>&1
+

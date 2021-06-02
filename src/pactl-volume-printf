@@ -1,5 +1,18 @@
 #!/bin/sh
 
+name="pactl-volume-printf"
+version="1.0"
+help_message=$(/usr/bin/cat <<-EOF
+	Print the currently running Pulseaudio sink volume
+	Usage: pactl-volume-printf [FORMAT]
+	Options:
+	 -h, --help     print this message and exit
+	 -v, --version  print version number and exit
+EOF
+)
+
+. /usr/local/lib/myminiparse.sh
+
 volumes=$(pactl list sinks \
   | grep -F 'Volume:' \
   | grep -o -e '[0-9]\+%' \

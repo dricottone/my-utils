@@ -1,0 +1,41 @@
+#!/bin/sh
+
+name="zipls"
+version="1.0"
+help_message=$(/usr/bin/cat <<-EOF
+	List files within 'zip' archive file(s)
+	Usage: zipls TARGET [..] [OPTIONS]
+	Options:
+	 -h, --help     print this message and exit
+	 -q, --quiet    suppress error messages
+	 -v, --version  print version number and exit
+EOF
+)
+
+. /usr/local/lib/myminiparse.sh
+
+# error if no directory names given
+if [ "$#" -eq 0 ]; then
+  (>&2 /usr/bin/printf "Usage: zipls TARGET [OPTIONS]\n")
+  exit 1
+elif [ "$#" -eq 1 ] && [ "$quiet" -eq 1 ]; then
+  exit 1
+fi
+
+# main routine
+code=0
+for target; do
+  if [ ! -f "$target" ]; then
+    if [ "$quiet" -eq 0 ]; then
+      (>&2 printf "%s: No such file '%s'\n" "$name" "$target")
+    fi
+    code=1
+  else
+    if ! zipinfo -1 "$target"; then
+      code=1
+    fi
+  fi
+done
+
+exit "$code"
+
