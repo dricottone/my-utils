@@ -11,8 +11,8 @@ Executable|Description                                                   |Extra 
 check-x   |Check if an X11 server is running
 ctdir     |Count entries in a target directory(ies)
 debom     |Remove BOM from a target file                                 |`bash`
-enumerate |Dumps HTML from an 'epub' e-book archive                      |`bash`, `zipinfo`, `unzip`, `w3m`
-epub      |Rename files in current directory into sequential numbers     |`bash`
+enumerate |Rename files in current directory into sequential numbers     |`bash`
+epub      |Dumps HTML from an 'epub' e-book archive                      |`bash`, `zipinfo`, `unzip`, `w3m`
 fw-status |Print current firewall status                                 |`ufw`
 mkbak     |Create a backup of a target file                              |`bash`
 mktar     |Wrapper around `tar` for easier compression                   |`bash` *
