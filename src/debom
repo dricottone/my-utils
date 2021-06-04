@@ -110,7 +110,7 @@ if [[ ! -f "$original_fn" ]]; then
   debug_msg "Input file does not exist"
   error_msg "No such file '${original_fn}'"
 elif [[ "$dump" -eq 0 && "$force" -eq 0 && -f "$output_fn" ]]; then
-  debug_msd "Output file exists; prompting for permission to overwrite"
+  debug_msg "Output file exists; prompting for permission to overwrite"
   if ! prompt_overwrite "${output_fn}"; then
     debug_msg "Could not obtain permission to overwrite output file"
     exit 1
