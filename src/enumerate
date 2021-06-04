@@ -107,7 +107,7 @@ code=0
 find . -maxdepth 1 -name "$filter" -type f -printf "%f\0" \
   | sort -z \
   | while IFS= read -r -d '' original_fn; do
-  wide_n=$(printf "%0*d\n" "$width" "$n")
+  wide_n=$(/usr/bin/printf "%0*d\n" "$width" "$n")
   enum_fn="${wide_n}.$(fn_extension "$original_fn")"
   debug_msg "Widened format of '${n}' is '${wide_n}'"
   debug_msg "Input filename is '${original_fn}'"
@@ -117,7 +117,7 @@ find . -maxdepth 1 -name "$filter" -type f -printf "%f\0" \
       code=1
     fi
   else
-    printf "#mv %s %s\n" "$original_fn" "$enum_fn"
+    /usr/bin/printf "#mv %s %s\n" "$original_fn" "$enum_fn"
   fi
   n=$((n+s))
 done

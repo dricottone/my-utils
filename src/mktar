@@ -60,7 +60,7 @@ while [[ $# -gt 0 ]]; do
     ;;
 
   --compress=*)
-    attempted_compression="$(printf "%s\n" "$1" | sed -e 's/^.*=//' )"
+    attempted_compression="$(/usr/bin/printf "%s\n" "$1" | sed -e 's/^.*=//' )"
     error_msg "Unknown compression '${attempted_compression}'"
     ;;
 

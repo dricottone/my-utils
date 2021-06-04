@@ -16,9 +16,9 @@ epub      |Dumps HTML from an 'epub' e-book archive                      |`bash`
 fw-status |Print current firewall status                                 |`ufw`
 mkbak     |Create a backup of a target file                              |`bash`
 mktar     |Wrapper around `tar` for easier compression                   |`bash` *
-pingable  |Check if an address/name is ping-able
+pingable  |Check if an address/name is ping-able                         |`ping`
 rand      |Get a random number within an inclusive range                 |`bash`, `shuf`
-rebom     |Add BOM to a target file                                      |
+rebom     |Add BOM to a target file
 rmtar     |Delete 'tar' archive files
 rmzip     |Delete 'zip' archive files
 start-at  |After a pattern is matched, re-print                          |GNU or New (AT&T) `awk`
@@ -41,7 +41,7 @@ zipls     |List files within `zip` archive file(s)                       |`zipin
 
 Executable       |Description                                            |Extra Dependencies
 :----------------|:------------------------------------------------------|:-----------------
-android-emulator |Start an Android emulator session                      |`adb`
+android-emulator |Start an Android emulator session                      |`adb`, `emulator`
 qemu-test        |Check if hardware and OS are capable of virtualization |
 
 

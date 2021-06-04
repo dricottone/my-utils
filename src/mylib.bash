@@ -141,7 +141,7 @@ error_msg() {
 # Note: exit as error
 # Note: ignore Verbose
 usage_msg() {
-  (>&2 dump_msg "$(/usr/bin/printf "${help_message:=Usage: don\'t}\n" | grep -e 'Usage' | head -n 1)")
+  (>&2 dump_msg "$(/usr/bin/printf "${help_message:=Usage: don\'t}\n" | /usr/bin/grep -e 'Usage' | /usr/bin/head -n 1)")
   exit 1
 }
 
@@ -236,9 +236,9 @@ prompt_overwrite() {
 # else                 -> original filename up to first .
 fn_basename() {
   if [[ "$1" = ".*" ]]; then
-    printf "%s\n" "$1"
+    /usr/bin/printf "%s\n" "$1"
   else
-    printf "%s\n" "$1" | cut -f 1 -d '.'
+    /usr/bin/printf "%s\n" "$1" | /usr/bin/cut -f 1 -d '.'
   fi
 }
 
@@ -247,9 +247,9 @@ fn_basename() {
 # else                 -> original filename after first .
 fn_extension() {
   if [[ "$1" = ".*" ]]; then
-    printf "%s\n" "$1"
+    /usr/bin/printf "%s\n" "$1"
   else
-    printf "%s\n" "$1" | cut -f 2- -d '.'
+    /usr/bin/printf "%s\n" "$1" | /usr/bin/cut -f 2- -d '.'
   fi
 }
 

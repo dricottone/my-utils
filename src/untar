@@ -27,7 +27,7 @@ code=0
 for target; do
   if [ ! -f "$target" ]; then
     if [ "$quiet" -eq 0 ]; then
-      (>&2 printf "%s: No such file '%s'\n" "$name" "$target")
+      (>&2 /usr/bin/printf "%s: No such file '%s'\n" "$name" "$target")
     fi
     code=1
   else

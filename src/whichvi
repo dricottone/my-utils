@@ -26,7 +26,7 @@ for arg; do
     target=$(command -v "$arg")
     if [ -z "$target" ]; then
       if [ "$quiet" -eq 0 ]; then
-        (>&2 printf "%s: No such directory '%s'\n" "$name" "$target")
+        (>&2 /usr/bin/printf "%s: No such directory '%s'\n" "$name" "$target")
       fi
       exit 1
     else

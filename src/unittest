@@ -29,7 +29,7 @@ while [ "$#" -gt 0 ]; do
     ;;
 
   -h|--help)
-    printf "%s\n" "$help_message"
+    /usr/bin/printf "%s\n" "$help_message"
     exit 0
     ;;
 
@@ -45,7 +45,7 @@ while [ "$#" -gt 0 ]; do
     ;;
 
   -V|--version)
-    printf "%s %s\n" "$name" "$version"
+    /usr/bin/printf "%s %s\n" "$name" "$version"
     exit 0
     ;;
 
@@ -97,19 +97,23 @@ unittest_discover_subroutine() {
   fi
 }
 
+error_msg() {
+  (>&2 /usr/bin/printf "%s: %s\n" "$name" "$1")
+}
+
 # check directory
 if [ -z "${target+x}" ]; then
-  (>&2 printf "Usage: unittest TARGET [OPTIONS]")
+  (>&2 /usr/bin/printf "Usage: unittest TARGET [OPTIONS]\n")
   exit 1
 elif [ ! -d "$target" ]; then
-  if printf "%s\n" "$target" | grep -q -e ".*\.py"; then
+  if /usr/bin/printf "%s\n" "$target" | grep -q -e ".*\.py"; then
     single_target=1
   else
-    (>&2 printf "%s: No such directory '%s'\n" "$name" "$target")
+    error_msg "No such directory '${target}'"
     exit 1
   fi
 elif [ ! -d "$working_directory" ]; then
-  (>&2 printf "%s: No such directory '%s'\n" "$name" "$working_directory")
+  error_msg "No such directory '${working_directory}'"
   exit 1
 fi
 

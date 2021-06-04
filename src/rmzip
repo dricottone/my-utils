@@ -26,7 +26,7 @@ code=0
 for arg; do
   if [ ! -f "$arg" ]; then
     if [ "$quiet" -eq 0 ]; then
-      (>&2 printf "%s: No such file '%s'\n" "$name" "$arg")
+      (>&2 /usr/bin/printf "%s: No such file '%s'\n" "$name" "$arg")
     fi
     code=1
   else

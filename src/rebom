@@ -22,7 +22,7 @@ for arg; do
   *)
     # main routine
     if [ ! -f "$arg" ]; then
-      (>&2 printf "%s: No such file '%s'\n" "$name" "$arg")
+      (>&2 /usr/bin/printf "%s: No such file '%s'\n" "$name" "$arg")
       exit 1
     else
       /usr/bin/printf "\xEF\xBB\xBF"

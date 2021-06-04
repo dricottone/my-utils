@@ -13,5 +13,5 @@ EOF
 
 . /usr/local/lib/myminiparse.sh
 
-pactl list sinks short | grep -F 'RUNNING' | cut -f 1
+pactl list sinks short | /usr/bin/grep -F 'RUNNING' | /usr/bin/cut -f 1
 

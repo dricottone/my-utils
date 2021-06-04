@@ -25,6 +25,6 @@ else
 fi
 
 if [ ! -z "$volumes" ]; then
-  printf "$format" $volumes
+  /usr/bin/printf "$format" $volumes
 fi
 

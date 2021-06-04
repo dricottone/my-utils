@@ -13,8 +13,12 @@ EOF
 
 . /usr/local/lib/myminiparse.sh
 
+printf_stderr() {
+  (>&2 /usr/bin/printf "%s\n" "$1")
+}
+
 if [ $(wg-status | wc -l) -le 1 ]; then
-  printf "Wireguard is not running\n"
+  printf_stderr "${name}: Wireguard is not running"
   exit 1
 fi
 
@@ -22,10 +26,10 @@ fi
 # much all upstream documentation
 
 if ! pingable 10.0.0.1; then
-  printf "Wireguard server is not reachable; try checking...\n"
-  printf " - if the server is running\n"
-  printf " - if the server can ping peers\n"
-  printf " - if the server firewall is blocking connections\n"
+  printf_stderr "Wireguard server is not reachable; try checking..."
+  printf_stderr " - if the server is running"
+  printf_stderr " - if the server can ping peers"
+  printf_stderr " - if the server firewall is blocking connections"
   exit 1
 fi
 exit 0
