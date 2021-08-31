@@ -1,0 +1,30 @@
+#!/bin/sh
+
+name="resetx"
+version="1.0"
+help_message=$(/usr/bin/cat <<-EOF
+	Reset X11 server monitor configuration
+	Usage: resetx
+	Options:
+	 -h, --help     print this message and exit
+	 -q, --quiet    suppress error messages
+	 -v, --version  print version number and exit
+EOF
+)
+
+. /usr/local/lib/myminiparse.sh
+
+if [ ! -f "${HOME}/.xinitrc" ]; then
+  if [ $quiet -eq 0 ]; then
+    (>&2 /usr/bin/printf "Cannot locate X11 server monitor configuration\n" "$name")
+  fi
+  exit 1
+elif ! check-x; then
+  if [ $quiet -eq 0 ]; then
+    (>&2 /usr/bin/printf "X11 server is not running\n" "$name")
+  fi
+  exit 1
+fi
+
+sudo $(grep -e '^xrandr ' "${HOME}/.xinitrc")
+

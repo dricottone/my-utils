@@ -31,6 +31,8 @@ install: clean
 	install -m755 src/qemu-test $(BIN_DIR)/qemu-test
 	install -m755 src/rand $(BIN_DIR)/rand
 	install -m755 src/rebom $(BIN_DIR)/rebom
+	install -m755 src/resetx $(BIN_DIR)/resetx
+	install -m755 src/rmold $(BIN_DIR)/rmold
 	install -m755 src/rmtar $(BIN_DIR)/rmtar
 	install -m755 src/rmzip $(BIN_DIR)/rmzip
 	install -m755 src/start-at $(BIN_DIR)/start-at
@@ -83,6 +85,8 @@ uninstall:
 	rm $(BIN_DIR)/qemu-test
 	rm $(BIN_DIR)/rand
 	rm $(BIN_DIR)/rebom
+	rm $(BIN_DIR)/resetx
+	rm $(BIN_DIR)/rmold
 	rm $(BIN_DIR)/rmtar
 	rm $(BIN_DIR)/rmzip
 	rm $(BIN_DIR)/start-at

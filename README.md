@@ -19,6 +19,8 @@ mktar     |Wrapper around `tar` for easier compression                   |`bash`
 pingable  |Check if an address/name is ping-able                         |`ping`
 rand      |Get a random number within an inclusive range                 |`bash`, `shuf`
 rebom     |Add BOM to a target file
+resetx    |Reset X server monitor configuration                          |`xrandr`
+rmold     |Delete old files
 rmtar     |Delete 'tar' archive files
 rmzip     |Delete 'zip' archive files
 start-at  |After a pattern is matched, re-print                          |GNU or New (AT&T) `awk`
