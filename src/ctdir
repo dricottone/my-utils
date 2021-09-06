@@ -2,6 +2,7 @@
 
 name="ctdir"
 version="1.0"
+usage_message="Usage: ctdir TARGET [OPTIONS]"
 help_message=$(/usr/bin/cat <<-EOF
 	Count entries in target directory(ies)
 	Usage: ctdir TARGETS [..] [OPTIONS]
@@ -16,7 +17,7 @@ EOF
 
 # error if no directory names given
 if [ "$#" -eq 0 ]; then
-  (>&2 /usr/bin/printf "Usage: ctdir TARGET [OPTIONS]\n")
+  (>&2 /usr/bin/printf "%s\n" "$usage_message")
   exit 1
 elif [ "$#" -eq 1 ] && [ "$quiet" -eq 1 ]; then
   exit 1
