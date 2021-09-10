@@ -2,8 +2,7 @@
 
 # debom
 
-# create temp directory
-mkdir -p tests/temp_bom
+cd tests/static
 
 # exit codes
 if ! debom -V >/dev/null 2>&1; then
@@ -21,13 +20,11 @@ elif debom non-existant >/dev/null 2>&1; then
 fi
 
 # de-BOM a file
-cd tests/temp_bom
-debom -d ../static/debom_target.txt > debom.txt
-if ! cmp ../static/debom_result.txt debom.txt >/dev/null 2>&1; then
+debom -d debom_target.txt > debom_result.txt
+if ! cmp rebom_target.txt debom_result.txt >/dev/null 2>&1; then
   printf "Failure in de-BOM test\n"
   exit 1
 fi
-cd ../..
 
 # rebom
 
@@ -47,11 +44,9 @@ elif rebom non-existant >/dev/null 2>&1; then
 fi
 
 # re-BOM a file
-cd tests/temp_bom
-rebom ../static/debom_result.txt > rebom.txt
-if ! cmp ../static/debom_target.txt rebom.txt >/dev/null 2>&1; then
+rebom rebom_target.txt > rebom_result.txt
+if ! cmp debom_target.txt rebom_result.txt >/dev/null 2>&1; then
   printf "Failure in re-BOM test\n"
   exit 1
 fi
-cd ../..
 

@@ -110,32 +110,14 @@ uninstall:
 	rm $(BIN_DIR)/wttr
 	rm $(BIN_DIR)/zipls
 
-test: clean static-test-files
-	shellcheck src/*.bash src/*.sh $(LIB_DIR)/mylib.bash $(LIB_DIR)/myparse.bash $(LIB_DIR)/myminiparse.sh
-	sh tests/compression_test.sh
+test: clean
+	#shellcheck src/*.bash src/*.sh $(LIB_DIR)/mylib.bash $(LIB_DIR)/myparse.bash $(LIB_DIR)/myminiparse.sh
+	sh tests/init.sh
+	sh tests/compression_test_new.sh
 	sh tests/ctdir_test.sh
 	sh tests/which_test.sh
 	sh tests/bom_test.sh
 
-static-test-files:
-	printf "[1]\n[2]\n[3]\n\n[1]\n[2]\n[3]\n\n[1]\n[2]\n[3]\n\n[1]\n[2]\n[3]\n\n[1]\n[2]\n[3]\n\n" > tests/static/compression_result.txt
-	printf "[1]\n[2]\n[3]\n\n" > tests/static/compression_target.txt
-	printf "foo bar\n" > tests/static/debom_result.txt
-	printf "\xEF\xBB\xBFfoo bar\n" > tests/static/debom_target.txt
-	printf "(a)\n(b)\n(c)\n\n" > tests/static/decompression_result.txt
-	cp tests/static/decompression_result.txt tests/static/tar.txt
-	cp tests/static/decompression_result.txt tests/static/gzip.txt
-	cp tests/static/decompression_result.txt tests/static/xz.txt
-	cp tests/static/decompression_result.txt tests/static/zstd.txt
-	cp tests/static/decompression_result.txt tests/static/bzip2.txt
-	cd tests/static/; tar -cf decompression_target.tar tar.txt
-	cd tests/static/; tar -czf decompression_target.tar.gz gzip.txt
-	cd tests/static/; tar -cJf decompression_target.tar.xz xz.txt
-	cd tests/static/; tar --zstd -cf decompression_target.tar.zst zstd.txt
-	cd tests/static/; tar -cjf decompression_target.tar.bz2 bzip2.txt
-	rm tests/static/tar.txt tests/static/gzip.txt tests/static/xz.txt tests/static/zstd.txt tests/static/bzip2.txt
-
 clean:
-	rm -rf tests/temp_compression
-	rm -rf tests/temp_bom
+	rm -rf tests/static
 

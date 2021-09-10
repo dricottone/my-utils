@@ -2,98 +2,100 @@
 
 # mktar and tarcat
 
-# create temp directory
-mkdir -p tests/temp_compression
-
-# compress file with algorithms set by options
 cd tests/static
-mktar compression_target.txt --compress=none
-mktar compression_target.txt --compress=gzip
-mktar compression_target.txt --compress=xz
-mktar compression_target.txt --compress=zstd
-mktar compression_target.txt --compress=bzip2
-mv archive* ../temp_compression/
-cd ..
 
-# uncompress and combine compressed files
-cd temp_compression
-tarcat archive* > basic_concat.txt
-cd ..
+test_compression() {
+  case "$1" in
+    NONE)
+      arg_compression="none"
+      fn_compressed="archive.tar"
+      ;;
+    GZIP)
+      arg_compression="gzip"
+      fn_compressed="archive.tar.gz"
+      ;;
+    XZ)
+      arg_compression="xz"
+      fn_compressed="archive.tar.xz"
+      ;;
+    ZSTD)
+      arg_compression="zstd"
+      fn_compressed="archive.tar.zst"
+      ;;
+    BZIP2)
+      arg_compression="bzip2"
+      fn_compressed="archive.tar.bz2"
+      ;;
+    *)
+      printf "Failure in compression tests: not a valid scheme: '%s'\n" "$1"
+      exit 1
+      ;;
+  esac
 
-# test
-if ! cmp static/compression_result.txt temp_compression/basic_concat.txt >/dev/null 2>&1; then
-  printf "Failure in compression tests: basic compression\n"
-  exit 1
-fi
+  #basic compression
+  mktar compression_target.txt --compress="$arg_compression"
+  tarcat "$fn_compressed" > compression_result.txt
+  if ! cmp compression_result.txt compression_target.txt >/dev/null 2>&1; then
+    printf "Failure in compression tests: basic compression: '%s'\n" "$1"
+    exit 1
+  fi
 
-# compress file with algorithms implicitly set by output filename
-cd static
-mktar compression_target.txt -n implicit.tar
-mktar compression_target.txt -n implicit.tar.gz
-mktar compression_target.txt -n implicit.tar.xz
-mktar compression_target.txt -n implicit.tar.zst
-mktar compression_target.txt -n implicit.tar.bz2
-mv implicit* ../temp_compression/
-cd ..
+  rm -f compression_result.txt "$fn_compressed"
 
-# uncompress and combine compressed files
-cd temp_compression
-tarcat implicit* > implicit_concat.txt
-cd ..
+  #implicit compression
+  mktar compression_target.txt -n "$fn_compressed"
+  tarcat "$fn_compressed" > compression_result.txt
+  if ! cmp compression_result.txt compression_target.txt >/dev/null 2>&1; then
+    printf "Failure in compression tests: implicit compression: '%s'\n" "$1"
+    exit 1
+  fi
 
-# test
-if ! cmp static/compression_result.txt temp_compression/implicit_concat.txt >/dev/null 2>&1; then
-  printf "Failure in compression tests: implicit compression\n"
-  exit 1
-fi
+  rm -f compression_result.txt "$fn_compressed"
+}
 
-# compress file with algorithms set and filenames set
-cd static
-mktar compression_target.txt --compress=none  -n explicit.tar
-mktar compression_target.txt --compress=gzip  -n explicit.tar.gz
-mktar compression_target.txt --compress=xz    -n explicit.tar.xz
-mktar compression_target.txt --compress=zstd  -n explicit.tar.zst
-mktar compression_target.txt --compress=bzip2 -n explicit.tar.bz2
-mv explicit* ../temp_compression/
-cd ..
-
-# uncompress and combine compressed files
-cd temp_compression
-tarcat explicit* > explicit_concat.txt
-cd ..
-
-# test
-if ! cmp static/compression_result.txt temp_compression/explicit_concat.txt >/dev/null 2>&1; then
-  printf "Failure in compression tests: explicit compression\n"
-  exit 1
-fi
+test_compression NONE
+test_compression GZIP
+test_compression XZ
+test_compression ZSTD
+test_compression BZIP2
 
 # untar
 
-# copy archives to temp directory
-cp static/decompression_target* temp_compression/
+test_decompression() {
+  case "$1" in
+    NONE)
+      fn_compressed="decompression_target.tar"
+      ;;
+    GZIP)
+      fn_compressed="decompression_target.tar.gz"
+      ;;
+    XZ)
+      fn_compressed="decompression_target.tar.xz"
+      ;;
+    ZSTD)
+      fn_compressed="decompression_target.tar.zst"
+      ;;
+    BZIP2)
+      fn_compressed="decompression_target.tar.bz2"
+      ;;
+    *)
+      printf "Failure in compression tests: not a valid scheme: '%s'\n" "$1"
+      exit 1
+      ;;
+  esac
 
-# decompress files
-cd temp_compression
-untar decompression_target.tar decompression_target.tar.gz decompression_target.tar.xz decompression_target.tar.zst decompression_target.tar.bz2
-cd ..
+  untar "$fn_compressed"
+  if ! cmp decompression_result.txt decompression_target.txt >/dev/null 2>&1; then
+    printf "Failure in decompression tests: '%s'\n" "$1"
+    exit 1
+  fi
 
-# test
-if ! cmp static/decompression_result.txt temp_compression/tar.txt >/dev/null 2>&1; then
-  printf "Failure in decompression tests: tar\n"
-  exit 1
-elif ! cmp static/decompression_result.txt temp_compression/gzip.txt >/dev/null 2>&1; then
-  printf "Failure in decompression tests: gzip\n"
-  exit 1
-elif ! cmp static/decompression_result.txt temp_compression/xz.txt >/dev/null 2>&1; then
-  printf "Failure in decompression tests: xz\n"
-  exit 1
-elif ! cmp static/decompression_result.txt temp_compression/zstd.txt >/dev/null 2>&1; then
-  printf "Failure in decompression tests: zstd\n"
-  exit 1
-elif ! cmp static/decompression_result.txt temp_compression/bzip2.txt >/dev/null 2>&1; then
-  printf "Failure in decompression tests: bzip2\n"
-  exit 1
-fi
+  rm -f decompression_result.txt
+}
 
+test_decompression NONE
+test_decompression GZIP
+test_decompression XZ
+test_decompression ZSTD
+test_decompression BZIP2
 
