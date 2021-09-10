@@ -113,11 +113,11 @@ uninstall:
 test: clean
 	#shellcheck src/*.bash src/*.sh $(LIB_DIR)/mylib.bash $(LIB_DIR)/myparse.bash $(LIB_DIR)/myminiparse.sh
 	sh tests/init.sh
-	sh tests/compression_test_new.sh
+	sh tests/compression_test.sh
 	sh tests/ctdir_test.sh
 	sh tests/which_test.sh
 	sh tests/bom_test.sh
 
 clean:
-	rm -rf tests/static
+	rm -rf tests/static tests/temp_enumerate
 
