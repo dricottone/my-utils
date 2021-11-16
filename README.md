@@ -51,13 +51,15 @@ qemu-test        |Check if hardware and OS are capable of virtualization |
 
 The following all depend on `docker`.
 
-Executable        |Description                                                 |Extra Dependencies
-:-----------------|:-----------------------------------------------------------|:-----------------
-docker-clean      |Stop all containers, remove all images, and clear the cache |
-docker-get-all    |List all Docker containers' IDs                             |
-docker-get-exited |List all exited Docker containers' IDs                      |
-docker-restart    |Restart all exited Docker containers                        |
-docker-up         |Start a Docker container using `./docker-compose.yml`       |`docker-compose`
+Executable                |Description                                                 |Extra Dependencies
+:-------------------------|:-----------------------------------------------------------|:-----------------
+docker-clean              |Stop all containers, remove all images, and clear the cache |
+docker-get-all            |List all Docker containers' IDs                             |
+docker-get-all-containers |List all Docker containers' (without service tasks) IDs     |
+docker-get-all-services   |List all Docker services' IDs                               |
+docker-get-exited         |List all exited Docker containers' IDs                      |
+docker-restart            |Restart all exited Docker containers                        |
+docker-up                 |Start a Docker container using `./docker-compose.yml`       |`docker-compose`
 
 
 ## Pulseaudio Scripts

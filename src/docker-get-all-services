@@ -1,10 +1,10 @@
 #!/bin/sh
 
-name="docker-get-exited"
-version="1.1"
+name="docker-get-all-services"
+version="1.0"
 help_message=$(/usr/bin/cat <<-EOF
-	List all exited Docker containers' IDs
-	Usage: docker-get-exited
+	List all Docker services' IDs
+	Usage: docker-get-all-services
 	Options:
 	 -h, --help     print this message and exit
 	 -v, --version  print version number and exit
@@ -13,5 +13,5 @@ EOF
 
 . /usr/local/lib/myminiparse.sh
 
-docker ps --format "{{.ID}}" --filter "exited=1" --filter "is-task=false" --all
+docker service ls --format "{{.ID}}"
 
