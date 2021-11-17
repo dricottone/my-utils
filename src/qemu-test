@@ -1,7 +1,7 @@
 #!/bin/sh
 
 name="qemu-test"
-version="1.0"
+version="1.1"
 help_message=$(/usr/bin/cat <<-EOF
 	Check if hardware and OS are capable of virtualization
 	Usage: qemu-test
@@ -14,31 +14,29 @@ EOF
 . /usr/local/lib/myminiparse.sh
 
 error_msg() {
-  (>&2 /usr/bin/printf "%s: %s\n" "$name" "$1")
+  if [ "$quiet" -eq 0 ]; then
+    (>&2 /usr/bin/printf "%s: %s\n" "$name" "$1")
+  fi
 }
 
 noisily_exec() {
-  /usr/bin/printf "%s\n" "$1"
-  $1
+  if [ "$quiet" -eq 0 ]; then
+    /usr/bin/printf "%s\n" "$1"
+    $1
+  fi
 }
 
 if ! LC_ALL=C lscpu | grep Virtualization >/dev/null 2>&1; then
-  if [ "$quiet" -eq 0 ]; then
-    error_msg "Virtualization is not supported by the CPU"
-    noisily_exec "LC_ALL=C lscpu | grep Virtualization"
-  fi
+  error_msg "Virtualization is not supported by the CPU"
+  noisily_exec "LC_ALL=C lscpu | grep Virtualization"
   exit 1
 elif ! zgrep CONFIG_KVM /proc/config.gz >/dev/null 2>&1; then
-  if [ "$quiet" -eq 0 ]; then
-    error_msg "Virtualization is not supported by the kernel"
-    noisily_exec "zgrep CONFIG_KVM /proc/config.gz"
-  fi
+  error_msg "Virtualization is not supported by the kernel"
+  noisily_exec "zgrep CONFIG_KVM /proc/config.gz"
   exit 1
 elif ! lsmod | grep kvm >/dev/null 2>&1; then
-  if [ "$quiet" -eq 0 ]; then
-    error_msg "Kernel modules for virtualization support are not loaded"
-    noisily_exec "lsmod | grep kvm"
-  fi
+  error_msg "Kernel modules for virtualization support are not loaded"
+  noisily_exec "lsmod | grep kvm"
   exit 1
 fi
 exit 0
