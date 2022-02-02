@@ -8,7 +8,6 @@ install:
 	install -m755 ctdir $(BIN_DIR)/ctdir
 	install -m755 debom $(BIN_DIR)/debom
 	install -m755 enumerate $(BIN_DIR)/enumerate
-	install -m755 git-set-remotes $(BIN_DIR)/git-set-remotes
 	install -m755 mkbak $(BIN_DIR)/mkbak
 	install -m755 rand $(BIN_DIR)/rand
 	install -m755 rebom $(BIN_DIR)/rebom
@@ -34,7 +33,6 @@ uninstall:
 	rm $(BIN_DIR)/ctdir
 	rm $(BIN_DIR)/debom
 	rm $(BIN_DIR)/enumerate
-	rm $(BIN_DIR)/git-set-remotes
 	rm $(BIN_DIR)/mkbak
 	rm $(BIN_DIR)/rand
 	rm $(BIN_DIR)/rebom
