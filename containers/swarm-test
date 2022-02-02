@@ -1,0 +1,23 @@
+#!/bin/sh
+
+name="swarm-test"
+version="1.0"
+help_message=$(/usr/bin/cat <<-EOF
+	Check if system is a Docker swarm manager or node
+	Usage: swarm-test
+	Options:
+	 -h, --help     print this message and exit
+	 -v, --version  print version number and exit
+EOF
+)
+
+. /usr/local/lib/myminiparse.sh
+
+if ! docker service ls >/dev/null 2>&1; then
+  if [ "$quiet" -eq 0 ]; then
+    (>&2 /usr/bin/printf "%s: not a swarm manager or node\n" "$name")
+  fi
+  exit 1
+fi
+exit 0
+
