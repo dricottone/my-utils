@@ -24,7 +24,7 @@ while [[ $# -gt 0 ]]; do
 
   -v|--verbose)
     debug_msg "Setting VERBOSE option to 1 (was ${verbose})"
-    verbose=1;
+    verbose=1
     shift
     ;;
 

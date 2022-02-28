@@ -101,7 +101,7 @@ while [[ $# -gt 0 ]]; do
 
   -v|--verbose)
     debug_msg "Setting verbose option to 1 (was ${verbose})"
-    verbose=1;
+    verbose=1
     shift
     ;;
 
@@ -187,7 +187,7 @@ if ! prompt_overwrite "$archive_fn"; then
 elif [[ "$checksum" -eq 1 ]] && ! prompt_overwrite "$checksum_fn"; then
   exit 1
 fi
-for target in "${positional[@]}";do
+for target in "${positional[@]}"; do
   if [[ ! -f "$target" ]] && [[ ! -d "$target" ]]; then
     error_msg "No such file '${target}'"
   fi

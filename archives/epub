@@ -13,6 +13,8 @@ read -r -d '' help_message <<-EOF
 	 -q, --quiet           suppress error messages and prompts
 	 -v, --verbose         show additional messages
 	 -V, --version         print version number and exit
+	 -w WIDTH,             set width of pager
+	     --width WIDTH
 EOF
 
 source /usr/local/lib/mylib.bash
@@ -59,7 +61,7 @@ while [[ $# -gt 0 ]]; do
 
   -v|--verbose)
     debug_msg "Setting verbose option to 1 (was ${verbose})"
-    verbose=1;
+    verbose=1
     shift
     ;;
 
@@ -72,7 +74,7 @@ while [[ $# -gt 0 ]]; do
       error_msg "Cannot set column width to '${2}' (not an integer >= 1)"
     fi
     debug_msg "Setting column width to ${2} (was ${width})"
-    width="$2";
+    width="$2"
     shift; shift
     ;;
 
