@@ -1,7 +1,7 @@
 #!/bin/bash
 
 name="mktar"
-version="1.1"
+version="1.2"
 read -r -d '' help_message <<-EOF
 	Wrapper around 'tar' for easier compression
 	Usage: mktar FILES [..] [OPTIONS]
@@ -259,8 +259,12 @@ esac
 
 # checksum routine
 if [[ "$checksum" -eq 1 ]]; then
-  if ! /usr/bin/sha1sum "$archive_fn" | /usr/bin/awk '{print $1}' > "$checksum_fn"; then
-    code=1
+  if [[ -f "$archive_fn" ]]; then
+    if ! /usr/bin/sha1sum "$archive_fn" | /usr/bin/awk '{print $1}' > "$checksum_fn"; then
+      code=1
+    fi
+  else
+    error_msg "No such file '${target}'"
   fi
 fi
 
