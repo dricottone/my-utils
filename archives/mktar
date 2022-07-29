@@ -264,7 +264,7 @@ if [[ "$checksum" -eq 1 ]]; then
       code=1
     fi
   else
-    error_msg "No such file '${target}'"
+    error_msg "No such file '${archive_fn}'"
   fi
 fi
 
