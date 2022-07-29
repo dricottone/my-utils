@@ -30,14 +30,14 @@ uninstall:
 	$(call subdir_make,sound,uninstall)
 
 test: clean
-	$(call subdir_make,core,clean)
-	$(call subdir_make,archives,clean)
-	$(call subdir_make,containers,clean)
-	$(call subdir_make,display,clean)
-	$(call subdir_make,emulation,clean)
-	$(call subdir_make,games,clean)
-	$(call subdir_make,network,clean)
-	$(call subdir_make,sound,clean)
+	$(call subdir_make,core,test)
+	$(call subdir_make,archives,test)
+	$(call subdir_make,containers,test)
+	$(call subdir_make,display,test)
+	$(call subdir_make,emulation,test)
+	$(call subdir_make,games,test)
+	$(call subdir_make,network,test)
+	$(call subdir_make,sound,test)
 
 clean:
 	$(call subdir_make,core,clean)

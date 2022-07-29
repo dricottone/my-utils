@@ -1,0 +1,318 @@
+#!/bin/bash
+
+name="mktar-batch"
+version="1.0"
+read -r -d '' help_message <<-EOF
+	Archive utility for scripting
+	Usage: mktar-batch [--compress=ALGO] [--encrypt=ALSO --passphrase PASSWD] [--checksum=ALGO] [--name OUTFILE] INFILES
+	Options:
+	 --compress=ALGO                 compress archive with [none|gzip|xz|zstd|bzip2]
+	 --checksum=ALGO                 create checksum with [none|sha1|sha256]
+	 --encrypt=ALGO                  encrypt files with [none|gpg|age]
+	 -h, --help                      print this message
+	 -n FILE, --name FILE            name of backup file (Default: archive.tar)
+	 -p PASSWD, --passphrase PASSWD  passphase for encryption
+	 -v, --verbose                   show additional messages
+	 -V, --version                   print version number and exit
+EOF
+
+source /usr/local/lib/mylib.bash
+
+positional=()
+verbose=0
+compress=-1
+encrypt=-1
+checksum=-1
+archive_fn=""
+passphrase=""
+while [[ $# -gt 0 ]]; do
+  case $1 in
+
+  --compress=no|--compress=none|--compress=0)
+    debug_msg "Setting compress option to 0 (=none)"
+    compress=0
+    shift
+    ;;
+
+  --compress=gz|--compress=gzip|--compress=1)
+    debug_msg "Setting compress option to 1 (=gzip)"
+    compress=1
+    shift
+    ;;
+
+  --compress=xz|--compress=2)
+    debug_msg "Setting compress option to 2 (=xz)"
+    compress=2
+    shift
+    ;;
+
+  --compress=zst|--compress=zstd|--compress=3)
+    debug_msg "Setting compress option to 3 (=zstd)"
+    compress=3
+    shift
+    ;;
+
+  --compress=bz2|--compress=bzip2|--compress=4)
+    debug_msg "Setting compress option to 4 (=bzip2))"
+    compress=4
+    shift
+    ;;
+
+  --compress=*)
+    attempted_compression="$(/usr/bin/printf "%s\n" "$1" | sed -e 's/^.*=//' )"
+    error_msg "Bad compress option '${attempted_compression}'"
+    ;;
+
+  --checksum=no|--checksum=none|--checksum=0)
+    debug_msg "Setting checksum option to 0 (=none)"
+    checksum=0
+    shift
+    ;;
+
+  --checksum=sha1|--checksum=1)
+    debug_msg "Setting checksum option to 1 (=sha1)"
+    checksum=1
+    shift
+    ;;
+
+  --checksum=sha256|--checksum=2)
+    debug_msg "Setting checksum option to 2 (=sha256)"
+    checksum=2
+    shift
+    ;;
+
+  --checksum=*)
+    attempted_checksum="$(/usr/bin/printf "%s\n" "$1" | sed -e 's/^.*=//' )"
+    error_msg "Bad checksum option '${attempted_checksum}'"
+    ;;
+
+  --encrypt=no|--encrypt=none|--encrypt=0)
+    debug_msg "Setting encrypt option to 0 (=none)"
+    encrypt=0
+    shift
+    ;;
+
+  --encrypt=gpg|--encrypt=1)
+    debug_msg "Setting encrypt option to 1 (=gpg)"
+    encrypt=1
+    shift
+    ;;
+
+  --encrypt=age|--encrypt=2)
+    debug_msg "Setting encrypt option to 2 (=age)"
+    encrypt=2
+    shift
+    ;;
+
+  --encrypt=*)
+    attempted_encryption="$(/usr/bin/printf "%s\n" "$1" | sed -e 's/^.*=//' )"
+    error_msg "Bad encrypt option '${attempted_encryption}'"
+    ;;
+
+  -h|--help)
+    help_msg
+    shift
+    ;;
+
+  -n|--name)
+    debug_msg "Setting output filename to ${2}"
+    archive_fn="$2"
+    shift; shift
+    ;;
+
+  -p|--passphrase)
+    passphrase="$2"
+    shift; shift
+    ;;
+
+  -v|--verbose)
+    verbose=1
+    shift
+    ;;
+
+  -V|--version)
+    version_msg
+    ;;
+
+  *)
+    debug_msg "Argument '${1}' added to positional array"
+    positional+=("$1")
+    shift
+    ;;
+  esac
+done
+
+# error if no input or output filenames given
+if [[ "${#positional[@]}" -lt 1 ]]; then
+  error_msg "No input filenames given"
+elif [[ -z "$archive_fn" ]]; then
+  error_msg "No output filename given"
+fi
+
+# construct archive action
+if [[ "$compress" -eq 1 ]]; then
+  archive_action="tar.gz"
+elif [[ "$compress" -eq 2 ]]; then
+  archive_action="tar.xz"
+elif [[ "$compress" -eq 3 ]]; then
+  archive_action="tar.zst"
+elif [[ "$compress" -eq 4 ]]; then
+  archive_action="tar.bz2"
+else
+  archive_action="tar"
+fi
+if [[ "$encrypt" -eq 1 ]]; then
+  archive_action="${archive_action}.gpg"
+elif [[ "$encrypt" -eq 2 ]]; then
+  archive_action="${archive_action}.age"
+fi
+
+# construct checksum action
+if [[ "$checksum" -eq 1 ]]; then
+  checksum_action="sha1"
+elif [[ "$checksum" -eq 2 ]]; then
+  checksum_action="sha256"
+fi
+
+# construct checksum filename
+checksum_fn="$(fn_basename "$archive_fn").${checksum_action}"
+
+# check files
+if contains "$archive_fn" "${positional[@]}"; then
+  error_msg "Output file cannot also be input file ('${archive_fn}')"
+elif [[ "$checksum" -ge 1 ]] && contains "$checksum_fn" "${positional[@]}"; then
+  error_msg "Output file cannot also be input file ('${checksum_fn}')"
+elif [[ -f "$archive_fn" ]]; then
+  error_msg "Output file already exists ('${archive_fn}')"
+elif [[ "$checksum" -ge 1 && -f "$checksum_fn" ]]; then
+  error_msg "Output file already exists ('${checksum_fn}')"
+fi
+for target in "${positional[@]}"; do
+  if [[ ! -f "$target" ]] && [[ ! -d "$target" ]]; then
+    error_msg "No such file '${target}'"
+  fi
+done
+
+# check passphrase
+if [[ "$checksum" -ge 1 && -z "$passphrase" ]]; then
+  error_msg "No passphrase given"
+fi
+
+# main routine
+code=0
+case "$archive_action" in
+tar)
+  if ! /usr/bin/tar -cf "$archive_fn" "${positional[@]}"; then
+    code=1
+  fi
+  ;;
+
+tar.gpg)
+  if ! /usr/bin/tar -c "${positional[@]}" | /usr/bin/gpg --symmetric --batch --passphrase "$passphrase" --output "$archive_fn"; then
+    code=1
+  fi
+  ;;
+
+tar.age)
+  if ! /usr/bin/tar -c "${positional[@]}" | /usr/bin/age --encrypt --passphrase --output "$archive_fn"; then
+    code=1
+  fi
+  ;;
+
+tar.gz)
+  if ! /usr/bin/tar -czf "$archive_fn" "${positional[@]}"; then
+    code=1
+  fi
+  ;;
+
+tar.gz.gpg)
+  if ! /usr/bin/tar -cz "${positional[@]}" | /usr/bin/gpg --symmetric --batch --passphrase "$passphrase" --output "$archive_fn"; then
+    code=1
+  fi
+  ;;
+
+tar.gz.age)
+  if ! /usr/bin/tar -cz "${positional[@]}" | /usr/bin/age --encrypt --passphrase --output "$archive_fn"; then
+    code=1
+  fi
+  ;;
+
+tar.xz)
+  if ! /usr/bin/tar -cJf "$archive_fn" "${positional[@]}"; then
+    code=1
+  fi
+  ;;
+
+tar.xz.gpg)
+  if ! /usr/bin/tar -cJ "${positional[@]}" | /usr/bin/gpg --symmetric --batch --passphrase "$passphrase" --output "$archive_fn"; then
+    code=1
+  fi
+  ;;
+
+tar.xz.age)
+  if ! /usr/bin/tar -cJ "${positional[@]}" | /usr/bin/age --encrypt --passphrase --output "$archive_fn"; then
+    code=1
+  fi
+  ;;
+
+tar.zst)
+  if ! /usr/bin/tar --zstd -cf "$archive_fn" "${positional[@]}"; then
+    code=1
+  fi
+  ;;
+
+tar.zst.gpg)
+  if ! /usr/bin/tar --zstd -c "${positional[@]}" | /usr/bin/gpg --symmetric --batch --passphrase "$passphrase" --output "$archive_fn"; then
+    code=1
+  fi
+  ;;
+
+tar.zst.age)
+  if ! /usr/bin/tar --zstd -c "${positional[@]}" | /usr/bin/age --encrypt --passphrase --output "$archive_fn"; then
+    code=1
+  fi
+  ;;
+
+tar.bz2)
+  if ! /usr/bin/tar -cjf "$archive_fn" "${positional[@]}"; then
+    code=1
+  fi
+  ;;
+
+tar.bz2.gpg)
+  if ! /usr/bin/tar -cj "${positional[@]}" | /usr/bin/gpg --symmetric --batch --passphrase "$passphrase" --output "$archive_fn"; then
+    code=1
+  fi
+  ;;
+
+tar.bz2.age)
+  if ! /usr/bin/tar -cj "${positional[@]}" | /usr/bin/age --encrypt --passphrase --output "$archive_fn"; then
+    code=1
+  fi
+  ;;
+esac
+
+# checksum routine
+if [[ "$checksum" -ge 1 ]]; then
+  if [[ -f "$archive_fn" ]]; then
+    case "$checksum_action" in
+    sha1)
+      if ! /usr/bin/sha1sum "$archive_fn" | /usr/bin/awk '{print $1}' > "$checksum_fn"; then
+        code=1
+      fi
+      ;;
+
+    sha256)
+      if ! /usr/bin/sha256sum "$archive_fn" | /usr/bin/awk '{print $1}' > "$checksum_fn"; then
+        code=1
+      fi
+      ;;
+    esac
+  else
+    error_msg "No such file '${archive_fn}'"
+  fi
+fi
+
+# return stored code
+exit "$code"
+

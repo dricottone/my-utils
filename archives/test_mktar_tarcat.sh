@@ -35,25 +35,48 @@ test_compression() {
   esac
 
   # try basic compression
-  ../mktar compression_target.txt --compress="$arg_compression"
+  ../mktar --compress="$arg_compression" compression_target.txt
   ../tarcat "$fn_compressed" > compression_result.txt
   if ! cmp compression_result.txt compression_target.txt >/dev/null 2>&1; then
     printf "Failure in compression tests: basic compression: '%s'\n" "$1"
     exit 1
   fi
-
-  # clean up
   rm -f compression_result.txt "$fn_compressed"
 
-  # try implicit compression
-  ../mktar compression_target.txt -n "$fn_compressed"
+  # try basic compression with misordered positional arguments
+  ../mktar compression_target.txt --compress="$arg_compression"
   ../tarcat "$fn_compressed" > compression_result.txt
   if ! cmp compression_result.txt compression_target.txt >/dev/null 2>&1; then
-    printf "Failure in compression tests: implicit compression: '%s'\n" "$1"
+    printf "Failure in compression tests: basic compression with misordered positional arguments: '%s'\n" "$1"
     exit 1
   fi
+  rm -f compression_result.txt "$fn_compressed"
 
-  # clean up
+  # try implicit compression with short name flag
+  ../mktar -n "$fn_compressed" compression_target.txt
+  ../tarcat "$fn_compressed" > compression_result.txt
+  if ! cmp compression_result.txt compression_target.txt >/dev/null 2>&1; then
+    printf "Failure in compression tests: implicit compression with short name flag: '%s'\n" "$1"
+    exit 1
+  fi
+  rm -f compression_result.txt "$fn_compressed"
+
+  # try implicit compression with long name flag
+  ../mktar --name "$fn_compressed" compression_target.txt
+  ../tarcat "$fn_compressed" > compression_result.txt
+  if ! cmp compression_result.txt compression_target.txt >/dev/null 2>&1; then
+    printf "Failure in compression tests: implicit compression with long name flag: '%s'\n" "$1"
+    exit 1
+  fi
+  rm -f compression_result.txt "$fn_compressed"
+
+  # try batch compression
+  ../mktar-batch --compress="$arg_compression" --name "$fn_compressed" compression_target.txt
+  ../tarcat "$fn_compressed" > compression_result.txt
+  if ! cmp compression_result.txt compression_target.txt >/dev/null 2>&1; then
+    printf "Failure in compression tests: basic compression: '%s'\n" "$1"
+    exit 1
+  fi
   rm -f compression_result.txt "$fn_compressed"
 }
 
