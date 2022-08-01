@@ -11,7 +11,8 @@ expect `tar` to support Zstandard, which isn't necessarily POSIX standard.*
 Executable      |Description                                                   |Extra Dependencies
 :---------------|:-------------------------------------------------------------|:------------------------------------------
 epub            |Dumps HTML from an 'epub' e-book archive                      |`bash`, `zipinfo`, `unzip`, `w3m`
-mktar           |Wrapper around `tar` for easier compression                   |`bash`
+mktar           |Archive utility                                               |`bash`
+mktar-batch     |Archive utility for scripting                                 |`bash`, `expect`
 rmtar           |Delete 'tar' archive files                                    |
 rmzip           |Delete 'zip' archive files                                    |
 tarcat          |Print contents of `tar` archive file(s)                       |

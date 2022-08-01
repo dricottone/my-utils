@@ -214,7 +214,18 @@ tar.gpg)
   ;;
 
 tar.age)
-  if ! /usr/bin/tar -c "${positional[@]}" | /usr/bin/age --encrypt --passphrase --output "$archive_fn"; then
+  /usr/bin/expect <<EOF
+spawn sh -c "/usr/bin/tar -c \"${positional[@]}\" | /usr/bin/age --encrypt --passphrase --output \"$archive_fn\""
+expect "*:"
+send "$passphrase\r"
+expect "*:"
+send "$passphrase\r"
+expect eof
+
+foreach {pid spawnid os_error_flag value} [wait] break
+exit $value
+EOF
+  if [[ $? -ne 0 ]]; then
     code=1
   fi
   ;;
@@ -232,7 +243,18 @@ tar.gz.gpg)
   ;;
 
 tar.gz.age)
-  if ! /usr/bin/tar -cz "${positional[@]}" | /usr/bin/age --encrypt --passphrase --output "$archive_fn"; then
+  /usr/bin/expect <<EOF
+spawn sh -c "/usr/bin/tar -cz \"${positional[@]}\" | /usr/bin/age --encrypt --passphrase --output \"$archive_fn\""
+expect "*:"
+send "$passphrase\r"
+expect "*:"
+send "$passphrase\r"
+expect eof
+
+foreach {pid spawnid os_error_flag value} [wait] break
+exit $value
+EOF
+  if [[ $? -ne 0 ]]; then
     code=1
   fi
   ;;
@@ -250,7 +272,18 @@ tar.xz.gpg)
   ;;
 
 tar.xz.age)
-  if ! /usr/bin/tar -cJ "${positional[@]}" | /usr/bin/age --encrypt --passphrase --output "$archive_fn"; then
+  /usr/bin/expect <<EOF
+spawn sh -c "/usr/bin/tar -cJ \"${positional[@]}\" | /usr/bin/age --encrypt --passphrase --output \"$archive_fn\""
+expect "*:"
+send "$passphrase\r"
+expect "*:"
+send "$passphrase\r"
+expect eof
+
+foreach {pid spawnid os_error_flag value} [wait] break
+exit $value
+EOF
+  if [[ $? -ne 0 ]]; then
     code=1
   fi
   ;;
@@ -268,7 +301,18 @@ tar.zst.gpg)
   ;;
 
 tar.zst.age)
-  if ! /usr/bin/tar --zstd -c "${positional[@]}" | /usr/bin/age --encrypt --passphrase --output "$archive_fn"; then
+  /usr/bin/expect <<EOF
+spawn sh -c "/usr/bin/tar --zstd -c \"${positional[@]}\" | /usr/bin/age --encrypt --passphrase --output \"$archive_fn\""
+expect "*:"
+send "$passphrase\r"
+expect "*:"
+send "$passphrase\r"
+expect eof
+
+foreach {pid spawnid os_error_flag value} [wait] break
+exit $value
+EOF
+  if [[ $? -ne 0 ]]; then
     code=1
   fi
   ;;
@@ -286,7 +330,18 @@ tar.bz2.gpg)
   ;;
 
 tar.bz2.age)
-  if ! /usr/bin/tar -cj "${positional[@]}" | /usr/bin/age --encrypt --passphrase --output "$archive_fn"; then
+  /usr/bin/expect <<EOF
+spawn sh -c "/usr/bin/tar -cj \"${positional[@]}\" | /usr/bin/age --encrypt --passphrase --output \"$archive_fn\""
+expect "*:"
+send "$passphrase\r"
+expect "*:"
+send "$passphrase\r"
+expect eof
+
+foreach {pid spawnid os_error_flag value} [wait] break
+exit $value
+EOF
+  if [[ $? -ne 0 ]]; then
     code=1
   fi
   ;;

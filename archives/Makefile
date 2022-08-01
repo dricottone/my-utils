@@ -7,6 +7,7 @@ COMP_DIR?=/usr/local/etc/bash_completion.d
 install:
 	install -m755 epub $(BIN_DIR)/epub
 	install -m755 mktar $(BIN_DIR)/mktar
+	install -m755 mktar-batch $(BIN_DIR)/mktar-batch
 	install -m755 rmtar $(BIN_DIR)/rmtar
 	install -m755 rmzip $(BIN_DIR)/rmzip
 	install -m755 tarcat $(BIN_DIR)/tarcat
@@ -19,6 +20,7 @@ install:
 uninstall:
 	rm $(BIN_DIR)/epub
 	rm $(BIN_DIR)/mktar
+	rm $(BIN_DIR)/mktar-batch
 	rm $(BIN_DIR)/rmtar
 	rm $(BIN_DIR)/rmzip
 	rm $(BIN_DIR)/tarcat

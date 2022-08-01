@@ -27,9 +27,9 @@ complete -o default -f -X '!*.@(zip|cbr|epub)' rmzip
 complete -o default -f -X '!*.@(zip|cbr|epub)' zipls
 
 # rmtar, tarcat, tarls, untar
-# complete with filenames like '*.@(tar|tar.@(gz|xz|zst|bz2)|tar.@(gz|xz|zst|bz2).gpg)'
-complete -o default -f -X '!*.@(tar|tar.@(gz|xz|zst|bz2)|tar.@(gz|xz|zst|bz2).gpg)' rmtar
-complete -o default -f -X '!*.@(tar|tar.@(gz|xz|zst|bz2)|tar.@(gz|xz|zst|bz2).gpg)' tarcat
-complete -o default -f -X '!*.@(tar|tar.@(gz|xz|zst|bz2)|tar.@(gz|xz|zst|bz2).gpg)' tarls
-complete -o default -f -X '!*.@(tar|tar.@(gz|xz|zst|bz2)|tar.@(gz|xz|zst|bz2).gpg)' untar
+# complete with filenames like '*.@(tar|tar.@(gz|xz|zst|bz2)|tar.@(gz|xz|zst|bz2).(gpg|age))'
+complete -o default -f -X '!*.@(tar|tar.@(gz|xz|zst|zstd|bz2)|tar.@(gz|xz|zst|bz2).(gpg|age))' rmtar
+complete -o default -f -X '!*.@(tar|tar.@(gz|xz|zst|zstd|bz2)|tar.@(gz|xz|zst|bz2).(gpg|age))' tarcat
+complete -o default -f -X '!*.@(tar|tar.@(gz|xz|zst|zstd|bz2)|tar.@(gz|xz|zst|bz2).(gpg|age))' tarls
+complete -o default -f -X '!*.@(tar|tar.@(gz|xz|zst|zstd|bz2)|tar.@(gz|xz|zst|bz2).(gpg|age))' untar
 

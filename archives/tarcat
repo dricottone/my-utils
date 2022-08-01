@@ -1,7 +1,7 @@
 #!/bin/sh
 
 name="tarcat"
-version="1.0"
+version="1.1"
 help_message=$(/usr/bin/cat <<-EOF
 	Print contents of target archive file(s)
 	Usage: tarcat [TARGET ..] [OPTIONS]
@@ -24,62 +24,92 @@ for target; do
     code=1
   else
     case "$target" in
-    *tar)
+    *.tar)
       if ! /usr/bin/tar -xOf "$target"; then
         code=1
       fi
       ;;
 
-    *tar.gpg)
-      if ! /usr/bin/gpg -d "$target" | /usr/bin/tar -xO; then
+    *.tar.gpg)
+      if ! /usr/bin/gpg --decrypt "$target" | /usr/bin/tar -xO; then
         code=1
       fi
       ;;
 
-    *tar.gz)
+    *.tar.age)
+      if ! /usr/bin/age --decrypt "$target" | /usr/bin/tar -xO; then
+        code=1
+      fi
+      ;;
+
+    *.tar.gz)
       if ! /usr/bin/tar -xzOf "$target"; then
         code=1
       fi
       ;;
 
-    *tar.gz.gpg)
-      if ! /usr/bin/gpg -d "$target" | /usr/bin/tar -xzO; then
+    *.tar.gz.gpg)
+      if ! /usr/bin/gpg --decrypt "$target" | /usr/bin/tar -xzO; then
         code=1
       fi
       ;;
 
-    *tar.xz)
+    *.tar.gz.age)
+      if ! /usr/bin/age --decrypt "$target" | /usr/bin/tar -xzO; then
+        code=1
+      fi
+      ;;
+
+    *.tar.xz)
       if ! /usr/bin/tar -xJOf "$target"; then
         code=1
       fi
       ;;
 
-    *tar.xz.gpg)
-      if ! /usr/bin/gpg -d "$target" | /usr/bin/tar -xJO; then
+    *.tar.xz.gpg)
+      if ! /usr/bin/gpg --decrypt "$target" | /usr/bin/tar -xJO; then
         code=1
       fi
       ;;
 
-    *tar.zst)
+    *.tar.xz.age)
+      if ! /usr/bin/age --decrypt "$target" | /usr/bin/tar -xJO; then
+        code=1
+      fi
+      ;;
+
+    *.tar.zst|*.tar.zstd)
       if ! /usr/bin/tar --zstd -xOf "$target"; then
         code=1
       fi
       ;;
 
-    *tar.zst.gpg)
-      if ! /usr/bin/gpg -d "$target" | /usr/bin/tar --zstd -xO; then
+    *.tar.zst.gpg|*.tar.zstd.gpg)
+      if ! /usr/bin/gpg --decrypt "$target" | /usr/bin/tar --zstd -xO; then
         code=1
       fi
       ;;
 
-    *tar.bz2)
+    *.tar.zst.age|*.tar.zstd.age)
+      if ! /usr/bin/age --decrypt "$target" | /usr/bin/tar --zstd -xO; then
+        code=1
+      fi
+      ;;
+
+    *.tar.bz2)
       if ! /usr/bin/tar -xjOf "$target"; then
         code=1
       fi
       ;;
 
-    *tar.bz2.gpg)
-      if ! /usr/bin/gpg -d "$target" | /usr/bin/tar -xjO; then
+    *.tar.bz2.gpg)
+      if ! /usr/bin/gpg --decrypt "$target" | /usr/bin/tar -xjO; then
+        code=1
+      fi
+      ;;
+
+    *.tar.bz2.age)
+      if ! /usr/bin/age --decrypt "$target" | /usr/bin/tar -xjO; then
         code=1
       fi
       ;;
