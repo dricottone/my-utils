@@ -1,0 +1,66 @@
+#!/bin/bash
+
+name="gitstat"
+version="1.0"
+usage_message="Usage: gitstat"
+help_message=$(/usr/bin/cat <<-EOF
+	Fetch updates in git repositories
+	Usage: ctdir TARGETS [..] [OPTIONS]
+	Options:
+	 -h, --help     print this message and exit
+	 -v, --version  print version number and exit
+EOF
+)
+
+reset_color="\e[0m"
+error_color="\e[1;31m"
+highlight_color="\e[1;33m"
+
+. /usr/local/lib/myminiparse.sh
+
+if [[ ! -f ~/.config/gitstat/repos.list ]]; then
+  /usr/bin/printf "%s: cannot read repository list at '~/.config/gitstat/repos.list'\n" "$name"
+fi
+
+while read repo upstream; do
+  code=0
+
+  if ! cd "$repo"; then
+    /usr/bin/printf "%s: ERROR: local repository '%s' does not exist\n" "$name" "$repo"
+    code=1
+  fi
+
+  if [[ "$code" -eq 0 && ! -z "$upstream" ]]; then
+    if ! /usr/bin/git checkout "$upstream" >/dev/null 2>&1; then
+      /usr/bin/printf "%s: ERROR: upstream branch '%s' does not exist in local repository '%s'\n" "$name" "$upstream" "$repo"
+      code=1
+    fi
+  fi
+
+  if [[ "$code" -eq 0 ]]; then
+    if ! /usr/bin/git fetch --quiet >/dev/null 2>&1; then
+      /usr/bin/printf "%s: ERROR: failed to sync '%s' to upstream\n" "$name" "$repo"
+      code=1
+    fi
+  fi
+
+  if [[ "$code" -eq 0 ]]; then
+    updates_count="$(/usr/bin/git status --porcelain=v2 --branch \
+      | /usr/bin/grep -F '# branch.ab' \
+      | /usr/bin/sed -e 's/^.*-//')"
+
+    if [[ "$updates_count" = "0" ]]; then
+      /usr/bin/printf '%s: nothing to do\n' "$repo"
+    else
+      /usr/bin/printf '%s: %b%s commits to pull%b\n' "$repo" "$highlight_color" "$updates_count" "$reset_color"
+    fi
+  fi
+
+  if [[ ! -z "$upstream" ]]; then
+    if ! /usr/bin/git checkout dev >/dev/null 2>&1; then
+      /usr/bin/printf "%s: ERROR: failed to restore dev branch in local repository '%s'\n" "$name" "$repo"
+      code=1
+    fi
+  fi
+done < <(/usr/bin/grep --invert-match --extended-regexp '^( *| *#.*)$' ~/.config/gitstat/repos.list)
+

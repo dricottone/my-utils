@@ -9,6 +9,7 @@ Executable      |Description                                                   |
 :---------------|:-------------------------------------------------------------|:-----------------
 ctdir           |Count entries in a target directory(ies)
 debom           |Remove BOM from a target file                                 |`bash`
+gitstat         |Fetch updates on git repositories                             |`bash`
 enumerate       |Rename files in current directory into sequential numbers     |`bash`
 mkbak           |Create a backup of a target file                              |`bash`
 rand            |Get a random number within an inclusive range                 |`bash`, `shuf`
