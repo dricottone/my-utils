@@ -18,6 +18,7 @@
 # prompt_overwrite FILE      prompts user for permission to overwrite FILE
 # fn_basename FN             extracts identifiable base from FN
 # fn_extension FN            extracts file extension from FN
+# archive_extension FN       extracts compression and encryption extension from FN
 #
 # Through some means, these environment variables should be set:
 # name          name of program
@@ -141,7 +142,7 @@ error_msg() {
 # Note: exit as error
 # Note: ignore Verbose
 usage_msg() {
-  (>&2 dump_msg "$(/usr/bin/printf "${help_message:=Usage: don\'t}\n" | /usr/bin/grep -e 'Usage' | /usr/bin/head -n 1)")
+  (>&2 dump_msg "$(/usr/bin/printf "${help_message:=Usage: DEFAULT MYLIB HELP MSG}\n" | /usr/bin/grep -e 'Usage' | /usr/bin/head -n 1)")
   exit 1
 }
 
@@ -153,7 +154,7 @@ usage_msg() {
 # Note: exit as success
 # Note: ignore Verbose
 help_msg() {
-  (dump_msg "${help_message:=git gud}")
+  (dump_msg "${help_message:=DEFAULT MYLIB HELP MSG}")
   exit 0
 }
 
@@ -163,13 +164,18 @@ help_msg() {
 # Note: exit as success
 # Note: ignore Verbose
 version_msg() {
-  (dump_msg "${name:=my_program} ${version:=X.Y}")
+  (dump_msg "${name:=DEFAULT MYLIB NAME} ${version:=X.Y}")
   exit 0
 }
 
 
+# Normal            -> <PROGRAM>: Must be run as root
+# Quiet             ->
+# Verbose           -> ERROR:<PROGRAM>:Must be run as root
+# Verbose AND Quiet -> ERROR:<PROGRAM>:Must be run as root (NOTE: unsuppressed)
+# Note: exit as error
 assert_root() {
-  if [ "${EUID}" -ne 0 ]; then
+  if [[ "${EUID}" -ne 0 ]]; then
     error_msg "Must be run as root"
   fi
 }
@@ -178,35 +184,38 @@ assert_root() {
 # is integer -> 0
 # else       -> 1
 is_integer() {
-  [ "$1" -eq "$1" ] 2>/dev/null && return 0 || return 1
+  [[ "$1" -eq "$1" ]] 2>/dev/null && return 0 || return 1
 }
 
 
 # is integer >=0 -> 0
 # else           -> 1
 is_natural() {
-  [ "$1" -ge 0 ] 2>/dev/null && return 0 || return 1
+  [[ "$1" -ge 0 ]] 2>/dev/null && return 0 || return 1
 }
 
 
 # is integer >=1 -> 0
 # else           -> 1
 is_positive_integer() {
-  [ "$1" -ge 1 ] 2>/dev/null && return 0 || return 1
+  [[ "$1" -ge 1 ]] 2>/dev/null && return 0 || return 1
 }
 
 
 # is in array -> 0
 # else        -> 1
 contains() {
-  pattern="$1"; shift
-  code=1
+  local pattern="$1"
+  shift
+
+  local code=1
   for arg; do
     if [[ "$arg" == "$pattern" ]]; then
       code=0
       break
     fi
   done
+
   return "$code"
 }
 
@@ -214,7 +223,7 @@ contains() {
 # file does not exist OR user input 'Yy*' -> 0
 # else                                    -> 1
 prompt_overwrite() {
-  code=0
+  local code=0
   if [[ -f "$1" ]]; then
     prompt "File '${1}' already exists. Overwrite? [Y/n] "
     case "$response" in
@@ -251,5 +260,94 @@ fn_extension() {
   else
     /usr/bin/printf "%s\n" "$1" | /usr/bin/cut -f 2- -d '.'
   fi
+}
+
+# filename matches a pattern -> pattern without leading .
+# else                       ->
+archive_extension() {
+  local ext=
+
+  case "$1" in
+  *.tar)
+    debug_msg "Detected tarball (no compression) without encryption"
+    ext="tar"
+    ;;
+
+  *.tar.age)
+    debug_msg "Detected age tarball (no compression)"
+    ext="tar.age"
+    ;;
+
+  *.tar.gpg)
+    debug_msg "Detected gpg tarball (no compression)"
+    ext="tar.gpg"
+    ;;
+
+  *.tar.gz)
+    debug_msg "Detected gzip tarball without encryption"
+    ext="tar.gz"
+    ;;
+
+  *.tar.gz.age)
+    debug_msg "Detected age gzip tarball"
+    ext="tar.gz.age"
+    ;;
+
+  *.tar.gz.gpg)
+    debug_msg "Detected gpg gzip tarball"
+    ext="tar.gz.gpg"
+    ;;
+
+  *.tar.xz)
+    debug_msg "Detected xz tarball without encryption"
+    ext="tar.xz"
+    ;;
+
+  *.tar.xz.age)
+    debug_msg "Detected age xz tarball"
+    ext="tar.xz.age"
+    ;;
+
+  *.tar.xz.gpg)
+    debug_msg "Detected gpg xz tarball"
+    ext="tar.xz.gpg"
+    ;;
+
+  *.tar.zst|*.tar.zstd)
+    debug_msg "Detected zstandard tarball without encryption"
+    ext="tar.zst"
+    ;;
+
+  *.tar.zst.age|*.tar.zstd.age)
+    debug_msg "Detected age zstandard tarball"
+    ext="tar.zst.age"
+    ;;
+
+  *.tar.zst.gpg|*.tar.zstd.gpg)
+    debug_msg "Detected gpg zstandard tarball"
+    ext="tar.zst.gpg"
+    ;;
+
+  *.tar.bz2)
+    debug_msg "Detected bz2 tarball without encryption"
+    ext="tar.bz2"
+    ;;
+
+  *.tar.bz2.age)
+    debug_msg "Detected age bz2 tarball"
+    ext="tar.bz2.age"
+    ;;
+
+  *.tar.bz2.gpg)
+    debug_msg "Detected gpg bz2 tarball"
+    ext="tar.bz2.gpg"
+    ;;
+
+  *)
+    debug_msg "Could not parse filename"
+    ;;
+  esac
+
+  /usr/bin/printf "%s\n" "$ext"
 }
 
