@@ -1,133 +1,67 @@
-#!/bin/sh
+#!/bin/bash
 
 name="tarls"
-version="1.1"
+version="1.2"
 help_message=$(/usr/bin/cat <<-EOF
-	List files within 'tar' archive file(s)
+	List files within archive files
 	Usage: tarls TARGET [..] [OPTIONS]
 	Options:
-	 -h, --help     print this message and exit
-	 -q, --quiet    suppress error messages
-	 -v, --version  print version number and exit
+	 -h, --help                  print this message and exit
+	 -p PASS, --passphrase PASS  passphrase for decryption
+	 -q, --quiet                 suppress error messages
+	 -v, --version               print version number and exit
 EOF
 )
 
-. /usr/local/lib/myminiparse.sh
+source /usr/local/lib/mylib.bash
+source /usr/local/lib/unarchive.bash
 
-# error if no directory names given
-if [ "$#" -eq 0 ]; then
-  (>&2 /usr/bin/printf "Usage: tarls TARGET [OPTIONS]\n")
-  exit 1
-elif [ "$#" -eq 1 ] && [ "$quiet" -eq 1 ]; then
-  exit 1
-fi
+quiet=0
+passphrase=""
+positional=()
+verbose=0
+while [[ $# -gt 0 ]]; do
+  case $1 in
 
-# main routine
+  -h|--help)
+    help_msg
+    shift
+    ;;
+
+  -q|--quiet)
+    debug_msg "Setting quiet option to 1 (was ${quiet})"
+    quiet=1
+    shift
+    ;;
+
+  -p|--passphrase)
+    passphrase="--passphrase $2"
+    shift; shift
+    ;;
+
+  -v|--verbose)
+    debug_msg "Setting verbose option to 1 (was ${verbose})"
+    verbose=1
+    shift
+    ;;
+
+  -V|--version)
+    version_msg
+    ;;
+
+  *)
+    debug_msg "Argument '${1}' added to positional array"
+    positional+=("$1")
+    shift
+    ;;
+  esac
+done
+
 code=0
-for target; do
-  if [ ! -f "$target" ]; then
-    if [ "$quiet" -eq 0 ]; then
-      (>&2 /usr/bin/printf "%s: No such file '%s'\n" "$name" "$target")
-    fi
+for archive_fn in "${positional[@]}"; do
+  archive_action="$(archive_extension "$archive_fn" | tee >(>&2 /usr/bin/head -n -1) | /usr/bin/tail -n 1)"
+  if ! unarchive --archive=$archive_action --list "$archive_fn" $passphrase; then
     code=1
-  else
-    case "$target" in
-    *.tar)
-      if ! /usr/bin/tar -tf "$target"; then
-        code=1
-      fi
-      ;;
-
-    *.tar.gpg)
-      if ! /usr/bin/gpg --decrypt "$target" | /usr/bin/tar -t; then
-        code=1
-      fi
-      ;;
-
-    *.tar.age)
-      if ! /usr/bin/age --decrypt "$target" | /usr/bin/tar -t; then
-        code=1
-      fi
-      ;;
-
-    *.tar.gz)
-      if ! /usr/bin/tar -tzf "$target"; then
-        code=1
-      fi
-      ;;
-
-    *.tar.gz.gpg)
-      if ! /usr/bin/gpg --decrypt "$target" | /usr/bin/tar -tz; then
-        code=1
-      fi
-      ;;
-
-    *.tar.gz.age)
-      if ! /usr/bin/age --decrypt "$target" | /usr/bin/tar -tz; then
-        code=1
-      fi
-      ;;
-
-    *.tar.xz)
-      if ! /usr/bin/tar -tJf "$target"; then
-        code=1
-      fi
-      ;;
-
-    *.tar.xz.gpg)
-      if ! /usr/bin/gpg --decrypt "$target" | /usr/bin/tar -tJ; then
-        code=1
-      fi
-      ;;
-
-    *.tar.xz.age)
-      if ! /usr/bin/age --decrypt "$target" | /usr/bin/tar -tJ; then
-        code=1
-      fi
-      ;;
-
-    *.tar.zst|*.tar.zstd)
-      if ! /usr/bin/tar --zstd -tf "$target"; then
-        code=1
-      fi
-      ;;
-
-    *.tar.zst.gpg|*.tar.zstd.gpg)
-      if ! /usr/bin/gpg --decrypt "$target" | /usr/bin/tar --zstd -t; then
-        code=1
-      fi
-      ;;
-
-    *.tar.zst.age|*.tar.zstd.age)
-      if ! /usr/bin/age --decrypt "$target" | /usr/bin/tar --zstd -t; then
-        code=1
-      fi
-      ;;
-
-    *.tar.bz2)
-      if ! /usr/bin/tar -tjf "$target"; then
-        code=1
-      fi
-      ;;
-
-    *.tar.bz2.gpg)
-      if ! /usr/bin/gpg --decrypt "$target" | /usr/bin/tar -tj; then
-        code=1
-      fi
-      ;;
-
-    *.tar.bz2.age)
-      if ! /usr/bin/age --decrypt "$target" | /usr/bin/tar -tj; then
-        code=1
-      fi
-      ;;
-
-    *)
-      if ! /usr/bin/tar -tf "$target"; then
-        code=1
-      fi
-      ;;
-    esac
   fi
 done
 

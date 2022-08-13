@@ -15,6 +15,9 @@ install:
 	install -m755 untar $(BIN_DIR)/untar
 	install -m755 zipls $(BIN_DIR)/zipls
 
+	install -m755 archive.bash $(LIB_DIR)/archive.bash
+	install -m755 unarchive.bash $(LIB_DIR)/unarchive.bash
+
 	install -m755 completion.bash $(COMP_DIR)/myutils_archives.bash
 
 uninstall:
@@ -27,6 +30,9 @@ uninstall:
 	rm $(BIN_DIR)/tarls
 	rm $(BIN_DIR)/untar
 	rm $(BIN_DIR)/zipls
+
+	rm $(LIB_DIR)/archive.bash
+	rm $(LIB_DIR)/unarchive.bash
 
 	rm $(COMP_DIR)/myutils_archives.bash
 

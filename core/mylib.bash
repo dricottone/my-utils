@@ -264,6 +264,9 @@ fn_extension() {
 
 # filename matches a pattern -> pattern without leading .
 # else                       ->
+# There is also debug output
+# Suggested usage:
+#   archive_action="$(archive_extension "$archive_fn" | tee >(>&2 /usr/bin/head -n -1) | /usr/bin/tail -n 1)"
 archive_extension() {
   local ext=
 
@@ -348,6 +351,6 @@ archive_extension() {
     ;;
   esac
 
-  /usr/bin/printf "%s\n" "$ext"
+  /usr/bin/printf '%s\n' "$ext"
 }
 
