@@ -21,7 +21,7 @@ EOF
 for arg; do
   case "$arg" in
   -q|--quiet)
-    quiet=1
+    #handled in myminiparse.sh
     ;;
 
   *)
