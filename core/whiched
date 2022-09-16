@@ -4,7 +4,7 @@ name="whiched"
 version="1.2"
 help_message=$(/usr/bin/cat <<-EOF
 	Open a program with your editor
-	Usage: whiched PROGRAM [OPTIONS]
+	Usage: whiched [OPTIONS] PROGRAM
 	Options:
 	 -h, --help     print this message
 	 -q, --quiet    suppress error messages
@@ -48,7 +48,7 @@ done
 
 # if have not exited, no program was specified
 if [ "$quiet" -eq 0 ]; then
-  (>&2 /usr/bin/printf "Usage: whiched PROGRAM [OPTIONS]\n")
+  (>&2 /usr/bin/printf "Usage: whiched [OPTIONS] PROGRAM\n")
   exit 1
 fi
 

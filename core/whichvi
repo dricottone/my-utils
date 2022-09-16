@@ -4,7 +4,7 @@ name="whichvi"
 version="1.2"
 help_message=$(/usr/bin/cat <<-EOF
 	Open a program with your visual editor
-	Usage: whichvi PROGRAM [OPTIONS]
+	Usage: whichvi [OPTIONS] PROGRAM
 	Options:
 	 -h, --help     print this message
 	 -q, --quiet    suppress error messages
@@ -47,7 +47,7 @@ for arg; do
 done
 
 if [ "$quiet" -eq 0 ]; then
-  (>&2 /usr/bin/printf "Usage: whichvi PROGRAM [OPTIONS]\n")
+  (>&2 /usr/bin/printf "Usage: whichvi [OPTIONS] PROGRAM\n")
   exit 1
 fi
 

@@ -4,7 +4,7 @@ name="whichcat"
 version="1.1"
 help_message=$(/usr/bin/cat <<-EOF
 	Print all lines from a program to the terminal
-	Usage: whichcat [PROGRAM ..] [OPTIONS]
+	Usage: whichcat [OPTIONS] [PROGRAM ..]
 	Options:
 	 -h, --help     print this message
 	 -q, --quiet    suppress error messages

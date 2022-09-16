@@ -4,7 +4,7 @@ name="whichhead"
 version="1.1"
 read -r -d '' help_message <<-EOF
 	Print the first 10 lines from a program
-	Usage: whichhead [PROGRAM ..] [OPTIONS]
+	Usage: whichhead [OPTIONS] [PROGRAM ..]
 	Options:
 	 -h, --help        print this message
 	 -n N, --number N  print the first N lines (Default: 10)
