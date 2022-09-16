@@ -49,8 +49,7 @@ done
 # if have not exited, no program was specified
 if [ "$quiet" -eq 0 ]; then
   (>&2 /usr/bin/printf "Usage: whiched [OPTIONS] PROGRAM\n")
-  exit 1
 fi
 
-exit 0
+exit 1
 

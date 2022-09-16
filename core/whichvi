@@ -48,8 +48,7 @@ done
 
 if [ "$quiet" -eq 0 ]; then
   (>&2 /usr/bin/printf "Usage: whichvi [OPTIONS] PROGRAM\n")
-  exit 1
 fi
 
-exit 0
+exit 1
 
