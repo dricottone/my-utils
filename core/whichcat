@@ -1,7 +1,7 @@
 #!/bin/sh
 
 name="whichcat"
-version="1.0"
+version="1.1"
 help_message=$(/usr/bin/cat <<-EOF
 	Print all lines from a program to the terminal
 	Usage: whichcat [PROGRAM ..] [OPTIONS]
@@ -14,16 +14,15 @@ EOF
 
 . /usr/local/lib/myminiparse.sh
 
-# loop through input
 code=0
+quiet=0
 for arg; do
   case "$arg" in
   -q|--quiet)
-    #ignore these
+    quiet=1
     ;;
 
   *)
-    # main routine
     target=$(command -v "$arg")
     if [ -z "$target" ]; then
       if [ "$quiet" -eq 0 ]; then
@@ -37,6 +36,5 @@ for arg; do
   esac
 done
 
-# return stored code
 exit "$code"
 
