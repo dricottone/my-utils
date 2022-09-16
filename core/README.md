@@ -2,6 +2,8 @@
 
 Tools for everyday living.
 
+`bats` is required for the test suite.
+
 
 ## Specification
 
@@ -27,6 +29,4 @@ wttr            |Wrapper around `wttr` to fix double-wide runes for some fonts |
 
 *All* scripts support `-h` and `--help` for printing built-in documentation.
 
-
-## To-Do
 

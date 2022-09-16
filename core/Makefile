@@ -57,14 +57,9 @@ uninstall:
 	rm $(COMP_DIR)/myutils_core.bash
 
 test: clean
-	#shellcheck *.bash *.sh $(LIB_DIR)/mylib.bash $(LIB_DIR)/myparse.bash $(LIB_DIR)/myminiparse.sh
-	sh test_init.sh
-	sh test_debom_rebom.sh
-	sh test_ctdir.sh
-	sh test_whichcat_whichhead.sh
-	sh test_whiched_whichvi.sh
+	bats test/
 
 clean:
-	rm -rf test/
+	rm -rf test/static/
 
 
