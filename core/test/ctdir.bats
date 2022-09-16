@@ -17,6 +17,20 @@ teardown() {
   [ "$stderr" = "Usage: ctdir TARGET [OPTIONS]" ]
 }
 
+@test "ctdir usage - quiet" {
+  run --separate-stderr ctdir --quiet
+  [ "$status" -eq 1 ]
+  [ "$output" = "" ]
+  [ "$stderr" = "" ]
+}
+
+@test "ctdir usage - quiet short" {
+  run --separate-stderr ctdir -q
+  [ "$status" -eq 1 ]
+  [ "$output" = "" ]
+  [ "$stderr" = "" ]
+}
+
 @test "ctdir version" {
   run --separate-stderr ctdir --version
   [ "$status" -eq 0 ]
