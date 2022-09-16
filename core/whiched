@@ -1,7 +1,7 @@
 #!/bin/sh
 
 name="whiched"
-version="1.1"
+version="1.2"
 help_message=$(/usr/bin/cat <<-EOF
 	Open a program with your editor
 	Usage: whiched PROGRAM [OPTIONS]
@@ -14,16 +14,17 @@ EOF
 
 . /usr/local/lib/myminiparse.sh
 
-# NOTE: intentionally does not mirror `whichcat`/`whichhead`; doesn't make
-# sense to handle multiple files
+# NOTE: intentionally does not mirror `whichcat`/`whichhead`
+#  1. doesn't make sense to handle multiple files\
+#  2. when given no arguments, whiched should follow the lead of which NOT cat
+
 for arg; do
   case "$arg" in
   -q|--quiet)
-    #ignore these
+    quiet=1
     ;;
 
   *)
-    # main routine
     target=$(command -v "$arg")
     if [ -z "$target" ]; then
       if [ "$quiet" -eq 0 ]; then
@@ -48,6 +49,8 @@ done
 # if have not exited, no program was specified
 if [ "$quiet" -eq 0 ]; then
   (>&2 /usr/bin/printf "Usage: whiched PROGRAM [OPTIONS]\n")
+  exit 1
 fi
+
 exit 0
 
