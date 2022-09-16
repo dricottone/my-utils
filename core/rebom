@@ -1,41 +1,76 @@
-#!/bin/sh
+#!/bin/bash
 
 name="rebom"
-version="1.0"
-help_message=$(/usr/bin/cat <<-EOF
+version="1.1"
+read -r -d '' help_message <<-EOF
 	Add BOM to a target file
 	Usage: rebom TARGET [OPTIONS]
 	 -h, --help            print this message
-	 -v, --version         print version number and exit
+	 -v, --verbose         show additional messages
+	 -V, --version         print version number and exit
 EOF
-)
 
-. /usr/local/lib/myminiparse.sh
+source /usr/local/lib/mylib.bash
 
-# re-print first non-option argument, then exit
-for arg; do
-  case "$arg" in
+positional=()
+quiet=0
+verbose=0
+while [[ $# -gt 0 ]]; do
+  case "$1" in
+
+  -h|--help)
+    help_msg
+    shift
+    ;;
+
   -q|--quiet)
-    #ignore these
+    debug_msg "Setting quiet option to 1 (was ${quiet})"
+    quiet=1
+    shift
+    ;;
+
+  -v|--verbose)
+    debug_msg "Setting verbose option to 1 (was ${verbose})"
+    verbose=1
+    shift
+    ;;
+
+  -V|--version)
+    version_msg
+    shift
     ;;
 
   *)
-    # main routine
-    if [ ! -f "$arg" ]; then
-      (>&2 /usr/bin/printf "%s: No such file '%s'\n" "$name" "$arg")
-      exit 1
-    else
-      /usr/bin/printf "\xEF\xBB\xBF"
-      /usr/bin/cat "$1"
-      exit $?
-    fi
+    debug_msg "Argument '${1}' added to positional array"
+    positional+=("$1")
+    shift
     ;;
   esac
 done
 
-# if have not exited, no filename was specified
-if [ "$quiet" -eq 0 ]; then
-  (>&2 /usr/bin/printf "Usage: rebom TARGET [OPTIONS]\n")
+# error if no filenames given
+if [[ ${#positional[@]} -eq 0 ]]; then
+  usage_msg
 fi
-exit 1
+
+code=0
+files=()
+for filename in "${positional[@]}"; do
+  if [ ! -f "$filename" ]; then
+    nonfatal_error_msg "No such file '$filename'"
+    code=1
+  else
+    files+=("$filename")
+  fi
+done
+
+# error if no valid filenames given
+if [[ ${#files[@]} -eq 0 ]]; then
+  exit 1
+fi
+
+/usr/bin/printf "\xEF\xBB\xBF"
+/usr/bin/cat ${files[@]}
+
+exit "$code"
 

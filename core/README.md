@@ -13,7 +13,7 @@ gitstat         |Fetch updates on git repositories                             |
 enumerate       |Rename files in current directory into sequential numbers     |`bash`
 mkbak           |Create a backup of a target file                              |`bash`
 rand            |Get a random number within an inclusive range                 |`bash`, `shuf`
-rebom           |Add BOM to a target file
+rebom           |Add BOM to a target file                                      |`bash`
 rmold           |Delete old files
 start-at        |After a pattern is matched, re-print                          |GNU or New (AT&T) `awk`
 stop-at         |Re-print until a pattern is matched                           |GNU or New (AT&T) `awk`

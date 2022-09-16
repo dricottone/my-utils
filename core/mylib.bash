@@ -70,12 +70,10 @@ base_msg() {
 
 # Internal API
 # Normal -> <MESSAGE>
-# Quiet  ->
-# Note: ignore Verbose
+# Quiet  -> <MESSAGE>
+# Note: ignore Verbose AND Quiet
 dump_msg() {
-  if [[ "${quiet:=0}" -eq 0 ]]; then
-    /usr/bin/printf "%s\n" "$1"
-  fi
+  /usr/bin/printf "%s\n" "$1"
 }
 
 
@@ -344,6 +342,26 @@ archive_extension() {
   *.tar.bz2.gpg)
     debug_msg "Detected gpg bz2 tarball"
     ext="tar.bz2.gpg"
+    ;;
+
+  *.zip|*.cbz|*.docx|*.pptx|*.xlsx)
+    debug_msg "Detected zip file"
+    ext="zip"
+    ;;
+
+  *.rar)
+    debug_msg "Detected rar file"
+    ext="rar"
+    ;;
+
+  *.rpa)
+    debug_msg "Detected rpa file"
+    ext="rpa"
+    ;;
+
+  *.7z)
+    debug_msg "Detected 7z file"
+    ext="7z"
     ;;
 
   *)
