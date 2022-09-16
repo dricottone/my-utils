@@ -6,6 +6,7 @@ read -r -d '' help_message <<-EOF
 	Add BOM to a target file
 	Usage: rebom TARGET [OPTIONS]
 	 -h, --help            print this message
+	 -q, --quiet           suppress error messages and prompts
 	 -v, --verbose         show additional messages
 	 -V, --version         print version number and exit
 EOF
