@@ -37,11 +37,7 @@ uninstall:
 	rm $(COMP_DIR)/myutils_archives.bash
 
 test: clean
-	#shellcheck *.bash *.sh $(LIB_DIR)/mylib.bash $(LIB_DIR)/myparse.bash $(LIB_DIR)/myminiparse.sh
-	sh test_init.sh
-	sh test_mktar_tarcat.sh
-	sh test_untar.sh
+	bats test/
 
-clean:
-	rm -rf test/
+	rm -rf test/static/ test/output/
 
