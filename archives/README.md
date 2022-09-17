@@ -2,6 +2,8 @@
 
 Tools for creating, parsing, and scripting archive files.
 
+`bats` is required for the test suite.
+
 
 ## Specification
 
