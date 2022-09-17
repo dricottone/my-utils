@@ -1,13 +1,13 @@
 #!/bin/sh
 
 name="wttr"
-version="1.0"
+version="1.1"
 help_message=$(/usr/bin/cat <<-EOF
 	Wrapper around 'wego' to fix double-wide runes for some fonts
 	Usage: wttr
 	Options:
 	 -h, --help     print this message and exit
-	 -V, --version  print version number and exit
+	 -v, --version  print version number and exit
 EOF
 )
 
