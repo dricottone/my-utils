@@ -106,7 +106,7 @@ if [ -z "${target+x}" ]; then
   (>&2 /usr/bin/printf "Usage: unittest TARGET [OPTIONS]\n")
   exit 1
 elif [ ! -d "$target" ]; then
-  if /usr/bin/printf "%s\n" "$target" | grep -q -e ".*\.py"; then
+  if /usr/bin/printf "%s\n" "$target" | /usr/bin/grep -q -e ".*\.py"; then
     single_target=1
   else
     error_msg "No such directory '${target}'"
