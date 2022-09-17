@@ -1,10 +1,10 @@
 #!/bin/sh
 
-name="rm-old"
+name="rmold"
 version="1.0"
 help_message=$(/usr/bin/cat <<-EOF
 	Delete files older than a year
-	Usage: rm-old [PATH]
+	Usage: rmold [PATH]
 	Options:
 	 -h, --help     print this message and exit
 	 -v, --version  print version number and exit
