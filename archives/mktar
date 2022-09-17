@@ -6,13 +6,14 @@ read -r -d '' help_message <<-EOF
 	Archive utility
 	Usage: mktar -n OUTFILE [OPTIONS] INFILES
 	Options:
-	 --checksum=ALGO             create checksum with [none|sha1|sha256]
-	 -h, --help                  print this message
-	 -n FILE, --name FILE        name of archive
-	 -p PASS, --passphrase PASS  passphrase for encryption
-	 -q, --quiet                 suppress error messages and prompts
-	 -v, --verbose               show additional messages
-	 -V, --version               print version number and exit
+	 --checksum=ALGO               create checksum with [none|sha1|sha256]
+	 -d DIR, --from-directory DIR  archive from a directory
+	 -h, --help                    print this message
+	 -n FILE, --name FILE          name of archive
+	 -p PASS, --passphrase PASS    passphrase for encryption
+	 -q, --quiet                   suppress error messages and prompts
+	 -v, --verbose                 show additional messages
+	 -V, --version                 print version number and exit
 EOF
 
 source /usr/local/lib/mylib.bash
@@ -20,6 +21,7 @@ source /usr/local/lib/archive.bash
 
 archive_fn=""
 checksum=-1
+from_directory=""
 positional=()
 quiet=0
 verbose=0
@@ -47,6 +49,12 @@ while [[ $# -gt 0 ]]; do
   --checksum=*)
     attempted_checksum="$(/usr/bin/printf "%s\n" "$1" | sed -e 's/^.*=//' )"
     error_msg "Unknown checksum '${attempted_checksum}'"
+    ;;
+
+  -d|--from-directory)
+    debug_msg "Setting from_directory option to '${2}' (was ${from_directory})"
+    from_directory="--directory $2"
+    shift; shift
     ;;
 
   -h|--help)
@@ -121,7 +129,7 @@ if [[ "$encrypt" -ge 1 && -z "$passphrase" ]]; then
   passphrase=
 fi
 
-if ! archive --archive=$archive_action --name "$archive_fn" $passphrase "${positional[@]}"; then
+if ! archive --archive=$archive_action --name "$archive_fn" $passphrase $from_directory "${positional[@]}"; then
   exit 1
 fi
 

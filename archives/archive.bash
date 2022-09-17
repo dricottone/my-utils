@@ -16,6 +16,7 @@ archive() {
   local archive_flags=""
   local archive_late_flags=""
   local archive_fn=""
+  local from_directory=""
 
   local positional=()
 
@@ -191,8 +192,13 @@ archive() {
       error_msg "unsupported archive type '${1}'"
       ;;
 
+    --directory)
+      from_directory="$2"
+      shift; shift
+      ;;
+
     --name)
-      archive_fn="$2"
+      archive_fn="$(realpath "$2")"
       shift; shift
       ;;
 
@@ -202,7 +208,7 @@ archive() {
       ;;
 
     *)
-      positional+=("$1")
+      positional+=("$(realpath "$1")")
       shift
       ;;
     esac
@@ -214,12 +220,23 @@ archive() {
     usage_msg
   fi
 
-  # error if input file does not exist
+  local targets=()
   for target in "${positional[@]}"; do
+    # error if target file does not exist
     if [[ ! -f "$target" ]] && [[ ! -d "$target" ]]; then
       error_msg "no such file '${target}'"
     fi
+
+    # make paths relative to from_directory
+    if [[ ! -z "$from_directory" ]]; then
+      targets+="$(realpath --relative-base="$from_directory" "$target")"
+    else
+      targets+="$(realpath --relative-base="$(pwd)" "$target")"
+    fi
   done
+  debug_msg "Input files have been resolved to relative paths"
+  debug_msg "Was:${positional[@]}"
+  debug_msg "Is now:${targets[@]}"
 
   # error if no archive file given
   if [[ -z "$archive_fn" ]]; then
@@ -250,15 +267,19 @@ archive() {
   if [[ "$verbose" -ne 1 ]]; then
     verbosity=/dev/null
   elif [[ "$encrypt" -eq 1 ]]; then
-    debug_msg "$archive_cmd $archive_flags $archive_late_flags ${positional[@]} 2>$verbosity | $encrypt_cmd $encrypt_flags $archive_fn $passphrase_flags 2>$verbosity"
+    debug_msg "cd ${from_directory:-.} && $archive_cmd $archive_flags $archive_late_flags ${targets[@]} 2>$verbosity | $encrypt_cmd $encrypt_flags $archive_fn $passphrase_flags 2>$verbosity"
   else
-    debug_msg "$archive_cmd $archive_flags $archive_fn $archive_late_flags ${positional[@]} 2>$verbosity"
+    debug_msg "cd ${from_directory:-.} && $archive_cmd $archive_flags $archive_fn $archive_late_flags ${targets[@]} 2>$verbosity"
   fi
 
   # archive routine
+  if [[ ! -z "$from_directory" ]] && ! cd "$from_directory" >/dev/null 2> >(/usr/bin/sed -e "s/.*cd/cd/" >$verbosity); then
+    error_msg "could not access directory '${from_directory}'"
+    echo "ping"
+  fi
   if [[ "$encrypt" -eq 1 ]]; then
     ( \
-      $archive_cmd $archive_flags $archive_late_flags "${positional[@]}" 2>$verbosity \
+      $archive_cmd $archive_flags $archive_late_flags "${targets[@]}" 2>$verbosity \
         || error_msg "could not archive '${archive_fn}'" \
     ) \
     | ( \
@@ -266,7 +287,7 @@ archive() {
         || error_msg "could not encrypt '${archive_fn}'" \
     )
   else
-    $archive_cmd $archive_flags "$archive_fn" $archive_late_flags "${positional[@]}" 2>$verbosity \
+    $archive_cmd $archive_flags "$archive_fn" $archive_late_flags "${targets[@]}" 2>$verbosity \
       || error_msg "could not archive '${archive_fn}'"
   fi
 }

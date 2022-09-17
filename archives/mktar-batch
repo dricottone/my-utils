@@ -4,17 +4,40 @@ name="mktar-batch"
 version="1.1"
 read -r -d '' help_message <<-EOF
 	Archive utility for scripting
-	Usage: mktar-batch [--compress=ALGO] [--encrypt=ALSO --passphrase PASSWD] [--checksum=ALGO] [--name OUTFILE] INFILES
+	Usage: mktar-batch [--compress=ALGO] [--encrypt=ALGO [--passphrase PASS]] [--checksum=ALGO] [--name OUTFILE] INFILES
 	Options:
-	 --compress=ALGO                 compress archive with [none|gzip|xz|zstd|bzip2]
-	 --checksum=ALGO                 create checksum with [none|sha1|sha256]
-	 --encrypt=ALGO                  encrypt files with [none|gpg|age]
-	 -h, --help                      print this message
-	 -n FILE, --name FILE            name of backup file (Default: archive.tar)
-	 -p PASSWD, --passphrase PASSWD  passphase for encryption
-	 -v, --verbose                   show additional messages
-	 -V, --version                   print version number and exit
+	 --compress=ALGO             compress archive
+	 --checksum=ALGO             create checksum
+	 --encrypt=ALGO              encrypt archive
+	 -h, --help                  print this message
+	 -n FILE, --name FILE        name of backup file
+	 -p PASS, --passphrase PASS  passphase for encryption
+	 -v, --verbose               show additional messages
+	 -V, --version               print version number and exit
+	
+	Compress algorithms and their ALGO codes:
+	 n/a    none or no
+	 GZip   gzip or gz
+	 xz     zx
+	 ZStd   zstd or zst
+	 bzip2  bz2
+	
+	Checksum algorithms and their ALGO codes:
+	 n/a     none or no
+	 SHA1    sha1
+	 SHA256  sha256
+	
+	Encrypt algorithms and their ALGO codes:
+	 n/a   none or no
+	 GPG   gpg
+	 age   age
 EOF
+
+# TODO: add support for compress algorithms:
+#        WinRAR  rar
+#        Ren'Py  rpa
+#        PKZip   zip
+#        7-Zip   7z
 
 source /usr/local/lib/mylib.bash
 source /usr/local/lib/archive.bash

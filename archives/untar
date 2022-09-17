@@ -7,6 +7,7 @@ help_message=$(/usr/bin/cat <<-EOF
 	Usage: untar TARGET [..] [OPTIONS]
 	Options:
 	 -h, --help                  print this message and exit
+	 -d DIR, --to-directory DIR  unarchive to a directory
 	 -p PASS, --passphrase PASS  passphrase for decryption
 	 -q, --quiet                 suppress error messages
 	 -v, --version               print version number and exit
@@ -19,9 +20,16 @@ source /usr/local/lib/unarchive.bash
 quiet=0
 passphrase=""
 positional=()
+to_directory=""
 verbose=0
 while [[ $# -gt 0 ]]; do
   case $1 in
+
+  -d|--to-directory)
+    debug_msg "Setting to_directory option to '${2}' (was ${to_directory})"
+    to_directory="--directory $2"
+    shift; shift
+    ;;
 
   -h|--help)
     help_msg
@@ -35,6 +43,7 @@ while [[ $# -gt 0 ]]; do
     ;;
 
   -p|--passphrase)
+    debug_msg "Setting passphrase option to '${2}' (was ${passphrase})"
     passphrase="--passphrase $2"
     shift; shift
     ;;
@@ -60,7 +69,7 @@ done
 code=0
 for archive_fn in "${positional[@]}"; do
   archive_action="$(archive_extension "$archive_fn" | tee >(>&2 /usr/bin/head -n -1) | /usr/bin/tail -n 1)"
-  if ! unarchive --archive=$archive_action "$archive_fn" $passphrase; then
+  if ! unarchive --archive=$archive_action "$archive_fn" $passphrase $to_directory; then
     code=1
   fi
 done
