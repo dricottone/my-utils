@@ -6,7 +6,7 @@ help_message=$(/usr/bin/cat <<-EOF
 	Open a program with your editor
 	Usage: whiched [OPTIONS] PROGRAM
 	Options:
-	 -h, --help     print this message
+	 -h, --help     print this message and exit
 	 -q, --quiet    suppress error messages
 	 -v, --version  print version number and exit
 EOF

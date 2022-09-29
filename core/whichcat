@@ -6,7 +6,7 @@ help_message=$(/usr/bin/cat <<-EOF
 	Print all lines from a program to the terminal
 	Usage: whichcat [OPTIONS] [PROGRAM ..]
 	Options:
-	 -h, --help     print this message
+	 -h, --help     print this message and exit
 	 -q, --quiet    suppress error messages
 	 -v, --version  print version number and exit
 EOF

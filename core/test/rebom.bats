@@ -15,7 +15,7 @@ teardown() {
   run --separate-stderr rebom
   [ "$status" -eq 1 ]
   [ "$output" = "" ]
-  [ "$stderr" = "Usage: rebom TARGET [OPTIONS]" ]
+  [ "$stderr" = "Usage: rebom [OPTIONS] TARGET" ]
 }
 
 @test "rebom version" {
@@ -64,9 +64,9 @@ teardown() {
   run --separate-stderr rebom --help
   [ "$status" -eq 0 ]
   [ "${lines[0]}" = "Add BOM to a target file" ]
-  [ "${lines[1]}" = "Usage: rebom TARGET [OPTIONS]" ]
+  [ "${lines[1]}" = "Usage: rebom [OPTIONS] TARGET" ]
   [ "${lines[2]}" = "Options:" ]
-  [ "${lines[3]}" = " -h, --help            print this message" ]
+  [ "${lines[3]}" = " -h, --help            print this message and exit" ]
   [ "${lines[4]}" = " -q, --quiet           suppress error messages and prompts" ]
   [ "${lines[5]}" = " -v, --verbose         show additional messages" ]
   [ "${lines[6]}" = " -V, --version         print version number and exit" ]
@@ -77,9 +77,9 @@ teardown() {
   run --separate-stderr rebom --help --quiet
   [ "$status" -eq 0 ]
   [ "${lines[0]}" = "Add BOM to a target file" ]
-  [ "${lines[1]}" = "Usage: rebom TARGET [OPTIONS]" ]
+  [ "${lines[1]}" = "Usage: rebom [OPTIONS] TARGET" ]
   [ "${lines[2]}" = "Options:" ]
-  [ "${lines[3]}" = " -h, --help            print this message" ]
+  [ "${lines[3]}" = " -h, --help            print this message and exit" ]
   [ "${lines[4]}" = " -q, --quiet           suppress error messages and prompts" ]
   [ "${lines[5]}" = " -v, --verbose         show additional messages" ]
   [ "${lines[6]}" = " -V, --version         print version number and exit" ]
@@ -90,9 +90,9 @@ teardown() {
   run --separate-stderr rebom --help -q
   [ "$status" -eq 0 ]
   [ "${lines[0]}" = "Add BOM to a target file" ]
-  [ "${lines[1]}" = "Usage: rebom TARGET [OPTIONS]" ]
+  [ "${lines[1]}" = "Usage: rebom [OPTIONS] TARGET" ]
   [ "${lines[2]}" = "Options:" ]
-  [ "${lines[3]}" = " -h, --help            print this message" ]
+  [ "${lines[3]}" = " -h, --help            print this message and exit" ]
   [ "${lines[4]}" = " -q, --quiet           suppress error messages and prompts" ]
   [ "${lines[5]}" = " -v, --verbose         show additional messages" ]
   [ "${lines[6]}" = " -V, --version         print version number and exit" ]
@@ -103,9 +103,9 @@ teardown() {
   run --separate-stderr rebom -h
   [ "$status" -eq 0 ]
   [ "${lines[0]}" = "Add BOM to a target file" ]
-  [ "${lines[1]}" = "Usage: rebom TARGET [OPTIONS]" ]
+  [ "${lines[1]}" = "Usage: rebom [OPTIONS] TARGET" ]
   [ "${lines[2]}" = "Options:" ]
-  [ "${lines[3]}" = " -h, --help            print this message" ]
+  [ "${lines[3]}" = " -h, --help            print this message and exit" ]
   [ "${lines[4]}" = " -q, --quiet           suppress error messages and prompts" ]
   [ "${lines[5]}" = " -v, --verbose         show additional messages" ]
   [ "${lines[6]}" = " -V, --version         print version number and exit" ]
@@ -116,9 +116,9 @@ teardown() {
   run --separate-stderr rebom -h --quiet
   [ "$status" -eq 0 ]
   [ "${lines[0]}" = "Add BOM to a target file" ]
-  [ "${lines[1]}" = "Usage: rebom TARGET [OPTIONS]" ]
+  [ "${lines[1]}" = "Usage: rebom [OPTIONS] TARGET" ]
   [ "${lines[2]}" = "Options:" ]
-  [ "${lines[3]}" = " -h, --help            print this message" ]
+  [ "${lines[3]}" = " -h, --help            print this message and exit" ]
   [ "${lines[4]}" = " -q, --quiet           suppress error messages and prompts" ]
   [ "${lines[5]}" = " -v, --verbose         show additional messages" ]
   [ "${lines[6]}" = " -V, --version         print version number and exit" ]
@@ -129,9 +129,9 @@ teardown() {
   run --separate-stderr rebom -h -q
   [ "$status" -eq 0 ]
   [ "${lines[0]}" = "Add BOM to a target file" ]
-  [ "${lines[1]}" = "Usage: rebom TARGET [OPTIONS]" ]
+  [ "${lines[1]}" = "Usage: rebom [OPTIONS] TARGET" ]
   [ "${lines[2]}" = "Options:" ]
-  [ "${lines[3]}" = " -h, --help            print this message" ]
+  [ "${lines[3]}" = " -h, --help            print this message and exit" ]
   [ "${lines[4]}" = " -q, --quiet           suppress error messages and prompts" ]
   [ "${lines[5]}" = " -v, --verbose         show additional messages" ]
   [ "${lines[6]}" = " -V, --version         print version number and exit" ]

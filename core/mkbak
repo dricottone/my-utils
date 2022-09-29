@@ -4,7 +4,7 @@ name="mkbak"
 version="1.0"
 read -r -d '' help_message <<-EOF
 	Create a backup of a target file
-	Usage: mkbak TARGET [OPTIONS]
+	Usage: mkbak [OPTIONS] TARGET
 	Options:
 	 -d, --diff            diff files before asking to overwrite
 	 -f, --force           overwrite without asking

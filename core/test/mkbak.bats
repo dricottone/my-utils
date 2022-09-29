@@ -47,7 +47,7 @@ bats_require_minimum_version 1.5.0
   run --separate-stderr mkbak --help
   [ "$status" -eq 0 ]
   [ "${lines[0]}" = "Create a backup of a target file" ]
-  [ "${lines[1]}" = "Usage: mkbak TARGET [OPTIONS]" ]
+  [ "${lines[1]}" = "Usage: mkbak [OPTIONS] TARGET" ]
   [ "${lines[2]}" = "Options:" ]
   [ "${lines[3]}" = " -d, --diff            diff files before asking to overwrite" ]
   [ "${lines[4]}" = " -f, --force           overwrite without asking" ]
@@ -63,7 +63,7 @@ bats_require_minimum_version 1.5.0
   run --separate-stderr mkbak --help --quiet
   [ "$status" -eq 0 ]
   [ "${lines[0]}" = "Create a backup of a target file" ]
-  [ "${lines[1]}" = "Usage: mkbak TARGET [OPTIONS]" ]
+  [ "${lines[1]}" = "Usage: mkbak [OPTIONS] TARGET" ]
   [ "${lines[2]}" = "Options:" ]
   [ "${lines[3]}" = " -d, --diff            diff files before asking to overwrite" ]
   [ "${lines[4]}" = " -f, --force           overwrite without asking" ]
@@ -79,7 +79,7 @@ bats_require_minimum_version 1.5.0
   run --separate-stderr mkbak --help -q
   [ "$status" -eq 0 ]
   [ "${lines[0]}" = "Create a backup of a target file" ]
-  [ "${lines[1]}" = "Usage: mkbak TARGET [OPTIONS]" ]
+  [ "${lines[1]}" = "Usage: mkbak [OPTIONS] TARGET" ]
   [ "${lines[2]}" = "Options:" ]
   [ "${lines[3]}" = " -d, --diff            diff files before asking to overwrite" ]
   [ "${lines[4]}" = " -f, --force           overwrite without asking" ]
@@ -95,7 +95,7 @@ bats_require_minimum_version 1.5.0
   run --separate-stderr mkbak -h
   [ "$status" -eq 0 ]
   [ "${lines[0]}" = "Create a backup of a target file" ]
-  [ "${lines[1]}" = "Usage: mkbak TARGET [OPTIONS]" ]
+  [ "${lines[1]}" = "Usage: mkbak [OPTIONS] TARGET" ]
   [ "${lines[2]}" = "Options:" ]
   [ "${lines[3]}" = " -d, --diff            diff files before asking to overwrite" ]
   [ "${lines[4]}" = " -f, --force           overwrite without asking" ]
@@ -111,7 +111,7 @@ bats_require_minimum_version 1.5.0
   run --separate-stderr mkbak -h --quiet
   [ "$status" -eq 0 ]
   [ "${lines[0]}" = "Create a backup of a target file" ]
-  [ "${lines[1]}" = "Usage: mkbak TARGET [OPTIONS]" ]
+  [ "${lines[1]}" = "Usage: mkbak [OPTIONS] TARGET" ]
   [ "${lines[2]}" = "Options:" ]
   [ "${lines[3]}" = " -d, --diff            diff files before asking to overwrite" ]
   [ "${lines[4]}" = " -f, --force           overwrite without asking" ]
@@ -127,7 +127,7 @@ bats_require_minimum_version 1.5.0
   run --separate-stderr mkbak -h -q
   [ "$status" -eq 0 ]
   [ "${lines[0]}" = "Create a backup of a target file" ]
-  [ "${lines[1]}" = "Usage: mkbak TARGET [OPTIONS]" ]
+  [ "${lines[1]}" = "Usage: mkbak [OPTIONS] TARGET" ]
   [ "${lines[2]}" = "Options:" ]
   [ "${lines[3]}" = " -d, --diff            diff files before asking to overwrite" ]
   [ "${lines[4]}" = " -f, --force           overwrite without asking" ]

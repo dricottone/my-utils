@@ -6,7 +6,7 @@ read -r -d '' help_message <<-EOF
 	Print the first 10 lines from a program
 	Usage: whichhead [OPTIONS] [PROGRAM ..]
 	Options:
-	 -h, --help        print this message
+	 -h, --help        print this message and exit
 	 -n N, --number N  print the first N lines (Default: 10)
 	 -q, --quiet       suppress error messages
 	 -v, --verbose     show additional messages

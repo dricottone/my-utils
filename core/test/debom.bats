@@ -15,7 +15,7 @@ teardown() {
   run --separate-stderr debom
   [ "$status" -eq 1 ]
   [ "$output" = "" ]
-  [ "$stderr" = "Usage: debom TARGET [OPTIONS]" ]
+  [ "$stderr" = "Usage: debom [OPTIONS] TARGET" ]
 }
 
 @test "debom version" {
@@ -64,9 +64,9 @@ teardown() {
   run --separate-stderr debom --help
   [ "$status" -eq 0 ]
   [ "${lines[0]}" = "Remove BOM from a target file" ]
-  [ "${lines[1]}" = "Usage: debom TARGET [OPTIONS]" ]
+  [ "${lines[1]}" = "Usage: debom [OPTIONS] TARGET" ]
   [ "${lines[2]}" = "Options:" ]
-  [ "${lines[3]}" = " -h, --help            print this message" ]
+  [ "${lines[3]}" = " -h, --help            print this message and exit" ]
   [ "${lines[4]}" = " -q, --quiet           suppress error messages and prompts" ]
   [ "${lines[5]}" = " -v, --verbose         show additional messages" ]
   [ "${lines[6]}" = " -V, --version         print version number and exit" ]
@@ -77,9 +77,9 @@ teardown() {
   run --separate-stderr debom --help --quiet
   [ "$status" -eq 0 ]
   [ "${lines[0]}" = "Remove BOM from a target file" ]
-  [ "${lines[1]}" = "Usage: debom TARGET [OPTIONS]" ]
+  [ "${lines[1]}" = "Usage: debom [OPTIONS] TARGET" ]
   [ "${lines[2]}" = "Options:" ]
-  [ "${lines[3]}" = " -h, --help            print this message" ]
+  [ "${lines[3]}" = " -h, --help            print this message and exit" ]
   [ "${lines[4]}" = " -q, --quiet           suppress error messages and prompts" ]
   [ "${lines[5]}" = " -v, --verbose         show additional messages" ]
   [ "${lines[6]}" = " -V, --version         print version number and exit" ]
@@ -90,9 +90,9 @@ teardown() {
   run --separate-stderr debom --help -q
   [ "$status" -eq 0 ]
   [ "${lines[0]}" = "Remove BOM from a target file" ]
-  [ "${lines[1]}" = "Usage: debom TARGET [OPTIONS]" ]
+  [ "${lines[1]}" = "Usage: debom [OPTIONS] TARGET" ]
   [ "${lines[2]}" = "Options:" ]
-  [ "${lines[3]}" = " -h, --help            print this message" ]
+  [ "${lines[3]}" = " -h, --help            print this message and exit" ]
   [ "${lines[4]}" = " -q, --quiet           suppress error messages and prompts" ]
   [ "${lines[5]}" = " -v, --verbose         show additional messages" ]
   [ "${lines[6]}" = " -V, --version         print version number and exit" ]
@@ -103,9 +103,9 @@ teardown() {
   run --separate-stderr debom -h
   [ "$status" -eq 0 ]
   [ "${lines[0]}" = "Remove BOM from a target file" ]
-  [ "${lines[1]}" = "Usage: debom TARGET [OPTIONS]" ]
+  [ "${lines[1]}" = "Usage: debom [OPTIONS] TARGET" ]
   [ "${lines[2]}" = "Options:" ]
-  [ "${lines[3]}" = " -h, --help            print this message" ]
+  [ "${lines[3]}" = " -h, --help            print this message and exit" ]
   [ "${lines[4]}" = " -q, --quiet           suppress error messages and prompts" ]
   [ "${lines[5]}" = " -v, --verbose         show additional messages" ]
   [ "${lines[6]}" = " -V, --version         print version number and exit" ]
@@ -116,9 +116,9 @@ teardown() {
   run --separate-stderr debom -h --quiet
   [ "$status" -eq 0 ]
   [ "${lines[0]}" = "Remove BOM from a target file" ]
-  [ "${lines[1]}" = "Usage: debom TARGET [OPTIONS]" ]
+  [ "${lines[1]}" = "Usage: debom [OPTIONS] TARGET" ]
   [ "${lines[2]}" = "Options:" ]
-  [ "${lines[3]}" = " -h, --help            print this message" ]
+  [ "${lines[3]}" = " -h, --help            print this message and exit" ]
   [ "${lines[4]}" = " -q, --quiet           suppress error messages and prompts" ]
   [ "${lines[5]}" = " -v, --verbose         show additional messages" ]
   [ "${lines[6]}" = " -V, --version         print version number and exit" ]
@@ -129,9 +129,9 @@ teardown() {
   run --separate-stderr debom -h -q
   [ "$status" -eq 0 ]
   [ "${lines[0]}" = "Remove BOM from a target file" ]
-  [ "${lines[1]}" = "Usage: debom TARGET [OPTIONS]" ]
+  [ "${lines[1]}" = "Usage: debom [OPTIONS] TARGET" ]
   [ "${lines[2]}" = "Options:" ]
-  [ "${lines[3]}" = " -h, --help            print this message" ]
+  [ "${lines[3]}" = " -h, --help            print this message and exit" ]
   [ "${lines[4]}" = " -q, --quiet           suppress error messages and prompts" ]
   [ "${lines[5]}" = " -v, --verbose         show additional messages" ]
   [ "${lines[6]}" = " -V, --version         print version number and exit" ]

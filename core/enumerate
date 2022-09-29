@@ -8,7 +8,7 @@ read -r -d '' help_message <<-EOF
 	Options:
 	 -d, --dry-run     print, not execute, changes (Default)
 	 -f P, --filter P  filter targets with filename pattern P
-	 -h, --help        print this message
+	 -h, --help        print this message and exit
 	 -q, --quiet       suppress error messages
 	 -s N, --start N   start enumeration at N (Default: 1)
 	 -S N, --step N    step enumeration by N (Default: 1)

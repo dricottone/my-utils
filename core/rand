@@ -4,9 +4,9 @@ name="rand"
 version="1.0"
 read -r -d '' help_message <<-EOF
 	Get a random number within an inclusive range
-	Usage: rand START END [OPTIONS]
+	Usage: rand [OPTIONS] START END
 	Options:
-	 -h, --help        print this message
+	 -h, --help        print this message and exit
 	 -n N, --number N  print N numbers (Default: 1)
 	 -q, --quiet       suppress error messages and prompts
 	 -v, --verbose     show additional messages

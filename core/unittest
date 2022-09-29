@@ -4,7 +4,7 @@ name="unittest"
 version="1.1"
 help_message=$(/usr/bin/cat <<-EOF
 	Wrapper around Python's 'unittest' module
-	Usage: unittest TARGET [OPTIONS]
+	Usage: unittest [OPTIONS] TARGET
 	Options:
 	 -c, --color              print with color
 	 -h, --help               print this message and exit
