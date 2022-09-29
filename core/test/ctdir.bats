@@ -14,7 +14,7 @@ teardown() {
   run --separate-stderr ctdir
   [ "$status" -eq 1 ]
   [ "$output" = "" ]
-  [ "$stderr" = "Usage: ctdir TARGET [OPTIONS]" ]
+  [ "$stderr" = "Usage: ctdir [OPTIONS] [TARGETS ..]" ]
 }
 
 @test "ctdir usage - quiet" {
@@ -77,7 +77,7 @@ teardown() {
   run --separate-stderr ctdir --help
   [ "$status" -eq 0 ]
   [ "${lines[0]}" = "Count entries in target directory(ies)" ]
-  [ "${lines[1]}" = "Usage: ctdir TARGETS [..] [OPTIONS]" ]
+  [ "${lines[1]}" = "Usage: ctdir [OPTIONS] [TARGETS ..]" ]
   [ "${lines[2]}" = "Options:" ]
   [ "${lines[3]}" = " -h, --help     print this message and exit" ]
   [ "${lines[4]}" = " -q, --quiet    suppress error messages" ]
@@ -89,7 +89,7 @@ teardown() {
   run --separate-stderr ctdir --help --quiet
   [ "$status" -eq 0 ]
   [ "${lines[0]}" = "Count entries in target directory(ies)" ]
-  [ "${lines[1]}" = "Usage: ctdir TARGETS [..] [OPTIONS]" ]
+  [ "${lines[1]}" = "Usage: ctdir [OPTIONS] [TARGETS ..]" ]
   [ "${lines[2]}" = "Options:" ]
   [ "${lines[3]}" = " -h, --help     print this message and exit" ]
   [ "${lines[4]}" = " -q, --quiet    suppress error messages" ]
@@ -101,7 +101,7 @@ teardown() {
   run --separate-stderr ctdir --help -q
   [ "$status" -eq 0 ]
   [ "${lines[0]}" = "Count entries in target directory(ies)" ]
-  [ "${lines[1]}" = "Usage: ctdir TARGETS [..] [OPTIONS]" ]
+  [ "${lines[1]}" = "Usage: ctdir [OPTIONS] [TARGETS ..]" ]
   [ "${lines[2]}" = "Options:" ]
   [ "${lines[3]}" = " -h, --help     print this message and exit" ]
   [ "${lines[4]}" = " -q, --quiet    suppress error messages" ]
@@ -113,7 +113,7 @@ teardown() {
   run --separate-stderr ctdir -h
   [ "$status" -eq 0 ]
   [ "${lines[0]}" = "Count entries in target directory(ies)" ]
-  [ "${lines[1]}" = "Usage: ctdir TARGETS [..] [OPTIONS]" ]
+  [ "${lines[1]}" = "Usage: ctdir [OPTIONS] [TARGETS ..]" ]
   [ "${lines[2]}" = "Options:" ]
   [ "${lines[3]}" = " -h, --help     print this message and exit" ]
   [ "${lines[4]}" = " -q, --quiet    suppress error messages" ]
@@ -125,7 +125,7 @@ teardown() {
   run --separate-stderr ctdir -h --quiet
   [ "$status" -eq 0 ]
   [ "${lines[0]}" = "Count entries in target directory(ies)" ]
-  [ "${lines[1]}" = "Usage: ctdir TARGETS [..] [OPTIONS]" ]
+  [ "${lines[1]}" = "Usage: ctdir [OPTIONS] [TARGETS ..]" ]
   [ "${lines[2]}" = "Options:" ]
   [ "${lines[3]}" = " -h, --help     print this message and exit" ]
   [ "${lines[4]}" = " -q, --quiet    suppress error messages" ]
@@ -137,7 +137,7 @@ teardown() {
   run --separate-stderr ctdir -h -q
   [ "$status" -eq 0 ]
   [ "${lines[0]}" = "Count entries in target directory(ies)" ]
-  [ "${lines[1]}" = "Usage: ctdir TARGETS [..] [OPTIONS]" ]
+  [ "${lines[1]}" = "Usage: ctdir [OPTIONS] [TARGETS ..]" ]
   [ "${lines[2]}" = "Options:" ]
   [ "${lines[3]}" = " -h, --help     print this message and exit" ]
   [ "${lines[4]}" = " -q, --quiet    suppress error messages" ]

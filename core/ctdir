@@ -2,10 +2,10 @@
 
 name="ctdir"
 version="1.0"
-usage_message="Usage: ctdir TARGET [OPTIONS]"
+usage_message="Usage: ctdir [OPTIONS] [TARGETS ..]"
 help_message=$(/usr/bin/cat <<-EOF
 	Count entries in target directory(ies)
-	Usage: ctdir TARGETS [..] [OPTIONS]
+	Usage: ctdir [OPTIONS] [TARGETS ..]
 	Options:
 	 -h, --help     print this message and exit
 	 -q, --quiet    suppress error messages
