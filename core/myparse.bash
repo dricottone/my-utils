@@ -9,7 +9,7 @@ quiet=0
 verbose=0
 
 while [[ $# -gt 0 ]]; do
-  case $1 in
+  case "$1" in
 
   -h|--help)
     help_msg
@@ -17,13 +17,13 @@ while [[ $# -gt 0 ]]; do
     ;;
 
   -q|--quiet)
-    debug_msg "Setting QUIET option to 1 (was ${quiet})"
+    debug_msg "Setting quiet option to 1 (was ${quiet})"
     quiet=1
     shift
     ;;
 
   -v|--verbose)
-    debug_msg "Setting VERBOSE option to 1 (was ${verbose})"
+    debug_msg "Setting verbose option to 1 (was ${verbose})"
     verbose=1
     shift
     ;;
