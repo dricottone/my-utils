@@ -1,0 +1,56 @@
+#!/bin/sh
+
+name="hugo-post"
+version="1.0"
+usage_message="Usage: hugo-post [OPTIONS] TITLE"
+help_message=$(/usr/bin/cat <<-EOF
+	Create a new Hugo post
+	Usage: hugo-post [OPTIONS] TITLE
+	Options:
+	 -h, --help     print this message and exit
+	 -q, --quiet    suppress error messages
+	 -v, --version  print version number and exit
+EOF
+)
+
+. /usr/local/lib/myminiparse.sh
+
+# loop through arguments
+title=
+for arg; do
+  case "$arg" in
+  -q|--quiet)
+    #ignore these
+    ;;
+
+  *)
+    if [ -z "$title" ]; then
+      title="$arg"
+    fi
+    ;;
+  esac
+done
+
+# error if no title given
+if [ -z "$title" ]; then
+  (>&2 /usr/bin/printf "%s\n" "$usage_message")
+  exit 1
+fi
+
+# check if title can be made into a new filename
+filename="$(/usr/bin/printf "$title" | /usr/bin/tr --squeeze-repeat ' ' '_' | /usr/bin/tr --complement --delete '[:alnum:]_-').md"
+if [ -f "$filename" ]; then
+  if [ "$quiet" -eq 0 ]; then
+    (>&2 /usr/bin/printf "%s: '%s' already exists\n" "$name" "$filename")
+  fi
+  exit 1
+elif [ -d "$filename" ]; then
+  if [ "$quiet" -eq 0 ]; then
+    (>&2 /usr/bin/printf "%s: '%s' is a directory\n" "$name" "$filename")
+  fi
+  exit 1
+fi
+
+# create new file
+/usr/bin/printf -- '---\ntitle: %s\ndate: %s\n---\n\n' "$title" "$(hugo-date)" >"$filename"
+
