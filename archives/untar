@@ -27,7 +27,7 @@ while [[ $# -gt 0 ]]; do
 
   -d|--to-directory)
     debug_msg "Setting to_directory option to '${2}' (was ${to_directory})"
-    to_directory="--directory $2"
+    to_directory="$2"
     shift; shift
     ;;
 
@@ -44,7 +44,7 @@ while [[ $# -gt 0 ]]; do
 
   -p|--passphrase)
     debug_msg "Setting passphrase option to '${2}' (was ${passphrase})"
-    passphrase="--passphrase $2"
+    passphrase="$2"
     shift; shift
     ;;
 
@@ -69,7 +69,7 @@ done
 code=0
 for archive_fn in "${positional[@]}"; do
   archive_action="$(archive_extension "$archive_fn" | tee >(>&2 /usr/bin/head -n -1) | /usr/bin/tail -n 1)"
-  if ! unarchive --archive=$archive_action "$archive_fn" $passphrase $to_directory; then
+  if ! unarchive --archive=$archive_action "$archive_fn" ${passphrase:+--passphrase "$passphrase"} ${to_directory:+--directory "$to_directory"}; then
     code=1
   fi
 done

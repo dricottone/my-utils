@@ -358,7 +358,9 @@ unarchive() {
       ;;
 
     *)
-      archive_fn="$(realpath "$1")"
+      if [[ ! -z "$1" ]]; then
+        archive_fn="$(realpath "$1")"
+      fi
       shift
       ;;
     esac

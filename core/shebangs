@@ -1,0 +1,43 @@
+#!/bin/sh
+
+name="shebangs"
+version="1.0"
+usage_message="Usage: shebangs [PATH]"
+help_message=$(/usr/bin/cat <<-EOF
+	Print the shebang line of each executable script
+	Usage: shebangs [PATH]
+	Options:
+	 -h, --help     print this message and exit
+	 -v, --version  print version number and exit
+EOF
+)
+
+. /usr/local/lib/myminiparse.sh
+
+# loop through arguments
+dir=
+for arg; do
+  case "$arg" in
+  -q|--quiet)
+    #ignore these
+    ;;
+
+  *)
+    if [ -z "$dir" ]; then
+      dir="$arg"
+    fi
+    ;;
+  esac
+done
+
+if [ -z "$dir" ]; then
+  dir="."
+fi
+
+/usr/bin/find "$dir" -maxdepth 1 -type f -printf "%f\0" \
+  | /usr/bin/sort -z \
+  | while IFS= read -r -d '' fn; do
+  /usr/bin/printf '%s:' "$fn"
+  /usr/bin/head --lines=1 "$fn"
+done | grep --regexp=':#!' | column --separator ':' --table
+

@@ -35,7 +35,7 @@ while [[ $# -gt 0 ]]; do
     ;;
 
   -p|--passphrase)
-    passphrase="--passphrase $2"
+    passphrase="$2"
     shift; shift
     ;;
 
@@ -60,7 +60,7 @@ done
 code=0
 for archive_fn in "${positional[@]}"; do
   archive_action="$(archive_extension "$archive_fn" | tee >(>&2 /usr/bin/head -n -1) | /usr/bin/tail -n 1)"
-  if ! unarchive --archive=$archive_action --list "$archive_fn" $passphrase; then
+  if ! unarchive --archive=$archive_action --list "$archive_fn" ${passphrase:+--passphrase "$passphrase"}; then
     code=1
   fi
 done

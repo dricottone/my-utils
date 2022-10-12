@@ -39,12 +39,18 @@ fi
 
 # check if title can be made into a new filename
 filename="$(/usr/bin/printf "$title" | /usr/bin/tr --squeeze-repeat ' ' '_' | /usr/bin/tr --complement --delete '[:alnum:]_-').md"
-if [ -f "$filename" ]; then
+path="content/posts/${filename}"
+if [ ! -d "content" ] || [ ! -d "content/posts" ]; then
+  if [ "$quiet" -eq 0 ]; then
+    (>&2 /usr/bin/printf "%s: not in a Hugo directory\n" "$name")
+  fi
+  exit 1
+elif [ -f "$path" ]; then
   if [ "$quiet" -eq 0 ]; then
     (>&2 /usr/bin/printf "%s: '%s' already exists\n" "$name" "$filename")
   fi
   exit 1
-elif [ -d "$filename" ]; then
+elif [ -d "$path" ]; then
   if [ "$quiet" -eq 0 ]; then
     (>&2 /usr/bin/printf "%s: '%s' is a directory\n" "$name" "$filename")
   fi
@@ -52,5 +58,5 @@ elif [ -d "$filename" ]; then
 fi
 
 # create new file
-/usr/bin/printf -- '---\ntitle: %s\ndate: %s\n---\n\n' "$title" "$(hugo-date)" >"$filename"
+/usr/bin/printf -- '---\ntitle: %s\ndate: %s\ndraft: true\n---\n\n' "$title" "$(hugo-date)" > "$path"
 
