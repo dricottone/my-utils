@@ -1,0 +1,37 @@
+#!/bin/sh
+
+name="pgprm"
+version="1.0"
+usage_message="Usage: pgprm [OPTIONS] [KEY ..]"
+help_message=$(/usr/bin/cat <<-EOF
+	Delete an OpenPGP key from the keychain
+	Usage: pgprm [OPTIONS] [KEY ..]
+	Options:
+	 -h, --help     print this message and exit
+	 -q, --quiet    suppress error messages
+	 -v, --version  print version number and exit
+EOF
+)
+
+. /usr/local/lib/myminiparse.sh
+
+# loop through arguments
+code=0
+for arg; do
+  case "$arg" in
+  -q|--quiet)
+    #ignore these
+    ;;
+
+  *)
+    # main routine
+    if ! /usr/bin/gpg2 -delete-key "$arg"; then
+      code=1
+    fi
+    ;;
+  esac
+done
+
+# exit with stored code
+exit "$code"
+

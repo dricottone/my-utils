@@ -1,0 +1,115 @@
+#!/bin/bash
+
+name="verify-filter"
+version="1.0"
+read -r -d '' help_message <<-EOF
+	Verify a PGP-signed file and print it
+	Usage: pgpcat [OPTIONS] FILE
+	Options:
+	 -e, --exit               exit without printing FILE if verification fails
+	 -f FILE, --file FILE     file to verify and print
+	 -h, --help               print this message and exit
+	 -q, --quiet              suppress error messages
+	 -s SIG, --signature SIG  detached signature file; if unspecified,
+	                          FILE should be armored clear-signed message
+	 -v, --verbose            show additional messages
+	 -V, --version            print version number and exit
+EOF
+
+source /usr/local/lib/mylib.bash
+
+positional=()
+fail_immediately=0
+msgfile=
+quiet=0
+sigfile=
+verbose=0
+
+while [[ $# -gt 0 ]]; do
+  case $1 in
+
+  -e|--exit)
+    debug_msg "Setting exit option to 1 (was ${fail_immediately})"
+    fail_immediately=1
+    shift
+    ;;
+
+  -f|--file)
+    debug_msg "Setting file option to ${2} (was ${msgfile})"
+    msgfile="$2"
+    shift; shift
+    ;;
+
+  -h|--help)
+    help_msg
+    shift
+    ;;
+
+  -q|--quiet)
+    debug_msg "Setting quiet option to 1 (was ${quiet})"
+    quiet=1
+    shift
+    ;;
+
+  -s|--signature)
+    debug_msg "Setting signature option to ${2} (was ${sigfile})"
+    sigfile="$2"
+    shift; shift
+    ;;
+
+  -v|--verbose)
+    debug_msg "Setting verbose option to 1 (was ${verbose})"
+    verbose=1
+    shift
+    ;;
+
+  -V|--version)
+    version_msg
+    ;;
+
+  *)
+    debug_msg "Argument '${1}' added to positional array"
+    positional+=("$1")
+    shift
+    ;;
+  esac
+done
+
+# handle input files
+if [[ -z "$msgfile" ]]; then
+  if [[ ${#positional[@]} -lt 1 ]]; then
+    error_msg "Expected input file (given none)"
+  else
+    debug_msg "Moving a positional argument into file option (${#positional[0]})"
+    msgfile="${positional[0]}"
+    positional=("${positional[@]:1}")
+  fi
+fi
+
+code=0
+if [[ -z "$sigfile" ]]; then
+  debug_msg "'${msgfile}' is armored clearsigned"
+  if ! /usr/bin/local/verify --file "$msgfile"; then
+    code=1
+    nonfatal_error_msg "Can not verify file '${msgfile}'"
+
+    if [[ "$fail_immediately" -eq 1 ]]; then
+      exit "$code"
+    fi
+  fi
+  /usr/bin/cat "$msgfile"
+else
+  debug_msg "'${msgfile}' is signed, '${sigfile}' is detached signature"
+  if ! /usr/bin/local/verify --file "$msgfile" --signature "${sigfile}"; then
+    code=1
+    nonfatal_error_msg "Can not verify file '${msgfile}'"
+
+    if [[ "$fail_immediately" -eq 1 ]]; then
+      exit "$code"
+    fi
+  fi
+  /usr/bin/cat "$msgfile"
+fi
+
+exit "$code"
+

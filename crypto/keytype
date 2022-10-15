@@ -1,0 +1,151 @@
+#!/bin/bash
+
+name="keytype"
+version="1.0"
+read -r -d '' help_message <<-EOF
+	Inspect a cryptographic key for type and length
+	Usage: keytype [OPTIONS] KEYFILE
+	Options:
+	 -h, --help     print this message and exit
+	 -q, --quiet    suppress error messages and prompts
+	 -v, --verbose  show additional messages
+	 -V, --version  print version number and exit
+EOF
+
+source /usr/local/lib/mylib.bash
+
+quiet=0
+verbose=0
+while [[ $# -gt 0 ]]; do
+  case "$1" in
+
+  -h|--help)
+    help_msg
+    shift
+    ;;
+
+  -q|--quiet)
+    debug_msg "Setting quiet option to 1 (was ${quiet})"
+    quiet=1
+    shift
+    ;;
+
+  -v|--verbose)
+    debug_msg "Setting verbose option to 1 (was ${verbose})"
+    verbose=1
+    shift
+    ;;
+
+  -V|--version)
+    version_msg
+    ;;
+
+  *)
+    debug_msg "Argument '${1}' added to positional array"
+    positional+=("$1")
+    shift
+    ;;
+  esac
+done
+
+try_openssh() {
+  keylength=
+  keyfingerprint=
+  keytype=
+  keycomment=
+
+  keyinfo="$(/usr/bin/ssh-keygen -l -f "$keyfile" 2>/dev/null)"
+
+  if [ $? -ne 0 ]; then
+    debug_msg "file '${keyfile}' is not an OpenSSH key"
+    return 1
+  else
+    keylength="$(/usr/bin/cut --delimiter=' ' --field=1 <<<"$keyinfo")"
+    keyfingerprint="$(/usr/bin/cut --delimiter=' ' --field=2 <<<"$keyinfo")"
+    keycomment="$(/usr/bin/awk '{$1=$2=$NF="";print substr($0,3,length($0)-3)}' <<<"$keyinfo")"
+    keytype="$(/usr/bin/awk '{print substr($NF,2,length($NF)-2)}' <<<"$keyinfo")"
+
+    /usr/bin/printf "%s: %s-bit %s OpenSSH key\n" "${keyfile}" "${keylength}" "${keytype}"
+    return 0
+  fi
+}
+
+try_openpgp() {
+  keyinfo=
+  keyprivacy=
+  keylength=
+  keytypenum=
+  keytype=
+  keyfingerprint=
+
+  keyinfodump="$(/usr/bin/gpg2 --show-keys --with-colons "$keyfile" 2>/dev/null)"
+
+  if [ $? -ne 0 ]; then
+    debug_msg "file '${keyfile}' is not an OpenPGP key"
+    return 1
+  else
+    if /usr/bin/grep -e "^pub:" <<<"$keyinfodump" >/dev/null 2>&1; then
+      keyprivacy="public"
+      keyinfo="$(/usr/bin/grep -e "^pub:" <<<"$keyinfodump")"
+    elif /usr/bin/grep -e "^sec:" <<<"$keyinfodump" >/dev/null 2>&1; then
+      keyprivacy="private"
+      keyinfo="$(/usr/bin/grep -e "^sec:" <<<"$keyinfodump")"
+    else
+      debug_msg "file '${keyfile}' is an OpenPGP key, but it cannot be interpretted"
+    fi
+
+    keylength="$(/usr/bin/cut --delimiter=':' --field=3 <<<"$keyinfo")"
+    keytypenum="$(/usr/bin/cut --delimiter=':' --field=4 <<<"$keyinfo")"
+
+    case "$keytypenum" in
+    1)
+      keytype="RSA"
+      ;;
+
+    16)
+      keytype="Elgamel"
+      ;;
+
+    17)
+      keytype="DSA"
+      ;;
+
+    *)
+      error_msg "Unknown algorythm on OpenPGP key"
+      ;;
+
+    #2 is deprecated as RSA Encrypt Only
+    #3 is deprecated as RSA Sign Only
+    #18 is reserved for Elliptic Curve but not part of the OpenPGP spec yet
+    #19 is reserved for ECDSA but not part of the OpenPGP spec yet
+    #20 is reserved; deprecated as Elgamel Encrypt or Sign
+    #21 is reserved for Diffie-Hellman but not part of the OpenPGP spec yet
+    #100-110 are reserved for experimental use
+    #256+ are reserved for Libgcrypt to allocate
+    esac
+
+    keyfingerprint="$(/usr/bin/cut --delimiter=':' --field=5 <<<"$keyinfo")"
+
+    /usr/bin/printf "%s: %s-bit %s %s OpenPGP key\n" "${keyfile}" "${keylength}" "${keyprivacy}" "${keytype}"
+    return 0
+  fi
+}
+
+try_openssl() {
+  #TODO: implement OpenSSL checks
+  :
+}
+
+code=0
+for keyfile in "${positional[@]}"; do
+  if ! try_openssh; then
+    if ! try_openpgp; then
+      if ! try_openssl; then
+        code=1
+      fi
+    fi
+  fi
+done
+
+exit "$code"
+

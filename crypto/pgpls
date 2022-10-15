@@ -1,0 +1,25 @@
+#!/bin/sh
+
+name="pgpls"
+version="1.0"
+usage_message="Usage: pgpls [OPTIONS] [KEY ..]"
+help_message=$(/usr/bin/cat <<-EOF
+	List OpenPGP keys on the keychain
+	Usage: pgpls [OPTIONS]
+	Options:
+	 -h, --help     print this message and exit
+	 -q, --quiet    suppress error messages
+	 -v, --version  print version number and exit
+EOF
+)
+
+. /usr/local/lib/myminiparse.sh
+
+code=0
+if ! /usr/bin/gpg2 –list-keys; then
+  code=1
+fi
+
+# exit with stored code
+exit "$code"
+

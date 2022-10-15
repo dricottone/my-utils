@@ -1,0 +1,204 @@
+#!/bin/bash
+
+name="mkkey"
+version="1.0"
+read -r -d '' help_message <<-EOF
+	Create a cryptographic keypair
+	Usage: mkkey [OPTIONS] [FILE]
+	Options:
+	 -a ALGO,            algorithm for keypair [rsa, ed25519]
+	   --algorithm ALGO
+	 -h, --help          print this message and exit
+	 -q, --quiet         suppress error messages and prompts
+	 --private NAME      private key file name
+	 --public NAME       public key file name
+	 -t TYPE,            type of keypair [ssh, pgp, ssl]
+	   --type TYPE
+	 -v, --verbose       show additional messages
+	 -V, --version       print version number and exit
+EOF
+
+source /usr/local/lib/mylib.bash
+
+positional=()
+keytype=
+keyalgo=
+privkey=
+pubkey=
+quiet=
+verbose=
+while [[ $# -gt 0 ]]; do
+  case "$1" in
+
+  -a|--algorithm)
+    debug_msg "Setting algorithm to '$2' (was ${keyalgo})"
+    keyalgo="$2"
+    shift; shift
+    ;;
+
+  -h|--help)
+    help_msg
+    shift
+    ;;
+
+  -q|--quiet)
+    debug_msg "Setting quiet option to 1 (was ${quiet})"
+    quiet=1
+    shift
+    ;;
+
+  --private)
+    debug_msg "Setting private key file name to '$2' (was ${privkey})"
+    privkey="$2"
+    shift; shift
+    ;;
+
+  --public)
+    debug_msg "Setting public key file name to '$2' (was ${pubkey})"
+    pubkey="$2"
+    shift; shift
+    ;;
+
+  -t|--type)
+    debug_msg "Setting type to '$2' (was ${keytype})"
+    keytype="$2"
+    shift; shift
+    ;;
+
+  -v|--verbose)
+    debug_msg "Setting verbose option to 1 (was ${verbose})"
+    verbose=1
+    shift
+    ;;
+
+  -V|--version)
+    version_msg
+    ;;
+
+  *)
+    debug_msg "Argument '${1}' added to positional array"
+    positional+=("$1")
+    shift
+    ;;
+  esac
+done
+
+# handle output files
+# NOTE: individual key types have additional requirements for output files
+if [[ ${#positional[@]} -gt 0 ]] && [[ -z "$privkey" ]]; then
+  debug_msg "Moving a positional argument into private key file name option"
+  privkey="${positional[0]}"
+  positional=("${positional[@]:1}")
+fi
+if [[ "$privkey" = "$pubkey" ]]; then
+  error_msg "expected different file names for public and private key"
+fi
+
+try_openssh() {
+  # if pubkey filename is specified, check if it complies with ssh-keygen
+  if [[ ! -z "$pubkey" ]] && [[ "$pubkey" != "${privkey}.pub" ]]; then
+    if [[ -z "$privkey" ]]; then
+      privkey="$(/usr/bin/basename "$pubkey" ".pub")"
+      if [[ "$privkey" = "$pubkey" ]]; then
+        error_msg "public key must be written to a file named like the private key"
+      fi
+    else
+      error_msg "public key must be written to a file named like the private key"
+    fi
+  fi
+
+  # if privkey filename is not specified, use defaults
+  if [[ -z "$privkey" ]]; then
+    if [[ "$keyalgo" = "rsa" ]]; then
+      privkey="${HOME}/.ssh/id_rsa"
+      debug_msg "Default file for private RSA key is '${privkey}'"
+      pubkey="${privkey}.pub"
+      debug_msg "Default file for public RSA key is '${pubkey}'"
+    elif [[ "$keyalgo" = "ed25519" ]]; then
+      privkey="${HOME}/.ssh/id_ed25519"
+      debug_msg "Default file for private Ed25519 key is '${privkey}'"
+      pubkey="${privkey}.pub"
+      debug_msg "Default file for public Ed25519 key is '${pubkey}'"
+    else
+      error_msg "key algorithm '${keyalgo}' not implemented"
+    fi
+  fi
+
+  # check if keypair files already exist
+  if [[ -f "$privkey" ]]; then
+    error_msg "file '${privkey}' already exists"
+  elif [[ -f "${pubkey}" ]]; then
+    error_msg "file '${pubkey}' already exists"
+  fi
+
+  # make keypair
+  if [[ "$keyalgo" = "rsa" ]]; then
+    if ! /usr/bin/ssh-keygen -t rsa -b 4096 -f "$privkey"; then
+      error_msg "failed to generate RSA keypair"
+    fi
+  elif [[ "$keyalgo" = "ed25519" ]]; then
+    if ! /usr/bin/ssh-keygen -t ed25519 -f "$privkey"; then
+      error_msg "failed to generate Ed25519 keypair"
+    fi
+  else
+    error_msg "key algorithm '${keyalgo}' not implemented"
+  fi
+}
+
+try_openpgp() {
+  :
+}
+
+try_openssl() {
+  # if privkey filename is not specified, try basename of pubkey
+  if [[ -z "$privkey" ]]; then
+    if [[ -z "$pubkey" ]]; then
+      error_msg "expected private key file name"
+    else
+      privkey="$(/usr/bin/basename "$pubkey" ".pub")"
+      if [[ "$privkey" = "$pubkey" ]]; then
+        error_msg "expected private key file name"
+      fi
+    fi
+  fi
+
+  # if pubkey filename is not specified, use privkey as basename
+  if [[ -z "$pubkey" ]] && [[ ! -z "$privkey" ]]; then
+    pubkey="${privkey}.pub"
+  fi
+
+  # check if keypair files already exist
+  if [[ -f "$privkey" ]]; then
+    error_msg "file '${privkey}' already exists"
+  elif [[ -f "${pubkey}" ]]; then
+    error_msg "file '${pubkey}' already exists"
+  fi
+
+  # make keypair
+  if [[ "$keyalgo" = "rsa" ]]; then
+    if ! /usr/bin/openssl genrsa -out "$privkey" 4096; then
+      error_msg "failed to generate RSA keypair"
+    elif ! /usr/bin/openssl rsa -in "$privkey" -pubout -out "$pubkey"; then
+      error_msg "failed to generate RSA public key"
+    fi
+  elif [[ "$keyalgo" = "ed25519" ]]; then
+    if ! /usr/bin/openssl genpkey -algorithm Ed25519 -out "$privkey"; then
+      error_msg "failed to generate Ed25519 keypair"
+    elif ! /usr/bin/openssl pkey -in "$privkey" -pubout -out "$pubkey"; then
+      error_msg "failed to generate Ed25519 public key"
+    fi
+  else
+    error_msg "key algorithm '${keyalgo}' not implemented"
+  fi
+}
+
+if [[ "$keytype" = "ssh" ]]; then
+  try_openssh
+elif [[ "$keytype" = "pgp" ]]; then
+  try_openpgp
+elif [[ "$keytype" = "ssl" ]]; then
+  try_openssl
+else
+  error_msg "key type '${keytype}' not implemented"
+fi
+
