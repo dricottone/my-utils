@@ -1,10 +1,10 @@
 #!/bin/bash
 
-name="hugo-bump"
+name="hugo-extract-timestamp"
 version="1.0"
 read -r -d '' help_message <<-EOF
-	Bump the date in Hugo content files
-	Usage: hugo-bump [OPTIONS] [TARGETS ..]
+	Extract a date/timestamp from a Hugo content files
+	Usage: hugo-extract-timestamp [OPTIONS] [TARGETS ..]
 	Options:
 	 -h, --help     print this message and exit
 	 -q, --quiet    suppress error messages
@@ -15,33 +15,31 @@ EOF
 source /usr/local/lib/mylib.bash
 . /usr/local/lib/myparse.bash
 
-# error if no filenames given
+# if no filenames given
 if [[ ${#positional[@]} -eq 0 ]]; then
   usage_msg
 fi
 
-bump() {
-  ed -s "$1" <<EOF
-g/^date:/c
-i
-date: "$2"
-.
-w
-EOF
-}
-
 code=0
 newdate="$(hugo-date)"
 for filename in "${positional[@]}"; do
+
+  # if filename does not exist
   if [[ ! -f "$filename" ]]; then
     nonfatal_error_msg "No such file '$filename'"
     code=1
-  else
+
+  # if filename does not contain timestamp
+  elif ! /usr/bin/grep --quiet "$filename" --regexp="^date:"; then
     if [[ "$verbose" -eq 1 ]]; then
-      olddate="$(/usr/bin/grep "$filename" --regexp="^date:")"
-      debug_msg "replacing ${olddate}..."
+      debug_error_msg "No timestamp in '$filename'"
     fi
-    bump "$filename" "$newdate"
+    /usr/bin/echo
+    code=1
+
+  # main routine
+  else
+    /usr/bin/grep "$filename" --regexp="^date:" | /usr/bin/sed --expression="s/^date: *//"
   fi
 done
 
