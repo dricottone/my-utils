@@ -32,7 +32,7 @@ for filename in "${positional[@]}"; do
   # if filename does not contain timestamp
   elif ! /usr/bin/grep --quiet "$filename" --regexp="^date:"; then
     if [[ "$verbose" -eq 1 ]]; then
-      debug_error_msg "No timestamp in '$filename'"
+      debug_msg "No timestamp in '$filename'"
     fi
     /usr/bin/echo
     code=1

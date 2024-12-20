@@ -22,8 +22,7 @@ fi
 
 _ed_append_date() {
   ed -s "$1" <<EOF
-/^title:
-a
+/^title:/a
 date: "$2"
 .
 w

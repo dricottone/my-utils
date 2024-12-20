@@ -1,0 +1,9 @@
+#!/bin/sh
+
+_user="alarm"
+_host="arch3.intra.dominic-ricottone.com"
+echo "Connecting to ${_host}..."
+ssh "${_user}@${_host}" -t 'rm -rf /var/deploy/web/development/*'
+
+echo "https://dev.intra.dominic-ricottone.com is now clean"
+
