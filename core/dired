@@ -1,0 +1,42 @@
+#!/bin/sh
+
+name="dired"
+version="1.0"
+usage_message="Usage: dired [TARGET]"
+help_message=$(/usr/bin/cat <<-EOF
+	Open Emacs in dired mode
+	Usage: dired [TARGET]
+	Options:
+	 -h, --help     print this message and exit
+	 -q, --quiet    suppress error messages
+	 -v, --version  print version number and exit
+EOF
+)
+
+. /usr/local/lib/myminiparse.sh
+
+if [ "$#" -eq 0 ]; then
+  exec emacs -nw .
+elif [ "$#" -eq 1 ] && [ "$quiet" -eq 1 ]; then
+  exit 1
+fi
+
+# loop through arguments
+for arg; do
+  case "$arg" in
+  -q|--quiet)
+    #ignore these
+    ;;
+
+  *)
+    if [ ! -d "$arg" ]; then
+      if [ "$quiet" -eq 0 ]; then
+        (>&2 /usr/bin/printf "%s: No such directory '%s'\n" "$name" "$arg")
+      fi
+      exit 1
+    fi
+    exec emacs -nw "$arg"
+    ;;
+  esac
+done
+

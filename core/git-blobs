@@ -1,0 +1,24 @@
+#!/bin/sh
+
+name="git-blobs"
+version="1.0"
+usage_message="Usage: git-big [OPTIONS]"
+help_message=$(/usr/bin/cat <<-EOF
+	List blobs in git history
+	Usage: git-blob [OPTIONS]
+	Options:
+	 -h, --help     print this message and exit
+	 -q, --quiet    suppress error messages
+	 -v, --version  print version number and exit
+EOF
+)
+
+. /usr/local/lib/myminiparse.sh
+
+git rev-list --objects --all |
+  git cat-file --batch-check='%(objecttype) %(objectname) %(objectsize) %(rest)' |
+  sed -n 's/^blob //p' |
+  sort --numeric-sort --key=2 |
+  cut -c 1-12,41- |
+  numfmt --field=2 --to=iec-i --suffix=B --padding=7 --round=nearest
+

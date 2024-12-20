@@ -1,0 +1,24 @@
+#!/bin/bash
+
+# nvidia gpu query
+query="$(nvidia-smi pmon --count=1 --select=m | sed 's/# /#/')"
+memunit="$(awk '{if(NR==2) print $4}' <<<"$query")"
+
+# nvidia table construction
+full_header="::Memory Usage:(in ${memunit})
+PID:Process:Frame Buffer:Confidential Compute
+"
+full_table="$(awk 'BEGIN{OFS=":"} {if(NR>2) print $2,$6,$4,$5}' <<<"$query")"
+
+abbrev_header="PID:Process:Memory Usage (${memunit})
+"
+abbrev_table="$(awk 'BEGIN{OFS=":"} {if(NR>2) print $2,$6,$4}' <<<"$query")"
+
+# switch on whether there is any confidential compute memory usage
+ccmemusage="$(awk '{if(NR>2) sum+=$5} END{print sum}' <<<"$query")"
+if [[ "$ccmemusage" -eq 0 ]]; then
+  cat <<<"${abbrev_header}${abbrev_table}" | column --separator=':' --table
+else
+  cat <<<"${full_header}${full_table}" | column --separator=':' --table
+fi
+

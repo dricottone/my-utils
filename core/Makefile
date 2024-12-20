@@ -7,6 +7,7 @@ COMP_DIR?=/usr/local/etc/bash_completion.d
 install:
 	install -m755 ctdir $(BIN_DIR)/ctdir
 	install -m755 debom $(BIN_DIR)/debom
+	install -m755 dired $(BIN_DIR)/dired
 	install -m755 enumerate $(BIN_DIR)/enumerate
 	install -m755 gitstat $(BIN_DIR)/gitstat
 	install -m755 mkbak $(BIN_DIR)/mkbak
@@ -32,6 +33,7 @@ install:
 
 uninstall:
 	rm $(BIN_DIR)/ctdir
+	rm $(BIN_DIR)/dired
 	rm $(BIN_DIR)/debom
 	rm $(BIN_DIR)/enumerate
 	rm $(BIN_DIR)/gitstat

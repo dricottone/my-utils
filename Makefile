@@ -17,8 +17,10 @@ install:
 	$(call subdir_make,documents,install)
 	$(call subdir_make,emulation,install)
 	$(call subdir_make,games,install)
+	$(call subdir_make,images,install)
 	$(call subdir_make,network,install)
 	$(call subdir_make,sound,install)
+	$(call subdir_make,videos,install)
 
 uninstall:
 	$(call subdir_make,core,uninstall)
@@ -28,8 +30,10 @@ uninstall:
 	$(call subdir_make,documents,uninstall)
 	$(call subdir_make,emulation,uninstall)
 	$(call subdir_make,games,uninstall)
+	$(call subdir_make,images,uninstall)
 	$(call subdir_make,network,uninstall)
 	$(call subdir_make,sound,uninstall)
+	$(call subdir_make,videos,uninstall)
 
 test: clean
 	$(call subdir_make,core,test)
@@ -39,8 +43,10 @@ test: clean
 	$(call subdir_make,documents,test)
 	$(call subdir_make,emulation,test)
 	$(call subdir_make,games,test)
+	$(call subdir_make,images,test)
 	$(call subdir_make,network,test)
 	$(call subdir_make,sound,test)
+	$(call subdir_make,videos,test)
 
 clean:
 	$(call subdir_make,core,clean)
@@ -50,6 +56,8 @@ clean:
 	$(call subdir_make,documents,clean)
 	$(call subdir_make,emulation,clean)
 	$(call subdir_make,games,clean)
+	$(call subdir_make,images,clean)
 	$(call subdir_make,network,clean)
 	$(call subdir_make,sound,clean)
+	$(call subdir_make,videos,clean)
 
