@@ -6,7 +6,6 @@ export BIN_DIR LIB_DIR COMP_DIR
 install:
 	cd core && make install
 	cd archives && make install
-	cd containers && make install
 	cd crypto && make install
 	cd documents && make install
 	cd hardware && make install
@@ -16,7 +15,6 @@ install:
 uninstall:
 	cd core && make uninstall
 	cd archives && make uninstall
-	cd containers && make uninstall
 	cd crypto && make install
 	cd documents && make uninstall
 	cd hardware && make uninstall
@@ -26,7 +24,6 @@ uninstall:
 test:
 	cd core && make test
 	cd archives && make test
-	cd containers && make test
 	cd crypto && make test
 	cd documents && make test
 	cd hardware && make test
