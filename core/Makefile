@@ -2,66 +2,69 @@ BIN_DIR?=/usr/local/bin
 LIB_DIR?=/usr/local/lib
 COMP_DIR?=/usr/local/etc/bash_completion.d
 
-.PHONY: install uninstall test clean
+BINS=ctdir debom dired enumerate git-blobs git-sparse.raku mkbak rand rebom rmold shebangs start-at stop-at vimsplit whichcat whiched whichhead whichvi wttr
+LIBS=mylib.bash myparse.bash
+
+INSTALL_FLAGS?=
+INSTALL_FLAGS+=--mode=755
+
+install-libs:
+	install --target-directory=$(LIB_DIR) $(INSTALL_FLAGS) $(LIBS)
+
+uninstall-libs:
+	cd $(LIB_DIR) && rm $(LIBS)
 
 install:
-	install -m755 ctdir $(BIN_DIR)/ctdir
-	install -m755 debom $(BIN_DIR)/debom
-	install -m755 dired $(BIN_DIR)/dired
-	install -m755 enumerate $(BIN_DIR)/enumerate
-	install -m755 gitstat $(BIN_DIR)/gitstat
-	install -m755 mkbak $(BIN_DIR)/mkbak
-	install -m755 rand $(BIN_DIR)/rand
-	install -m755 rebom $(BIN_DIR)/rebom
-	install -m755 rmold $(BIN_DIR)/rmold
-	install -m755 start-at $(BIN_DIR)/start-at
-	install -m755 stop-at $(BIN_DIR)/stop-at
-	install -m755 unittest $(BIN_DIR)/unittest
-	install -m755 vimsplit $(BIN_DIR)/vimsplit
-	install -m755 whichcat $(BIN_DIR)/whichcat
-	install -m755 whiched $(BIN_DIR)/whiched
-	install -m755 whichhead $(BIN_DIR)/whichhead
-	install -m755 whichvi $(BIN_DIR)/whichvi
-	install -m755 wttr $(BIN_DIR)/wttr
-
-	install -m755 mylib.bash $(LIB_DIR)/mylib.bash
-	install -m755 myminiparse.sh $(LIB_DIR)/myminiparse.sh
-	install -m755 myparse.bash $(LIB_DIR)/myparse.bash
-	install -m755 unittest-color.awk $(LIB_DIR)/unittest-color.awk
-
-	install -m755 completion.bash $(COMP_DIR)/myutils_core.bash
+	install --target-directory=$(BIN_DIR) $(INSTALL_FLAGS) $(BINS)
+	install --target-directory=$(LIB_DIR) $(INSTALL_FLAGS) $(LIBS)
+	install $(INSTALL_FLAGS) completion.bash $(COMP_DIR)/myutils_core.bash
 
 uninstall:
-	rm $(BIN_DIR)/ctdir
-	rm $(BIN_DIR)/dired
-	rm $(BIN_DIR)/debom
-	rm $(BIN_DIR)/enumerate
-	rm $(BIN_DIR)/gitstat
-	rm $(BIN_DIR)/mkbak
-	rm $(BIN_DIR)/rand
-	rm $(BIN_DIR)/rebom
-	rm $(BIN_DIR)/rmold
-	rm $(BIN_DIR)/start-at
-	rm $(BIN_DIR)/stop-at
-	rm $(BIN_DIR)/unittest
-	rm $(BIN_DIR)/vimsplit
-	rm $(BIN_DIR)/whichcat
-	rm $(BIN_DIR)/whiched
-	rm $(BIN_DIR)/whichhead
-	rm $(BIN_DIR)/whichvi
-	rm $(BIN_DIR)/wttr
-
-	rm $(LIB_DIR)/mylib.bash
-	rm $(LIB_DIR)/myminiparse.sh
-	rm $(LIB_DIR)/myparse.bash
-	rm $(LIB_DIR)/unittest-color.awk
-
+	cd $(BIN_DIR) && rm $(BINS)
+	cd $(LIB_DIR) && rm $(LIBS)
 	rm $(COMP_DIR)/myutils_core.bash
 
-test: clean
+test/usage-messages.bats: ../testing/testing-bats-start-test.sh ../testing/testing-bats-test-usage-message.sh
+	mkdir -p test
+	rm -f test/usage-messages.bats
+	../testing/testing-bats-start-test.sh >test/usage-messages.bats
+	# commands that produce a usage message when called without an argument
+	for cmd in ctdir debom mkbak rebom vimsplit whichcat whichhead whiched whichvi ; do \
+		../testing/testing-bats-test-usage-message.sh $$cmd >>test/usage-messages.bats ; \
+	done
+
+test/help-messages.bats: ../testing/testing-bats-start-test.sh ../testing/testing-bats-test-help-message.sh
+	mkdir -p test
+	rm -f test/help-messages.bats
+	../testing/testing-bats-start-test.sh >test/help-messages.bats
+	# commands that produce a help message when requested; should be all
+	for cmd in ctdir debom dired enumerate git-blobs mkbak rand rebom rmold shebangs vimsplit whichcat whichhead whiched whichvi wttr ; do \
+		../testing/testing-bats-test-help-message.sh $$cmd >>test/help-messages.bats ; \
+	done
+
+test/version-messages.bats: ../testing/testing-bats-start-test.sh ../testing/testing-bats-test-version-message.sh
+	mkdir -p test
+	rm -f test/version-messages.bats
+	../testing/testing-bats-start-test.sh >test/version-messages.bats
+	# commands that produce a version message when requested; should be all
+	for cmd in ctdir debom dired enumerate git-blobs mkbak rand rebom rmold shebangs vimsplit whichcat whichhead whiched whichvi wttr ; do \
+		../testing/testing-bats-test-version-message.sh $$cmd >>test/version-messages.bats ; \
+	done
+
+test/fixtures.sh: ../testing/testing-bats-extract-usage-message.sh
+	mkdir -p test
+	rm -f test/fixtures.sh
+	# commands that produce a usage message when called without an argument
+	for cmd in ctdir debom mkbak rebom vimsplit whichcat whichhead whiched whichvi ; do \
+		../testing/testing-bats-extract-usage-message.sh $$cmd >>test/fixtures.sh ; \
+	done
+	# commands that produce a help/version message when requested; should be all
+	for cmd in ctdir debom dired enumerate git-blobs mkbak rand rebom rmold shebangs vimsplit whichcat whichhead whiched whichvi wttr ; do \
+		../testing/testing-bats-extract-help-message.sh $$cmd >>test/fixtures.sh ; \
+		../testing/testing-bats-extract-version-message.sh $$cmd >>test/fixtures.sh ; \
+	done
+
+test: test/usage-messages.bats test/help-messages.bats test/version-messages.bats test/fixtures.sh
 	bats test/
 
-clean:
-	rm -rf test/static/
-
-
+.PHONY: install-libs install uninstall-libs uninstall test

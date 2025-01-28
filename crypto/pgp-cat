@@ -1,0 +1,81 @@
+#!/bin/bash
+
+name="pgp-cat"
+version="1.0"
+read -r -d '' help_message <<-EOF
+	Print local OpenPGP keys in plaintext
+	Usage: pgp-cat [OPTIONS] KEYTHUMBNAIL..
+	Options:
+	 -h, --help     print this message and exit
+	 -q, --quiet    suppress error messages and prompts
+	 -s, --secret   show secret keys
+	 -v, --verbose  show additional messages
+	 -V, --version  print version number and exit
+EOF
+
+. /usr/local/lib/mylib.bash
+
+positional=()
+quiet=0
+secret=0
+verbose=0
+
+while [[ "${#}" -gt 0 ]]; do
+  case "${1}" in
+
+  -h|--help)
+    Help
+    shift
+    ;;
+
+  -q|--quiet)
+    #NOTE: Normally would emit a message with Debug, but the user is
+    #      specifically requesting that we do not.
+    quiet=1
+    shift
+    ;;
+
+  -s|--secret)
+    Debug "parser: --secret=1 (was ${secret})"
+    secret=1
+    shift
+    ;;
+
+  -v|--verbose)
+    Debug "parser: --verbose=1 (was ${verbose})"
+    verbose=1
+    shift
+    ;;
+
+  -V|--version)
+    Version
+    ;;
+
+  *)
+    Debug "parser: '${1}' appended to positional arguments"
+    positional+=("${1}")
+    shift
+    ;;
+  esac
+done
+
+RequirePositionalArguments
+
+code=0
+
+for key in "${positional[@]}"; do
+  if [[ "${secret}" -eq 1 ]]; then
+    if ! /usr/bin/gpg2 --export-secret-key --armor "${key}"; then
+      code=1
+    fi
+
+  else
+    if ! /usr/bin/gpg2 --export --armor "${key}"; then
+      code=1
+    fi
+
+  fi
+done
+
+exit "${code}"
+

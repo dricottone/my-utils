@@ -1,153 +1,229 @@
-#!/bin/bash
+#! /bin/bash
 
 name="mktar"
-version="1.4"
+version="2.0"
 read -r -d '' help_message <<-EOF
-	Archive utility
-	Usage: mktar -n OUTFILE [OPTIONS] INFILES
+	Make an archive
+	Usage: mktar --name=OUTFILE [OPTIONS] FILE..
 	Options:
-	 --checksum=ALGO               create checksum with [none|sha1|sha256]
-	 -d DIR, --from-directory DIR  archive from a directory
-	 -h, --help                    print this message
-	 -n FILE, --name FILE          name of archive
-	 -p PASS, --passphrase PASS    passphrase for encryption
-	 -q, --quiet                   suppress error messages and prompts
-	 -v, --verbose                 show additional messages
-	 -V, --version                 print version number and exit
+	 --checksum=ALGO             create checksum with [none|sha1|sha256|sha512]
+	 -d=DIR,                     working directory
+	   --from-directory=DIR,
+	   --working-directory=DIR
+	 -h, --help                  print this message
+	 -n=FILE, --name=FILE        name of archive
+	 -p=PASS, --passphrase=PASS  use plaintext passphrase
+	 -q, --quiet                 suppress error messages and prompts
+	 -v, --verbose               show additional messages
+	 -V, --version               print version number and exit
 EOF
 
-source /usr/local/lib/mylib.bash
-source /usr/local/lib/archive.bash
+. /usr/local/lib/mylib.bash
+. /usr/local/lib/myarchivelib.bash
 
-archive_fn=""
-checksum=-1
-from_directory=""
 positional=()
+archive_fn=""
+checksum="none"
+passwd=""
 quiet=0
 verbose=0
-while [[ $# -gt 0 ]]; do
-  case $1 in
+working_directory="."
 
-  --checksum=no|--checksum=none|--checksum=0)
-    debug_msg "Setting checksum option to 0 (=none) (was ${checksum})"
-    checksum=0
-    shift
-    ;;
-
-  --checksum=sha1|--checksum=1)
-    debug_msg "Setting checksum option to 1 (=sha1) (was ${checksum})"
-    checksum=1
-    shift
-    ;;
-
-  --checksum=sha256|--checksum=2)
-    debug_msg "Setting checksum option to 2 (=sha256) (was ${checksum})"
-    checksum=2
-    shift
-    ;;
+while [[ "${#}" -gt 0 ]]; do
+  case "${1}" in
 
   --checksum=*)
-    attempted_checksum="$(/usr/bin/printf "%s\n" "$1" | sed -e 's/^.*=//' )"
-    error_msg "Unknown checksum '${attempted_checksum}'"
+    IFS='=' read -r flag extract <<<"${1}"
+    new="$(ParseChecksumArgument "${extract}")"
+    if [[ -z "${new}" ]]; then
+      Error "parser: cannot use checksum algorithm '${new}'"
+    else
+      Debug "parser: --checksum='${new}' (was ${checksum})"
+      checksum="${new}"
+    fi
+    shift
     ;;
 
-  -d|--from-directory)
-    debug_msg "Setting from_directory option to '${2}' (was ${from_directory})"
-    from_directory="--directory $2"
+  --checksum)
+    new="$(ParseChecksumArgument "${2}")"
+    if [[ -z "${new}" ]]; then
+      Error "parser: cannot use checksum algorithm '${new}'"
+    else
+      Debug "parser: --checksum='${new}' (was ${checksum})"
+      checksum="${new}"
+    fi
+    shift; shift
+    ;;
+
+  -d=*|--from-directory=*|--working-directory=*)
+    IFS='=' read -r flag extract <<<"${1}"
+    Debug "parser: --working-directory='${extract}' (was ${working_directory})"
+    working_directory="${extract}"
+    shift
+    ;;
+
+  -d|--from-directory|--working-directory)
+    Debug "parser: --working-directory='${2}' (was ${working_directory})"
+    working_directory="${2}"
     shift; shift
     ;;
 
   -h|--help)
-    help_msg
+    Help
+    shift
+    ;;
+
+  -n=*|--name=*)
+    IFS='=' read -r flag extract <<<"${1}"
+    Debug "parser: --name='${extract}' (was ${archive_fn})"
+    archive_fn="${extract}"
     shift
     ;;
 
   -n|--name)
-    debug_msg "Setting output filename to ${2} (was ${archive_fn})"
-    archive_fn="$2"
+    Debug "parser: --name='${2}' (was ${archive_fn})"
+    archive_fn="${2}"
     shift; shift
     ;;
 
-  -p|--passphrase)
-    debug_msg "Setting passphrase to ${2} (was ${passphrase})"
-    passphrase="--passphrase $2"
+  -p=*|--passwd=*|--passphrase=*)
+    #NOTE: Normally would emit a message with Debug, but that seems like a bad
+    #      idea here.
+    IFS='=' read -r flag extract <<<"${1}"
+    passwd="${extract}"
+    shift
+    ;;
+
+  -p|--passwd|--passphrase)
+    #NOTE: Normally would emit a message with Debug, but that seems like a bad
+    #      idea here.
+    passwd="${2}"
     shift; shift
     ;;
 
   -q|--quiet)
-    debug_msg "Setting quiet option to 1 (was ${quiet})"
+    #NOTE: Normally would emit a message with Debug, but the user is
+    #      specifically requesting that we do not.
     quiet=1
     shift
     ;;
 
   -v|--verbose)
-    debug_msg "Setting verbose option to 1 (was ${verbose})"
+    Debug "parser: --verbose=1 (was ${verbose})"
     verbose=1
     shift
     ;;
 
   -V|--version)
-    version_msg
+    Version
     ;;
 
   *)
-    debug_msg "Argument '${1}' added to positional array"
+    Debug "parser: '${1}' appended to positional arguments"
     positional+=("$1")
     shift
     ;;
   esac
 done
 
-# error if no archive file given
-if [[ -z "$archive_fn" ]]; then
-  error_msg "no archive file given"
-  usage_msg
+RequirePositionalArguments
+
+
+# Part 1: Handle archive file.
+if [[ -z "${archive_fn}" ]]; then
+  Usage
 fi
 
-# determine archive action
-archive_action="$(archive_extension "$archive_fn" | tee >(>&2 /usr/bin/head -n -1) | /usr/bin/tail -n 1)"
-
-# determine checksum action and filename
-if [[ "$checksum" -eq 1 ]]; then
-  checksum_action="sha1"
-elif [[ "$checksum" -eq 2 ]]; then
-  checksum_action="sha256"
-fi
-checksum_fn="$(fn_basename "$archive_fn").${checksum_action}"
-
-# check checksum files
-if [[ "$checksum" -ge 1 ]]; then
-  if contains "$checksum_fn" "${positional[@]}"; then
-    error_msg "checksum '${checksum_fn}' cannot be an input file"
-  elif ! prompt_overwrite "checksum_fn"; then
-    error_msg "checksum '${checksum_fn}' cannot be overwritten"
-  fi
-fi
-
-# check passphrase
-if [[ "$encrypt" -ge 1 && -z "$passphrase" ]]; then
-  passphrase=
-fi
-
-if ! archive --archive=$archive_action --name "$archive_fn" $passphrase $from_directory "${positional[@]}"; then
+archive_path="$(FileAbsolute "${archive_fn}")"
+if [[ -z "${archive_path}" ]]; then
   exit 1
 fi
 
-code=0
-if [[ "$checksum" -ge 1 ]]; then
-  case "$checksum_action" in
-  sha1)
-    if ! /usr/bin/sha1sum "$archive_fn" | /usr/bin/awk '{print $1}' > "$checksum_fn"; then
-      code=1
-    fi
-    ;;
+if ! SupportedArchive "${archive_fn}"; then
+  Fatal "file '${archive_fn}' is not a supported archive"
 
-  sha256)
-    if ! /usr/bin/sha256sum "$archive_fn" | /usr/bin/awk '{print $1}' > "$checksum_fn"; then
-      code=1
+elif [[ -e "${archive_path}" ]]; then
+
+  #NOTE: Not really an issue if we overwrite, but this mistake happens often
+  #      enough (to me) that I want this bubblewrap built in.
+  if ArrayContains "${checksum_fn}" "${positional[@]}"; then
+    Fatal "file '${archive_fn}' is both an input and output"
+
+  elif ! PromptOverwrite "${archive_fn}"; then
+    exit 1
+  fi
+
+
+  if ! /usr/bin/rm "${archive_path}"; then
+    Fatal "failed to overwrite file '${archive_fn}'"
+
+  fi
+fi
+
+
+# Part 2: Handle working directory.
+if [[ ! -d "${working_directory}" ]]; then
+  Fatal "no such directory '${working_directory}'"
+fi
+
+path="$(FileAbsolute "${working_directory}")"
+if [[ -z "${path}" ]]; then
+  exit 1
+fi
+
+#NOTE: Directory already validated, so who knows why this would fail? Just
+#      report it to the user.
+if ! cd "${path}"; then
+  Fatal "failed to enter directory '${working_directory}'"
+fi
+
+if [[ -z "${archive_fn}" ]]; then
+  Usage
+fi
+
+
+# Part 3: Interpret checksum request.
+if [[ "${checksum}" != "none" ]]; then
+  checksum_fn="$(FileBasename "${archive_fn}").${checksum}"
+
+  checksum_path="$(FileAbsolute "${checksum_fn}")"
+  if [[ -z "${checksum_path}" ]]; then
+    exit 1
+  fi
+
+  if [[ -e "${checksum_path}" ]]; then
+    if ArrayContains "${checksum_fn}" "${positional[@]}"; then
+      Fatal "file '${checksum_fn}' is both an input and output"
+    elif ! PromptOverwrite "${checksum_fn}"; then
+      exit 1
     fi
-    ;;
-  esac
+
+    if ! /usr/bin/rm "${checksum_path}"; then
+      Fatal "failed to overwrite file '${checksum_fn}'"
+    fi
+  fi
+fi
+
+
+# Part 4: Make archive.
+code=0
+
+if [[ -z "${passwd}" ]]; then
+  if ! MkArchive "${archive_fn}" "${positional[@]}"; then
+    code=1
+  fi
+
+else
+  if ! MkArchivePlaintext "${passwd}" "${archive_fn}" "${positional[@]}"; then
+    code=1
+  fi
+
+fi
+
+if [[ "${code}" -eq 0 ]] && [[ "${checksum}" != "none" ]]; then
+  if ! MkSha "${checksum}" "${archive_fn}" "${checksum_fn}"; then
+    code=1
+  fi
 fi
 
 exit "$code"

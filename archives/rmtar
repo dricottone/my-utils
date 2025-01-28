@@ -1,41 +1,38 @@
-#!/bin/sh
+#!/bin/bash
 
 name="rmtar"
-version="1.0"
+version="1.1"
 help_message=$(/usr/bin/cat <<-EOF
-	Delete 'tar' archive files
-	Usage: rmtar TARGET [..] [OPTIONS]
+	Delete archives
+	Usage: rmtar [OPTIONS] FILE..
 	Options:
 	 -h, --help     print this message and exit
-	 -v, --version  print version number and exit
+	 -q, --quiet    suppress error messages
+	 -v, --verbose  show additional messages
+	 -V, --version  print version number and exit
 EOF
 )
 
-. /usr/local/lib/myminiparse.sh
+. /usr/local/lib/mylib.bash
+. /usr/local/lib/myarchivelib.bash
+. /usr/local/lib/myparse.bash
+RequirePositionalArguments
 
-# error if no directory names given
-if [ "$#" -eq 0 ]; then
-  (>&2 /usr/bin/printf "Usage: rmtar TARGET [OPTIONS]\n")
-  exit 1
-elif [ "$#" -eq 1 ] && [ "$quiet" -eq 1 ]; then
-  exit 1
-fi
-
-# main routine
 code=0
-for arg; do
-  if [ ! -f "$arg" ]; then
-    if [ "$quiet" -eq 0 ]; then
-      (>&2 /usr/bin/printf "%s: No such file '%s'\n" "$name" "$arg")
-    fi
+
+for file in "${positional[@]}"; do
+  if ! SupportedArchive "${file}"; then
+    Debug "file '{$file}' is not a supported archive, ignoring..."
+
+  elif [ ! -e "${file}" ]; then
+    Error "no such file '${file}'"
     code=1
-  else
-    if ! /usr/bin/rm "$arg"; then
-      code=1
-    fi
+
+  elif ! /usr/bin/rm "${file}"; then
+    code=1
   fi
+
 done
 
-# return stored code
-exit "$code"
+exit "${code}"
 

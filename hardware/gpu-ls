@@ -1,10 +1,28 @@
-#!/bin/sh
+#!/bin/bash
 
-header="Name:GPU:Memory
-"
-table="$(nvidia-smi --query-gpu name,utilization.gpu,utilization.memory --format=csv \
-  | sed 's/ %/%/g' \
-  | awk 'BEGIN{FS=", "; OFS=":"} {if(NR>1) print $1,$2,$3}')"
+name="gpu-ls"
+version="1.0"
+read -r -d '' help_message <<-EOF
+	List GPU devices
+	Usage: gpu-ls
+	Options:
+	 -h, --help     print this message and exit
+	 -q, --quiet    suppress error messages
+	 -v, --verbose  show additional messages
+	 -V, --version  print version number and exit
+EOF
 
-cat <<<"${header}${table}" | column --separator=":" --table
+. /usr/local/lib/mylib.bash
+. /usr/local/lib/myparse.bash
+
+csv="$(/usr/bin/nvidia-smi --query-gpu name,utilization.gpu,utilization.memory --format=csv)"
+if [[ "$?" -ne 0 ]]; then
+  Fatal "failed to query GPU"
+fi
+
+( \
+  /usr/bin/printf -- 'Name:GPU:Memory\n'; \
+  /usr/bin/sed 's/ %/%/g' <<<"${csv}" \
+    | /usr/bin/awk 'BEGIN{FS=", "; OFS=":"} {if(NR>1) print $1,$2,$3}'; \
+) | /usr/bin/column --separator=":" --table
 

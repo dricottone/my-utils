@@ -8,33 +8,34 @@ positional=()
 quiet=0
 verbose=0
 
-while [[ $# -gt 0 ]]; do
-  case "$1" in
+while [[ "${#}" -gt 0 ]]; do
+  case "${1}" in
 
   -h|--help)
-    help_msg
+    Help
     shift
     ;;
 
   -q|--quiet)
-    debug_msg "Setting quiet option to 1 (was ${quiet})"
+    #NOTE: Normally would emit a message with Debug, but the user is
+    #      specifically requesting that we do not.
     quiet=1
     shift
     ;;
 
   -v|--verbose)
-    debug_msg "Setting verbose option to 1 (was ${verbose})"
+    Debug "parser: --verbose=1 (was ${verbose})"
     verbose=1
     shift
     ;;
 
   -V|--version)
-    version_msg
+    Version
     ;;
 
   *)
-    debug_msg "Argument '${1}' added to positional array"
-    positional+=("$1")
+    Debug "parser: '${1}' appended to positional arguments"
+    positional+=("${1}")
     shift
     ;;
   esac

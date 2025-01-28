@@ -1,0 +1,202 @@
+#!/bin/bash
+
+name="tagger-remove"
+version="1.0"
+read -r -d '' help_message <<-EOF
+	Remove ID3 and Vorbis metadata tags
+	Usage: tagger-add [OPTIONS] TARGET..
+	Options:
+	 -a, --artist       remove artist tag
+	 -A, --album        remove album tag
+	 -c, --comment      remove comment tag
+	 -g, --genre        remove genre tag
+	 -h, --help         print this message and exit
+	 -n, --number       remove track number (track) tag
+	 -q, --quiet        suppress error messages and prompts
+	 -t, --title        remove title (song) tag
+	 -y, --year         remove year (date) tag
+	 -v, --verbose      show removeitional messages
+	 -V, --version      print version number and exit
+EOF
+
+. /usr/local/lib/mylib.bash
+
+artist=0
+album=0
+comment=0
+description=0
+genre=0
+number=0
+positional=()
+quiet=0
+title=0
+verbose=0
+year=0
+
+while [[ "${#}" -gt 0 ]]; do
+  case "${1}" in
+
+  -a|--artist)
+    Debug "parser: --artist=1 (was ${artist})"
+    artist=1
+    shift;
+    ;;
+
+  -A|--album)
+    Debug "parser: --album=1 (was ${album})"
+    album=1
+    shift;
+    ;;
+
+  -c|--comment)
+    Debug "parser: --comment=1 (was ${comment})"
+    comment=1
+    shift
+    ;;
+
+  -d|--description)
+    Debug "parser: --description=1 (was ${description})"
+    description=1
+    shift
+    ;;
+
+  -g|--genre)
+    Debug "parser: --genre=1 (was ${genre})"
+    genre=1
+    shift
+    ;;
+
+  -h|--help)
+    Help
+    shift
+    ;;
+
+  -n|--number)
+    Debug "parser: --number=1 (was ${number})"
+    number=1
+    shift;
+    ;;
+
+  -q|--quiet)
+    #NOTE: Normally would emit a message with Debug, but the user is
+    #      specifically requesting that we do not.
+    quiet=1
+    shift
+    ;;
+
+  -t|--title)
+    Debug "parser: --title=1 (was ${title})"
+    title=1
+    shift
+    ;;
+
+  -v|--verbose)
+    Debug "parser: --verbose=1 (was ${verbose})"
+    verbose=1
+    shift
+    ;;
+
+  -V|--version)
+    Version
+    ;;
+
+  -y|--year)
+    Debug "parser: --year=1 (was ${year})"
+    year=1
+    shift
+    ;;
+
+  *)
+    Debug "parser: '${1}' appended to positional arguments"
+    positional+=("${1}")
+    shift
+    ;;
+  esac
+done
+
+RequirePositionalArguments
+
+code=0
+
+for file in "${positional[@]}"; do
+  metaflac_flags=()
+
+  if [[ "${artist}" -eq 1 ]]; then
+    metaflac_flags+=("--remove-tag=ARTIST")
+  fi
+  if [[ "${album}" -eq 1 ]]; then
+    metaflac_flags+=("--remove-tag=ALBUM")
+  fi
+  if [[ "${title}" -eq 1 ]]; then
+    metaflac_flags+=("--remove-tag=TITLE")
+  fi
+  if [[ "${number}" -eq 1 ]]; then
+    metaflac_flags+=("--remove-tag=TRACKNUMBER")
+  fi
+  if [[ "${year}" -eq 1 ]]; then
+    metaflac_flags+=("--remove-tag=DATE")
+  fi
+  if [[ "${genre}" -eq 1 ]]; then
+    metaflac_flags+=("--remove-tag=GENRE")
+  fi
+  if [[ "${comment}" -eq 1 ]]; then
+    metaflac_flags+=("--remove-tag=COMMENT")
+  fi
+
+  id3tag_flags=()
+  old_artist="$(tagger-show -artist "${file}")"
+  old_album="$(tagger-show -album "${file}")"
+  old_title="$(tagger-show -title "${file}")"
+  old_number="$(tagger-show -track "${file}")"
+  old_year="$(tagger-show -year "${file}")"
+  old_genre="$(tagger-show -genre "${file}")"
+  old_comment="$(tagger-show -comment "${file}")"
+
+  if [[ "${artist}" -eq 0 ]] && [[ ! -z "${old_artist}" ]]; then
+    id3tag_flags+=('--artist')
+    id3tag_flags+=("${old_artist}")
+  fi
+  if [[ "${album}" -eq 0 ]] && [[ ! -z "${old_album}" ]]; then
+    id3tag_flags+=('--album')
+    id3tag_flags+=("${old_album}")
+  fi
+  if [[ "${title}" -eq 0 ]] && [[ ! -z "${old_title}" ]]; then
+    id3tag_flags+=('--song')
+    id3tag_flags+=("${old_title}")
+  fi
+  if [[ "${number}" -eq 0 ]] && [[ ! -z "${old_number}" ]]; then
+    id3tag_flags+=('--track')
+    id3tag_flags+=("${old_number}")
+  fi
+  if [[ "${year}" -eq 0 ]] && [[ ! -z "${old_year}" ]]; then
+    id3tag_flags+=('--year')
+    id3tag_flags+=("${old_year}")
+  fi
+  if [[ "${comment}" -eq 0 ]] && [[ ! -z "${old_comment}" ]]; then
+    id3tag_flags+=('--comment')
+    id3tag_flags+=("${old_comment}")
+  fi
+
+  if [[ "${file}" = *.mp3 ]]; then
+    unsupported_tags="$(/usr/bin/id3info "${file}" \
+      | /usr/bin/grep --regexp '^===' \
+      | /usr/bin/grep --invert --extended-regexp '^=== (TPE1|TALB|TIT2|TRCK|TYER|COMM)' \
+      )"
+    if [[ ! -z "${unsupported_tags}" ]]; then
+      Error "file '${file}' contains unsupported ID3 tags; continuing would be lossy"
+      Error "to continue anyway, first strip the ID3 tags"
+
+    else
+      tagger-strip "${file}"
+      /usr/bin/id3tag "${id3tag_flags[@]}" "${file}" >/dev/null 2>&1
+
+    fi
+
+  elif [[ "${file}" = *.flac ]]; then
+    /usr/bin/metaflac "${metaflac_flags[@]}" "${file}"
+
+  fi
+done
+
+exit "${code}"
+

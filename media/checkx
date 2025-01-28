@@ -1,0 +1,22 @@
+#!/bin/bash
+
+name="checkx"
+version="1.1"
+read -r -d '' help_message <<-EOF
+	Check if an X11 server is running
+	Usage: checkx
+	Options:
+	 -h, --help     print this message and exit
+	 -q, --quiet    suppress error messages
+	 -v, --verbose  show additional messages
+	 -V, --version  print version number and exit
+EOF
+
+. /usr/local/lib/mylib.bash
+. /usr/local/lib/myparse.bash
+
+if /usr/bin/xset q >/dev/null 2>&1; then
+  exit 0
+fi
+exit 1
+

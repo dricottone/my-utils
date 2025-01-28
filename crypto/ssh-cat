@@ -1,0 +1,31 @@
+#!/bin/bash
+
+name="ssh-cat"
+version="1.0"
+read -r -d '' help_message <<-EOF
+	Draw ASCII art of OpenSSH key files
+	Usage: ssh-cat [OPTIONS] KEYFILE..
+	Options:
+	 -h, --help     print this message and exit
+	 -q, --quiet    suppress error messages and prompts
+	 -v, --verbose  show additional messages
+	 -V, --version  print version number and exit
+EOF
+
+. /usr/local/lib/mylib.bash
+. /usr/local/lib/myparse.bash
+RequirePositionalArguments
+
+code=0
+
+for keyfile in "${positional[@]}"; do
+  art="$(/usr/bin/ssh-keygen -l -v -f "${keyfile}")"
+  if [[ "$?" -ne 0 ]]; then
+    code=1
+  else
+    /usr/bin/tail --lines +2 <<<"${art}"
+  fi
+done
+
+exit "${code}"
+

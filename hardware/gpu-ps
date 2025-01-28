@@ -1,24 +1,41 @@
 #!/bin/bash
 
-# nvidia gpu query
-query="$(nvidia-smi pmon --count=1 --select=m | sed 's/# /#/')"
-memunit="$(awk '{if(NR==2) print $4}' <<<"$query")"
+name="gpu-ps"
+version="1.0"
+read -r -d '' help_message <<-EOF
+	List GPU processes
+	Usage: gpu-ps
+	Options:
+	 -h, --help     print this message and exit
+	 -q, --quiet    suppress error messages
+	 -v, --verbose  show additional messages
+	 -V, --version  print version number and exit
+EOF
 
-# nvidia table construction
-full_header="::Memory Usage:(in ${memunit})
-PID:Process:Frame Buffer:Confidential Compute
-"
-full_table="$(awk 'BEGIN{OFS=":"} {if(NR>2) print $2,$6,$4,$5}' <<<"$query")"
+. /usr/local/lib/mylib.bash
+. /usr/local/lib/myparse.bash
 
-abbrev_header="PID:Process:Memory Usage (${memunit})
-"
-abbrev_table="$(awk 'BEGIN{OFS=":"} {if(NR>2) print $2,$6,$4}' <<<"$query")"
+pmon="$(/usr/bin/nvidia-smi pmon --count=1 --select=m)"
+if [[ "$?" -ne 0 ]]; then
+  Fatal "failed to query GPU"
+fi
 
-# switch on whether there is any confidential compute memory usage
-ccmemusage="$(awk '{if(NR>2) sum+=$5} END{print sum}' <<<"$query")"
-if [[ "$ccmemusage" -eq 0 ]]; then
-  cat <<<"${abbrev_header}${abbrev_table}" | column --separator=':' --table
+query="$(/usr/bin/sed --expression 's/# /#/' <<<"${pmon}")"
+memunit="$(/usr/bin/awk '{if(NR==2) print $4}' <<<"${query}")"
+
+# Switch on whether there is any confidential compute memory usage.
+ccmemusage="$(/usr/bin/awk '{if(NR>2) sum+=$5} END{print sum}' <<<"${query}")"
+if [[ "${ccmemusage}" -ne 0 ]] || [[ "${verbose}" -eq 1 ]]; then
+  ( \
+    /usr/bin/printf -- '::Memory Usage:(in %s)\nPID:Process:Frame Buffer:Confidential Compute\n' "${memunit}"; \
+    /usr/bin/awk 'BEGIN{OFS=":"} {if(NR>2) print $2,$6,$4,$5}' <<<"${query}"; \
+  ) | /usr/bin/column --separator=':' --table
+
 else
-  cat <<<"${full_header}${full_table}" | column --separator=':' --table
+  ( \
+    /usr/bin/printf -- 'PID:Process:Memory Usage (%s)\n' "${memunit}"; \
+    /usr/bin/awk 'BEGIN{OFS=":"} {if(NR>2) print $2,$6,$4}' <<<"${query}"; \
+  ) | /usr/bin/column --separator=':' --table
+
 fi
 

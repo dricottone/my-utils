@@ -9,99 +9,125 @@ read -r -d '' help_message <<-EOF
 	 -d, --diff            diff files before asking to overwrite
 	 -f, --force           overwrite without asking
 	 -h, --help            print this message and exit
-	 -n FILE, --name FILE  name of backup file (Default: TARGET.bak)
+	 -n=FILE, --name=FILE  name of backup file (Default: TARGET.bak)
 	 -q, --quiet           suppress error messages and prompts
 	 -v, --verbose         show additional messages
 	 -V, --version         print version number and exit
 EOF
 
-source /usr/local/lib/mylib.bash
+. /usr/local/lib/mylib.bash
 
 positional=()
 quiet=0
 verbose=0
 force=0
 backup_fn=""
-while [[ $# -gt 0 ]]; do
+
+while [[ "${#}" -gt 0 ]]; do
   case $1 in
 
   -d|--diff)
-    debug_msg "Setting diff option to 1 (was ${diff})"
+    Debug "parser: --diff=1 (was ${diff})"
     diff=1
     shift
     ;;
 
   -f|--force)
-    debug_msg "Setting force option to 1 (was ${force})"
+    Debug "parser: --force=1 (was ${force})"
     force=1
     shift
     ;;
 
   -h|--help)
-    help_msg
+    Help
+    shift
+    ;;
+
+  -n=*|--name=*)
+    IFS='=' read -r flag extract <<<"${1}"
+    Debug "parser: --name=${extract} (was ${backup_fn})"
+    backup_fn="${extract}"
     shift
     ;;
 
   -n|--name)
-    debug_msg "Setting output filename to ${2} (was ${backup_fn})"
-    backup_fn="$2"
+    Debug "parser: --name=${2} (was ${backup_fn})"
+    backup_fn="${2}"
     shift; shift
     ;;
 
   -q|--quiet)
-    debug_msg "Setting quiet option to 1 (was ${quiet})"
+    #NOTE: Normally would emit a message with Debug, but the user is
+    #      specifically requesting that we do not.
     quiet=1
     shift
     ;;
 
   -v|--verbose)
-    debug_msg "Setting verbose option to 1 (was ${verbose})"
+    Debug "parser: --verbose=1 (was ${verbose})"
     verbose=1
     shift
     ;;
 
   -V|--version)
-    version_msg
+    Version
     ;;
 
   *)
-    debug_msg "Argument '${1}' added to positional array"
+    Debug "parser: '${1}' appended to positional arguments"
     positional+=("$1")
     shift
     ;;
+
   esac
 done
 
-# error if no filenames given
-if [[ "${#positional[@]}" -lt 1 ]]; then
-  debug_msg "No input filename was given"
-  usage_msg
-fi
-original_fn="${positional[0]}"
+RequirePositionalArguments
 
-# output filename
+original_fn="${positional[0]}"
+if [[ ! -f "$original_fn" ]]; then
+  Fatal "no such file '${original_fn}'"
+fi
+
 if [[ -z "$backup_fn" ]]; then
-  debug_msg "No output filename was given, so defaulting to 'TARGET.bak'"
   backup_fn="${original_fn}.bak"
 fi
+Debug "backup to '${backup_fn}'"
 
-# check files
-if [[ ! -f "$original_fn" ]]; then
-  error_msg "No such file '${original_fn}'"
-elif [[ "$force" -eq 0 && -f "$backup_fn" ]]; then
-  if /usr/bin/cmp "$backup_fn" "$original_fn" >/dev/null 2>&1; then
-    msg "File '${backup_fn}' already exists and is a copy of '${original_fn}'"
-  elif [[ $quiet -eq 0 ]]; then
-    if [[ "$diff" -eq 1 ]]; then
-      /usr/bin/diff --color "$backup_fn" "$original_fn"
-    fi
-    if ! prompt_overwrite "$backup_fn"; then
-      exit 1
-    fi
+code=0
+
+# Backup doesn't exist already, so make it.
+if [[ ! -f "$backup_fn" ]]; then
+  /usr/bin/cp "$original_fn" "$backup_fn"
+  code="$?"
+
+# Backup exists and is unchanged, so notify user.
+elif /usr/bin/cmp "$backup_fn" "$original_fn" >/dev/null 2>&1; then
+  Print "file '${backup_fn}' already exists and is a copy of '${original_fn}'"
+
+# Quiet flag is set, so unless force flag also set, exit with code 1.
+elif [[ $quiet -eq 1 ]]; then
+  if [[ "$force" -eq 0 ]]; then
+    /usr/bin/cp "$original_fn" "$backup_fn"
+    code="$?"
+  else
+    Fatal "file '${backup_fn}' already exists"
   fi
+
+# Prompt user for final decision.
+else
+  if [[ "$diff" -eq 1 ]]; then
+    /usr/bin/diff --color "$backup_fn" "$original_fn"
+  fi
+
+  if ! PromptOverwrite "$backup_fn"; then
+    exit 1
+  fi
+
+  /usr/bin/cp "$original_fn" "$backup_fn"
+  code="$?"
+
 fi
 
-# main routine
-/usr/bin/cp "$original_fn" "$backup_fn"
-exit "$?"
+exit "${code}"
 

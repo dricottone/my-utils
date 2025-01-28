@@ -1,0 +1,132 @@
+#!/bin/bash
+
+name="epub"
+version="1.0"
+read -r -d '' help_message <<-EOF
+	Dumps HTML from an epub e-book archive
+	Usage: epub [OPTIONS] FILE [ENTRY..]
+	Options:
+	 -h, --help            print this message
+	 -l, --list            list HTML entries of archive
+	 -L, --list-all        list all entries of archive
+	 -q, --quiet           suppress error messages and prompts
+	 -v, --verbose         show additional messages
+	 -V, --version         print version number and exit
+EOF
+
+source /usr/local/lib/mylib.bash
+
+target_archive=""
+positional=()
+quiet=0
+verbose=0
+list=0
+list_all=0
+
+while [[ "${#}" -gt 0 ]]; do
+  case "${1}" in
+
+  -d|--dump)
+    Debug "parser: --dump=1(was ${dump})"
+    dump=1
+    shift
+    ;;
+
+  -h|--help)
+    Help
+    shift
+    ;;
+
+  -l|--list)
+    Debug "parser: --list=1 (was ${list})"
+    list=1
+    shift
+    ;;
+
+  -L|--list-all)
+    Debug "parser: --list-all=1 (was ${list_all})"
+    list_all=1
+    shift
+    ;;
+
+  -q|--quiet)
+    #NOTE: Normally would emit a message with Debug, but the user is
+    #      specifically requesting that we do not.
+    quiet=1
+    shift
+    ;;
+
+  -v|--verbose)
+    Debug "parser: --verbose=1 (was ${verbose})"
+    verbose=1
+    shift
+    ;;
+
+  -V|--version)
+    Version
+    ;;
+
+  *)
+    Debug "parser: '${1}' appended to positional arguments"
+    positional+=("${1}")
+    shift
+    ;;
+
+  esac
+done
+
+RequirePositionalArguments
+
+file="${positional[0]}"
+if [[ ! -e "${file}" ]]; then
+  Error "no such file '${file}'"
+fi
+
+path="$(FileAbsolute "${file}")"
+if [[ -z "${path}" ]]; then
+  exit 1
+fi
+
+listing="$(/usr/bin/zipinfo -1 "${path}" 2>/dev/null)"
+if [[ "$?" -ne 0 ]]; then
+  Fatal "failed to read file '${file}'"
+fi
+
+if [[ "$list_all" -eq 1 ]]; then
+  /usr/bin/sort <<<"${listing}"
+  exit 0
+fi
+
+html_listing="$(/usr/bin/grep --extended-regexp '\.xml|\.html|\.xhtml' \
+  <<<"${listing}" \
+  | /usr/bin/sort \
+  )"
+
+if [[ "$list" -eq 1 ]]; then
+  /usr/bin/cat <<<"${html_listing}"
+  exit 0
+fi
+
+readarray -t entries <<<"${html_listing}"
+if [[ "${#entries[@]}" -eq 0 ]]; then
+  Fatal "failed to read file '${file}'"
+fi
+
+if [[ "${#positional[@]}" -gt 1 ]]; then
+  for entry in "${positional[@]:1}"; do
+    if ! ArrayContains "${entry}" "${entries[@]}"; then
+      Fatal "file '${file}' does not contain entry '${entry}'"
+
+    elif ! /usr/bin/unzip -caaqq "${path}" "$entry"; then
+      Fatal "failed to extract entry '${entry}' from file '${file}'"
+    fi
+
+  done | /usr/bin/w3m -T text/html -dump | exec "${PAGER:=/usr/bin/less}"
+fi
+
+for entry in "${entries[@]}"; do
+  if ! /usr/bin/unzip -caaqq "${path}" "$entry"; then
+    Fatal "failed to extract entry '${entry}' from file '${file}'"
+  fi
+done | /usr/bin/w3m -T text/html -dump | exec "${PAGER:=/usr/bin/less}"
+

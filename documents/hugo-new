@@ -1,0 +1,77 @@
+#!/bin/bash
+
+name="hugo-new"
+version="1.0"
+read -r -d '' help_message <<-EOF
+	Create a new Hugo post
+	Usage: hugo-post [OPTIONS] > FILE
+	Options:
+	 -h, --help     print this message and exit
+	 -q, --quiet    suppress error messages
+	 -v, --version  print version number and exit
+EOF
+
+. /usr/local/lib/mylib.bash
+
+positional=()
+quiet=0
+title="Lorem ipsum dolor sit amet"
+verbose=0
+
+while [[ "${#}" -gt 0 ]]; do
+  case "${1}" in
+
+  -h|--help)
+    Help
+    shift
+    ;;
+
+  -q|--quiet)
+    #NOTE: Normally would emit a message with Debug, but the user is
+    #      specifically requesting that we do not.
+    quiet=1
+    shift
+    ;;
+
+  -t=*|--title=*)
+    IFS='=' read -r flag extract <<<"${1}"
+    Debug "parser: --title=${extract} (was ${title})"
+    title="${extract}"
+    shift
+    ;;
+
+  -t|--title)
+    Debug "parser: --title=${2} (was ${title})"
+    title="${2}"
+    shift; shift
+    ;;
+
+  -v|--verbose)
+    Debug "parser: --verbose=1 (was ${verbose})"
+    verbose=1
+    shift
+    ;;
+
+  -V|--version)
+    Version
+    ;;
+
+  *)
+    Debug "parser: '${1}' appended to positional arguments"
+    positional+=("${1}")
+    shift
+    ;;
+  esac
+done
+
+/usr/bin/printf -- '---\n'
+/usr/bin/printf -- 'title: %s\n' "${title}"
+/usr/bin/printf -- 'date: %s\n' "$(hugo-date)"
+/usr/bin/printf -- '---\n\n'
+/usr/bin/printf -- 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor\n'
+/usr/bin/printf -- 'incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis\n'
+/usr/bin/printf -- 'nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.\n'
+/usr/bin/printf -- 'Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu\n'
+/usr/bin/printf -- 'fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in \n'
+/usr/bin/printf -- 'culpa qui officia deserunt mollit anim id est laborum.\n'
+

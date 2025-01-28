@@ -1,78 +1,148 @@
 #!/bin/bash
 
 name="untar"
-version="1.2"
+version="1.3"
 help_message=$(/usr/bin/cat <<-EOF
-	Unarchive utility
-	Usage: untar TARGET [..] [OPTIONS]
+	Extract files from an archive
+	Usage: untar [OPTIONS] FILE..
 	Options:
 	 -h, --help                  print this message and exit
-	 -d DIR, --to-directory DIR  unarchive to a directory
-	 -p PASS, --passphrase PASS  passphrase for decryption
+	 -d=DIR,                     working directory
+	   --from-directory=DIR,
+	   --working-directory=DIR
+	 -p PASS, --passphrase PASS  use plaintext passphrase
 	 -q, --quiet                 suppress error messages
 	 -v, --version               print version number and exit
 EOF
 )
 
-source /usr/local/lib/mylib.bash
-source /usr/local/lib/unarchive.bash
+. /usr/local/lib/mylib.bash
+. /usr/local/lib/myarchivelib.bash
 
-quiet=0
-passphrase=""
 positional=()
-to_directory=""
+passwd=""
+quiet=0
 verbose=0
-while [[ $# -gt 0 ]]; do
-  case $1 in
+working_directory="."
 
-  -d|--to-directory)
-    debug_msg "Setting to_directory option to '${2}' (was ${to_directory})"
-    to_directory="$2"
+while [[ "${#}" -gt 0 ]]; do
+  case "${1}" in
+
+  -d=*|--to-directory=*|--working-directory=*)
+    IFS='=' read -r flag extract <<<"${1}"
+    Debug "parser: --working-directory='${extract}' (was ${working_directory})"
+    working_directory="${extract}"
+    shift
+    ;;
+
+  -d|--to-directory|--working-directory)
+    Debug "parser: --working-directory='${2}' (was ${working_directory})"
+    working_directory="${2}"
     shift; shift
     ;;
 
   -h|--help)
-    help_msg
+    Help
     shift
     ;;
 
+  -p=*|--passwd=*|--passphrase=*)
+    #NOTE: Normally would emit a message with Debug, but that seems like a bad
+    #      idea here.
+    IFS='=' read -r flag extract <<<"${1}"
+    passwd="${extract}"
+    shift
+    ;;
+
+  -p|--passwd|--passphrase)
+    #NOTE: Normally would emit a message with Debug, but that seems like a bad
+    #      idea here.
+    passwd="${2}"
+    shift; shift
+    ;;
+
   -q|--quiet)
-    debug_msg "Setting quiet option to 1 (was ${quiet})"
+    #NOTE: Normally would emit a message with Debug, but the user is
+    #      specifically requesting that we do not.
     quiet=1
     shift
     ;;
 
-  -p|--passphrase)
-    debug_msg "Setting passphrase option to '${2}' (was ${passphrase})"
-    passphrase="$2"
-    shift; shift
-    ;;
-
   -v|--verbose)
-    debug_msg "Setting verbose option to 1 (was ${verbose})"
+    Debug "parser: --verbose=1 (was ${verbose})"
     verbose=1
     shift
     ;;
 
   -V|--version)
-    version_msg
+    Version
     ;;
 
   *)
-    debug_msg "Argument '${1}' added to positional array"
+    Debug "parser: '${1}' appended to positional arguments"
     positional+=("$1")
     shift
     ;;
   esac
 done
 
-code=0
+RequirePositionalArguments
+
+
+# Part 1: Handle archive files.
+archive_fns=()
+
 for archive_fn in "${positional[@]}"; do
-  archive_action="$(archive_extension "$archive_fn" | tee >(>&2 /usr/bin/head -n -1) | /usr/bin/tail -n 1)"
-  if ! unarchive --archive=$archive_action "$archive_fn" ${passphrase:+--passphrase "$passphrase"} ${to_directory:+--directory "$to_directory"}; then
-    code=1
+  if [[ ! -e "${archive_fn}" ]]; then
+    Fatal "no such file '${archive_fn}'"
+  fi
+
+  archive_path="$(FileAbsolute "${archive_fn}")"
+  if [[ -z "${archive_path}" ]]; then
+    exit 1
+  fi
+
+  if ! SupportedArchive "${archive_fn}"; then
+    Fatal "file '${archive_fn}' is not a supported archive"
+  fi
+
+  archive_fns+=("${archive_path}")
+
+done
+
+
+# Part 2: Handle working directory.
+if [[ ! -d "${working_directory}" ]]; then
+  Fatal "no such directory '${working_directory}'"
+fi
+
+path="$(FileAbsolute "${working_directory}")"
+if [[ -z "${path}" ]]; then
+  exit 1
+fi
+
+#NOTE: Directory already validated, so who knows why this would fail? Just
+#      report it to the user.
+if ! cd "${path}"; then
+  Fatal "failed to enter directory '${working_directory}'"
+fi
+
+
+# Part 3: Extract files from archives.
+code=0
+
+for archive_fn in "${archive_fns[@]}"; do
+
+  if [[ -z "${passwd}" ]]; then
+    if ! ExtractArchive "${archive_fn}"; then
+      code=1
+    fi
+  else
+    if ! ExtractArchivePlaintext "${passwd}" "${archive_fn}"; then
+      code=1
+    fi
   fi
 done
 
-exit "$code"
+exit "${code}"
 

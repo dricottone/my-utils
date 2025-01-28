@@ -1,0 +1,69 @@
+#!/bin/bash
+
+name="pgp-ls"
+version="1.1"
+read -r -d '' help_message <<-EOF
+	List local OpenPGP keys
+	Usage: pgp-ls [OPTIONS]
+	Options:
+	 -h, --help     print this message and exit
+	 -q, --quiet    suppress error messages
+	 -s, --secret   show secret keys
+	 -v, --verbose  show additional messages
+	 -V, --version  print version number and exit
+EOF
+
+. /usr/local/lib/mylib.bash
+
+positional=()
+quiet=0
+secret=0
+verbose=0
+
+while [[ "${#}" -gt 0 ]]; do
+  case "${1}" in
+
+  -h|--help)
+    Help
+    shift
+    ;;
+
+  -q|--quiet)
+    #NOTE: Normally would emit a message with Debug, but the user is
+    #      specifically requesting that we do not.
+    quiet=1
+    shift
+    ;;
+
+  -s|--secret)
+    Debug "parser: --secret=1 (was ${secret})"
+    secret=1
+    shift
+    ;;
+
+  -v|--verbose)
+    Debug "parser: --verbose=1 (was ${verbose})"
+    verbose=1
+    shift
+    ;;
+
+  -V|--version)
+    Version
+    ;;
+
+  *)
+    Debug "parser: '${1}' appended to positional arguments"
+    positional+=("${1}")
+    shift
+    ;;
+  esac
+done
+
+#TODO: make output more helpful
+
+if [[ "${secret}" -eq 1 ]]; then
+  /usr/bin/gpg2 --list-secret-keys
+else
+  /usr/bin/gpg2 --list-keys
+fi
+

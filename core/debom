@@ -3,32 +3,32 @@
 name="debom"
 version="1.1"
 read -r -d '' help_message <<-EOF
-	Remove BOM from a target file
-	Usage: debom [OPTIONS] TARGET
+	Concatenate target files while stripping BOMs
+	Usage: debom [OPTIONS] TARGET.. > DESTINATION
 	Options:
-	 -h, --help            print this message and exit
-	 -q, --quiet           suppress error messages and prompts
-	 -v, --verbose         show additional messages
-	 -V, --version         print version number and exit
+	 -h, --help     print this message and exit
+	 -q, --quiet    suppress error messages and prompts
+	 -v, --verbose  show additional messages
+	 -V, --version  print version number and exit
 EOF
 
-source /usr/local/lib/mylib.bash
+. /usr/local/lib/mylib.bash
 . /usr/local/lib/myparse.bash
-
-# error if no filenames given
-if [[ ${#positional[@]} -eq 0 ]]; then
-  usage_msg
-fi
+RequirePositionalArguments
 
 code=0
+
 for filename in "${positional[@]}"; do
-  if [ ! -f "$filename" ]; then
-    nonfatal_error_msg "No such file '$filename'"
+  if [[ ! -f "${filename}" ]]; then
+    Error "no such file '${filename}'"
     code=1
+
   elif ! /usr/bin/sed '1s/^\xEF\xBB\xBF//' < "${filename}" 2>/dev/null; then
+    Error "file '${filename}' does not have a BOM"
     code=1
+
   fi
 done
 
-exit "$code"
+exit "${code}"
 

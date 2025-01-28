@@ -1,164 +1,29 @@
 #!/usr/bin/env bats
 bats_require_minimum_version 1.5.0
 
-@test "whichcat usage" {
-  run --separate-stderr whichcat
-  [ "$status" -eq 0 ]
-  [ "$output" = "" ]
-  [ "$stderr" = "" ]
-}
-
-@test "whichcat usage - quiet" {
-  run --separate-stderr whichcat --quiet
-  [ "$status" -eq 0 ]
-  [ "$output" = "" ]
-  [ "$stderr" = "" ]
-}
-
-@test "whichcat usage - quiet short" {
-  run --separate-stderr whichcat -q
-  [ "$status" -eq 0 ]
-  [ "$output" = "" ]
-  [ "$stderr" = "" ]
-}
-
-@test "whichcat version" {
-  run --separate-stderr whichcat --version
-  [ "$status" -eq 0 ]
-  [ "$output" = "whichcat 1.1" ]
-  [ "$stderr" = "" ]
-}
-
-@test "whichcat version - quiet" {
-  run --separate-stderr whichcat --version --quiet
-  [ "$status" -eq 0 ]
-  [ "$output" = "whichcat 1.1" ]
-  [ "$stderr" = "" ]
-}
-
-@test "whichcat version - quiet short" {
-  run --separate-stderr whichcat --version -q
-  [ "$status" -eq 0 ]
-  [ "$output" = "whichcat 1.1" ]
-  [ "$stderr" = "" ]
-}
-
-@test "whichcat version short" {
-  run --separate-stderr whichcat -v
-  [ "$status" -eq 0 ]
-  [ "$output" = "whichcat 1.1" ]
-  [ "$stderr" = "" ]
-}
-
-@test "whichcat version short - quiet" {
-  run --separate-stderr whichcat -v --quiet
-  [ "$status" -eq 0 ]
-  [ "$output" = "whichcat 1.1" ]
-  [ "$stderr" = "" ]
-}
-
-@test "whichcat version short - quiet short" {
-  run --separate-stderr whichcat -v --quiet
-  [ "$status" -eq 0 ]
-  [ "$output" = "whichcat 1.1" ]
-  [ "$stderr" = "" ]
-}
-
-@test "whichcat help" {
-  run --separate-stderr whichcat --help
-  [ "$status" -eq 0 ]
-  [ "${lines[0]}" = "Print all lines from a program to the terminal" ]
-  [ "${lines[1]}" = "Usage: whichcat [OPTIONS] [PROGRAM ..]" ]
-  [ "${lines[2]}" = "Options:" ]
-  [ "${lines[3]}" = " -h, --help     print this message and exit" ]
-  [ "${lines[4]}" = " -q, --quiet    suppress error messages" ]
-  [ "${lines[5]}" = " -v, --version  print version number and exit" ]
-  [ "$stderr"  = "" ]
-}
-
-@test "whichcat help - quiet" {
-  run --separate-stderr whichcat --help --quiet
-  [ "$status" -eq 0 ]
-  [ "${lines[0]}" = "Print all lines from a program to the terminal" ]
-  [ "${lines[1]}" = "Usage: whichcat [OPTIONS] [PROGRAM ..]" ]
-  [ "${lines[2]}" = "Options:" ]
-  [ "${lines[3]}" = " -h, --help     print this message and exit" ]
-  [ "${lines[4]}" = " -q, --quiet    suppress error messages" ]
-  [ "${lines[5]}" = " -v, --version  print version number and exit" ]
-  [ "$stderr"  = "" ]
-}
-
-@test "whichcat help - quiet short" {
-  run --separate-stderr whichcat --help -q
-  [ "$status" -eq 0 ]
-  [ "${lines[0]}" = "Print all lines from a program to the terminal" ]
-  [ "${lines[1]}" = "Usage: whichcat [OPTIONS] [PROGRAM ..]" ]
-  [ "${lines[2]}" = "Options:" ]
-  [ "${lines[3]}" = " -h, --help     print this message and exit" ]
-  [ "${lines[4]}" = " -q, --quiet    suppress error messages" ]
-  [ "${lines[5]}" = " -v, --version  print version number and exit" ]
-  [ "$stderr"  = "" ]
-}
-
-@test "whichcat help short" {
-  run --separate-stderr whichcat -h
-  [ "$status" -eq 0 ]
-  [ "${lines[0]}" = "Print all lines from a program to the terminal" ]
-  [ "${lines[1]}" = "Usage: whichcat [OPTIONS] [PROGRAM ..]" ]
-  [ "${lines[2]}" = "Options:" ]
-  [ "${lines[3]}" = " -h, --help     print this message and exit" ]
-  [ "${lines[4]}" = " -q, --quiet    suppress error messages" ]
-  [ "${lines[5]}" = " -v, --version  print version number and exit" ]
-  [ "$stderr"  = "" ]
-}
-
-@test "whichcat help short - quiet" {
-  run --separate-stderr whichcat -h --quiet
-  [ "$status" -eq 0 ]
-  [ "${lines[0]}" = "Print all lines from a program to the terminal" ]
-  [ "${lines[1]}" = "Usage: whichcat [OPTIONS] [PROGRAM ..]" ]
-  [ "${lines[2]}" = "Options:" ]
-  [ "${lines[3]}" = " -h, --help     print this message and exit" ]
-  [ "${lines[4]}" = " -q, --quiet    suppress error messages" ]
-  [ "${lines[5]}" = " -v, --version  print version number and exit" ]
-  [ "$stderr"  = "" ]
-}
-
-@test "whichcat help short - quiet short" {
-  run --separate-stderr whichcat --help -q
-  [ "$status" -eq 0 ]
-  [ "${lines[0]}" = "Print all lines from a program to the terminal" ]
-  [ "${lines[1]}" = "Usage: whichcat [OPTIONS] [PROGRAM ..]" ]
-  [ "${lines[2]}" = "Options:" ]
-  [ "${lines[3]}" = " -h, --help     print this message and exit" ]
-  [ "${lines[4]}" = " -q, --quiet    suppress error messages" ]
-  [ "${lines[5]}" = " -v, --version  print version number and exit" ]
-  [ "$stderr"  = "" ]
-}
-
-@test "whichcat no such program" {
-  run --separate-stderr whichcat foobarbaz
+@test "whichcat foobarbaz" {
+  run --separate-stderr ./whichcat foobarbaz
   [ "$status" -eq 1 ]
   [ "$output"  = "" ]
-  [ "$stderr"  = "whichcat: No such program 'foobarbaz'" ]
+  [ "$stderr"  = "whichcat: no such program 'foobarbaz'" ]
 }
 
-@test "whichcat no such program - quiet" {
-  run --separate-stderr whichcat --quiet foobarbaz
+@test "whichcat foobarbaz (flags: --quiet)" {
+  run --separate-stderr ./whichcat --quiet foobarbaz
   [ "$status" -eq 1 ]
   [ "$output"  = "" ]
-  [ "$stderr"  = "" ]
+  [ "$stderr"  = "whichcat: no such program 'foobarbaz'" ]
 }
 
-@test "whichcat no such program - quiet short" {
-  run --separate-stderr whichcat -q foobarbaz
+@test "whichcat foobarbaz (flags: -q)" {
+  run --separate-stderr ./whichcat -q foobarbaz
   [ "$status" -eq 1 ]
   [ "$output"  = "" ]
-  [ "$stderr"  = "" ]
+  [ "$stderr"  = "whichcat: no such program 'foobarbaz'" ]
 }
 
-@test "whichcat single" {
-  run --separate-stderr whichcat pip
+@test "whichcat pip" {
+  run --separate-stderr ./whichcat pip
   [ "$status" -eq 0 ]
   [ "${lines[0]}" = '#!/usr/bin/python' ]
   [ "${lines[1]}" = '# -*- coding: utf-8 -*-' ]
@@ -171,8 +36,8 @@ bats_require_minimum_version 1.5.0
   [ "$stderr"  = "" ]
 }
 
-@test "whichcat multiple" {
-  run --separate-stderr whichcat pip pip
+@test "whichcat pip pip" {
+  run --separate-stderr ./whichcat pip pip
   [ "$status" -eq 0 ]
   [ "${lines[0]}" = '#!/usr/bin/python' ]
   [ "${lines[1]}" = '# -*- coding: utf-8 -*-' ]

@@ -1,39 +1,35 @@
-#!/bin/sh
+#!/bin/bash
 
 name="whichcat"
-version="1.1"
-help_message=$(/usr/bin/cat <<-EOF
+version="1.2"
+read -r -d '' help_message <<-EOF
 	Print all lines from a program to the terminal
 	Usage: whichcat [OPTIONS] [PROGRAM ..]
 	Options:
 	 -h, --help     print this message and exit
 	 -q, --quiet    suppress error messages
-	 -v, --version  print version number and exit
+	 -v, --verbose  show additional messages
+	 -V, --version  print version number and exit
 EOF
-)
 
-. /usr/local/lib/myminiparse.sh
+. /usr/local/lib/mylib.bash
+. /usr/local/lib/myparse.bash
+RequirePositionalArguments
 
 code=0
-for arg; do
-  case "$arg" in
-  -q|--quiet)
-    #handled in myminiparse.sh
-    ;;
 
-  *)
-    target=$(command -v "$arg")
-    if [ -z "$target" ]; then
-      if [ "$quiet" -eq 0 ]; then
-        (>&2 /usr/bin/printf "%s: No such program '%s'\n" "$name" "$arg")
-      fi
-      code=1
-    else
-      /usr/bin/cat "$target"
-    fi
-    ;;
-  esac
+for target in "${positional[@]}"; do
+  abs_target="$(command -v "$target" 2>/dev/null)"
+
+  if [[ -z "${abs_target}" ]]; then
+    Error "no such program '${target}'"
+    code=1
+
+  else
+    /usr/bin/cat "${abs_target}"
+
+  fi
 done
 
-exit "$code"
+exit "${code}"
 

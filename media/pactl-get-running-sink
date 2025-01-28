@@ -1,0 +1,25 @@
+#!/bin/bash
+
+name="pactl-get-running-sink"
+version="1.1"
+read -r -d '' help_message <<-EOF
+	Get the running Pulseaudio sink's ID
+	Usage: pactl-get-running-sink
+	Options:
+	 -h, --help     print this message and exit
+	 -q, --quiet    suppress error messages
+	 -v, --verbose  show additional messages
+	 -V, --version  print version number and exit
+EOF
+
+. /usr/local/lib/mylib.bash
+. /usr/local/lib/myparse.bash
+
+sinks="$(/usr/bin/pactl list sinks short)"
+if [[ "$?" -ne 0 ]]; then
+  Fatal "failed to query Pulseaudio sinks"
+fi
+
+/usr/bin/grep --fixed-strings 'RUNNING' <<<"${sinks}" \
+  | /usr/bin/cut --fields=1
+

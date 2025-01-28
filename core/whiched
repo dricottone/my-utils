@@ -1,55 +1,31 @@
-#!/bin/sh
+#!/bin/bash
 
 name="whiched"
-version="1.2"
-help_message=$(/usr/bin/cat <<-EOF
+version="1.3"
+read -r -d '' help_message <<-EOF
 	Open a program with your editor
 	Usage: whiched [OPTIONS] PROGRAM
 	Options:
 	 -h, --help     print this message and exit
 	 -q, --quiet    suppress error messages
-	 -v, --version  print version number and exit
+	 -v, --verbose  show additional messages
+	 -V, --version  print version number and exit
 EOF
-)
 
-. /usr/local/lib/myminiparse.sh
+. /usr/local/lib/mylib.bash
+. /usr/local/lib/myparse.bash
+RequirePositionalArguments
 
-# NOTE: intentionally does not mirror `whichcat`/`whichhead`
-#  1. doesn't make sense to handle multiple files\
-#  2. when given no arguments, whiched should follow the lead of which NOT cat
-
-for arg; do
-  case "$arg" in
-  -q|--quiet)
-    #handled in myminiparse.sh
-    ;;
-
-  *)
-    target=$(command -v "$arg")
-    if [ -z "$target" ]; then
-      if [ "$quiet" -eq 0 ]; then
-        (>&2 /usr/bin/printf "%s: No such program '%s'\n" "$name" "$arg")
-      fi
-      exit 1
-    else
-      my_editor=${EDITOR:=/usr/bin/ed}
-      if ! command -v "$my_editor" >/dev/null 2>&1; then
-        if [ "$quiet" -eq 0 ]; then
-          (>&2 /usr/bin/printf "%s: cannot call \$EDITOR '%s', falling back to '/usr/bin/ed'\n" "$name" "$my_editor")
-        fi
-        my_editor=/usr/bin/ed
-      fi
-      $my_editor "$target"
-      exit $?
-    fi
-    ;;
-  esac
-done
-
-# if have not exited, no program was specified
-if [ "$quiet" -eq 0 ]; then
-  (>&2 /usr/bin/printf "Usage: whiched [OPTIONS] PROGRAM\n")
+target="${positional[0]}"
+abs_target="$(command -v "$target" 2>/dev/null)"
+if [[ -z "${abs_target}" ]]; then
+  Fatal "no such program '${target}'"
 fi
 
-exit 1
+editor="${EDITOR:=/usr/bin/ed}"
+if ! command -v "${editor}" >/dev/null 2>&1; then
+  Fatal "cannot open in editor program '${editor}'"
+fi
+
+exec "${editor}" "${abs_target}"
 

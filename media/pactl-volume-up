@@ -1,0 +1,38 @@
+#!/bin/bash
+
+name="pactl-volume-up"
+version="1.1"
+read -r -d '' help_message <<-EOF
+	Raise volume by 10%
+	Usage: pactl-volume-up [PERCENT]
+	Options:
+	 -h, --help     print this message and exit
+	 -q, --quiet    suppress error messages
+	 -v, --verbose  show additional messages
+	 -V, --version  print version number and exit
+EOF
+
+. /usr/local/lib/mylib.bash
+. /usr/local/lib/myparse.bash
+
+sink="$(pactl-get-running-sink)"
+if [[ -z "${sink}" ]]; then
+  Debug "trying sink 0"
+  sink=0
+fi
+
+volume="+10%"
+if [[ "${#positional[@]}" -gt 0 ]]; then
+  int="$(/usr/bin/sed --expression 's/%//' <<<"${positional[0]}")"
+
+  if ! IsNatural "${int}"; then
+    Debug "cannot change volume by '${int}' (not an integer >= 0)"
+    volume="+10%"
+  else
+    volume="+${int}%"
+  fi
+fi
+Debug "changing volume by ${volume}"
+
+exec pactl set-sink-volume "${sink}" "${volume}"
+

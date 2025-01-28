@@ -1,0 +1,89 @@
+#!/bin/bash
+
+name="tar-ls"
+version="1.4"
+read -r -d '' help_message <<-EOF
+	List files in an archive
+	Usage: tar-ls [OPTIONS] FILE..
+	Options:
+	 -h, --help                  print this message and exit
+	 -q, --quiet                 suppress error messages
+	 -p=PASS, --passphrase=PASS  passphrase for decryption
+	 -v, --verbose               show additional messages
+	 -V, --version               print version number and exit
+EOF
+
+. /usr/local/lib/mylib.bash
+. /usr/local/lib/myarchivelib.bash
+
+positional=()
+passwd=""
+quiet=0
+verbose=0
+
+while [[ "${#}" -gt 0 ]]; do
+  case "${1}" in
+
+  -h|--help)
+    Help
+    shift
+    ;;
+
+  -p=*|--passwd=*|--passphrase=*)
+    #NOTE: Normally would emit a message with Debug, but that seems like a bad
+    #      idea here.
+    IFS='=' read -r flag extract <<<"${1}"
+    passwd="${extract}"
+    shift
+    ;;
+
+  -p|--passwd|--passphrase)
+    #NOTE: Normally would emit a message with Debug, but that seems like a bad
+    #      idea here.
+    passwd="${2}"
+    shift; shift
+    ;;
+
+  -q|--quiet)
+    #NOTE: Normally would emit a message with Debug, but the user is
+    #      specifically requesting that we do not.
+    quiet=1
+    shift
+    ;;
+
+  -v|--verbose)
+    Debug "parser: --verbose=1 (was ${verbose})"
+    verbose=1
+    shift
+    ;;
+
+  -V|--version)
+    Version
+    ;;
+
+  *)
+    Debug "parser: '${1}' appended to positional arguments"
+    positional+=("$1")
+    shift
+    ;;
+  esac
+done
+
+RequirePositionalArguments
+
+code=0
+
+for archive_fn in "${positional[@]}"; do
+  if [[ -z "${passwd}" ]]; then
+    if ! ListArchive "${archive_fn}"; then
+      code=1
+    fi
+  else
+    if ! ListArchivePlaintext "${passwd}" "${archive_fn}"; then
+      code=1
+    fi
+  fi
+done
+
+exit "${code}"
+

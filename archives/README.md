@@ -1,33 +1,40 @@
 # archives utilities
 
-Tools for creating, parsing, and scripting archive files.
+Tools for manipulating archive files.
 
 `bats` is required for the test suite.
+Also, the archives libraries must be installed to `/usr/local/lib` first:
+try `make install-libs`.
+Also, there is an immediate dependency on a working version of `tar-cat`
+(just for ease of use).
+This shouldn't be too high of a barrier,
+it is the easiest utility to write from scratch.
 
 
 ## Specification
 
-*While you **technically** won't run into an error, these scripts **do**
-expect `tar` to support Zstandard, which isn't necessarily POSIX standard.*
+Not stated outright:
+
+ + operating on a `gpg`- or `age`-encrypted archive
+   creates a dependency on those utilities.
+ + operating on a `rar`, `rpa`, or `7z` archive
+   creates a dependency on those utilities.
+ + operating on a `zstd`-compressed archive
+   creates a dependency on a `tar` utility compiled with `zstd` support,
+   which is practically universal but not deployed everywhere.
+ + using plaintext passphrases (i.e., the `--passphrase` flag) on a
+   `age`-encrypted archive
+   creates a dependency on my fork of the utility.
+
 
 Executable      |Description                                                   |Extra Dependencies
 :---------------|:-------------------------------------------------------------|:------------------------------------------
-epub            |Dumps HTML from an 'epub' e-book archive                      |`bash`, `zipinfo`, `unzip`, `w3m`
-mktar           |Archive utility                                               |`bash`, `age`\*
-mktar-batch     |Archive utility for scripting                                 |`bash`, `age`\*
-rmtar           |Delete 'tar' archive files                                    |
-rmzip           |Delete 'zip' archive files                                    |
-tarcat          |Unarchive utility for scripting                               |`bash`, `age`\*
-tarls           |List files within archive files                               |`bash`, `age`\*
-untar           |Unarchive utility                                             |`bash`, `age`\*
-zipls           |List files within `zip` archive file(s)                       |`zipinfo`
+mktar           |Create an archive                                             |
+rmtar           |Delete archive files                                          |
+tar-cat         |Concatenate files in archives                                 |
+tar-ls          |List files in archives                                        |
+untar           |Extract files from an archive                                 |
 
-*All* scripts support `-h` and `--help` for printing built-in documentation.
-
-*All* scripts do nothing if no input arguments are given.
-
-\*These utilities use a fork of `age` that supports plaintext passphrases.
-See [git.dominic-ricottone.com/age.git].
 
 ## Notes
 
@@ -37,10 +44,8 @@ Per FreeBSD's `tar(1)`:
 > argument format above, should limit themselves to the c, t, and x modes,
 > and the b, f, m, v, and w options.
 
-I have noted that pretty much any viable implementation also supports `O` (extract to stdout).
+I have noted that pretty much any viable implementation also supports `O`
+(extract to stdout).
 That includes BusyBox.
 
-## To-Do
-
- + add support for `rar`, `7z` archives
 

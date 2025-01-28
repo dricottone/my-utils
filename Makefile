@@ -1,63 +1,35 @@
 BIN_DIR?=/usr/local/bin
 LIB_DIR?=/usr/local/lib
 COMP_DIR?=/usr/local/etc/bash_completion.d
-
-.PHONY: install uninstall test clean
-
-define subdir_make
-	cd $(1) && BIN_DIR=$(BIN_DIR) LIB_DIR=$(LIB_DIR) COMP_DIR=$(COMP_DIR) make $(2)
-	@echo ""
-endef
+export BIN_DIR LIB_DIR COMP_DIR
 
 install:
-	$(call subdir_make,core,install)
-	$(call subdir_make,archives,install)
-	$(call subdir_make,containers,install)
-	$(call subdir_make,display,install)
-	$(call subdir_make,documents,install)
-	$(call subdir_make,emulation,install)
-	$(call subdir_make,games,install)
-	$(call subdir_make,images,install)
-	$(call subdir_make,network,install)
-	$(call subdir_make,sound,install)
-	$(call subdir_make,videos,install)
+	cd core && make install
+	cd archives && make install
+	cd containers && make install
+	cd crypto && make install
+	cd documents && make install
+	cd hardware && make install
+	cd media && make install
+	cd net && make install
 
 uninstall:
-	$(call subdir_make,core,uninstall)
-	$(call subdir_make,archives,uninstall)
-	$(call subdir_make,containers,uninstall)
-	$(call subdir_make,display,uninstall)
-	$(call subdir_make,documents,uninstall)
-	$(call subdir_make,emulation,uninstall)
-	$(call subdir_make,games,uninstall)
-	$(call subdir_make,images,uninstall)
-	$(call subdir_make,network,uninstall)
-	$(call subdir_make,sound,uninstall)
-	$(call subdir_make,videos,uninstall)
+	cd core && make uninstall
+	cd archives && make uninstall
+	cd containers && make uninstall
+	cd crypto && make install
+	cd documents && make uninstall
+	cd hardware && make uninstall
+	cd media && make uninstall
+	cd net && make uninstall
 
-test: clean
-	$(call subdir_make,core,test)
-	$(call subdir_make,archives,test)
-	$(call subdir_make,containers,test)
-	$(call subdir_make,display,test)
-	$(call subdir_make,documents,test)
-	$(call subdir_make,emulation,test)
-	$(call subdir_make,games,test)
-	$(call subdir_make,images,test)
-	$(call subdir_make,network,test)
-	$(call subdir_make,sound,test)
-	$(call subdir_make,videos,test)
+test:
+	cd core && make test
+	cd archives && make test
+	cd containers && make test
+	cd crypto && make test
+	cd documents && make test
+	cd hardware && make test
+	cd media && make test
 
-clean:
-	$(call subdir_make,core,clean)
-	$(call subdir_make,archives,clean)
-	$(call subdir_make,containers,clean)
-	$(call subdir_make,display,clean)
-	$(call subdir_make,documents,clean)
-	$(call subdir_make,emulation,clean)
-	$(call subdir_make,games,clean)
-	$(call subdir_make,images,clean)
-	$(call subdir_make,network,clean)
-	$(call subdir_make,sound,clean)
-	$(call subdir_make,videos,clean)
-
+.PHONY: install uninstall test

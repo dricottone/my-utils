@@ -2,42 +2,72 @@ BIN_DIR?=/usr/local/bin
 LIB_DIR?=/usr/local/lib
 COMP_DIR?=/usr/local/etc/bash_completion.d
 
-.PHONY: install uninstall test clean
+BINS=mktar rmtar tar-cat tar-ls untar
+LIBS=myarchivelib.bash
+
+INSTALL_FLAGS?=
+INSTALL_FLAGS+=--mode=755
+
+install-libs:
+	install --target-directory=$(LIB_DIR) $(INSTALL_FLAGS) $(LIBS)
+
+uninstall-libs:
+	cd $(LIB_DIR) && rm $(LIBS)
 
 install:
-	install -m755 epub $(BIN_DIR)/epub
-	install -m755 mktar $(BIN_DIR)/mktar
-	install -m755 mktar-batch $(BIN_DIR)/mktar-batch
-	install -m755 rmtar $(BIN_DIR)/rmtar
-	install -m755 rmzip $(BIN_DIR)/rmzip
-	install -m755 tarcat $(BIN_DIR)/tarcat
-	install -m755 tarls $(BIN_DIR)/tarls
-	install -m755 untar $(BIN_DIR)/untar
-	install -m755 zipls $(BIN_DIR)/zipls
-
-	install -m755 archive.bash $(LIB_DIR)/archive.bash
-	install -m755 unarchive.bash $(LIB_DIR)/unarchive.bash
-
-	install -m755 completion.bash $(COMP_DIR)/myutils_archives.bash
+	install --target-directory=$(BIN_DIR) $(INSTALL_FLAGS) $(BINS)
+	install --target-directory=$(LIB_DIR) $(INSTALL_FLAGS) $(LIBS)
+	install $(INSTALL_FLAGS) completion.bash $(COMP_DIR)/myutils_archives.bash
 
 uninstall:
-	rm $(BIN_DIR)/epub
-	rm $(BIN_DIR)/mktar
-	rm $(BIN_DIR)/mktar-batch
-	rm $(BIN_DIR)/rmtar
-	rm $(BIN_DIR)/rmzip
-	rm $(BIN_DIR)/tarcat
-	rm $(BIN_DIR)/tarls
-	rm $(BIN_DIR)/untar
-	rm $(BIN_DIR)/zipls
-
-	rm $(LIB_DIR)/archive.bash
-	rm $(LIB_DIR)/unarchive.bash
-
+	cd $(BIN_DIR) && rm $(BINS)
+	cd $(LIB_DIR) && rm $(LIBS)
 	rm $(COMP_DIR)/myutils_archives.bash
 
-test: clean
+test/usage-messages.bats: ../testing/testing-bats-start-test.sh ../testing/testing-bats-test-usage-message.sh
+	mkdir -p test
+	rm -f test/usage-messages.bats
+	../testing/testing-bats-start-test.sh >test/usage-messages.bats
+	# commands that produce a usage message when called without an argument
+	for cmd in $(BINS) ; do \
+		../testing/testing-bats-test-usage-message.sh $$cmd >>test/usage-messages.bats ; \
+	done
+
+test/help-messages.bats: ../testing/testing-bats-start-test.sh ../testing/testing-bats-test-help-message.sh
+	mkdir -p test
+	rm -f test/help-messages.bats
+	../testing/testing-bats-start-test.sh >test/help-messages.bats
+	# commands that produce a help message when requested; should be all
+	for cmd in $(BINS) ; do \
+		../testing/testing-bats-test-help-message.sh $$cmd >>test/help-messages.bats ; \
+	done
+
+test/version-messages.bats: ../testing/testing-bats-start-test.sh ../testing/testing-bats-test-version-message.sh
+	mkdir -p test
+	rm -f test/version-messages.bats
+	../testing/testing-bats-start-test.sh >test/version-messages.bats
+	# commands that produce a version message when requested; should be all
+	for cmd in $(BINS) ; do \
+		../testing/testing-bats-test-version-message.sh $$cmd >>test/version-messages.bats ; \
+	done
+
+test/fixtures.sh: ../testing/testing-bats-extract-usage-message.sh
+	mkdir -p test
+	rm -f test/fixtures.sh
+	# commands that produce a usage message when called without an argument
+	for cmd in $(BINS) ; do \
+		../testing/testing-bats-extract-usage-message.sh $$cmd >>test/fixtures.sh ; \
+	done
+	# commands that produce a help/version message when requested; should be all
+	for cmd in $(BINS) ; do \
+		../testing/testing-bats-extract-help-message.sh $$cmd >>test/fixtures.sh ; \
+		../testing/testing-bats-extract-version-message.sh $$cmd >>test/fixtures.sh ; \
+	done
+
+test: test/usage-messages.bats test/help-messages.bats test/version-messages.bats test/fixtures.sh
+	mkdir -p test/static
+	printf "[1]\n[2]\n[3]\n\n" > test/static/compression_target.txt
+	test/decompression-targets.sh
 	bats test/
 
-	rm -rf test/static/ test/output/
-
+.PHONY: install-libs install uninstall-libs uninstall test

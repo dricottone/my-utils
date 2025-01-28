@@ -1,7 +1,7 @@
-#!/bin/sh
+#!/bin/bash
 
 name="git-blobs"
-version="1.0"
+version="1.1"
 usage_message="Usage: git-big [OPTIONS]"
 help_message=$(/usr/bin/cat <<-EOF
 	List blobs in git history
@@ -9,11 +9,13 @@ help_message=$(/usr/bin/cat <<-EOF
 	Options:
 	 -h, --help     print this message and exit
 	 -q, --quiet    suppress error messages
-	 -v, --version  print version number and exit
+	 -v, --verbose  show additional messages
+	 -V, --version  print version number and exit
 EOF
 )
 
-. /usr/local/lib/myminiparse.sh
+. /usr/local/lib/mylib.bash
+. /usr/local/lib/myparse.bash
 
 git rev-list --objects --all |
   git cat-file --batch-check='%(objecttype) %(objectname) %(objectsize) %(rest)' |

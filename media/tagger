@@ -1,0 +1,54 @@
+#!/bin/bash
+
+name="tagger"
+version="1.0"
+read -r -d '' help_message <<-EOF
+	Edit ID3 and Vorbis metadata tags
+	Usage: tagger [COMMAND] [OPTIONS] TARGET..
+	Commands:
+	  add     set a tag's value
+	  dump    export all tags
+	  show    show a tag's value
+	  strip   strip ID3 prepended and appended tags
+	  remove  remove a tag
+	Options:
+	 -h, --help            print this message and exit
+	 -q, --quiet           suppress error messages and prompts
+	 -v, --verbose         show additional messages
+	 -V, --version         print version number and exit
+EOF
+
+. /usr/local/lib/mylib.bash
+
+case "${1}" in
+add)
+  shift
+  exec tagger-add "${@}"
+  ;;
+
+dump)
+  shift
+  exec tagger-dump "${@}"
+  ;;
+
+show)
+  shift
+  exec tagger-show "${@}"
+  ;;
+
+strip)
+  shift
+  exec tagger-strip "${@}"
+  ;;
+
+remove)
+  shift
+  exec tagger-remove "${@}"
+  ;;
+
+esac
+
+. /usr/local/lib/myparse.bash
+
+Usage
+

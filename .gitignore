@@ -1,2 +1,5 @@
 **/test/static
 **/test/output
+*.mp3
+*.flac
+*.pdf

@@ -1,0 +1,21 @@
+#!/bin/bash
+
+name="wg-status"
+version="1.1"
+read -r -d '' help_message <<-EOF
+	Describe the Wireguard connection
+	Usage: wg-status
+	Options:
+	 -h, --help     print this message and exit
+	 -q, --quiet    suppress error messages and prompts
+	 -v, --verbose  show additional messages
+	 -V, --version  print version number and exit
+EOF
+
+. /usr/local/lib/mylib.bash
+. /usr/local/lib/myparse.bash
+
+RequireRoot
+
+/usr/bin/wg show
+

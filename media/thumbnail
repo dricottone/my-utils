@@ -1,0 +1,99 @@
+#!/bin/bash
+
+name="thumbnail"
+version="1.0"
+read -r -d '' help_message <<-EOF
+	Extract a thumbnail from a video
+	Usage: thumbnail [OPTIONS] TARGET..
+	Options:
+	 -h, --help                 print this message
+	 -q, --quiet                suppress error messages and prompts
+	 -t=TIME, --timestamp=TIME  timestamp to extract thumbnail from
+	 -v, --verbose              show additional messages
+	 -V, --version              print version number and exit
+EOF
+
+. /usr/local/lib/mylib.bash
+
+positional=()
+quiet=0
+timestamp="00:00:10.000"
+verbose=0
+
+while [[ "${#}" -gt 0 ]]; do
+  case "${1}" in
+
+  -h|--help)
+    Help
+    shift
+    ;;
+
+  -q|--quiet)
+    #NOTE: Normally would emit a message with Debug, but the user is
+    #      specifically requesting that we do not.
+    quiet=1
+    shift
+    ;;
+
+  -t=*|--time=*|--timestamp=*)
+    IFS='=' read -r flag extract <<<"${1}"
+    Debug "parser: --timestamp='${extract}' (was ${timestamp})"
+    timestamp="${extract}"
+    shift
+    ;;
+
+  -t|--time|--timestamp)
+    Debug "parser: --timestamp='${2}' (was '${timestamp}')"
+    timestamp="$2"
+    shift; shift
+    ;;
+
+  -v|--verbose)
+    Debug "parser: --verbose=1 (was ${verbose})"
+    verbose=1
+    shift
+    ;;
+
+  -V|--version)
+    Version
+    ;;
+
+  *)
+    Debug "parser: '${1}' appended to positional arguments"
+    positional+=("${1}")
+    shift
+    ;;
+
+  esac
+done
+
+RequirePositionalArguments
+
+if ! /usr/bin/grep --regexp '^[0-9][0-9]:[0-9][0-9]:[0-9][0-9].[0-9][0-9][0-9]$' <<<"${timestamp}" >/dev/null 2>&1; then
+  Fatal "not a valid timestamp '${timestamp}'; must be 'HH:MM:SS.sss'"
+fi
+
+code=0
+
+for filename in "${positional[@]}"; do
+  if [[ ! -f "${filename}" ]]; then
+    Error "no such file '${filename}'"
+    code=1
+
+  elif [[ "${filename}" = *.png ]]; then
+    Error "file '${filename}' already exists and is an image"
+
+  else
+    dirname="$(/usr/bin/dirname "${filename}")"
+    basename="$(/usr/bin/basename "${filename}")"
+    basestub="${basename%.*}"
+
+    Debug "ffmpeg -i '${basename}' -hide_banner -loglevel error -ss '${timestamp}' -frames:v 1 -update 1 '${basestub}.png'"
+
+    (cd "${dirname}" && ffmpeg -i "${basename}" -hide_banner -loglevel error -ss "${timestamp}" -frames:v 1 -update 1 "${basestub}.png")
+
+  fi
+done
+
+exit "${code}"
+

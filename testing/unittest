@@ -1,0 +1,108 @@
+#!/bin/bash
+
+name="unittest"
+version="1.2"
+read -r -d '' help_message <<-EOF
+	Execute Python unit tests
+	Usage: unittest [OPTIONS] TARGET
+	Options:
+	 -h, --help                 print this message and exit
+	 -q, --quiet                suppress error messages
+	 -v, --verbose              show verbose 'unittest' output
+	 -V, --version              print version number and exit
+	 -d=DIR,                    working directory for tests
+	   --working-directory=DIR
+EOF
+
+positional=()
+color=0
+quiet=0
+verbose=0
+working_directory="."
+
+while [[ "${#}" -gt 0 ]]; do
+  case "${1}" in
+
+  -d=*|--working-directory=*)
+    IFS='=' read -r flag extract <<<"${1}"
+    Debug "parser: --working-directory='${extract}' (was ${working_directory})"
+    working_directory="${extract}"
+    shift
+    ;;
+
+  -d|--working-directory)
+    Debug "parser: --working-directory='${2}' (was ${working_directory})"
+    working_directory="${2}"
+    shift; shift
+    ;;
+
+  -h|--help)
+    Help
+    shift
+    ;;
+
+  -q|--quiet)
+    #NOTE: Normally would emit a message with Debug, but the user is
+    #      specifically requesting that we do not.
+    quiet=1
+    shift
+    ;;
+
+  -v|--verbose)
+    Debug "parser: --verbose=1 (was ${verbose})"
+    verbose=1
+    shift
+    ;;
+
+  -V|--version)
+    Version
+    ;;
+
+  *)
+    Debug "parser: '${1}' appended to positional arguments"
+    positional+=("${1}")
+    shift
+    ;;
+  esac
+done
+
+target="."
+target_is_file=0
+if [[ "${#positional[@]}" -gt 0 ]]; then
+  target="${positional[0]})"
+  if StringContains ".py" "${target}"; then
+    target_is_file=1
+  fi
+fi
+
+workpath="$(FileAbsolute "${working_directory}")"
+if [[ -z "${workpath}" ]]; then
+  Fatal "no such working directory '${working_directory}'"
+fi
+
+path="$(FileAbsolute "${target}")"
+if [[ -z "${path}" ]]; then
+  Fatal "no such target '${target}'"
+fi
+
+if [[ "${target_is_file}" -eq 1 ]]; then
+  if [ "$verbose" -eq 1 ]; then
+    /usr/bin/python3 -m unittest --verbose "${path}" 2>&1
+
+  else
+    /usr/bin/python3 -m unittest "${path}" 2>&1 \
+      | /usr/bin/tail --lines 1
+  fi
+
+else
+  if [ "$verbose" -eq 1 ]; then
+    /usr/bin/python3 -m unittest discover --verbose --start-directory "${path}" --top-level-directory "${working_directory}" 2>&1
+
+  else
+    /usr/bin/python3 -m unittest discover --start-directory "${path}" --top-level-directory "${working_directory}" 2>&1 \
+      | /usr/bin/tail --lines 1
+
+  fi
+
+fi
+

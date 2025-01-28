@@ -3,41 +3,39 @@
 name="rebom"
 version="1.1"
 read -r -d '' help_message <<-EOF
-	Add BOM to a target file
-	Usage: rebom [OPTIONS] TARGET
+	Concatenate a BOM and target files
+	Usage: rebom [OPTIONS] TARGET.. > DESTINATION
 	Options:
-	 -h, --help            print this message and exit
-	 -q, --quiet           suppress error messages and prompts
-	 -v, --verbose         show additional messages
-	 -V, --version         print version number and exit
+	 -h, --help     print this message and exit
+	 -q, --quiet    suppress error messages and prompts
+	 -v, --verbose  show additional messages
+	 -V, --version  print version number and exit
 EOF
 
-source /usr/local/lib/mylib.bash
+. /usr/local/lib/mylib.bash
 . /usr/local/lib/myparse.bash
-
-# error if no filenames given
-if [[ ${#positional[@]} -eq 0 ]]; then
-  usage_msg
-fi
+RequirePositionalArguments
 
 code=0
 files=()
 for filename in "${positional[@]}"; do
-  if [ ! -f "$filename" ]; then
-    nonfatal_error_msg "No such file '$filename'"
+  if [[ ! -f "${filename}" ]]; then
+    Error "no such file '${filename}'"
     code=1
+
   else
     files+=("$filename")
+
   fi
 done
 
-# error if no valid filenames given
+# Fail early if no valid filenames given.
 if [[ ${#files[@]} -eq 0 ]]; then
   exit 1
 fi
 
-/usr/bin/printf "\xEF\xBB\xBF"
-/usr/bin/cat ${files[@]}
+/usr/bin/printf -- '\xEF\xBB\xBF'
+/usr/bin/cat "${files[@]}"
 
-exit "$code"
+exit "${code}"
 

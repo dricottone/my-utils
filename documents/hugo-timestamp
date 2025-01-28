@@ -3,7 +3,7 @@
 name="hugo-timestamp"
 version="1.0"
 read -r -d '' help_message <<-EOF
-	Set a date/timestamp into a Hugo content files
+	Set a timestamp into a Hugo content file
 	Usage: hugo-timestamp [OPTIONS] TARGET DATETIME
 	Options:
 	 -h, --help     print this message and exit
@@ -12,18 +12,14 @@ read -r -d '' help_message <<-EOF
 	 -V, --version  print version number and exit
 EOF
 
-source /usr/local/lib/mylib.bash
+. /usr/local/lib/mylib.bash
 . /usr/local/lib/myparse.bash
-
-# error if no filenames given
-if [[ ${#positional[@]} -lt 2 ]]; then
-  usage_msg
-fi
+RequirePositionalArguments
 
 _ed_append_date() {
-  ed -s "$1" <<EOF
+  ed -s "${1}" <<EOF
 /^title:/a
-date: "$2"
+date: "${2}"
 .
 w
 q
@@ -31,10 +27,10 @@ EOF
 }
 
 _ed_overwrite_date() {
-  ed -s "$1" <<EOF
+  ed -s "${1}" <<EOF
 g/^date:/c
 i
-date: "$2"
+date: "${2}"
 .
 w
 q
@@ -44,31 +40,21 @@ EOF
 filename="${positional[0]}"
 newdate="${positional[1]}"
 
-# if filename does not exist
-if [[ ! -f "$filename" ]]; then
-  error_msg "No such file '$filename'"
+if [[ ! -f "${filename}" ]]; then
+  Fatal "no such file '${filename}'"
 
-# main routine
+olddate="$(hugo-extract-timestamp "${filename}")"
+
+if [[ -z "${olddate}" ]]; then
+  Debug "no timestamp, appending..."
+
+  _ed_append_date "${filename}" "${newdate}"
+
 else
+  Debug "timestamp found (${olddate}), overwriting..."
 
-  # try read timestamp from file
-  olddate="$(hugo-extract-timestamp "$filename")"
+  _ed_overwrite_date "${filename}" "${newdate}"
 
-  # branch 1: has no timestamp so append one
-  if [[ -z "$olddate" ]]; then
-    if [[ "$verbose" -eq 1 ]]; then
-      debug_msg "No date found, creating one"
-    fi
-
-    _ed_append_date "$filename" "$newdate"
-
-  # branch 2: has a timestamp so replace it
-  else
-    if [[ "$verbose" -eq 1 ]]; then
-      debug_msg "replacing ${olddate}"
-    fi
-
-    _ed_overwrite_date "$filename" "$newdate"
-  fi
 fi
+
 

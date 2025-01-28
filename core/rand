@@ -4,95 +4,115 @@ name="rand"
 version="1.0"
 read -r -d '' help_message <<-EOF
 	Get a random number within an inclusive range
-	Usage: rand [OPTIONS] START END
+	Usage: rand [OPTIONS] START STOP
 	Options:
 	 -h, --help        print this message and exit
-	 -n N, --number N  print N numbers (Default: 1)
+	 -n=N, --number=N  print N numbers (Default: 1)
 	 -q, --quiet       suppress error messages and prompts
 	 -v, --verbose     show additional messages
 	 -V, --version     print version number and exit
-	 -w N, --width N   print numbers zero-padded to N-wide (Default: 0)
+	 -w=N, --width=N   print numbers zero-padded to N-wide (Default: 0)
 EOF
 
-source /usr/local/lib/mylib.bash
+. /usr/local/lib/mylib.bash
 
 positional=()
 quiet=0
 verbose=0
 width=1
 number=1
-while [[ $# -gt 0 ]]; do
-  case "$1" in
+
+while [[ "$#" -gt 0 ]]; do
+  case "${1}" in
 
   -h|--help)
-    help_msg
+    Help
+    shift
+    ;;
+
+  -n=*|--number=*)
+    IFS='=' read -r flag extract <<<"${1}"
+    if ! IsPositiveInteger "${extract}"; then
+      Error "parser: cannot set outputs to '${extract}' (not an integer >= 1)"
+    else
+      Debug "parser: --number=${extract} (was ${number})"
+      number="${extract}"
+    fi
     shift
     ;;
 
   -n|--number)
-    if ! is_positive_integer "$2"; then
-      error_msg "Cannot set number of outputs to '${2}' (not an integer >= 1)"
+    if ! IsPositiveInteger "${2}"; then
+      Error "parser: cannot set outputs to '${2}' (not an integer >= 1)"
+    else
+      Debug "parser: --number=${2} (was ${number})"
+      number="${2}"
     fi
-    debug_msg "Setting number of outputs to ${2} (was ${number})"
-    number="$2"
     shift; shift
     ;;
 
   -q|--quiet)
-    debug_msg "Setting quiet option to 1 (was ${quiet})"
+    #NOTE: Normally would emit a message with Debug, but the user is
+    #      specifically requesting that we do not.
     quiet=1
     shift
     ;;
 
   -v|--verbose)
-    debug_msg "Setting verbose option to 1 (was ${verbose})"
+    Debug "parser: --verbose=1 (was ${verbose})"
     verbose=1;
     shift
     ;;
 
   -V|--version)
-    version_msg
+    Version
+    ;;
+
+  -w=*|--width=*)
+    IFS='=' read -r flag extract <<<"${1}"
+    if ! IsNatural "${extract}"; then
+      Error "parser: cannot use width of '${extract}' (not an integer >= 0)"
+    else
+      Debug "parser: --width=${extract} (was ${width})"
+      width="${extract}"
+    fi
+    shift
     ;;
 
   -w|--width)
-    if ! is_natural "$2"; then
-      error_msg "Cannot set zero-padding width to '${2}' (not an integer >= 0)"
+    if ! IsNatural "${2}"; then
+      Error "parser: cannot use width of '${2}' (not an integer >= 0)"
+    else
+      Debug "parser: --width=${2} (was ${width})"
+      width="${2}"
     fi
-    debug_msg "Setting zero-padding width to ${2} (was ${width})"
-    width="$2";
     shift; shift
     ;;
 
   *)
-    debug_msg "Argument '${1}' added to positional array"
-    positional+=("$1")
+    Debug "parser: '${1}' appended to positional arguments"
+    positional+=("${1}")
     shift
     ;;
   esac
 done
 
 # check arguments
-if [[ ${#positional[@]} -lt 2 ]]; then
-  debug_msg "Expected 2 arguments (given ${#positional[@]})"
-  usage_msg
-else
-  range_start="${positional[0]}"
-  range_end="${positional[1]}"
-  if ! is_integer "$range_start"; then
-    error_msg "Expected integer for range start (given '${range_start}')"
-  elif ! is_integer "$range_end"; then
-    error_msg "Expected integer for range end (given '${range_end}')"
-  elif [[ "$range_start" -ge "$range_end" ]]; then
-    error_msg "Expected ascending range (given '${range_start}' and '${range_end}')"
-  fi
+if [[ "${#positional[@]}" -lt 2 ]]; then
+  Usage
 fi
 
-# main routine
+range_start="${positional[0]}"
+range_end="${positional[1]}"
+if [[ "${range_start}" -ge "${range_end}" ]]; then
+  Fatal "cannot stop at ${range_end} (starting at ${range_start})"
+fi
+
 code=0
-if ! seq -f "%0${width}g" "$range_start" "$range_end" | shuf -n "$number"; then
+
+if ! /usr/bin/seq -f "%0${width}g" "${range_start}" "${range_end}" | shuf -n "${number}"; then
   code=1
 fi
 
-# return stored code
-exit "$code"
+exit "${code}"
 

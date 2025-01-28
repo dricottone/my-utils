@@ -1,0 +1,225 @@
+#!/bin/bash
+
+name="tagger-add"
+version="1.0"
+read -r -d '' help_message <<-EOF
+	Add to ID3 and Vorbis metadata tags
+	Usage: tagger-add [OPTIONS] TARGET..
+	Options:
+	 -a=ARTIST, --artist=ARTIST   add artist tag
+	 -A=ALBUM, --album=ALBUM      add album tag
+	 -c=TEXT, --comment=TEXT      add comment tag
+	 -g=GENRE, --genre=GENRE      add genre tag
+	 -h, --help                   print this message and exit
+	 -n=NUMBER, --number=NUMBER   add track number (track) tag
+	 -q, --quiet                  suppress error messages and prompts
+	 -t=TITLE, --title=TITLE      add title (song) tag
+	 -y=YEAR, --year=YEAR         add year (date) tag
+	 -v, --verbose                show additional messages
+	 -V, --version                print version number and exit
+EOF
+
+. /usr/local/lib/mylib.bash
+
+artist=""
+album=""
+comment=""
+genre=""
+number=0
+positional=()
+quiet=0
+title=""
+verbose=0
+year=0
+
+while [[ "${#}" -gt 0 ]]; do
+  case "${1}" in
+
+  -a=*|--artist=*)
+    IFS='=' read -r flag extract <<<"${1}"
+    Debug "parser: --artist='${extract}' (was ${artist})"
+    artist="${extract}"
+    shift
+    ;;
+
+  -a|--artist)
+    Debug "parser: --artist='${2}' (was ${artist})"
+    artist="${2}"
+    shift; shift
+    ;;
+
+  -A=*|--album=*)
+    IFS='=' read -r flag extract <<<"${1}"
+    Debug "parser: --album='${extract}' (was ${album})"
+    album="${extract}"
+    shift
+    ;;
+
+  -A|--album)
+    Debug "parser: --album='${2}' (was ${album})"
+    album="${2}"
+    shift; shift
+    ;;
+
+  -c=*|--comment=*)
+    IFS='=' read -r flag extract <<<"${1}"
+    Debug "parser: --comment='${extract}' (was ${comment})"
+    comment="${extract}"
+    shift
+    ;;
+
+  -c|--comment)
+    Debug "parser: --comment='${2}' (was ${comment})"
+    comment="${2}"
+    shift; shift
+    ;;
+
+  -g=*|--genre=*)
+    IFS='=' read -r flag extract <<<"${1}"
+    Debug "parser: --genre='${extract}' (was ${genre})"
+    genre="${extract}"
+    shift
+    ;;
+
+  -g|--genre)
+    Debug "parser: --genre='${2}' (was ${genre})"
+    genre="${2}"
+    shift; shift
+    ;;
+
+  -h|--help)
+    Help
+    shift
+    ;;
+
+  -n=*|--number=*|--track=*|--tracknumber=*)
+    IFS='=' read -r flag extract <<<"${1}"
+    if ! IsPositiveInteger "${extract}"; then
+      Error "parser: cannot use track number of '${extract}' (not an integer >= 1)"
+    else
+      Debug "parser: --number=${extract} (was ${number})"
+      number="${extract}"
+    fi
+    shift
+    ;;
+
+  -n|--number|--track|--tracknumber)
+    if ! IsPositiveInteger "${2}"; then
+      Error "parser: cannot use track number of '${2}' (not an integer >= 1)"
+    else
+      Debug "parser: --number=${2} (was ${number})"
+      number="${2}"
+    fi
+    shift; shift
+    ;;
+
+  -q|--quiet)
+    #NOTE: Normally would emit a message with Debug, but the user is
+    #      specifically requesting that we do not.
+    quiet=1
+    shift
+    ;;
+
+  -t=*|--title=*)
+    IFS='=' read -r flag extract <<<"${1}"
+    Debug "parser: --title='${extract}' (was ${title})"
+    title="${extract}"
+    shift
+    ;;
+
+  -t|--title)
+    Debug "parser: --title='${2}' (was ${title})"
+    title="${2}"
+    shift; shift
+    ;;
+
+  -v|--verbose)
+    Debug "parser: --verbose=1 (was ${verbose})"
+    verbose=1
+    shift
+    ;;
+
+  -V|--version)
+    Version
+    ;;
+
+  -y=*|--year=*)
+    IFS='=' read -r flag extract <<<"${1}"
+    if ! IsPositiveInteger "${extract}"; then
+      Error "parser: cannot use year of '${extract}' (not an integer >= 1)"
+    else
+      Debug "parser: --year=${extract} (was ${year})"
+      year="${extract}"
+    fi
+    shift
+    ;;
+
+  -y|--year)
+    if ! IsPositiveInteger "${2}"; then
+      Error "parser: cannot use year of '${2}' (not an integer >= 1)"
+    else
+      Debug "parser: --year=${2} (was ${year})"
+      year="${2}"
+    fi
+    shift; shift
+    ;;
+
+  *)
+    Debug "parser: '${1}' appended to positional arguments"
+    positional+=("${1}")
+    shift
+    ;;
+  esac
+done
+
+RequirePositionalArguments
+
+id3tag_flags=()
+metaflac_flags=()
+
+if [[ ! -z "${artist}" ]]; then
+  id3tag_flags+=('--artist')
+  id3tag_flags+=("${artist}")
+  metaflac_flags+=("--set-tag=ARTIST=${artist:Q}")
+fi
+if [[ ! -z "${album}" ]]; then
+  id3tag_flags+=('--album')
+  id3tag_flags+=("${album}")
+  metaflac_flags+=("--set-tag=ALBUM=${album:Q}")
+fi
+if [[ ! -z "${title}" ]]; then
+  id3tag_flags+=('--song')
+  id3tag_flags+=("${title}")
+  metaflac_flags+=("--set-tag=TITLE=${title:Q}")
+fi
+if [[ ! -z "${number}" ]] && [[ "${number}" -ne 0 ]]; then
+  id3tag_flags+=('--track')
+  id3tag_flags+=("${number}")
+  metaflac_flags+=("--set-tag=TRACKNUMBER=${number:Q}")
+fi
+if [[ ! -z "${year}" ]] && [[ "${year}" -ne 0 ]]; then
+  id3tag_flags+=('--year')
+  id3tag_flags+=("${year}")
+  metaflac_flags+=("--set-tag=DATE=${year:Q}")
+fi
+if [[ ! -z "${genre}" ]]; then
+  id3tag_flags+=('--genre')
+  id3tag_flags+=("${genre}")
+  metaflac_flags+=("--set-tag=GENRE=${genre:Q}")
+fi
+if [[ ! -z "${comment}" ]]; then
+  id3tag_flags+=('--comment')
+  id3tag_flags+=("${comment}")
+  metaflac_flags+=("--set-tag=COMMENT=${comment:Q}")
+fi
+
+for file in "${positional[@]}"; do
+  if [[ "${file}" = *.mp3 ]]; then
+    /usr/bin/id3tag "${id3tag_flags[@]}" "${file}" >/dev/null 2>&1
+
+  elif [[ "${file}" = *.flac ]]; then
+    /usr/bin/metaflac "${metaflac_flags[@]}" "${file}"
+
+  fi
+done
+

@@ -1,0 +1,25 @@
+#!/bin/bash
+
+name="pactl-mute"
+version="1.1"
+read -r -d '' help_message <<-EOF
+	Mute volume
+	Usage: pactl-mute
+	Options:
+	 -h, --help     print this message and exit
+	 -q, --quiet    suppress error messages
+	 -v, --verbose  show additional messages
+	 -V, --version  print version number and exit
+EOF
+
+. /usr/local/lib/mylib.bash
+. /usr/local/lib/myparse.bash
+
+sink="$(pactl-get-running-sink)"
+if [[ -z "${sink}" ]]; then
+  Debug "trying sink 0"
+  sink=0
+fi
+
+exec pactl set-sink-mute "${sink}" toggle
+

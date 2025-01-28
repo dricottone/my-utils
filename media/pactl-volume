@@ -1,0 +1,150 @@
+#!/bin/bash
+
+name="pactl-volume"
+version="1.1"
+read -r -d '' help_message <<-EOF
+	Show volume levels, optionally raising or lowering them first
+	Usage:
+	  pactl-volume [OPTIONS]
+	  pactl-volume [OPTIONS] up|down [PERCENT]
+	  pactl-volume [OPTIONS] [-]PERCENT
+	Options:
+	 -h, --help     print this message and exit
+	 -q, --quiet    suppress error messages
+	 -v, --verbose  show additional messages
+	 -V, --version  print version number and exit
+EOF
+
+. /usr/local/lib/mylib.bash
+
+down=0
+format="%s/%s"
+percent="10"
+positional=()
+quiet=0
+up=0
+verbose=0
+
+while [[ "${#}" -gt 0 ]]; do
+  case "${1}" in
+
+  -h|--help)
+    Help
+    shift
+    ;;
+
+  -f=*|--format=*)
+    IFS='=' read -r flag extract <<<"${1}"
+    Debug "parser: --format=${extract} (was '${format}')"
+    format="${extract}"
+    shift
+    ;;
+
+  -f|--format)
+    Debug "parser: --format=${2} (was '${format}')"
+    format="${2}"
+    shift; shift
+    ;;
+
+  -q|--quiet)
+    #NOTE: Normally would emit a message with Debug, but the user is
+    #      specifically requesting that we do not.
+    quiet=1
+    shift
+    ;;
+
+  -v|--verbose)
+    Debug "parser: --verbose=1 (was ${verbose})"
+    verbose=1
+    shift
+    ;;
+
+  -V|--version)
+    Version
+    ;;
+
+  down)
+    Debug "parser: received 'down' subcommand"
+    if [[ "${up}" -eq 1 ]]; then
+      Error "parser: conflicting 'up' and 'down' subcommands"
+      up=0
+    fi
+    down=1
+    shift
+    ;;
+
+  up)
+    Debug "parser: received 'up' subcommand"
+    if [[ "${down}" -eq 1 ]]; then
+      Error "parser: conflicting 'up' and 'down' subcommands"
+      down=0
+    fi
+    up=1
+    shift
+    ;;
+
+  [1-9]|[1-9]%|[1-9][0-9]|[1-9][0-9]%)
+    Debug "parser: '${1}' received as a volume change"
+    if [[ "${up}" -eq 0 ]] && [[ "${down}" -eq 0 ]]; then
+      Debug "parser: assuming a positive volume change"
+      up=1
+    fi
+    percent="${1}"
+    shift
+    ;;
+
+  -[1-9]|-[1-9]%|-[1-9][0-9]|-[1-9][0-9]%)
+    Debug "parser: '${1}' received as a negative volume change"
+    if [[ "${up}" -eq 1 ]]; then
+      Error "parser: conflicting 'up' subcommand and negative volume change"
+      up=0
+    fi
+    down=1
+    # Remove first character (known to be '-').
+    percent="${1:1}"
+    shift
+    ;;
+
+  *)
+    Debug "parser: '${1}' appended to positional arguments"
+    positional+=("${1}")
+    shift
+    ;;
+
+  esac
+done
+
+
+
+code=0
+if [[ "${up}" -eq 1 ]]; then
+  if ! pactl-volume-up "${percent}"; then
+    Error "failed to raise volume"
+    code=1
+  fi
+
+elif [[ "${down}" -eq 1 ]]; then
+  if ! pactl-volume-down "${percent}"; then
+    Error "failed to lower volume"
+    code=1
+  fi
+
+fi
+
+sinks="$(/usr/bin/pactl list sinks | /usr/bin/tr -d '\r')"
+if [[ "$?" -ne 0 ]]; then
+  Fatal "failed to query Pulseaudio sinks"
+fi
+
+read -r -d '' left right rest < \
+  <(/usr/bin/grep --fixed-strings 'Volume:' <<<"${sinks}" \
+    | /usr/bin/grep --only-matching --regexp '[0-9]\+%' \
+    )
+if [[ -z "${right}" ]]; then
+  Fatal "failed to parse Pulseaudio output"
+fi
+
+/usr/bin/printf -- "${format}\n" "${left}" "${right}"
+
+exit "${code}"
+

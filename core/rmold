@@ -1,23 +1,30 @@
-#!/bin/sh
+#!/bin/bash
 
 name="rmold"
-version="1.0"
-help_message=$(/usr/bin/cat <<-EOF
+version="1.1"
+read -r -d '' help_message <<-EOF
 	Delete files older than a year
 	Usage: rmold [PATH]
 	Options:
 	 -h, --help     print this message and exit
-	 -v, --version  print version number and exit
+	 -q, --quiet    suppress error messages and prompts
+	 -v, --verbose  show additional messages
+	 -V, --version  print version number and exit
 EOF
-)
 
-. /usr/local/lib/myminiparse.sh
-
-if [ -z "$1" ]; then
-  path="."
-else
-  path="$1"
+. /usr/local/lib/mylib.bash
+. /usr/local/lib/myparse.bash
+dir="$(DirectoryArgumentOrCurrent)"
+if [[ -z "${dir}" ]]; then
+  exit 1
 fi
 
-find "$path" -type f -mtime +365 -delete
+path="$(FileAbsolute "${dir}")"
+if [[ -z "${path}" ]]; then
+  exit 1
+fi
+
+Debug "resolved '${dir}' to '${path}'"
+
+find "${path}" -type f -mtime +365 -delete
 

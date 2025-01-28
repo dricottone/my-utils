@@ -1,0 +1,43 @@
+#!/bin/bash
+
+name="qemu-test"
+version="1.2"
+read -r -d '' help_message <<-EOF
+	Check if hardware and OS are capable of virtualization
+	Usage: qemu-test
+	Options:
+	 -h, --help     print this message and exit
+	 -q, --quiet    suppress error messages
+	 -v, --verbose  show additional messages
+	 -V, --version  print version number and exit
+EOF
+
+. /usr/local/lib/mylib.bash
+. /usr/local/lib/myparse.bash
+
+#NOTE: Not using `StringContains`, or any other functions from my library,
+#      to test the following conditions. Reason being, the verbose debugging
+#      is *too* verbose for these tests.
+
+if [[ "${verbose}" -eq 1 ]]; then
+  /usr/bin/printf -- 'lscpu ...\n'
+fi
+if ! LC_ALL=C /usr/bin/lscpu | /usr/bin/grep --quiet --fixed-strings 'Virtualization'; then
+  Fatal "virtualization is not supported by the CPU"
+fi
+
+if [[ "${verbose}" -eq 1 ]]; then
+  /usr/bin/printf -- 'zgrep CONFIG_KVM /proc/config.gz ...\n'
+fi
+if ! /usr/bin/zgrep CONFIG_KVM /proc/config.gz >/dev/null 2>&1; then
+  Fatal "virtualization is not supported by the kernel"
+fi
+
+if [[ "${verbose}" -eq 1 ]]; then
+  /usr/bin/printf -- 'lsmod ...\n'
+fi
+if ! /usr/bin/lsmod | /usr/bin/grep --quiet --fixed-strings 'kvm'; then
+  Fatal "kernel modules for virtualization are not loaded"
+fi
+
+
