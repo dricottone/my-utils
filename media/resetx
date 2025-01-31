@@ -26,5 +26,5 @@ fi
 xrandr_cmd="$(/usr/bin/grep --regexp '^xrandr ' "${HOME}/.xinitrc")"
 Debug "${xrandr_cmd}"
 
-sudo "${xrandr_cmd}"
+sudo ${xrandr_cmd}
 
