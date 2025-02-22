@@ -382,7 +382,7 @@ ExtractArchivePlaintext() {
 }
 
 # Usage: MkSha $algorithm $archivefile $checksumfile
-#Desc:  Create a checksum file for an archive file.
+# Desc:  Create a checksum file for an archive file.
 MkSha() {
   local checksum=""
   case "${1}" in
