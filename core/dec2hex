@@ -1,0 +1,82 @@
+#!/bin/bash
+
+name="dec2hex"
+version="1.0"
+read -r -d '' help_message <<-EOF
+	Convert a decimal value to a hex value
+	Usage: dec2hex [OPTIONS] NUM..
+	Options:
+	 -h, --help       print this message and exit
+	 -q, --quiet      suppress error messages
+	 -v, --verbose    show additional messages
+	 -V, --version    print version number and exit
+	 -w=N, --width=N  width of zero-padded hexadecimal
+EOF
+
+source /usr/local/lib/mylib.bash
+
+positional=()
+width=2
+quiet=0
+verbose=0
+
+while [[ "${#}" -gt 0 ]]; do
+  case "${1}" in
+
+  -h|--help)
+    Help
+    shift
+    ;;
+
+  -q|--quiet)
+    #NOTE: Normally would emit a message with Debug, but the user is
+    #      specifically requesting that we do not.
+    quiet=1
+    shift
+    ;;
+
+  -v|--verbose)
+    Debug "parser: --verbose=1 (was ${verbose})"
+    verbose=1
+    shift
+    ;;
+
+  -V|--version)
+    Version
+    ;;
+
+  -w=*|--width=*)
+    IFS='=' read -r flag extract <<<"${1}"
+    if ! IsNatural "${extract}"; then
+      Error "parser: cannot use width of '${extract}' (not an integer >= 0)"
+    else
+      Debug "parser: --width=${extract} (was ${width})"
+      width="${extract}"
+    fi
+    shift
+    ;;
+
+  -w|--width)
+    if ! IsNatural "$2"; then
+      Fatal "parser: cannot use width of '${2}' (not an integer >= 0)"
+    else
+      Debug "parser: --width=${2} (was ${width})"
+      width="${2}"
+    fi
+    shift; shift
+    ;;
+
+  *)
+    Debug "parser: '${1}' appended to positional arguments"
+    positional+=("${1}")
+    shift
+    ;;
+  esac
+done
+
+RequirePositionalArguments
+
+for num in "${positional[@]}"; do
+  /usr/bin/printf -- '%0*X\n' "${width}" "${num}"
+done
+

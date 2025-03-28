@@ -13,6 +13,7 @@ Executable      |Description                                                    
 :---------------|:---------------------------------------------------------------------|:-----------------
 ctdir           |Count entries in a target directory(ies)
 debom           |Concatenate target files while stripping BOMs
+dec2hex         |Convert a decimal value to a hex value
 dired           |Open Emacs in dired mode                                              |`emacs`
 enumerate       |Rename files in a target directory (or current directory) sequentially
 git-blobs       |List blobs in git history                                             |`git`

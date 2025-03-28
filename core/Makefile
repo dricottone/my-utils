@@ -2,7 +2,7 @@ BIN_DIR?=/usr/local/bin
 LIB_DIR?=/usr/local/lib
 COMP_DIR?=/usr/local/etc/bash_completion.d
 
-BINS=ctdir debom dired enumerate git-blobs git-sparse.raku mkbak rand rebom rmold shebangs start-at stop-at vimsplit whichcat whiched whichhead whichvi wttr
+BINS=ctdir debom dec2hex dired enumerate git-blobs git-sparse.raku mkbak rand rebom rmold shebangs start-at stop-at vimsplit whichcat whiched whichhead whichvi wttr
 LIBS=mylib.bash myparse.bash
 
 INSTALL_FLAGS?=
