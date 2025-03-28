@@ -29,7 +29,7 @@ test/usage-messages.bats: ../testing/testing-bats-start-test.sh ../testing/testi
 	rm -f test/usage-messages.bats
 	../testing/testing-bats-start-test.sh >test/usage-messages.bats
 	# commands that produce a usage message when called without an argument
-	for cmd in ctdir debom mkbak rebom vimsplit whichcat whichhead whiched whichvi ; do \
+	for cmd in ctdir debom dec2hex mkbak rebom vimsplit whichcat whichhead whiched whichvi ; do \
 		../testing/testing-bats-test-usage-message.sh $$cmd >>test/usage-messages.bats ; \
 	done
 
@@ -38,7 +38,7 @@ test/help-messages.bats: ../testing/testing-bats-start-test.sh ../testing/testin
 	rm -f test/help-messages.bats
 	../testing/testing-bats-start-test.sh >test/help-messages.bats
 	# commands that produce a help message when requested; should be all
-	for cmd in ctdir debom dired enumerate git-blobs mkbak rand rebom rmold shebangs vimsplit whichcat whichhead whiched whichvi wttr ; do \
+	for cmd in ctdir debom dec2hex dired enumerate git-blobs mkbak rand rebom rmold shebangs vimsplit whichcat whichhead whiched whichvi wttr ; do \
 		../testing/testing-bats-test-help-message.sh $$cmd >>test/help-messages.bats ; \
 	done
 
@@ -47,7 +47,7 @@ test/version-messages.bats: ../testing/testing-bats-start-test.sh ../testing/tes
 	rm -f test/version-messages.bats
 	../testing/testing-bats-start-test.sh >test/version-messages.bats
 	# commands that produce a version message when requested; should be all
-	for cmd in ctdir debom dired enumerate git-blobs mkbak rand rebom rmold shebangs vimsplit whichcat whichhead whiched whichvi wttr ; do \
+	for cmd in ctdir debom dec2hex dired enumerate git-blobs mkbak rand rebom rmold shebangs vimsplit whichcat whichhead whiched whichvi wttr ; do \
 		../testing/testing-bats-test-version-message.sh $$cmd >>test/version-messages.bats ; \
 	done
 
@@ -55,11 +55,11 @@ test/fixtures.sh: ../testing/testing-bats-extract-usage-message.sh
 	mkdir -p test
 	rm -f test/fixtures.sh
 	# commands that produce a usage message when called without an argument
-	for cmd in ctdir debom mkbak rebom vimsplit whichcat whichhead whiched whichvi ; do \
+	for cmd in ctdir dec2hex debom mkbak rebom vimsplit whichcat whichhead whiched whichvi ; do \
 		../testing/testing-bats-extract-usage-message.sh $$cmd >>test/fixtures.sh ; \
 	done
 	# commands that produce a help/version message when requested; should be all
-	for cmd in ctdir debom dired enumerate git-blobs mkbak rand rebom rmold shebangs vimsplit whichcat whichhead whiched whichvi wttr ; do \
+	for cmd in ctdir debom dec2hex dired enumerate git-blobs mkbak rand rebom rmold shebangs vimsplit whichcat whichhead whiched whichvi wttr ; do \
 		../testing/testing-bats-extract-help-message.sh $$cmd >>test/fixtures.sh ; \
 		../testing/testing-bats-extract-version-message.sh $$cmd >>test/fixtures.sh ; \
 	done

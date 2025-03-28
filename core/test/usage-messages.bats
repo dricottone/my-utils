@@ -301,6 +301,156 @@ load fixtures.sh
   [ "$output" = "debom: parser: --verbose=1 (was 1)" ]
   [ "$stderr" = "$usage_debom" ]
 }
+@test "dec2hex usage" {
+  run --separate-stderr ./dec2hex
+  [ "$status" -eq 1 ]
+  [ "$output" = "" ]
+  [ "$stderr" = "$usage_dec2hex" ]
+}
+@test "dec2hex (flags: -q)" {
+  run --separate-stderr ./dec2hex -q
+  [ "$status" -eq 1 ]
+  [ "$output" = "" ]
+  [ "$stderr" = "$usage_dec2hex" ]
+}
+@test "dec2hex (flags: --quiet)" {
+  run --separate-stderr ./dec2hex --quiet
+  [ "$status" -eq 1 ]
+  [ "$output" = "" ]
+  [ "$stderr" = "$usage_dec2hex" ]
+}
+@test "dec2hex (flags: -v)" {
+  run --separate-stderr ./dec2hex -v
+  [ "$status" -eq 1 ]
+  [ "$output" = "" ]
+  [ "$stderr" = "$usage_dec2hex" ]
+}
+@test "dec2hex (flags: --verbose)" {
+  run --separate-stderr ./dec2hex --verbose
+  [ "$status" -eq 1 ]
+  [ "$output" = "" ]
+  [ "$stderr" = "$usage_dec2hex" ]
+}
+@test "dec2hex (flags: -v -q)" {
+  run --separate-stderr ./dec2hex -v -q
+  [ "$status" -eq 1 ]
+  [ "$output" = "" ]
+  [ "$stderr" = "$usage_dec2hex" ]
+}
+@test "dec2hex (flags: --verbose -q)" {
+  run --separate-stderr ./dec2hex --verbose -q
+  [ "$status" -eq 1 ]
+  [ "$output" = "" ]
+  [ "$stderr" = "$usage_dec2hex" ]
+}
+@test "dec2hex (flags: -v --quiet)" {
+  run --separate-stderr ./dec2hex -v --quiet
+  [ "$status" -eq 1 ]
+  [ "$output" = "" ]
+  [ "$stderr" = "$usage_dec2hex" ]
+}
+@test "dec2hex (flags: --verbose --quiet)" {
+  run --separate-stderr ./dec2hex --verbose --quiet
+  [ "$status" -eq 1 ]
+  [ "$output" = "" ]
+  [ "$stderr" = "$usage_dec2hex" ]
+}
+@test "dec2hex (flags: -q -v)" {
+  run --separate-stderr ./dec2hex -q -v
+  [ "$status" -eq 1 ]
+  [ "$output" = "" ]
+  [ "$stderr" = "$usage_dec2hex" ]
+}
+@test "dec2hex (flags: -q --verbose)" {
+  run --separate-stderr ./dec2hex -q --verbose
+  [ "$status" -eq 1 ]
+  [ "$output" = "" ]
+  [ "$stderr" = "$usage_dec2hex" ]
+}
+@test "dec2hex (flags: --quiet -v)" {
+  run --separate-stderr ./dec2hex --quiet -v
+  [ "$status" -eq 1 ]
+  [ "$output" = "" ]
+  [ "$stderr" = "$usage_dec2hex" ]
+}
+@test "dec2hex (flags: --quiet --verbose)" {
+  run --separate-stderr ./dec2hex --quiet --verbose
+  [ "$status" -eq 1 ]
+  [ "$output" = "" ]
+  [ "$stderr" = "$usage_dec2hex" ]
+}
+@test "dec2hex (flags: -v -v)" {
+  run --separate-stderr ./dec2hex -v -v
+  [ "$status" -eq 1 ]
+  [ "$output" = "dec2hex: parser: --verbose=1 (was 1)" ]
+  [ "$stderr" = "$usage_dec2hex" ]
+}
+@test "dec2hex (flags: --verbose -v)" {
+  run --separate-stderr ./dec2hex --verbose -v
+  [ "$status" -eq 1 ]
+  [ "$output" = "dec2hex: parser: --verbose=1 (was 1)" ]
+  [ "$stderr" = "$usage_dec2hex" ]
+}
+@test "dec2hex (flags: -v --verbose)" {
+  run --separate-stderr ./dec2hex -v --verbose
+  [ "$status" -eq 1 ]
+  [ "$output" = "dec2hex: parser: --verbose=1 (was 1)" ]
+  [ "$stderr" = "$usage_dec2hex" ]
+}
+@test "dec2hex (flags: --verbose --verbose)" {
+  run --separate-stderr ./dec2hex --verbose --verbose
+  [ "$status" -eq 1 ]
+  [ "$output" = "dec2hex: parser: --verbose=1 (was 1)" ]
+  [ "$stderr" = "$usage_dec2hex" ]
+}
+@test "dec2hex (flags: -v -v -q)" {
+  run --separate-stderr ./dec2hex -v -v -q
+  [ "$status" -eq 1 ]
+  [ "$output" = "dec2hex: parser: --verbose=1 (was 1)" ]
+  [ "$stderr" = "$usage_dec2hex" ]
+}
+@test "dec2hex (flags: --verbose -v -q)" {
+  run --separate-stderr ./dec2hex --verbose -v -q
+  [ "$status" -eq 1 ]
+  [ "$output" = "dec2hex: parser: --verbose=1 (was 1)" ]
+  [ "$stderr" = "$usage_dec2hex" ]
+}
+@test "dec2hex (flags: -v --verbose -q)" {
+  run --separate-stderr ./dec2hex -v --verbose -q
+  [ "$status" -eq 1 ]
+  [ "$output" = "dec2hex: parser: --verbose=1 (was 1)" ]
+  [ "$stderr" = "$usage_dec2hex" ]
+}
+@test "dec2hex (flags: --verbose --verbose -q)" {
+  run --separate-stderr ./dec2hex --verbose --verbose -q
+  [ "$status" -eq 1 ]
+  [ "$output" = "dec2hex: parser: --verbose=1 (was 1)" ]
+  [ "$stderr" = "$usage_dec2hex" ]
+}
+@test "dec2hex (flags: -v -v --quiet)" {
+  run --separate-stderr ./dec2hex -v -v --quiet
+  [ "$status" -eq 1 ]
+  [ "$output" = "dec2hex: parser: --verbose=1 (was 1)" ]
+  [ "$stderr" = "$usage_dec2hex" ]
+}
+@test "dec2hex (flags: --verbose -v --quiet)" {
+  run --separate-stderr ./dec2hex --verbose -v --quiet
+  [ "$status" -eq 1 ]
+  [ "$output" = "dec2hex: parser: --verbose=1 (was 1)" ]
+  [ "$stderr" = "$usage_dec2hex" ]
+}
+@test "dec2hex (flags: -v --verbose --quiet)" {
+  run --separate-stderr ./dec2hex -v --verbose --quiet
+  [ "$status" -eq 1 ]
+  [ "$output" = "dec2hex: parser: --verbose=1 (was 1)" ]
+  [ "$stderr" = "$usage_dec2hex" ]
+}
+@test "dec2hex (flags: --verbose --verbose --quiet)" {
+  run --separate-stderr ./dec2hex --verbose --verbose --quiet
+  [ "$status" -eq 1 ]
+  [ "$output" = "dec2hex: parser: --verbose=1 (was 1)" ]
+  [ "$stderr" = "$usage_dec2hex" ]
+}
 @test "mkbak usage" {
   run --separate-stderr ./mkbak
   [ "$status" -eq 1 ]

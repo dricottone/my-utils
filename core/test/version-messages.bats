@@ -721,6 +721,366 @@ load fixtures.sh
   [ "$output" = "$version_debom" ]
   [ "$stderr" = "" ]
 }
+@test "dec2hex (flags: -V)" {
+  run --separate-stderr ./dec2hex -V
+  [ "$status" -eq 0 ]
+  [ "$output" = "$version_dec2hex" ]
+  [ "$stderr" = "" ]
+}
+@test "dec2hex (flags: -q -V)" {
+  run --separate-stderr ./dec2hex -q -V
+  [ "$status" -eq 0 ]
+  [ "$output" = "$version_dec2hex" ]
+  [ "$stderr" = "" ]
+}
+@test "dec2hex (flags: -V -q)" {
+  run --separate-stderr ./dec2hex -V -q
+  [ "$status" -eq 0 ]
+  [ "$output" = "$version_dec2hex" ]
+  [ "$stderr" = "" ]
+}
+@test "dec2hex (flags: -v -V)" {
+  run --separate-stderr ./dec2hex -v -V
+  [ "$status" -eq 0 ]
+  [ "$output" = "$version_dec2hex" ]
+  [ "$stderr" = "" ]
+}
+@test "dec2hex (flags: -V -v)" {
+  run --separate-stderr ./dec2hex -V -v
+  [ "$status" -eq 0 ]
+  [ "$output" = "$version_dec2hex" ]
+  [ "$stderr" = "" ]
+}
+@test "dec2hex (flags: -q -v -V)" {
+  run --separate-stderr ./dec2hex -q -v -V
+  [ "$status" -eq 0 ]
+  [ "$output" = "$version_dec2hex" ]
+  [ "$stderr" = "" ]
+}
+@test "dec2hex (flags: -v -q -V)" {
+  run --separate-stderr ./dec2hex -v -q -V
+  [ "$status" -eq 0 ]
+  [ "$output" = "$version_dec2hex" ]
+  [ "$stderr" = "" ]
+}
+@test "dec2hex (flags: -q -V -v)" {
+  run --separate-stderr ./dec2hex -q -V -v
+  [ "$status" -eq 0 ]
+  [ "$output" = "$version_dec2hex" ]
+  [ "$stderr" = "" ]
+}
+@test "dec2hex (flags: -v -V -q)" {
+  run --separate-stderr ./dec2hex -v -V -q
+  [ "$status" -eq 0 ]
+  [ "$output" = "$version_dec2hex" ]
+  [ "$stderr" = "" ]
+}
+@test "dec2hex (flags: -V -q -v)" {
+  run --separate-stderr ./dec2hex -V -q -v
+  [ "$status" -eq 0 ]
+  [ "$output" = "$version_dec2hex" ]
+  [ "$stderr" = "" ]
+}
+@test "dec2hex (flags: -V -v -q)" {
+  run --separate-stderr ./dec2hex -V -v -q
+  [ "$status" -eq 0 ]
+  [ "$output" = "$version_dec2hex" ]
+  [ "$stderr" = "" ]
+}
+@test "dec2hex (flags: --version)" {
+  run --separate-stderr ./dec2hex --version
+  [ "$status" -eq 0 ]
+  [ "$output" = "$version_dec2hex" ]
+  [ "$stderr" = "" ]
+}
+@test "dec2hex (flags: -q --version)" {
+  run --separate-stderr ./dec2hex -q --version
+  [ "$status" -eq 0 ]
+  [ "$output" = "$version_dec2hex" ]
+  [ "$stderr" = "" ]
+}
+@test "dec2hex (flags: --version -q)" {
+  run --separate-stderr ./dec2hex --version -q
+  [ "$status" -eq 0 ]
+  [ "$output" = "$version_dec2hex" ]
+  [ "$stderr" = "" ]
+}
+@test "dec2hex (flags: -v --version)" {
+  run --separate-stderr ./dec2hex -v --version
+  [ "$status" -eq 0 ]
+  [ "$output" = "$version_dec2hex" ]
+  [ "$stderr" = "" ]
+}
+@test "dec2hex (flags: --version -v)" {
+  run --separate-stderr ./dec2hex --version -v
+  [ "$status" -eq 0 ]
+  [ "$output" = "$version_dec2hex" ]
+  [ "$stderr" = "" ]
+}
+@test "dec2hex (flags: -q -v --version)" {
+  run --separate-stderr ./dec2hex -q -v --version
+  [ "$status" -eq 0 ]
+  [ "$output" = "$version_dec2hex" ]
+  [ "$stderr" = "" ]
+}
+@test "dec2hex (flags: -v -q --version)" {
+  run --separate-stderr ./dec2hex -v -q --version
+  [ "$status" -eq 0 ]
+  [ "$output" = "$version_dec2hex" ]
+  [ "$stderr" = "" ]
+}
+@test "dec2hex (flags: -q --version -v)" {
+  run --separate-stderr ./dec2hex -q --version -v
+  [ "$status" -eq 0 ]
+  [ "$output" = "$version_dec2hex" ]
+  [ "$stderr" = "" ]
+}
+@test "dec2hex (flags: -v --version -q)" {
+  run --separate-stderr ./dec2hex -v --version -q
+  [ "$status" -eq 0 ]
+  [ "$output" = "$version_dec2hex" ]
+  [ "$stderr" = "" ]
+}
+@test "dec2hex (flags: --version -q -v)" {
+  run --separate-stderr ./dec2hex --version -q -v
+  [ "$status" -eq 0 ]
+  [ "$output" = "$version_dec2hex" ]
+  [ "$stderr" = "" ]
+}
+@test "dec2hex (flags: --version -v -q)" {
+  run --separate-stderr ./dec2hex --version -v -q
+  [ "$status" -eq 0 ]
+  [ "$output" = "$version_dec2hex" ]
+  [ "$stderr" = "" ]
+}
+@test "dec2hex (flags: --quiet -V)" {
+  run --separate-stderr ./dec2hex --quiet -V
+  [ "$status" -eq 0 ]
+  [ "$output" = "$version_dec2hex" ]
+  [ "$stderr" = "" ]
+}
+@test "dec2hex (flags: -V --quiet)" {
+  run --separate-stderr ./dec2hex -V --quiet
+  [ "$status" -eq 0 ]
+  [ "$output" = "$version_dec2hex" ]
+  [ "$stderr" = "" ]
+}
+@test "dec2hex (flags: --quiet -v -V)" {
+  run --separate-stderr ./dec2hex --quiet -v -V
+  [ "$status" -eq 0 ]
+  [ "$output" = "$version_dec2hex" ]
+  [ "$stderr" = "" ]
+}
+@test "dec2hex (flags: -v --quiet -V)" {
+  run --separate-stderr ./dec2hex -v --quiet -V
+  [ "$status" -eq 0 ]
+  [ "$output" = "$version_dec2hex" ]
+  [ "$stderr" = "" ]
+}
+@test "dec2hex (flags: --quiet -V -v)" {
+  run --separate-stderr ./dec2hex --quiet -V -v
+  [ "$status" -eq 0 ]
+  [ "$output" = "$version_dec2hex" ]
+  [ "$stderr" = "" ]
+}
+@test "dec2hex (flags: -v -V --quiet)" {
+  run --separate-stderr ./dec2hex -v -V --quiet
+  [ "$status" -eq 0 ]
+  [ "$output" = "$version_dec2hex" ]
+  [ "$stderr" = "" ]
+}
+@test "dec2hex (flags: -V --quiet -v)" {
+  run --separate-stderr ./dec2hex -V --quiet -v
+  [ "$status" -eq 0 ]
+  [ "$output" = "$version_dec2hex" ]
+  [ "$stderr" = "" ]
+}
+@test "dec2hex (flags: -V -v --quiet)" {
+  run --separate-stderr ./dec2hex -V -v --quiet
+  [ "$status" -eq 0 ]
+  [ "$output" = "$version_dec2hex" ]
+  [ "$stderr" = "" ]
+}
+@test "dec2hex (flags: --verbose -V)" {
+  run --separate-stderr ./dec2hex --verbose -V
+  [ "$status" -eq 0 ]
+  [ "$output" = "$version_dec2hex" ]
+  [ "$stderr" = "" ]
+}
+@test "dec2hex (flags: -V --verbose)" {
+  run --separate-stderr ./dec2hex -V --verbose
+  [ "$status" -eq 0 ]
+  [ "$output" = "$version_dec2hex" ]
+  [ "$stderr" = "" ]
+}
+@test "dec2hex (flags: -q --verbose -V)" {
+  run --separate-stderr ./dec2hex -q --verbose -V
+  [ "$status" -eq 0 ]
+  [ "$output" = "$version_dec2hex" ]
+  [ "$stderr" = "" ]
+}
+@test "dec2hex (flags: --verbose -q -V)" {
+  run --separate-stderr ./dec2hex --verbose -q -V
+  [ "$status" -eq 0 ]
+  [ "$output" = "$version_dec2hex" ]
+  [ "$stderr" = "" ]
+}
+@test "dec2hex (flags: -q -V --verbose)" {
+  run --separate-stderr ./dec2hex -q -V --verbose
+  [ "$status" -eq 0 ]
+  [ "$output" = "$version_dec2hex" ]
+  [ "$stderr" = "" ]
+}
+@test "dec2hex (flags: --verbose -V -q)" {
+  run --separate-stderr ./dec2hex --verbose -V -q
+  [ "$status" -eq 0 ]
+  [ "$output" = "$version_dec2hex" ]
+  [ "$stderr" = "" ]
+}
+@test "dec2hex (flags: -V -q --verbose)" {
+  run --separate-stderr ./dec2hex -V -q --verbose
+  [ "$status" -eq 0 ]
+  [ "$output" = "$version_dec2hex" ]
+  [ "$stderr" = "" ]
+}
+@test "dec2hex (flags: -V --verbose -q)" {
+  run --separate-stderr ./dec2hex -V --verbose -q
+  [ "$status" -eq 0 ]
+  [ "$output" = "$version_dec2hex" ]
+  [ "$stderr" = "" ]
+}
+@test "dec2hex (flags: --quiet --version)" {
+  run --separate-stderr ./dec2hex --quiet --version
+  [ "$status" -eq 0 ]
+  [ "$output" = "$version_dec2hex" ]
+  [ "$stderr" = "" ]
+}
+@test "dec2hex (flags: --version --quiet)" {
+  run --separate-stderr ./dec2hex --version --quiet
+  [ "$status" -eq 0 ]
+  [ "$output" = "$version_dec2hex" ]
+  [ "$stderr" = "" ]
+}
+@test "dec2hex (flags: --quiet -v --version)" {
+  run --separate-stderr ./dec2hex --quiet -v --version
+  [ "$status" -eq 0 ]
+  [ "$output" = "$version_dec2hex" ]
+  [ "$stderr" = "" ]
+}
+@test "dec2hex (flags: -v --quiet --version)" {
+  run --separate-stderr ./dec2hex -v --quiet --version
+  [ "$status" -eq 0 ]
+  [ "$output" = "$version_dec2hex" ]
+  [ "$stderr" = "" ]
+}
+@test "dec2hex (flags: --quiet --version -v)" {
+  run --separate-stderr ./dec2hex --quiet --version -v
+  [ "$status" -eq 0 ]
+  [ "$output" = "$version_dec2hex" ]
+  [ "$stderr" = "" ]
+}
+@test "dec2hex (flags: -v --version --quiet)" {
+  run --separate-stderr ./dec2hex -v --version --quiet
+  [ "$status" -eq 0 ]
+  [ "$output" = "$version_dec2hex" ]
+  [ "$stderr" = "" ]
+}
+@test "dec2hex (flags: --version --quiet -v)" {
+  run --separate-stderr ./dec2hex --version --quiet -v
+  [ "$status" -eq 0 ]
+  [ "$output" = "$version_dec2hex" ]
+  [ "$stderr" = "" ]
+}
+@test "dec2hex (flags: --version -v --quiet)" {
+  run --separate-stderr ./dec2hex --version -v --quiet
+  [ "$status" -eq 0 ]
+  [ "$output" = "$version_dec2hex" ]
+  [ "$stderr" = "" ]
+}
+@test "dec2hex (flags: --verbose --version)" {
+  run --separate-stderr ./dec2hex --verbose --version
+  [ "$status" -eq 0 ]
+  [ "$output" = "$version_dec2hex" ]
+  [ "$stderr" = "" ]
+}
+@test "dec2hex (flags: --version --verbose)" {
+  run --separate-stderr ./dec2hex --version --verbose
+  [ "$status" -eq 0 ]
+  [ "$output" = "$version_dec2hex" ]
+  [ "$stderr" = "" ]
+}
+@test "dec2hex (flags: -q --verbose --version)" {
+  run --separate-stderr ./dec2hex -q --verbose --version
+  [ "$status" -eq 0 ]
+  [ "$output" = "$version_dec2hex" ]
+  [ "$stderr" = "" ]
+}
+@test "dec2hex (flags: --verbose -q --version)" {
+  run --separate-stderr ./dec2hex --verbose -q --version
+  [ "$status" -eq 0 ]
+  [ "$output" = "$version_dec2hex" ]
+  [ "$stderr" = "" ]
+}
+@test "dec2hex (flags: -q --version --verbose)" {
+  run --separate-stderr ./dec2hex -q --version --verbose
+  [ "$status" -eq 0 ]
+  [ "$output" = "$version_dec2hex" ]
+  [ "$stderr" = "" ]
+}
+@test "dec2hex (flags: --verbose --version -q)" {
+  run --separate-stderr ./dec2hex --verbose --version -q
+  [ "$status" -eq 0 ]
+  [ "$output" = "$version_dec2hex" ]
+  [ "$stderr" = "" ]
+}
+@test "dec2hex (flags: --version -q --verbose)" {
+  run --separate-stderr ./dec2hex --version -q --verbose
+  [ "$status" -eq 0 ]
+  [ "$output" = "$version_dec2hex" ]
+  [ "$stderr" = "" ]
+}
+@test "dec2hex (flags: --version --verbose -q)" {
+  run --separate-stderr ./dec2hex --version --verbose -q
+  [ "$status" -eq 0 ]
+  [ "$output" = "$version_dec2hex" ]
+  [ "$stderr" = "" ]
+}
+@test "dec2hex (flags: --quiet --verbose --version)" {
+  run --separate-stderr ./dec2hex --quiet --verbose --version
+  [ "$status" -eq 0 ]
+  [ "$output" = "$version_dec2hex" ]
+  [ "$stderr" = "" ]
+}
+@test "dec2hex (flags: --verbose --quiet --version)" {
+  run --separate-stderr ./dec2hex --verbose --quiet --version
+  [ "$status" -eq 0 ]
+  [ "$output" = "$version_dec2hex" ]
+  [ "$stderr" = "" ]
+}
+@test "dec2hex (flags: --quiet --version --verbose)" {
+  run --separate-stderr ./dec2hex --quiet --version --verbose
+  [ "$status" -eq 0 ]
+  [ "$output" = "$version_dec2hex" ]
+  [ "$stderr" = "" ]
+}
+@test "dec2hex (flags: --verbose --version --quiet)" {
+  run --separate-stderr ./dec2hex --verbose --version --quiet
+  [ "$status" -eq 0 ]
+  [ "$output" = "$version_dec2hex" ]
+  [ "$stderr" = "" ]
+}
+@test "dec2hex (flags: --version --quiet --verbose)" {
+  run --separate-stderr ./dec2hex --version --quiet --verbose
+  [ "$status" -eq 0 ]
+  [ "$output" = "$version_dec2hex" ]
+  [ "$stderr" = "" ]
+}
+@test "dec2hex (flags: --version --verbose --quiet)" {
+  run --separate-stderr ./dec2hex --version --verbose --quiet
+  [ "$status" -eq 0 ]
+  [ "$output" = "$version_dec2hex" ]
+  [ "$stderr" = "" ]
+}
 @test "dired (flags: -V)" {
   run --separate-stderr ./dired -V
   [ "$status" -eq 0 ]

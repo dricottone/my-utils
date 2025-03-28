@@ -1561,6 +1561,846 @@ load fixtures.sh
   [ "${lines[7]}" = "$help_debom_7" ]
   [ "$stderr" = "" ]
 }
+@test "dec2hex (flags: -h)" {
+  run --separate-stderr ./dec2hex -h
+  [ "$status" -eq 0 ]
+  [ "${lines[0]}" = "$help_dec2hex_0" ]
+  [ "${lines[1]}" = "$help_dec2hex_1" ]
+  [ "${lines[2]}" = "$help_dec2hex_2" ]
+  [ "${lines[3]}" = "$help_dec2hex_3" ]
+  [ "${lines[4]}" = "$help_dec2hex_4" ]
+  [ "${lines[5]}" = "$help_dec2hex_5" ]
+  [ "${lines[6]}" = "$help_dec2hex_6" ]
+  [ "${lines[7]}" = "$help_dec2hex_7" ]
+  [ "${lines[8]}" = "$help_dec2hex_8" ]
+  [ "$stderr" = "" ]
+}
+@test "dec2hex (flags: -q -h)" {
+  run --separate-stderr ./dec2hex -q -h
+  [ "$status" -eq 0 ]
+  [ "${lines[0]}" = "$help_dec2hex_0" ]
+  [ "${lines[1]}" = "$help_dec2hex_1" ]
+  [ "${lines[2]}" = "$help_dec2hex_2" ]
+  [ "${lines[3]}" = "$help_dec2hex_3" ]
+  [ "${lines[4]}" = "$help_dec2hex_4" ]
+  [ "${lines[5]}" = "$help_dec2hex_5" ]
+  [ "${lines[6]}" = "$help_dec2hex_6" ]
+  [ "${lines[7]}" = "$help_dec2hex_7" ]
+  [ "${lines[8]}" = "$help_dec2hex_8" ]
+  [ "$stderr" = "" ]
+}
+@test "dec2hex (flags: -h -q)" {
+  run --separate-stderr ./dec2hex -h -q
+  [ "$status" -eq 0 ]
+  [ "${lines[0]}" = "$help_dec2hex_0" ]
+  [ "${lines[1]}" = "$help_dec2hex_1" ]
+  [ "${lines[2]}" = "$help_dec2hex_2" ]
+  [ "${lines[3]}" = "$help_dec2hex_3" ]
+  [ "${lines[4]}" = "$help_dec2hex_4" ]
+  [ "${lines[5]}" = "$help_dec2hex_5" ]
+  [ "${lines[6]}" = "$help_dec2hex_6" ]
+  [ "${lines[7]}" = "$help_dec2hex_7" ]
+  [ "${lines[8]}" = "$help_dec2hex_8" ]
+  [ "$stderr" = "" ]
+}
+@test "dec2hex (flags: -v -h)" {
+  run --separate-stderr ./dec2hex -v -h
+  [ "$status" -eq 0 ]
+  [ "${lines[0]}" = "$help_dec2hex_0" ]
+  [ "${lines[1]}" = "$help_dec2hex_1" ]
+  [ "${lines[2]}" = "$help_dec2hex_2" ]
+  [ "${lines[3]}" = "$help_dec2hex_3" ]
+  [ "${lines[4]}" = "$help_dec2hex_4" ]
+  [ "${lines[5]}" = "$help_dec2hex_5" ]
+  [ "${lines[6]}" = "$help_dec2hex_6" ]
+  [ "${lines[7]}" = "$help_dec2hex_7" ]
+  [ "${lines[8]}" = "$help_dec2hex_8" ]
+  [ "$stderr" = "" ]
+}
+@test "dec2hex (flags: -h -v)" {
+  run --separate-stderr ./dec2hex -h -v
+  [ "$status" -eq 0 ]
+  [ "${lines[0]}" = "$help_dec2hex_0" ]
+  [ "${lines[1]}" = "$help_dec2hex_1" ]
+  [ "${lines[2]}" = "$help_dec2hex_2" ]
+  [ "${lines[3]}" = "$help_dec2hex_3" ]
+  [ "${lines[4]}" = "$help_dec2hex_4" ]
+  [ "${lines[5]}" = "$help_dec2hex_5" ]
+  [ "${lines[6]}" = "$help_dec2hex_6" ]
+  [ "${lines[7]}" = "$help_dec2hex_7" ]
+  [ "${lines[8]}" = "$help_dec2hex_8" ]
+  [ "$stderr" = "" ]
+}
+@test "dec2hex (flags: -q -v -h)" {
+  run --separate-stderr ./dec2hex -q -v -h
+  [ "$status" -eq 0 ]
+  [ "${lines[0]}" = "$help_dec2hex_0" ]
+  [ "${lines[1]}" = "$help_dec2hex_1" ]
+  [ "${lines[2]}" = "$help_dec2hex_2" ]
+  [ "${lines[3]}" = "$help_dec2hex_3" ]
+  [ "${lines[4]}" = "$help_dec2hex_4" ]
+  [ "${lines[5]}" = "$help_dec2hex_5" ]
+  [ "${lines[6]}" = "$help_dec2hex_6" ]
+  [ "${lines[7]}" = "$help_dec2hex_7" ]
+  [ "${lines[8]}" = "$help_dec2hex_8" ]
+  [ "$stderr" = "" ]
+}
+@test "dec2hex (flags: -v -q -h)" {
+  run --separate-stderr ./dec2hex -v -q -h
+  [ "$status" -eq 0 ]
+  [ "${lines[0]}" = "$help_dec2hex_0" ]
+  [ "${lines[1]}" = "$help_dec2hex_1" ]
+  [ "${lines[2]}" = "$help_dec2hex_2" ]
+  [ "${lines[3]}" = "$help_dec2hex_3" ]
+  [ "${lines[4]}" = "$help_dec2hex_4" ]
+  [ "${lines[5]}" = "$help_dec2hex_5" ]
+  [ "${lines[6]}" = "$help_dec2hex_6" ]
+  [ "${lines[7]}" = "$help_dec2hex_7" ]
+  [ "${lines[8]}" = "$help_dec2hex_8" ]
+  [ "$stderr" = "" ]
+}
+@test "dec2hex (flags: -q -h -v)" {
+  run --separate-stderr ./dec2hex -q -h -v
+  [ "$status" -eq 0 ]
+  [ "${lines[0]}" = "$help_dec2hex_0" ]
+  [ "${lines[1]}" = "$help_dec2hex_1" ]
+  [ "${lines[2]}" = "$help_dec2hex_2" ]
+  [ "${lines[3]}" = "$help_dec2hex_3" ]
+  [ "${lines[4]}" = "$help_dec2hex_4" ]
+  [ "${lines[5]}" = "$help_dec2hex_5" ]
+  [ "${lines[6]}" = "$help_dec2hex_6" ]
+  [ "${lines[7]}" = "$help_dec2hex_7" ]
+  [ "${lines[8]}" = "$help_dec2hex_8" ]
+  [ "$stderr" = "" ]
+}
+@test "dec2hex (flags: -v -h -q)" {
+  run --separate-stderr ./dec2hex -v -h -q
+  [ "$status" -eq 0 ]
+  [ "${lines[0]}" = "$help_dec2hex_0" ]
+  [ "${lines[1]}" = "$help_dec2hex_1" ]
+  [ "${lines[2]}" = "$help_dec2hex_2" ]
+  [ "${lines[3]}" = "$help_dec2hex_3" ]
+  [ "${lines[4]}" = "$help_dec2hex_4" ]
+  [ "${lines[5]}" = "$help_dec2hex_5" ]
+  [ "${lines[6]}" = "$help_dec2hex_6" ]
+  [ "${lines[7]}" = "$help_dec2hex_7" ]
+  [ "${lines[8]}" = "$help_dec2hex_8" ]
+  [ "$stderr" = "" ]
+}
+@test "dec2hex (flags: -h -q -v)" {
+  run --separate-stderr ./dec2hex -h -q -v
+  [ "$status" -eq 0 ]
+  [ "${lines[0]}" = "$help_dec2hex_0" ]
+  [ "${lines[1]}" = "$help_dec2hex_1" ]
+  [ "${lines[2]}" = "$help_dec2hex_2" ]
+  [ "${lines[3]}" = "$help_dec2hex_3" ]
+  [ "${lines[4]}" = "$help_dec2hex_4" ]
+  [ "${lines[5]}" = "$help_dec2hex_5" ]
+  [ "${lines[6]}" = "$help_dec2hex_6" ]
+  [ "${lines[7]}" = "$help_dec2hex_7" ]
+  [ "${lines[8]}" = "$help_dec2hex_8" ]
+  [ "$stderr" = "" ]
+}
+@test "dec2hex (flags: -h -v -q)" {
+  run --separate-stderr ./dec2hex -h -v -q
+  [ "$status" -eq 0 ]
+  [ "${lines[0]}" = "$help_dec2hex_0" ]
+  [ "${lines[1]}" = "$help_dec2hex_1" ]
+  [ "${lines[2]}" = "$help_dec2hex_2" ]
+  [ "${lines[3]}" = "$help_dec2hex_3" ]
+  [ "${lines[4]}" = "$help_dec2hex_4" ]
+  [ "${lines[5]}" = "$help_dec2hex_5" ]
+  [ "${lines[6]}" = "$help_dec2hex_6" ]
+  [ "${lines[7]}" = "$help_dec2hex_7" ]
+  [ "${lines[8]}" = "$help_dec2hex_8" ]
+  [ "$stderr" = "" ]
+}
+@test "dec2hex (flags: --help)" {
+  run --separate-stderr ./dec2hex --help
+  [ "$status" -eq 0 ]
+  [ "${lines[0]}" = "$help_dec2hex_0" ]
+  [ "${lines[1]}" = "$help_dec2hex_1" ]
+  [ "${lines[2]}" = "$help_dec2hex_2" ]
+  [ "${lines[3]}" = "$help_dec2hex_3" ]
+  [ "${lines[4]}" = "$help_dec2hex_4" ]
+  [ "${lines[5]}" = "$help_dec2hex_5" ]
+  [ "${lines[6]}" = "$help_dec2hex_6" ]
+  [ "${lines[7]}" = "$help_dec2hex_7" ]
+  [ "${lines[8]}" = "$help_dec2hex_8" ]
+  [ "$stderr" = "" ]
+}
+@test "dec2hex (flags: -q --help)" {
+  run --separate-stderr ./dec2hex -q --help
+  [ "$status" -eq 0 ]
+  [ "${lines[0]}" = "$help_dec2hex_0" ]
+  [ "${lines[1]}" = "$help_dec2hex_1" ]
+  [ "${lines[2]}" = "$help_dec2hex_2" ]
+  [ "${lines[3]}" = "$help_dec2hex_3" ]
+  [ "${lines[4]}" = "$help_dec2hex_4" ]
+  [ "${lines[5]}" = "$help_dec2hex_5" ]
+  [ "${lines[6]}" = "$help_dec2hex_6" ]
+  [ "${lines[7]}" = "$help_dec2hex_7" ]
+  [ "${lines[8]}" = "$help_dec2hex_8" ]
+  [ "$stderr" = "" ]
+}
+@test "dec2hex (flags: --help -q)" {
+  run --separate-stderr ./dec2hex --help -q
+  [ "$status" -eq 0 ]
+  [ "${lines[0]}" = "$help_dec2hex_0" ]
+  [ "${lines[1]}" = "$help_dec2hex_1" ]
+  [ "${lines[2]}" = "$help_dec2hex_2" ]
+  [ "${lines[3]}" = "$help_dec2hex_3" ]
+  [ "${lines[4]}" = "$help_dec2hex_4" ]
+  [ "${lines[5]}" = "$help_dec2hex_5" ]
+  [ "${lines[6]}" = "$help_dec2hex_6" ]
+  [ "${lines[7]}" = "$help_dec2hex_7" ]
+  [ "${lines[8]}" = "$help_dec2hex_8" ]
+  [ "$stderr" = "" ]
+}
+@test "dec2hex (flags: -v --help)" {
+  run --separate-stderr ./dec2hex -v --help
+  [ "$status" -eq 0 ]
+  [ "${lines[0]}" = "$help_dec2hex_0" ]
+  [ "${lines[1]}" = "$help_dec2hex_1" ]
+  [ "${lines[2]}" = "$help_dec2hex_2" ]
+  [ "${lines[3]}" = "$help_dec2hex_3" ]
+  [ "${lines[4]}" = "$help_dec2hex_4" ]
+  [ "${lines[5]}" = "$help_dec2hex_5" ]
+  [ "${lines[6]}" = "$help_dec2hex_6" ]
+  [ "${lines[7]}" = "$help_dec2hex_7" ]
+  [ "${lines[8]}" = "$help_dec2hex_8" ]
+  [ "$stderr" = "" ]
+}
+@test "dec2hex (flags: --help -v)" {
+  run --separate-stderr ./dec2hex --help -v
+  [ "$status" -eq 0 ]
+  [ "${lines[0]}" = "$help_dec2hex_0" ]
+  [ "${lines[1]}" = "$help_dec2hex_1" ]
+  [ "${lines[2]}" = "$help_dec2hex_2" ]
+  [ "${lines[3]}" = "$help_dec2hex_3" ]
+  [ "${lines[4]}" = "$help_dec2hex_4" ]
+  [ "${lines[5]}" = "$help_dec2hex_5" ]
+  [ "${lines[6]}" = "$help_dec2hex_6" ]
+  [ "${lines[7]}" = "$help_dec2hex_7" ]
+  [ "${lines[8]}" = "$help_dec2hex_8" ]
+  [ "$stderr" = "" ]
+}
+@test "dec2hex (flags: -q -v --help)" {
+  run --separate-stderr ./dec2hex -q -v --help
+  [ "$status" -eq 0 ]
+  [ "${lines[0]}" = "$help_dec2hex_0" ]
+  [ "${lines[1]}" = "$help_dec2hex_1" ]
+  [ "${lines[2]}" = "$help_dec2hex_2" ]
+  [ "${lines[3]}" = "$help_dec2hex_3" ]
+  [ "${lines[4]}" = "$help_dec2hex_4" ]
+  [ "${lines[5]}" = "$help_dec2hex_5" ]
+  [ "${lines[6]}" = "$help_dec2hex_6" ]
+  [ "${lines[7]}" = "$help_dec2hex_7" ]
+  [ "${lines[8]}" = "$help_dec2hex_8" ]
+  [ "$stderr" = "" ]
+}
+@test "dec2hex (flags: -v -q --help)" {
+  run --separate-stderr ./dec2hex -v -q --help
+  [ "$status" -eq 0 ]
+  [ "${lines[0]}" = "$help_dec2hex_0" ]
+  [ "${lines[1]}" = "$help_dec2hex_1" ]
+  [ "${lines[2]}" = "$help_dec2hex_2" ]
+  [ "${lines[3]}" = "$help_dec2hex_3" ]
+  [ "${lines[4]}" = "$help_dec2hex_4" ]
+  [ "${lines[5]}" = "$help_dec2hex_5" ]
+  [ "${lines[6]}" = "$help_dec2hex_6" ]
+  [ "${lines[7]}" = "$help_dec2hex_7" ]
+  [ "${lines[8]}" = "$help_dec2hex_8" ]
+  [ "$stderr" = "" ]
+}
+@test "dec2hex (flags: -q --help -v)" {
+  run --separate-stderr ./dec2hex -q --help -v
+  [ "$status" -eq 0 ]
+  [ "${lines[0]}" = "$help_dec2hex_0" ]
+  [ "${lines[1]}" = "$help_dec2hex_1" ]
+  [ "${lines[2]}" = "$help_dec2hex_2" ]
+  [ "${lines[3]}" = "$help_dec2hex_3" ]
+  [ "${lines[4]}" = "$help_dec2hex_4" ]
+  [ "${lines[5]}" = "$help_dec2hex_5" ]
+  [ "${lines[6]}" = "$help_dec2hex_6" ]
+  [ "${lines[7]}" = "$help_dec2hex_7" ]
+  [ "${lines[8]}" = "$help_dec2hex_8" ]
+  [ "$stderr" = "" ]
+}
+@test "dec2hex (flags: -v --help -q)" {
+  run --separate-stderr ./dec2hex -v --help -q
+  [ "$status" -eq 0 ]
+  [ "${lines[0]}" = "$help_dec2hex_0" ]
+  [ "${lines[1]}" = "$help_dec2hex_1" ]
+  [ "${lines[2]}" = "$help_dec2hex_2" ]
+  [ "${lines[3]}" = "$help_dec2hex_3" ]
+  [ "${lines[4]}" = "$help_dec2hex_4" ]
+  [ "${lines[5]}" = "$help_dec2hex_5" ]
+  [ "${lines[6]}" = "$help_dec2hex_6" ]
+  [ "${lines[7]}" = "$help_dec2hex_7" ]
+  [ "${lines[8]}" = "$help_dec2hex_8" ]
+  [ "$stderr" = "" ]
+}
+@test "dec2hex (flags: --help -q -v)" {
+  run --separate-stderr ./dec2hex --help -q -v
+  [ "$status" -eq 0 ]
+  [ "${lines[0]}" = "$help_dec2hex_0" ]
+  [ "${lines[1]}" = "$help_dec2hex_1" ]
+  [ "${lines[2]}" = "$help_dec2hex_2" ]
+  [ "${lines[3]}" = "$help_dec2hex_3" ]
+  [ "${lines[4]}" = "$help_dec2hex_4" ]
+  [ "${lines[5]}" = "$help_dec2hex_5" ]
+  [ "${lines[6]}" = "$help_dec2hex_6" ]
+  [ "${lines[7]}" = "$help_dec2hex_7" ]
+  [ "${lines[8]}" = "$help_dec2hex_8" ]
+  [ "$stderr" = "" ]
+}
+@test "dec2hex (flags: --help -v -q)" {
+  run --separate-stderr ./dec2hex --help -v -q
+  [ "$status" -eq 0 ]
+  [ "${lines[0]}" = "$help_dec2hex_0" ]
+  [ "${lines[1]}" = "$help_dec2hex_1" ]
+  [ "${lines[2]}" = "$help_dec2hex_2" ]
+  [ "${lines[3]}" = "$help_dec2hex_3" ]
+  [ "${lines[4]}" = "$help_dec2hex_4" ]
+  [ "${lines[5]}" = "$help_dec2hex_5" ]
+  [ "${lines[6]}" = "$help_dec2hex_6" ]
+  [ "${lines[7]}" = "$help_dec2hex_7" ]
+  [ "${lines[8]}" = "$help_dec2hex_8" ]
+  [ "$stderr" = "" ]
+}
+@test "dec2hex (flags: --quiet -h)" {
+  run --separate-stderr ./dec2hex --quiet -h
+  [ "$status" -eq 0 ]
+  [ "${lines[0]}" = "$help_dec2hex_0" ]
+  [ "${lines[1]}" = "$help_dec2hex_1" ]
+  [ "${lines[2]}" = "$help_dec2hex_2" ]
+  [ "${lines[3]}" = "$help_dec2hex_3" ]
+  [ "${lines[4]}" = "$help_dec2hex_4" ]
+  [ "${lines[5]}" = "$help_dec2hex_5" ]
+  [ "${lines[6]}" = "$help_dec2hex_6" ]
+  [ "${lines[7]}" = "$help_dec2hex_7" ]
+  [ "${lines[8]}" = "$help_dec2hex_8" ]
+  [ "$stderr" = "" ]
+}
+@test "dec2hex (flags: -h --quiet)" {
+  run --separate-stderr ./dec2hex -h --quiet
+  [ "$status" -eq 0 ]
+  [ "${lines[0]}" = "$help_dec2hex_0" ]
+  [ "${lines[1]}" = "$help_dec2hex_1" ]
+  [ "${lines[2]}" = "$help_dec2hex_2" ]
+  [ "${lines[3]}" = "$help_dec2hex_3" ]
+  [ "${lines[4]}" = "$help_dec2hex_4" ]
+  [ "${lines[5]}" = "$help_dec2hex_5" ]
+  [ "${lines[6]}" = "$help_dec2hex_6" ]
+  [ "${lines[7]}" = "$help_dec2hex_7" ]
+  [ "${lines[8]}" = "$help_dec2hex_8" ]
+  [ "$stderr" = "" ]
+}
+@test "dec2hex (flags: --quiet -v -h)" {
+  run --separate-stderr ./dec2hex --quiet -v -h
+  [ "$status" -eq 0 ]
+  [ "${lines[0]}" = "$help_dec2hex_0" ]
+  [ "${lines[1]}" = "$help_dec2hex_1" ]
+  [ "${lines[2]}" = "$help_dec2hex_2" ]
+  [ "${lines[3]}" = "$help_dec2hex_3" ]
+  [ "${lines[4]}" = "$help_dec2hex_4" ]
+  [ "${lines[5]}" = "$help_dec2hex_5" ]
+  [ "${lines[6]}" = "$help_dec2hex_6" ]
+  [ "${lines[7]}" = "$help_dec2hex_7" ]
+  [ "${lines[8]}" = "$help_dec2hex_8" ]
+  [ "$stderr" = "" ]
+}
+@test "dec2hex (flags: -v --quiet -h)" {
+  run --separate-stderr ./dec2hex -v --quiet -h
+  [ "$status" -eq 0 ]
+  [ "${lines[0]}" = "$help_dec2hex_0" ]
+  [ "${lines[1]}" = "$help_dec2hex_1" ]
+  [ "${lines[2]}" = "$help_dec2hex_2" ]
+  [ "${lines[3]}" = "$help_dec2hex_3" ]
+  [ "${lines[4]}" = "$help_dec2hex_4" ]
+  [ "${lines[5]}" = "$help_dec2hex_5" ]
+  [ "${lines[6]}" = "$help_dec2hex_6" ]
+  [ "${lines[7]}" = "$help_dec2hex_7" ]
+  [ "${lines[8]}" = "$help_dec2hex_8" ]
+  [ "$stderr" = "" ]
+}
+@test "dec2hex (flags: --quiet -h -v)" {
+  run --separate-stderr ./dec2hex --quiet -h -v
+  [ "$status" -eq 0 ]
+  [ "${lines[0]}" = "$help_dec2hex_0" ]
+  [ "${lines[1]}" = "$help_dec2hex_1" ]
+  [ "${lines[2]}" = "$help_dec2hex_2" ]
+  [ "${lines[3]}" = "$help_dec2hex_3" ]
+  [ "${lines[4]}" = "$help_dec2hex_4" ]
+  [ "${lines[5]}" = "$help_dec2hex_5" ]
+  [ "${lines[6]}" = "$help_dec2hex_6" ]
+  [ "${lines[7]}" = "$help_dec2hex_7" ]
+  [ "${lines[8]}" = "$help_dec2hex_8" ]
+  [ "$stderr" = "" ]
+}
+@test "dec2hex (flags: -v -h --quiet)" {
+  run --separate-stderr ./dec2hex -v -h --quiet
+  [ "$status" -eq 0 ]
+  [ "${lines[0]}" = "$help_dec2hex_0" ]
+  [ "${lines[1]}" = "$help_dec2hex_1" ]
+  [ "${lines[2]}" = "$help_dec2hex_2" ]
+  [ "${lines[3]}" = "$help_dec2hex_3" ]
+  [ "${lines[4]}" = "$help_dec2hex_4" ]
+  [ "${lines[5]}" = "$help_dec2hex_5" ]
+  [ "${lines[6]}" = "$help_dec2hex_6" ]
+  [ "${lines[7]}" = "$help_dec2hex_7" ]
+  [ "${lines[8]}" = "$help_dec2hex_8" ]
+  [ "$stderr" = "" ]
+}
+@test "dec2hex (flags: -h --quiet -v)" {
+  run --separate-stderr ./dec2hex -h --quiet -v
+  [ "$status" -eq 0 ]
+  [ "${lines[0]}" = "$help_dec2hex_0" ]
+  [ "${lines[1]}" = "$help_dec2hex_1" ]
+  [ "${lines[2]}" = "$help_dec2hex_2" ]
+  [ "${lines[3]}" = "$help_dec2hex_3" ]
+  [ "${lines[4]}" = "$help_dec2hex_4" ]
+  [ "${lines[5]}" = "$help_dec2hex_5" ]
+  [ "${lines[6]}" = "$help_dec2hex_6" ]
+  [ "${lines[7]}" = "$help_dec2hex_7" ]
+  [ "${lines[8]}" = "$help_dec2hex_8" ]
+  [ "$stderr" = "" ]
+}
+@test "dec2hex (flags: -h -v --quiet)" {
+  run --separate-stderr ./dec2hex -h -v --quiet
+  [ "$status" -eq 0 ]
+  [ "${lines[0]}" = "$help_dec2hex_0" ]
+  [ "${lines[1]}" = "$help_dec2hex_1" ]
+  [ "${lines[2]}" = "$help_dec2hex_2" ]
+  [ "${lines[3]}" = "$help_dec2hex_3" ]
+  [ "${lines[4]}" = "$help_dec2hex_4" ]
+  [ "${lines[5]}" = "$help_dec2hex_5" ]
+  [ "${lines[6]}" = "$help_dec2hex_6" ]
+  [ "${lines[7]}" = "$help_dec2hex_7" ]
+  [ "${lines[8]}" = "$help_dec2hex_8" ]
+  [ "$stderr" = "" ]
+}
+@test "dec2hex (flags: --verbose -h)" {
+  run --separate-stderr ./dec2hex --verbose -h
+  [ "$status" -eq 0 ]
+  [ "${lines[0]}" = "$help_dec2hex_0" ]
+  [ "${lines[1]}" = "$help_dec2hex_1" ]
+  [ "${lines[2]}" = "$help_dec2hex_2" ]
+  [ "${lines[3]}" = "$help_dec2hex_3" ]
+  [ "${lines[4]}" = "$help_dec2hex_4" ]
+  [ "${lines[5]}" = "$help_dec2hex_5" ]
+  [ "${lines[6]}" = "$help_dec2hex_6" ]
+  [ "${lines[7]}" = "$help_dec2hex_7" ]
+  [ "${lines[8]}" = "$help_dec2hex_8" ]
+  [ "$stderr" = "" ]
+}
+@test "dec2hex (flags: -h --verbose)" {
+  run --separate-stderr ./dec2hex -h --verbose
+  [ "$status" -eq 0 ]
+  [ "${lines[0]}" = "$help_dec2hex_0" ]
+  [ "${lines[1]}" = "$help_dec2hex_1" ]
+  [ "${lines[2]}" = "$help_dec2hex_2" ]
+  [ "${lines[3]}" = "$help_dec2hex_3" ]
+  [ "${lines[4]}" = "$help_dec2hex_4" ]
+  [ "${lines[5]}" = "$help_dec2hex_5" ]
+  [ "${lines[6]}" = "$help_dec2hex_6" ]
+  [ "${lines[7]}" = "$help_dec2hex_7" ]
+  [ "${lines[8]}" = "$help_dec2hex_8" ]
+  [ "$stderr" = "" ]
+}
+@test "dec2hex (flags: -q --verbose -h)" {
+  run --separate-stderr ./dec2hex -q --verbose -h
+  [ "$status" -eq 0 ]
+  [ "${lines[0]}" = "$help_dec2hex_0" ]
+  [ "${lines[1]}" = "$help_dec2hex_1" ]
+  [ "${lines[2]}" = "$help_dec2hex_2" ]
+  [ "${lines[3]}" = "$help_dec2hex_3" ]
+  [ "${lines[4]}" = "$help_dec2hex_4" ]
+  [ "${lines[5]}" = "$help_dec2hex_5" ]
+  [ "${lines[6]}" = "$help_dec2hex_6" ]
+  [ "${lines[7]}" = "$help_dec2hex_7" ]
+  [ "${lines[8]}" = "$help_dec2hex_8" ]
+  [ "$stderr" = "" ]
+}
+@test "dec2hex (flags: --verbose -q -h)" {
+  run --separate-stderr ./dec2hex --verbose -q -h
+  [ "$status" -eq 0 ]
+  [ "${lines[0]}" = "$help_dec2hex_0" ]
+  [ "${lines[1]}" = "$help_dec2hex_1" ]
+  [ "${lines[2]}" = "$help_dec2hex_2" ]
+  [ "${lines[3]}" = "$help_dec2hex_3" ]
+  [ "${lines[4]}" = "$help_dec2hex_4" ]
+  [ "${lines[5]}" = "$help_dec2hex_5" ]
+  [ "${lines[6]}" = "$help_dec2hex_6" ]
+  [ "${lines[7]}" = "$help_dec2hex_7" ]
+  [ "${lines[8]}" = "$help_dec2hex_8" ]
+  [ "$stderr" = "" ]
+}
+@test "dec2hex (flags: -q -h --verbose)" {
+  run --separate-stderr ./dec2hex -q -h --verbose
+  [ "$status" -eq 0 ]
+  [ "${lines[0]}" = "$help_dec2hex_0" ]
+  [ "${lines[1]}" = "$help_dec2hex_1" ]
+  [ "${lines[2]}" = "$help_dec2hex_2" ]
+  [ "${lines[3]}" = "$help_dec2hex_3" ]
+  [ "${lines[4]}" = "$help_dec2hex_4" ]
+  [ "${lines[5]}" = "$help_dec2hex_5" ]
+  [ "${lines[6]}" = "$help_dec2hex_6" ]
+  [ "${lines[7]}" = "$help_dec2hex_7" ]
+  [ "${lines[8]}" = "$help_dec2hex_8" ]
+  [ "$stderr" = "" ]
+}
+@test "dec2hex (flags: --verbose -h -q)" {
+  run --separate-stderr ./dec2hex --verbose -h -q
+  [ "$status" -eq 0 ]
+  [ "${lines[0]}" = "$help_dec2hex_0" ]
+  [ "${lines[1]}" = "$help_dec2hex_1" ]
+  [ "${lines[2]}" = "$help_dec2hex_2" ]
+  [ "${lines[3]}" = "$help_dec2hex_3" ]
+  [ "${lines[4]}" = "$help_dec2hex_4" ]
+  [ "${lines[5]}" = "$help_dec2hex_5" ]
+  [ "${lines[6]}" = "$help_dec2hex_6" ]
+  [ "${lines[7]}" = "$help_dec2hex_7" ]
+  [ "${lines[8]}" = "$help_dec2hex_8" ]
+  [ "$stderr" = "" ]
+}
+@test "dec2hex (flags: -h -q --verbose)" {
+  run --separate-stderr ./dec2hex -h -q --verbose
+  [ "$status" -eq 0 ]
+  [ "${lines[0]}" = "$help_dec2hex_0" ]
+  [ "${lines[1]}" = "$help_dec2hex_1" ]
+  [ "${lines[2]}" = "$help_dec2hex_2" ]
+  [ "${lines[3]}" = "$help_dec2hex_3" ]
+  [ "${lines[4]}" = "$help_dec2hex_4" ]
+  [ "${lines[5]}" = "$help_dec2hex_5" ]
+  [ "${lines[6]}" = "$help_dec2hex_6" ]
+  [ "${lines[7]}" = "$help_dec2hex_7" ]
+  [ "${lines[8]}" = "$help_dec2hex_8" ]
+  [ "$stderr" = "" ]
+}
+@test "dec2hex (flags: -h --verbose -q)" {
+  run --separate-stderr ./dec2hex -h --verbose -q
+  [ "$status" -eq 0 ]
+  [ "${lines[0]}" = "$help_dec2hex_0" ]
+  [ "${lines[1]}" = "$help_dec2hex_1" ]
+  [ "${lines[2]}" = "$help_dec2hex_2" ]
+  [ "${lines[3]}" = "$help_dec2hex_3" ]
+  [ "${lines[4]}" = "$help_dec2hex_4" ]
+  [ "${lines[5]}" = "$help_dec2hex_5" ]
+  [ "${lines[6]}" = "$help_dec2hex_6" ]
+  [ "${lines[7]}" = "$help_dec2hex_7" ]
+  [ "${lines[8]}" = "$help_dec2hex_8" ]
+  [ "$stderr" = "" ]
+}
+@test "dec2hex (flags: --quiet --help)" {
+  run --separate-stderr ./dec2hex --quiet --help
+  [ "$status" -eq 0 ]
+  [ "${lines[0]}" = "$help_dec2hex_0" ]
+  [ "${lines[1]}" = "$help_dec2hex_1" ]
+  [ "${lines[2]}" = "$help_dec2hex_2" ]
+  [ "${lines[3]}" = "$help_dec2hex_3" ]
+  [ "${lines[4]}" = "$help_dec2hex_4" ]
+  [ "${lines[5]}" = "$help_dec2hex_5" ]
+  [ "${lines[6]}" = "$help_dec2hex_6" ]
+  [ "${lines[7]}" = "$help_dec2hex_7" ]
+  [ "${lines[8]}" = "$help_dec2hex_8" ]
+  [ "$stderr" = "" ]
+}
+@test "dec2hex (flags: --help --quiet)" {
+  run --separate-stderr ./dec2hex --help --quiet
+  [ "$status" -eq 0 ]
+  [ "${lines[0]}" = "$help_dec2hex_0" ]
+  [ "${lines[1]}" = "$help_dec2hex_1" ]
+  [ "${lines[2]}" = "$help_dec2hex_2" ]
+  [ "${lines[3]}" = "$help_dec2hex_3" ]
+  [ "${lines[4]}" = "$help_dec2hex_4" ]
+  [ "${lines[5]}" = "$help_dec2hex_5" ]
+  [ "${lines[6]}" = "$help_dec2hex_6" ]
+  [ "${lines[7]}" = "$help_dec2hex_7" ]
+  [ "${lines[8]}" = "$help_dec2hex_8" ]
+  [ "$stderr" = "" ]
+}
+@test "dec2hex (flags: --quiet -v --help)" {
+  run --separate-stderr ./dec2hex --quiet -v --help
+  [ "$status" -eq 0 ]
+  [ "${lines[0]}" = "$help_dec2hex_0" ]
+  [ "${lines[1]}" = "$help_dec2hex_1" ]
+  [ "${lines[2]}" = "$help_dec2hex_2" ]
+  [ "${lines[3]}" = "$help_dec2hex_3" ]
+  [ "${lines[4]}" = "$help_dec2hex_4" ]
+  [ "${lines[5]}" = "$help_dec2hex_5" ]
+  [ "${lines[6]}" = "$help_dec2hex_6" ]
+  [ "${lines[7]}" = "$help_dec2hex_7" ]
+  [ "${lines[8]}" = "$help_dec2hex_8" ]
+  [ "$stderr" = "" ]
+}
+@test "dec2hex (flags: -v --quiet --help)" {
+  run --separate-stderr ./dec2hex -v --quiet --help
+  [ "$status" -eq 0 ]
+  [ "${lines[0]}" = "$help_dec2hex_0" ]
+  [ "${lines[1]}" = "$help_dec2hex_1" ]
+  [ "${lines[2]}" = "$help_dec2hex_2" ]
+  [ "${lines[3]}" = "$help_dec2hex_3" ]
+  [ "${lines[4]}" = "$help_dec2hex_4" ]
+  [ "${lines[5]}" = "$help_dec2hex_5" ]
+  [ "${lines[6]}" = "$help_dec2hex_6" ]
+  [ "${lines[7]}" = "$help_dec2hex_7" ]
+  [ "${lines[8]}" = "$help_dec2hex_8" ]
+  [ "$stderr" = "" ]
+}
+@test "dec2hex (flags: --quiet --help -v)" {
+  run --separate-stderr ./dec2hex --quiet --help -v
+  [ "$status" -eq 0 ]
+  [ "${lines[0]}" = "$help_dec2hex_0" ]
+  [ "${lines[1]}" = "$help_dec2hex_1" ]
+  [ "${lines[2]}" = "$help_dec2hex_2" ]
+  [ "${lines[3]}" = "$help_dec2hex_3" ]
+  [ "${lines[4]}" = "$help_dec2hex_4" ]
+  [ "${lines[5]}" = "$help_dec2hex_5" ]
+  [ "${lines[6]}" = "$help_dec2hex_6" ]
+  [ "${lines[7]}" = "$help_dec2hex_7" ]
+  [ "${lines[8]}" = "$help_dec2hex_8" ]
+  [ "$stderr" = "" ]
+}
+@test "dec2hex (flags: -v --help --quiet)" {
+  run --separate-stderr ./dec2hex -v --help --quiet
+  [ "$status" -eq 0 ]
+  [ "${lines[0]}" = "$help_dec2hex_0" ]
+  [ "${lines[1]}" = "$help_dec2hex_1" ]
+  [ "${lines[2]}" = "$help_dec2hex_2" ]
+  [ "${lines[3]}" = "$help_dec2hex_3" ]
+  [ "${lines[4]}" = "$help_dec2hex_4" ]
+  [ "${lines[5]}" = "$help_dec2hex_5" ]
+  [ "${lines[6]}" = "$help_dec2hex_6" ]
+  [ "${lines[7]}" = "$help_dec2hex_7" ]
+  [ "${lines[8]}" = "$help_dec2hex_8" ]
+  [ "$stderr" = "" ]
+}
+@test "dec2hex (flags: --help --quiet -v)" {
+  run --separate-stderr ./dec2hex --help --quiet -v
+  [ "$status" -eq 0 ]
+  [ "${lines[0]}" = "$help_dec2hex_0" ]
+  [ "${lines[1]}" = "$help_dec2hex_1" ]
+  [ "${lines[2]}" = "$help_dec2hex_2" ]
+  [ "${lines[3]}" = "$help_dec2hex_3" ]
+  [ "${lines[4]}" = "$help_dec2hex_4" ]
+  [ "${lines[5]}" = "$help_dec2hex_5" ]
+  [ "${lines[6]}" = "$help_dec2hex_6" ]
+  [ "${lines[7]}" = "$help_dec2hex_7" ]
+  [ "${lines[8]}" = "$help_dec2hex_8" ]
+  [ "$stderr" = "" ]
+}
+@test "dec2hex (flags: --help -v --quiet)" {
+  run --separate-stderr ./dec2hex --help -v --quiet
+  [ "$status" -eq 0 ]
+  [ "${lines[0]}" = "$help_dec2hex_0" ]
+  [ "${lines[1]}" = "$help_dec2hex_1" ]
+  [ "${lines[2]}" = "$help_dec2hex_2" ]
+  [ "${lines[3]}" = "$help_dec2hex_3" ]
+  [ "${lines[4]}" = "$help_dec2hex_4" ]
+  [ "${lines[5]}" = "$help_dec2hex_5" ]
+  [ "${lines[6]}" = "$help_dec2hex_6" ]
+  [ "${lines[7]}" = "$help_dec2hex_7" ]
+  [ "${lines[8]}" = "$help_dec2hex_8" ]
+  [ "$stderr" = "" ]
+}
+@test "dec2hex (flags: --verbose --help)" {
+  run --separate-stderr ./dec2hex --verbose --help
+  [ "$status" -eq 0 ]
+  [ "${lines[0]}" = "$help_dec2hex_0" ]
+  [ "${lines[1]}" = "$help_dec2hex_1" ]
+  [ "${lines[2]}" = "$help_dec2hex_2" ]
+  [ "${lines[3]}" = "$help_dec2hex_3" ]
+  [ "${lines[4]}" = "$help_dec2hex_4" ]
+  [ "${lines[5]}" = "$help_dec2hex_5" ]
+  [ "${lines[6]}" = "$help_dec2hex_6" ]
+  [ "${lines[7]}" = "$help_dec2hex_7" ]
+  [ "${lines[8]}" = "$help_dec2hex_8" ]
+  [ "$stderr" = "" ]
+}
+@test "dec2hex (flags: --help --verbose)" {
+  run --separate-stderr ./dec2hex --help --verbose
+  [ "$status" -eq 0 ]
+  [ "${lines[0]}" = "$help_dec2hex_0" ]
+  [ "${lines[1]}" = "$help_dec2hex_1" ]
+  [ "${lines[2]}" = "$help_dec2hex_2" ]
+  [ "${lines[3]}" = "$help_dec2hex_3" ]
+  [ "${lines[4]}" = "$help_dec2hex_4" ]
+  [ "${lines[5]}" = "$help_dec2hex_5" ]
+  [ "${lines[6]}" = "$help_dec2hex_6" ]
+  [ "${lines[7]}" = "$help_dec2hex_7" ]
+  [ "${lines[8]}" = "$help_dec2hex_8" ]
+  [ "$stderr" = "" ]
+}
+@test "dec2hex (flags: -q --verbose --help)" {
+  run --separate-stderr ./dec2hex -q --verbose --help
+  [ "$status" -eq 0 ]
+  [ "${lines[0]}" = "$help_dec2hex_0" ]
+  [ "${lines[1]}" = "$help_dec2hex_1" ]
+  [ "${lines[2]}" = "$help_dec2hex_2" ]
+  [ "${lines[3]}" = "$help_dec2hex_3" ]
+  [ "${lines[4]}" = "$help_dec2hex_4" ]
+  [ "${lines[5]}" = "$help_dec2hex_5" ]
+  [ "${lines[6]}" = "$help_dec2hex_6" ]
+  [ "${lines[7]}" = "$help_dec2hex_7" ]
+  [ "${lines[8]}" = "$help_dec2hex_8" ]
+  [ "$stderr" = "" ]
+}
+@test "dec2hex (flags: --verbose -q --help)" {
+  run --separate-stderr ./dec2hex --verbose -q --help
+  [ "$status" -eq 0 ]
+  [ "${lines[0]}" = "$help_dec2hex_0" ]
+  [ "${lines[1]}" = "$help_dec2hex_1" ]
+  [ "${lines[2]}" = "$help_dec2hex_2" ]
+  [ "${lines[3]}" = "$help_dec2hex_3" ]
+  [ "${lines[4]}" = "$help_dec2hex_4" ]
+  [ "${lines[5]}" = "$help_dec2hex_5" ]
+  [ "${lines[6]}" = "$help_dec2hex_6" ]
+  [ "${lines[7]}" = "$help_dec2hex_7" ]
+  [ "${lines[8]}" = "$help_dec2hex_8" ]
+  [ "$stderr" = "" ]
+}
+@test "dec2hex (flags: -q --help --verbose)" {
+  run --separate-stderr ./dec2hex -q --help --verbose
+  [ "$status" -eq 0 ]
+  [ "${lines[0]}" = "$help_dec2hex_0" ]
+  [ "${lines[1]}" = "$help_dec2hex_1" ]
+  [ "${lines[2]}" = "$help_dec2hex_2" ]
+  [ "${lines[3]}" = "$help_dec2hex_3" ]
+  [ "${lines[4]}" = "$help_dec2hex_4" ]
+  [ "${lines[5]}" = "$help_dec2hex_5" ]
+  [ "${lines[6]}" = "$help_dec2hex_6" ]
+  [ "${lines[7]}" = "$help_dec2hex_7" ]
+  [ "${lines[8]}" = "$help_dec2hex_8" ]
+  [ "$stderr" = "" ]
+}
+@test "dec2hex (flags: --verbose --help -q)" {
+  run --separate-stderr ./dec2hex --verbose --help -q
+  [ "$status" -eq 0 ]
+  [ "${lines[0]}" = "$help_dec2hex_0" ]
+  [ "${lines[1]}" = "$help_dec2hex_1" ]
+  [ "${lines[2]}" = "$help_dec2hex_2" ]
+  [ "${lines[3]}" = "$help_dec2hex_3" ]
+  [ "${lines[4]}" = "$help_dec2hex_4" ]
+  [ "${lines[5]}" = "$help_dec2hex_5" ]
+  [ "${lines[6]}" = "$help_dec2hex_6" ]
+  [ "${lines[7]}" = "$help_dec2hex_7" ]
+  [ "${lines[8]}" = "$help_dec2hex_8" ]
+  [ "$stderr" = "" ]
+}
+@test "dec2hex (flags: --help -q --verbose)" {
+  run --separate-stderr ./dec2hex --help -q --verbose
+  [ "$status" -eq 0 ]
+  [ "${lines[0]}" = "$help_dec2hex_0" ]
+  [ "${lines[1]}" = "$help_dec2hex_1" ]
+  [ "${lines[2]}" = "$help_dec2hex_2" ]
+  [ "${lines[3]}" = "$help_dec2hex_3" ]
+  [ "${lines[4]}" = "$help_dec2hex_4" ]
+  [ "${lines[5]}" = "$help_dec2hex_5" ]
+  [ "${lines[6]}" = "$help_dec2hex_6" ]
+  [ "${lines[7]}" = "$help_dec2hex_7" ]
+  [ "${lines[8]}" = "$help_dec2hex_8" ]
+  [ "$stderr" = "" ]
+}
+@test "dec2hex (flags: --help --verbose -q)" {
+  run --separate-stderr ./dec2hex --help --verbose -q
+  [ "$status" -eq 0 ]
+  [ "${lines[0]}" = "$help_dec2hex_0" ]
+  [ "${lines[1]}" = "$help_dec2hex_1" ]
+  [ "${lines[2]}" = "$help_dec2hex_2" ]
+  [ "${lines[3]}" = "$help_dec2hex_3" ]
+  [ "${lines[4]}" = "$help_dec2hex_4" ]
+  [ "${lines[5]}" = "$help_dec2hex_5" ]
+  [ "${lines[6]}" = "$help_dec2hex_6" ]
+  [ "${lines[7]}" = "$help_dec2hex_7" ]
+  [ "${lines[8]}" = "$help_dec2hex_8" ]
+  [ "$stderr" = "" ]
+}
+@test "dec2hex (flags: --quiet --verbose --help)" {
+  run --separate-stderr ./dec2hex --quiet --verbose --help
+  [ "$status" -eq 0 ]
+  [ "${lines[0]}" = "$help_dec2hex_0" ]
+  [ "${lines[1]}" = "$help_dec2hex_1" ]
+  [ "${lines[2]}" = "$help_dec2hex_2" ]
+  [ "${lines[3]}" = "$help_dec2hex_3" ]
+  [ "${lines[4]}" = "$help_dec2hex_4" ]
+  [ "${lines[5]}" = "$help_dec2hex_5" ]
+  [ "${lines[6]}" = "$help_dec2hex_6" ]
+  [ "${lines[7]}" = "$help_dec2hex_7" ]
+  [ "${lines[8]}" = "$help_dec2hex_8" ]
+  [ "$stderr" = "" ]
+}
+@test "dec2hex (flags: --verbose --quiet --help)" {
+  run --separate-stderr ./dec2hex --verbose --quiet --help
+  [ "$status" -eq 0 ]
+  [ "${lines[0]}" = "$help_dec2hex_0" ]
+  [ "${lines[1]}" = "$help_dec2hex_1" ]
+  [ "${lines[2]}" = "$help_dec2hex_2" ]
+  [ "${lines[3]}" = "$help_dec2hex_3" ]
+  [ "${lines[4]}" = "$help_dec2hex_4" ]
+  [ "${lines[5]}" = "$help_dec2hex_5" ]
+  [ "${lines[6]}" = "$help_dec2hex_6" ]
+  [ "${lines[7]}" = "$help_dec2hex_7" ]
+  [ "${lines[8]}" = "$help_dec2hex_8" ]
+  [ "$stderr" = "" ]
+}
+@test "dec2hex (flags: --quiet --help --verbose)" {
+  run --separate-stderr ./dec2hex --quiet --help --verbose
+  [ "$status" -eq 0 ]
+  [ "${lines[0]}" = "$help_dec2hex_0" ]
+  [ "${lines[1]}" = "$help_dec2hex_1" ]
+  [ "${lines[2]}" = "$help_dec2hex_2" ]
+  [ "${lines[3]}" = "$help_dec2hex_3" ]
+  [ "${lines[4]}" = "$help_dec2hex_4" ]
+  [ "${lines[5]}" = "$help_dec2hex_5" ]
+  [ "${lines[6]}" = "$help_dec2hex_6" ]
+  [ "${lines[7]}" = "$help_dec2hex_7" ]
+  [ "${lines[8]}" = "$help_dec2hex_8" ]
+  [ "$stderr" = "" ]
+}
+@test "dec2hex (flags: --verbose --help --quiet)" {
+  run --separate-stderr ./dec2hex --verbose --help --quiet
+  [ "$status" -eq 0 ]
+  [ "${lines[0]}" = "$help_dec2hex_0" ]
+  [ "${lines[1]}" = "$help_dec2hex_1" ]
+  [ "${lines[2]}" = "$help_dec2hex_2" ]
+  [ "${lines[3]}" = "$help_dec2hex_3" ]
+  [ "${lines[4]}" = "$help_dec2hex_4" ]
+  [ "${lines[5]}" = "$help_dec2hex_5" ]
+  [ "${lines[6]}" = "$help_dec2hex_6" ]
+  [ "${lines[7]}" = "$help_dec2hex_7" ]
+  [ "${lines[8]}" = "$help_dec2hex_8" ]
+  [ "$stderr" = "" ]
+}
+@test "dec2hex (flags: --help --quiet --verbose)" {
+  run --separate-stderr ./dec2hex --help --quiet --verbose
+  [ "$status" -eq 0 ]
+  [ "${lines[0]}" = "$help_dec2hex_0" ]
+  [ "${lines[1]}" = "$help_dec2hex_1" ]
+  [ "${lines[2]}" = "$help_dec2hex_2" ]
+  [ "${lines[3]}" = "$help_dec2hex_3" ]
+  [ "${lines[4]}" = "$help_dec2hex_4" ]
+  [ "${lines[5]}" = "$help_dec2hex_5" ]
+  [ "${lines[6]}" = "$help_dec2hex_6" ]
+  [ "${lines[7]}" = "$help_dec2hex_7" ]
+  [ "${lines[8]}" = "$help_dec2hex_8" ]
+  [ "$stderr" = "" ]
+}
+@test "dec2hex (flags: --help --verbose --quiet)" {
+  run --separate-stderr ./dec2hex --help --verbose --quiet
+  [ "$status" -eq 0 ]
+  [ "${lines[0]}" = "$help_dec2hex_0" ]
+  [ "${lines[1]}" = "$help_dec2hex_1" ]
+  [ "${lines[2]}" = "$help_dec2hex_2" ]
+  [ "${lines[3]}" = "$help_dec2hex_3" ]
+  [ "${lines[4]}" = "$help_dec2hex_4" ]
+  [ "${lines[5]}" = "$help_dec2hex_5" ]
+  [ "${lines[6]}" = "$help_dec2hex_6" ]
+  [ "${lines[7]}" = "$help_dec2hex_7" ]
+  [ "${lines[8]}" = "$help_dec2hex_8" ]
+  [ "$stderr" = "" ]
+}
 @test "dired (flags: -h)" {
   run --separate-stderr ./dired -h
   [ "$status" -eq 0 ]
