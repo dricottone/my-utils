@@ -1,6 +1,366 @@
 #!/usr/bin/env bats
 bats_require_minimum_version 1.5.0
 load fixtures.sh
+@test "circumflex (flags: -V)" {
+  run --separate-stderr ./circumflex -V
+  [ "$status" -eq 0 ]
+  [ "$output" = "$version_circumflex" ]
+  [ "$stderr" = "" ]
+}
+@test "circumflex (flags: -q -V)" {
+  run --separate-stderr ./circumflex -q -V
+  [ "$status" -eq 0 ]
+  [ "$output" = "$version_circumflex" ]
+  [ "$stderr" = "" ]
+}
+@test "circumflex (flags: -V -q)" {
+  run --separate-stderr ./circumflex -V -q
+  [ "$status" -eq 0 ]
+  [ "$output" = "$version_circumflex" ]
+  [ "$stderr" = "" ]
+}
+@test "circumflex (flags: -v -V)" {
+  run --separate-stderr ./circumflex -v -V
+  [ "$status" -eq 0 ]
+  [ "$output" = "$version_circumflex" ]
+  [ "$stderr" = "" ]
+}
+@test "circumflex (flags: -V -v)" {
+  run --separate-stderr ./circumflex -V -v
+  [ "$status" -eq 0 ]
+  [ "$output" = "$version_circumflex" ]
+  [ "$stderr" = "" ]
+}
+@test "circumflex (flags: -q -v -V)" {
+  run --separate-stderr ./circumflex -q -v -V
+  [ "$status" -eq 0 ]
+  [ "$output" = "$version_circumflex" ]
+  [ "$stderr" = "" ]
+}
+@test "circumflex (flags: -v -q -V)" {
+  run --separate-stderr ./circumflex -v -q -V
+  [ "$status" -eq 0 ]
+  [ "$output" = "$version_circumflex" ]
+  [ "$stderr" = "" ]
+}
+@test "circumflex (flags: -q -V -v)" {
+  run --separate-stderr ./circumflex -q -V -v
+  [ "$status" -eq 0 ]
+  [ "$output" = "$version_circumflex" ]
+  [ "$stderr" = "" ]
+}
+@test "circumflex (flags: -v -V -q)" {
+  run --separate-stderr ./circumflex -v -V -q
+  [ "$status" -eq 0 ]
+  [ "$output" = "$version_circumflex" ]
+  [ "$stderr" = "" ]
+}
+@test "circumflex (flags: -V -q -v)" {
+  run --separate-stderr ./circumflex -V -q -v
+  [ "$status" -eq 0 ]
+  [ "$output" = "$version_circumflex" ]
+  [ "$stderr" = "" ]
+}
+@test "circumflex (flags: -V -v -q)" {
+  run --separate-stderr ./circumflex -V -v -q
+  [ "$status" -eq 0 ]
+  [ "$output" = "$version_circumflex" ]
+  [ "$stderr" = "" ]
+}
+@test "circumflex (flags: --version)" {
+  run --separate-stderr ./circumflex --version
+  [ "$status" -eq 0 ]
+  [ "$output" = "$version_circumflex" ]
+  [ "$stderr" = "" ]
+}
+@test "circumflex (flags: -q --version)" {
+  run --separate-stderr ./circumflex -q --version
+  [ "$status" -eq 0 ]
+  [ "$output" = "$version_circumflex" ]
+  [ "$stderr" = "" ]
+}
+@test "circumflex (flags: --version -q)" {
+  run --separate-stderr ./circumflex --version -q
+  [ "$status" -eq 0 ]
+  [ "$output" = "$version_circumflex" ]
+  [ "$stderr" = "" ]
+}
+@test "circumflex (flags: -v --version)" {
+  run --separate-stderr ./circumflex -v --version
+  [ "$status" -eq 0 ]
+  [ "$output" = "$version_circumflex" ]
+  [ "$stderr" = "" ]
+}
+@test "circumflex (flags: --version -v)" {
+  run --separate-stderr ./circumflex --version -v
+  [ "$status" -eq 0 ]
+  [ "$output" = "$version_circumflex" ]
+  [ "$stderr" = "" ]
+}
+@test "circumflex (flags: -q -v --version)" {
+  run --separate-stderr ./circumflex -q -v --version
+  [ "$status" -eq 0 ]
+  [ "$output" = "$version_circumflex" ]
+  [ "$stderr" = "" ]
+}
+@test "circumflex (flags: -v -q --version)" {
+  run --separate-stderr ./circumflex -v -q --version
+  [ "$status" -eq 0 ]
+  [ "$output" = "$version_circumflex" ]
+  [ "$stderr" = "" ]
+}
+@test "circumflex (flags: -q --version -v)" {
+  run --separate-stderr ./circumflex -q --version -v
+  [ "$status" -eq 0 ]
+  [ "$output" = "$version_circumflex" ]
+  [ "$stderr" = "" ]
+}
+@test "circumflex (flags: -v --version -q)" {
+  run --separate-stderr ./circumflex -v --version -q
+  [ "$status" -eq 0 ]
+  [ "$output" = "$version_circumflex" ]
+  [ "$stderr" = "" ]
+}
+@test "circumflex (flags: --version -q -v)" {
+  run --separate-stderr ./circumflex --version -q -v
+  [ "$status" -eq 0 ]
+  [ "$output" = "$version_circumflex" ]
+  [ "$stderr" = "" ]
+}
+@test "circumflex (flags: --version -v -q)" {
+  run --separate-stderr ./circumflex --version -v -q
+  [ "$status" -eq 0 ]
+  [ "$output" = "$version_circumflex" ]
+  [ "$stderr" = "" ]
+}
+@test "circumflex (flags: --quiet -V)" {
+  run --separate-stderr ./circumflex --quiet -V
+  [ "$status" -eq 0 ]
+  [ "$output" = "$version_circumflex" ]
+  [ "$stderr" = "" ]
+}
+@test "circumflex (flags: -V --quiet)" {
+  run --separate-stderr ./circumflex -V --quiet
+  [ "$status" -eq 0 ]
+  [ "$output" = "$version_circumflex" ]
+  [ "$stderr" = "" ]
+}
+@test "circumflex (flags: --quiet -v -V)" {
+  run --separate-stderr ./circumflex --quiet -v -V
+  [ "$status" -eq 0 ]
+  [ "$output" = "$version_circumflex" ]
+  [ "$stderr" = "" ]
+}
+@test "circumflex (flags: -v --quiet -V)" {
+  run --separate-stderr ./circumflex -v --quiet -V
+  [ "$status" -eq 0 ]
+  [ "$output" = "$version_circumflex" ]
+  [ "$stderr" = "" ]
+}
+@test "circumflex (flags: --quiet -V -v)" {
+  run --separate-stderr ./circumflex --quiet -V -v
+  [ "$status" -eq 0 ]
+  [ "$output" = "$version_circumflex" ]
+  [ "$stderr" = "" ]
+}
+@test "circumflex (flags: -v -V --quiet)" {
+  run --separate-stderr ./circumflex -v -V --quiet
+  [ "$status" -eq 0 ]
+  [ "$output" = "$version_circumflex" ]
+  [ "$stderr" = "" ]
+}
+@test "circumflex (flags: -V --quiet -v)" {
+  run --separate-stderr ./circumflex -V --quiet -v
+  [ "$status" -eq 0 ]
+  [ "$output" = "$version_circumflex" ]
+  [ "$stderr" = "" ]
+}
+@test "circumflex (flags: -V -v --quiet)" {
+  run --separate-stderr ./circumflex -V -v --quiet
+  [ "$status" -eq 0 ]
+  [ "$output" = "$version_circumflex" ]
+  [ "$stderr" = "" ]
+}
+@test "circumflex (flags: --verbose -V)" {
+  run --separate-stderr ./circumflex --verbose -V
+  [ "$status" -eq 0 ]
+  [ "$output" = "$version_circumflex" ]
+  [ "$stderr" = "" ]
+}
+@test "circumflex (flags: -V --verbose)" {
+  run --separate-stderr ./circumflex -V --verbose
+  [ "$status" -eq 0 ]
+  [ "$output" = "$version_circumflex" ]
+  [ "$stderr" = "" ]
+}
+@test "circumflex (flags: -q --verbose -V)" {
+  run --separate-stderr ./circumflex -q --verbose -V
+  [ "$status" -eq 0 ]
+  [ "$output" = "$version_circumflex" ]
+  [ "$stderr" = "" ]
+}
+@test "circumflex (flags: --verbose -q -V)" {
+  run --separate-stderr ./circumflex --verbose -q -V
+  [ "$status" -eq 0 ]
+  [ "$output" = "$version_circumflex" ]
+  [ "$stderr" = "" ]
+}
+@test "circumflex (flags: -q -V --verbose)" {
+  run --separate-stderr ./circumflex -q -V --verbose
+  [ "$status" -eq 0 ]
+  [ "$output" = "$version_circumflex" ]
+  [ "$stderr" = "" ]
+}
+@test "circumflex (flags: --verbose -V -q)" {
+  run --separate-stderr ./circumflex --verbose -V -q
+  [ "$status" -eq 0 ]
+  [ "$output" = "$version_circumflex" ]
+  [ "$stderr" = "" ]
+}
+@test "circumflex (flags: -V -q --verbose)" {
+  run --separate-stderr ./circumflex -V -q --verbose
+  [ "$status" -eq 0 ]
+  [ "$output" = "$version_circumflex" ]
+  [ "$stderr" = "" ]
+}
+@test "circumflex (flags: -V --verbose -q)" {
+  run --separate-stderr ./circumflex -V --verbose -q
+  [ "$status" -eq 0 ]
+  [ "$output" = "$version_circumflex" ]
+  [ "$stderr" = "" ]
+}
+@test "circumflex (flags: --quiet --version)" {
+  run --separate-stderr ./circumflex --quiet --version
+  [ "$status" -eq 0 ]
+  [ "$output" = "$version_circumflex" ]
+  [ "$stderr" = "" ]
+}
+@test "circumflex (flags: --version --quiet)" {
+  run --separate-stderr ./circumflex --version --quiet
+  [ "$status" -eq 0 ]
+  [ "$output" = "$version_circumflex" ]
+  [ "$stderr" = "" ]
+}
+@test "circumflex (flags: --quiet -v --version)" {
+  run --separate-stderr ./circumflex --quiet -v --version
+  [ "$status" -eq 0 ]
+  [ "$output" = "$version_circumflex" ]
+  [ "$stderr" = "" ]
+}
+@test "circumflex (flags: -v --quiet --version)" {
+  run --separate-stderr ./circumflex -v --quiet --version
+  [ "$status" -eq 0 ]
+  [ "$output" = "$version_circumflex" ]
+  [ "$stderr" = "" ]
+}
+@test "circumflex (flags: --quiet --version -v)" {
+  run --separate-stderr ./circumflex --quiet --version -v
+  [ "$status" -eq 0 ]
+  [ "$output" = "$version_circumflex" ]
+  [ "$stderr" = "" ]
+}
+@test "circumflex (flags: -v --version --quiet)" {
+  run --separate-stderr ./circumflex -v --version --quiet
+  [ "$status" -eq 0 ]
+  [ "$output" = "$version_circumflex" ]
+  [ "$stderr" = "" ]
+}
+@test "circumflex (flags: --version --quiet -v)" {
+  run --separate-stderr ./circumflex --version --quiet -v
+  [ "$status" -eq 0 ]
+  [ "$output" = "$version_circumflex" ]
+  [ "$stderr" = "" ]
+}
+@test "circumflex (flags: --version -v --quiet)" {
+  run --separate-stderr ./circumflex --version -v --quiet
+  [ "$status" -eq 0 ]
+  [ "$output" = "$version_circumflex" ]
+  [ "$stderr" = "" ]
+}
+@test "circumflex (flags: --verbose --version)" {
+  run --separate-stderr ./circumflex --verbose --version
+  [ "$status" -eq 0 ]
+  [ "$output" = "$version_circumflex" ]
+  [ "$stderr" = "" ]
+}
+@test "circumflex (flags: --version --verbose)" {
+  run --separate-stderr ./circumflex --version --verbose
+  [ "$status" -eq 0 ]
+  [ "$output" = "$version_circumflex" ]
+  [ "$stderr" = "" ]
+}
+@test "circumflex (flags: -q --verbose --version)" {
+  run --separate-stderr ./circumflex -q --verbose --version
+  [ "$status" -eq 0 ]
+  [ "$output" = "$version_circumflex" ]
+  [ "$stderr" = "" ]
+}
+@test "circumflex (flags: --verbose -q --version)" {
+  run --separate-stderr ./circumflex --verbose -q --version
+  [ "$status" -eq 0 ]
+  [ "$output" = "$version_circumflex" ]
+  [ "$stderr" = "" ]
+}
+@test "circumflex (flags: -q --version --verbose)" {
+  run --separate-stderr ./circumflex -q --version --verbose
+  [ "$status" -eq 0 ]
+  [ "$output" = "$version_circumflex" ]
+  [ "$stderr" = "" ]
+}
+@test "circumflex (flags: --verbose --version -q)" {
+  run --separate-stderr ./circumflex --verbose --version -q
+  [ "$status" -eq 0 ]
+  [ "$output" = "$version_circumflex" ]
+  [ "$stderr" = "" ]
+}
+@test "circumflex (flags: --version -q --verbose)" {
+  run --separate-stderr ./circumflex --version -q --verbose
+  [ "$status" -eq 0 ]
+  [ "$output" = "$version_circumflex" ]
+  [ "$stderr" = "" ]
+}
+@test "circumflex (flags: --version --verbose -q)" {
+  run --separate-stderr ./circumflex --version --verbose -q
+  [ "$status" -eq 0 ]
+  [ "$output" = "$version_circumflex" ]
+  [ "$stderr" = "" ]
+}
+@test "circumflex (flags: --quiet --verbose --version)" {
+  run --separate-stderr ./circumflex --quiet --verbose --version
+  [ "$status" -eq 0 ]
+  [ "$output" = "$version_circumflex" ]
+  [ "$stderr" = "" ]
+}
+@test "circumflex (flags: --verbose --quiet --version)" {
+  run --separate-stderr ./circumflex --verbose --quiet --version
+  [ "$status" -eq 0 ]
+  [ "$output" = "$version_circumflex" ]
+  [ "$stderr" = "" ]
+}
+@test "circumflex (flags: --quiet --version --verbose)" {
+  run --separate-stderr ./circumflex --quiet --version --verbose
+  [ "$status" -eq 0 ]
+  [ "$output" = "$version_circumflex" ]
+  [ "$stderr" = "" ]
+}
+@test "circumflex (flags: --verbose --version --quiet)" {
+  run --separate-stderr ./circumflex --verbose --version --quiet
+  [ "$status" -eq 0 ]
+  [ "$output" = "$version_circumflex" ]
+  [ "$stderr" = "" ]
+}
+@test "circumflex (flags: --version --quiet --verbose)" {
+  run --separate-stderr ./circumflex --version --quiet --verbose
+  [ "$status" -eq 0 ]
+  [ "$output" = "$version_circumflex" ]
+  [ "$stderr" = "" ]
+}
+@test "circumflex (flags: --version --verbose --quiet)" {
+  run --separate-stderr ./circumflex --version --verbose --quiet
+  [ "$status" -eq 0 ]
+  [ "$output" = "$version_circumflex" ]
+  [ "$stderr" = "" ]
+}
 @test "epub (flags: -V)" {
   run --separate-stderr ./epub -V
   [ "$status" -eq 0 ]
@@ -2519,5 +2879,725 @@ load fixtures.sh
   run --separate-stderr ./hugo-timestamp --version --verbose --quiet
   [ "$status" -eq 0 ]
   [ "$output" = "$version_hugotimestamp" ]
+  [ "$stderr" = "" ]
+}
+@test "overdot (flags: -V)" {
+  run --separate-stderr ./overdot -V
+  [ "$status" -eq 0 ]
+  [ "$output" = "$version_overdot" ]
+  [ "$stderr" = "" ]
+}
+@test "overdot (flags: -q -V)" {
+  run --separate-stderr ./overdot -q -V
+  [ "$status" -eq 0 ]
+  [ "$output" = "$version_overdot" ]
+  [ "$stderr" = "" ]
+}
+@test "overdot (flags: -V -q)" {
+  run --separate-stderr ./overdot -V -q
+  [ "$status" -eq 0 ]
+  [ "$output" = "$version_overdot" ]
+  [ "$stderr" = "" ]
+}
+@test "overdot (flags: -v -V)" {
+  run --separate-stderr ./overdot -v -V
+  [ "$status" -eq 0 ]
+  [ "$output" = "$version_overdot" ]
+  [ "$stderr" = "" ]
+}
+@test "overdot (flags: -V -v)" {
+  run --separate-stderr ./overdot -V -v
+  [ "$status" -eq 0 ]
+  [ "$output" = "$version_overdot" ]
+  [ "$stderr" = "" ]
+}
+@test "overdot (flags: -q -v -V)" {
+  run --separate-stderr ./overdot -q -v -V
+  [ "$status" -eq 0 ]
+  [ "$output" = "$version_overdot" ]
+  [ "$stderr" = "" ]
+}
+@test "overdot (flags: -v -q -V)" {
+  run --separate-stderr ./overdot -v -q -V
+  [ "$status" -eq 0 ]
+  [ "$output" = "$version_overdot" ]
+  [ "$stderr" = "" ]
+}
+@test "overdot (flags: -q -V -v)" {
+  run --separate-stderr ./overdot -q -V -v
+  [ "$status" -eq 0 ]
+  [ "$output" = "$version_overdot" ]
+  [ "$stderr" = "" ]
+}
+@test "overdot (flags: -v -V -q)" {
+  run --separate-stderr ./overdot -v -V -q
+  [ "$status" -eq 0 ]
+  [ "$output" = "$version_overdot" ]
+  [ "$stderr" = "" ]
+}
+@test "overdot (flags: -V -q -v)" {
+  run --separate-stderr ./overdot -V -q -v
+  [ "$status" -eq 0 ]
+  [ "$output" = "$version_overdot" ]
+  [ "$stderr" = "" ]
+}
+@test "overdot (flags: -V -v -q)" {
+  run --separate-stderr ./overdot -V -v -q
+  [ "$status" -eq 0 ]
+  [ "$output" = "$version_overdot" ]
+  [ "$stderr" = "" ]
+}
+@test "overdot (flags: --version)" {
+  run --separate-stderr ./overdot --version
+  [ "$status" -eq 0 ]
+  [ "$output" = "$version_overdot" ]
+  [ "$stderr" = "" ]
+}
+@test "overdot (flags: -q --version)" {
+  run --separate-stderr ./overdot -q --version
+  [ "$status" -eq 0 ]
+  [ "$output" = "$version_overdot" ]
+  [ "$stderr" = "" ]
+}
+@test "overdot (flags: --version -q)" {
+  run --separate-stderr ./overdot --version -q
+  [ "$status" -eq 0 ]
+  [ "$output" = "$version_overdot" ]
+  [ "$stderr" = "" ]
+}
+@test "overdot (flags: -v --version)" {
+  run --separate-stderr ./overdot -v --version
+  [ "$status" -eq 0 ]
+  [ "$output" = "$version_overdot" ]
+  [ "$stderr" = "" ]
+}
+@test "overdot (flags: --version -v)" {
+  run --separate-stderr ./overdot --version -v
+  [ "$status" -eq 0 ]
+  [ "$output" = "$version_overdot" ]
+  [ "$stderr" = "" ]
+}
+@test "overdot (flags: -q -v --version)" {
+  run --separate-stderr ./overdot -q -v --version
+  [ "$status" -eq 0 ]
+  [ "$output" = "$version_overdot" ]
+  [ "$stderr" = "" ]
+}
+@test "overdot (flags: -v -q --version)" {
+  run --separate-stderr ./overdot -v -q --version
+  [ "$status" -eq 0 ]
+  [ "$output" = "$version_overdot" ]
+  [ "$stderr" = "" ]
+}
+@test "overdot (flags: -q --version -v)" {
+  run --separate-stderr ./overdot -q --version -v
+  [ "$status" -eq 0 ]
+  [ "$output" = "$version_overdot" ]
+  [ "$stderr" = "" ]
+}
+@test "overdot (flags: -v --version -q)" {
+  run --separate-stderr ./overdot -v --version -q
+  [ "$status" -eq 0 ]
+  [ "$output" = "$version_overdot" ]
+  [ "$stderr" = "" ]
+}
+@test "overdot (flags: --version -q -v)" {
+  run --separate-stderr ./overdot --version -q -v
+  [ "$status" -eq 0 ]
+  [ "$output" = "$version_overdot" ]
+  [ "$stderr" = "" ]
+}
+@test "overdot (flags: --version -v -q)" {
+  run --separate-stderr ./overdot --version -v -q
+  [ "$status" -eq 0 ]
+  [ "$output" = "$version_overdot" ]
+  [ "$stderr" = "" ]
+}
+@test "overdot (flags: --quiet -V)" {
+  run --separate-stderr ./overdot --quiet -V
+  [ "$status" -eq 0 ]
+  [ "$output" = "$version_overdot" ]
+  [ "$stderr" = "" ]
+}
+@test "overdot (flags: -V --quiet)" {
+  run --separate-stderr ./overdot -V --quiet
+  [ "$status" -eq 0 ]
+  [ "$output" = "$version_overdot" ]
+  [ "$stderr" = "" ]
+}
+@test "overdot (flags: --quiet -v -V)" {
+  run --separate-stderr ./overdot --quiet -v -V
+  [ "$status" -eq 0 ]
+  [ "$output" = "$version_overdot" ]
+  [ "$stderr" = "" ]
+}
+@test "overdot (flags: -v --quiet -V)" {
+  run --separate-stderr ./overdot -v --quiet -V
+  [ "$status" -eq 0 ]
+  [ "$output" = "$version_overdot" ]
+  [ "$stderr" = "" ]
+}
+@test "overdot (flags: --quiet -V -v)" {
+  run --separate-stderr ./overdot --quiet -V -v
+  [ "$status" -eq 0 ]
+  [ "$output" = "$version_overdot" ]
+  [ "$stderr" = "" ]
+}
+@test "overdot (flags: -v -V --quiet)" {
+  run --separate-stderr ./overdot -v -V --quiet
+  [ "$status" -eq 0 ]
+  [ "$output" = "$version_overdot" ]
+  [ "$stderr" = "" ]
+}
+@test "overdot (flags: -V --quiet -v)" {
+  run --separate-stderr ./overdot -V --quiet -v
+  [ "$status" -eq 0 ]
+  [ "$output" = "$version_overdot" ]
+  [ "$stderr" = "" ]
+}
+@test "overdot (flags: -V -v --quiet)" {
+  run --separate-stderr ./overdot -V -v --quiet
+  [ "$status" -eq 0 ]
+  [ "$output" = "$version_overdot" ]
+  [ "$stderr" = "" ]
+}
+@test "overdot (flags: --verbose -V)" {
+  run --separate-stderr ./overdot --verbose -V
+  [ "$status" -eq 0 ]
+  [ "$output" = "$version_overdot" ]
+  [ "$stderr" = "" ]
+}
+@test "overdot (flags: -V --verbose)" {
+  run --separate-stderr ./overdot -V --verbose
+  [ "$status" -eq 0 ]
+  [ "$output" = "$version_overdot" ]
+  [ "$stderr" = "" ]
+}
+@test "overdot (flags: -q --verbose -V)" {
+  run --separate-stderr ./overdot -q --verbose -V
+  [ "$status" -eq 0 ]
+  [ "$output" = "$version_overdot" ]
+  [ "$stderr" = "" ]
+}
+@test "overdot (flags: --verbose -q -V)" {
+  run --separate-stderr ./overdot --verbose -q -V
+  [ "$status" -eq 0 ]
+  [ "$output" = "$version_overdot" ]
+  [ "$stderr" = "" ]
+}
+@test "overdot (flags: -q -V --verbose)" {
+  run --separate-stderr ./overdot -q -V --verbose
+  [ "$status" -eq 0 ]
+  [ "$output" = "$version_overdot" ]
+  [ "$stderr" = "" ]
+}
+@test "overdot (flags: --verbose -V -q)" {
+  run --separate-stderr ./overdot --verbose -V -q
+  [ "$status" -eq 0 ]
+  [ "$output" = "$version_overdot" ]
+  [ "$stderr" = "" ]
+}
+@test "overdot (flags: -V -q --verbose)" {
+  run --separate-stderr ./overdot -V -q --verbose
+  [ "$status" -eq 0 ]
+  [ "$output" = "$version_overdot" ]
+  [ "$stderr" = "" ]
+}
+@test "overdot (flags: -V --verbose -q)" {
+  run --separate-stderr ./overdot -V --verbose -q
+  [ "$status" -eq 0 ]
+  [ "$output" = "$version_overdot" ]
+  [ "$stderr" = "" ]
+}
+@test "overdot (flags: --quiet --version)" {
+  run --separate-stderr ./overdot --quiet --version
+  [ "$status" -eq 0 ]
+  [ "$output" = "$version_overdot" ]
+  [ "$stderr" = "" ]
+}
+@test "overdot (flags: --version --quiet)" {
+  run --separate-stderr ./overdot --version --quiet
+  [ "$status" -eq 0 ]
+  [ "$output" = "$version_overdot" ]
+  [ "$stderr" = "" ]
+}
+@test "overdot (flags: --quiet -v --version)" {
+  run --separate-stderr ./overdot --quiet -v --version
+  [ "$status" -eq 0 ]
+  [ "$output" = "$version_overdot" ]
+  [ "$stderr" = "" ]
+}
+@test "overdot (flags: -v --quiet --version)" {
+  run --separate-stderr ./overdot -v --quiet --version
+  [ "$status" -eq 0 ]
+  [ "$output" = "$version_overdot" ]
+  [ "$stderr" = "" ]
+}
+@test "overdot (flags: --quiet --version -v)" {
+  run --separate-stderr ./overdot --quiet --version -v
+  [ "$status" -eq 0 ]
+  [ "$output" = "$version_overdot" ]
+  [ "$stderr" = "" ]
+}
+@test "overdot (flags: -v --version --quiet)" {
+  run --separate-stderr ./overdot -v --version --quiet
+  [ "$status" -eq 0 ]
+  [ "$output" = "$version_overdot" ]
+  [ "$stderr" = "" ]
+}
+@test "overdot (flags: --version --quiet -v)" {
+  run --separate-stderr ./overdot --version --quiet -v
+  [ "$status" -eq 0 ]
+  [ "$output" = "$version_overdot" ]
+  [ "$stderr" = "" ]
+}
+@test "overdot (flags: --version -v --quiet)" {
+  run --separate-stderr ./overdot --version -v --quiet
+  [ "$status" -eq 0 ]
+  [ "$output" = "$version_overdot" ]
+  [ "$stderr" = "" ]
+}
+@test "overdot (flags: --verbose --version)" {
+  run --separate-stderr ./overdot --verbose --version
+  [ "$status" -eq 0 ]
+  [ "$output" = "$version_overdot" ]
+  [ "$stderr" = "" ]
+}
+@test "overdot (flags: --version --verbose)" {
+  run --separate-stderr ./overdot --version --verbose
+  [ "$status" -eq 0 ]
+  [ "$output" = "$version_overdot" ]
+  [ "$stderr" = "" ]
+}
+@test "overdot (flags: -q --verbose --version)" {
+  run --separate-stderr ./overdot -q --verbose --version
+  [ "$status" -eq 0 ]
+  [ "$output" = "$version_overdot" ]
+  [ "$stderr" = "" ]
+}
+@test "overdot (flags: --verbose -q --version)" {
+  run --separate-stderr ./overdot --verbose -q --version
+  [ "$status" -eq 0 ]
+  [ "$output" = "$version_overdot" ]
+  [ "$stderr" = "" ]
+}
+@test "overdot (flags: -q --version --verbose)" {
+  run --separate-stderr ./overdot -q --version --verbose
+  [ "$status" -eq 0 ]
+  [ "$output" = "$version_overdot" ]
+  [ "$stderr" = "" ]
+}
+@test "overdot (flags: --verbose --version -q)" {
+  run --separate-stderr ./overdot --verbose --version -q
+  [ "$status" -eq 0 ]
+  [ "$output" = "$version_overdot" ]
+  [ "$stderr" = "" ]
+}
+@test "overdot (flags: --version -q --verbose)" {
+  run --separate-stderr ./overdot --version -q --verbose
+  [ "$status" -eq 0 ]
+  [ "$output" = "$version_overdot" ]
+  [ "$stderr" = "" ]
+}
+@test "overdot (flags: --version --verbose -q)" {
+  run --separate-stderr ./overdot --version --verbose -q
+  [ "$status" -eq 0 ]
+  [ "$output" = "$version_overdot" ]
+  [ "$stderr" = "" ]
+}
+@test "overdot (flags: --quiet --verbose --version)" {
+  run --separate-stderr ./overdot --quiet --verbose --version
+  [ "$status" -eq 0 ]
+  [ "$output" = "$version_overdot" ]
+  [ "$stderr" = "" ]
+}
+@test "overdot (flags: --verbose --quiet --version)" {
+  run --separate-stderr ./overdot --verbose --quiet --version
+  [ "$status" -eq 0 ]
+  [ "$output" = "$version_overdot" ]
+  [ "$stderr" = "" ]
+}
+@test "overdot (flags: --quiet --version --verbose)" {
+  run --separate-stderr ./overdot --quiet --version --verbose
+  [ "$status" -eq 0 ]
+  [ "$output" = "$version_overdot" ]
+  [ "$stderr" = "" ]
+}
+@test "overdot (flags: --verbose --version --quiet)" {
+  run --separate-stderr ./overdot --verbose --version --quiet
+  [ "$status" -eq 0 ]
+  [ "$output" = "$version_overdot" ]
+  [ "$stderr" = "" ]
+}
+@test "overdot (flags: --version --quiet --verbose)" {
+  run --separate-stderr ./overdot --version --quiet --verbose
+  [ "$status" -eq 0 ]
+  [ "$output" = "$version_overdot" ]
+  [ "$stderr" = "" ]
+}
+@test "overdot (flags: --version --verbose --quiet)" {
+  run --separate-stderr ./overdot --version --verbose --quiet
+  [ "$status" -eq 0 ]
+  [ "$output" = "$version_overdot" ]
+  [ "$stderr" = "" ]
+}
+@test "overline (flags: -V)" {
+  run --separate-stderr ./overline -V
+  [ "$status" -eq 0 ]
+  [ "$output" = "$version_overline" ]
+  [ "$stderr" = "" ]
+}
+@test "overline (flags: -q -V)" {
+  run --separate-stderr ./overline -q -V
+  [ "$status" -eq 0 ]
+  [ "$output" = "$version_overline" ]
+  [ "$stderr" = "" ]
+}
+@test "overline (flags: -V -q)" {
+  run --separate-stderr ./overline -V -q
+  [ "$status" -eq 0 ]
+  [ "$output" = "$version_overline" ]
+  [ "$stderr" = "" ]
+}
+@test "overline (flags: -v -V)" {
+  run --separate-stderr ./overline -v -V
+  [ "$status" -eq 0 ]
+  [ "$output" = "$version_overline" ]
+  [ "$stderr" = "" ]
+}
+@test "overline (flags: -V -v)" {
+  run --separate-stderr ./overline -V -v
+  [ "$status" -eq 0 ]
+  [ "$output" = "$version_overline" ]
+  [ "$stderr" = "" ]
+}
+@test "overline (flags: -q -v -V)" {
+  run --separate-stderr ./overline -q -v -V
+  [ "$status" -eq 0 ]
+  [ "$output" = "$version_overline" ]
+  [ "$stderr" = "" ]
+}
+@test "overline (flags: -v -q -V)" {
+  run --separate-stderr ./overline -v -q -V
+  [ "$status" -eq 0 ]
+  [ "$output" = "$version_overline" ]
+  [ "$stderr" = "" ]
+}
+@test "overline (flags: -q -V -v)" {
+  run --separate-stderr ./overline -q -V -v
+  [ "$status" -eq 0 ]
+  [ "$output" = "$version_overline" ]
+  [ "$stderr" = "" ]
+}
+@test "overline (flags: -v -V -q)" {
+  run --separate-stderr ./overline -v -V -q
+  [ "$status" -eq 0 ]
+  [ "$output" = "$version_overline" ]
+  [ "$stderr" = "" ]
+}
+@test "overline (flags: -V -q -v)" {
+  run --separate-stderr ./overline -V -q -v
+  [ "$status" -eq 0 ]
+  [ "$output" = "$version_overline" ]
+  [ "$stderr" = "" ]
+}
+@test "overline (flags: -V -v -q)" {
+  run --separate-stderr ./overline -V -v -q
+  [ "$status" -eq 0 ]
+  [ "$output" = "$version_overline" ]
+  [ "$stderr" = "" ]
+}
+@test "overline (flags: --version)" {
+  run --separate-stderr ./overline --version
+  [ "$status" -eq 0 ]
+  [ "$output" = "$version_overline" ]
+  [ "$stderr" = "" ]
+}
+@test "overline (flags: -q --version)" {
+  run --separate-stderr ./overline -q --version
+  [ "$status" -eq 0 ]
+  [ "$output" = "$version_overline" ]
+  [ "$stderr" = "" ]
+}
+@test "overline (flags: --version -q)" {
+  run --separate-stderr ./overline --version -q
+  [ "$status" -eq 0 ]
+  [ "$output" = "$version_overline" ]
+  [ "$stderr" = "" ]
+}
+@test "overline (flags: -v --version)" {
+  run --separate-stderr ./overline -v --version
+  [ "$status" -eq 0 ]
+  [ "$output" = "$version_overline" ]
+  [ "$stderr" = "" ]
+}
+@test "overline (flags: --version -v)" {
+  run --separate-stderr ./overline --version -v
+  [ "$status" -eq 0 ]
+  [ "$output" = "$version_overline" ]
+  [ "$stderr" = "" ]
+}
+@test "overline (flags: -q -v --version)" {
+  run --separate-stderr ./overline -q -v --version
+  [ "$status" -eq 0 ]
+  [ "$output" = "$version_overline" ]
+  [ "$stderr" = "" ]
+}
+@test "overline (flags: -v -q --version)" {
+  run --separate-stderr ./overline -v -q --version
+  [ "$status" -eq 0 ]
+  [ "$output" = "$version_overline" ]
+  [ "$stderr" = "" ]
+}
+@test "overline (flags: -q --version -v)" {
+  run --separate-stderr ./overline -q --version -v
+  [ "$status" -eq 0 ]
+  [ "$output" = "$version_overline" ]
+  [ "$stderr" = "" ]
+}
+@test "overline (flags: -v --version -q)" {
+  run --separate-stderr ./overline -v --version -q
+  [ "$status" -eq 0 ]
+  [ "$output" = "$version_overline" ]
+  [ "$stderr" = "" ]
+}
+@test "overline (flags: --version -q -v)" {
+  run --separate-stderr ./overline --version -q -v
+  [ "$status" -eq 0 ]
+  [ "$output" = "$version_overline" ]
+  [ "$stderr" = "" ]
+}
+@test "overline (flags: --version -v -q)" {
+  run --separate-stderr ./overline --version -v -q
+  [ "$status" -eq 0 ]
+  [ "$output" = "$version_overline" ]
+  [ "$stderr" = "" ]
+}
+@test "overline (flags: --quiet -V)" {
+  run --separate-stderr ./overline --quiet -V
+  [ "$status" -eq 0 ]
+  [ "$output" = "$version_overline" ]
+  [ "$stderr" = "" ]
+}
+@test "overline (flags: -V --quiet)" {
+  run --separate-stderr ./overline -V --quiet
+  [ "$status" -eq 0 ]
+  [ "$output" = "$version_overline" ]
+  [ "$stderr" = "" ]
+}
+@test "overline (flags: --quiet -v -V)" {
+  run --separate-stderr ./overline --quiet -v -V
+  [ "$status" -eq 0 ]
+  [ "$output" = "$version_overline" ]
+  [ "$stderr" = "" ]
+}
+@test "overline (flags: -v --quiet -V)" {
+  run --separate-stderr ./overline -v --quiet -V
+  [ "$status" -eq 0 ]
+  [ "$output" = "$version_overline" ]
+  [ "$stderr" = "" ]
+}
+@test "overline (flags: --quiet -V -v)" {
+  run --separate-stderr ./overline --quiet -V -v
+  [ "$status" -eq 0 ]
+  [ "$output" = "$version_overline" ]
+  [ "$stderr" = "" ]
+}
+@test "overline (flags: -v -V --quiet)" {
+  run --separate-stderr ./overline -v -V --quiet
+  [ "$status" -eq 0 ]
+  [ "$output" = "$version_overline" ]
+  [ "$stderr" = "" ]
+}
+@test "overline (flags: -V --quiet -v)" {
+  run --separate-stderr ./overline -V --quiet -v
+  [ "$status" -eq 0 ]
+  [ "$output" = "$version_overline" ]
+  [ "$stderr" = "" ]
+}
+@test "overline (flags: -V -v --quiet)" {
+  run --separate-stderr ./overline -V -v --quiet
+  [ "$status" -eq 0 ]
+  [ "$output" = "$version_overline" ]
+  [ "$stderr" = "" ]
+}
+@test "overline (flags: --verbose -V)" {
+  run --separate-stderr ./overline --verbose -V
+  [ "$status" -eq 0 ]
+  [ "$output" = "$version_overline" ]
+  [ "$stderr" = "" ]
+}
+@test "overline (flags: -V --verbose)" {
+  run --separate-stderr ./overline -V --verbose
+  [ "$status" -eq 0 ]
+  [ "$output" = "$version_overline" ]
+  [ "$stderr" = "" ]
+}
+@test "overline (flags: -q --verbose -V)" {
+  run --separate-stderr ./overline -q --verbose -V
+  [ "$status" -eq 0 ]
+  [ "$output" = "$version_overline" ]
+  [ "$stderr" = "" ]
+}
+@test "overline (flags: --verbose -q -V)" {
+  run --separate-stderr ./overline --verbose -q -V
+  [ "$status" -eq 0 ]
+  [ "$output" = "$version_overline" ]
+  [ "$stderr" = "" ]
+}
+@test "overline (flags: -q -V --verbose)" {
+  run --separate-stderr ./overline -q -V --verbose
+  [ "$status" -eq 0 ]
+  [ "$output" = "$version_overline" ]
+  [ "$stderr" = "" ]
+}
+@test "overline (flags: --verbose -V -q)" {
+  run --separate-stderr ./overline --verbose -V -q
+  [ "$status" -eq 0 ]
+  [ "$output" = "$version_overline" ]
+  [ "$stderr" = "" ]
+}
+@test "overline (flags: -V -q --verbose)" {
+  run --separate-stderr ./overline -V -q --verbose
+  [ "$status" -eq 0 ]
+  [ "$output" = "$version_overline" ]
+  [ "$stderr" = "" ]
+}
+@test "overline (flags: -V --verbose -q)" {
+  run --separate-stderr ./overline -V --verbose -q
+  [ "$status" -eq 0 ]
+  [ "$output" = "$version_overline" ]
+  [ "$stderr" = "" ]
+}
+@test "overline (flags: --quiet --version)" {
+  run --separate-stderr ./overline --quiet --version
+  [ "$status" -eq 0 ]
+  [ "$output" = "$version_overline" ]
+  [ "$stderr" = "" ]
+}
+@test "overline (flags: --version --quiet)" {
+  run --separate-stderr ./overline --version --quiet
+  [ "$status" -eq 0 ]
+  [ "$output" = "$version_overline" ]
+  [ "$stderr" = "" ]
+}
+@test "overline (flags: --quiet -v --version)" {
+  run --separate-stderr ./overline --quiet -v --version
+  [ "$status" -eq 0 ]
+  [ "$output" = "$version_overline" ]
+  [ "$stderr" = "" ]
+}
+@test "overline (flags: -v --quiet --version)" {
+  run --separate-stderr ./overline -v --quiet --version
+  [ "$status" -eq 0 ]
+  [ "$output" = "$version_overline" ]
+  [ "$stderr" = "" ]
+}
+@test "overline (flags: --quiet --version -v)" {
+  run --separate-stderr ./overline --quiet --version -v
+  [ "$status" -eq 0 ]
+  [ "$output" = "$version_overline" ]
+  [ "$stderr" = "" ]
+}
+@test "overline (flags: -v --version --quiet)" {
+  run --separate-stderr ./overline -v --version --quiet
+  [ "$status" -eq 0 ]
+  [ "$output" = "$version_overline" ]
+  [ "$stderr" = "" ]
+}
+@test "overline (flags: --version --quiet -v)" {
+  run --separate-stderr ./overline --version --quiet -v
+  [ "$status" -eq 0 ]
+  [ "$output" = "$version_overline" ]
+  [ "$stderr" = "" ]
+}
+@test "overline (flags: --version -v --quiet)" {
+  run --separate-stderr ./overline --version -v --quiet
+  [ "$status" -eq 0 ]
+  [ "$output" = "$version_overline" ]
+  [ "$stderr" = "" ]
+}
+@test "overline (flags: --verbose --version)" {
+  run --separate-stderr ./overline --verbose --version
+  [ "$status" -eq 0 ]
+  [ "$output" = "$version_overline" ]
+  [ "$stderr" = "" ]
+}
+@test "overline (flags: --version --verbose)" {
+  run --separate-stderr ./overline --version --verbose
+  [ "$status" -eq 0 ]
+  [ "$output" = "$version_overline" ]
+  [ "$stderr" = "" ]
+}
+@test "overline (flags: -q --verbose --version)" {
+  run --separate-stderr ./overline -q --verbose --version
+  [ "$status" -eq 0 ]
+  [ "$output" = "$version_overline" ]
+  [ "$stderr" = "" ]
+}
+@test "overline (flags: --verbose -q --version)" {
+  run --separate-stderr ./overline --verbose -q --version
+  [ "$status" -eq 0 ]
+  [ "$output" = "$version_overline" ]
+  [ "$stderr" = "" ]
+}
+@test "overline (flags: -q --version --verbose)" {
+  run --separate-stderr ./overline -q --version --verbose
+  [ "$status" -eq 0 ]
+  [ "$output" = "$version_overline" ]
+  [ "$stderr" = "" ]
+}
+@test "overline (flags: --verbose --version -q)" {
+  run --separate-stderr ./overline --verbose --version -q
+  [ "$status" -eq 0 ]
+  [ "$output" = "$version_overline" ]
+  [ "$stderr" = "" ]
+}
+@test "overline (flags: --version -q --verbose)" {
+  run --separate-stderr ./overline --version -q --verbose
+  [ "$status" -eq 0 ]
+  [ "$output" = "$version_overline" ]
+  [ "$stderr" = "" ]
+}
+@test "overline (flags: --version --verbose -q)" {
+  run --separate-stderr ./overline --version --verbose -q
+  [ "$status" -eq 0 ]
+  [ "$output" = "$version_overline" ]
+  [ "$stderr" = "" ]
+}
+@test "overline (flags: --quiet --verbose --version)" {
+  run --separate-stderr ./overline --quiet --verbose --version
+  [ "$status" -eq 0 ]
+  [ "$output" = "$version_overline" ]
+  [ "$stderr" = "" ]
+}
+@test "overline (flags: --verbose --quiet --version)" {
+  run --separate-stderr ./overline --verbose --quiet --version
+  [ "$status" -eq 0 ]
+  [ "$output" = "$version_overline" ]
+  [ "$stderr" = "" ]
+}
+@test "overline (flags: --quiet --version --verbose)" {
+  run --separate-stderr ./overline --quiet --version --verbose
+  [ "$status" -eq 0 ]
+  [ "$output" = "$version_overline" ]
+  [ "$stderr" = "" ]
+}
+@test "overline (flags: --verbose --version --quiet)" {
+  run --separate-stderr ./overline --verbose --version --quiet
+  [ "$status" -eq 0 ]
+  [ "$output" = "$version_overline" ]
+  [ "$stderr" = "" ]
+}
+@test "overline (flags: --version --quiet --verbose)" {
+  run --separate-stderr ./overline --version --quiet --verbose
+  [ "$status" -eq 0 ]
+  [ "$output" = "$version_overline" ]
+  [ "$stderr" = "" ]
+}
+@test "overline (flags: --version --verbose --quiet)" {
+  run --separate-stderr ./overline --version --verbose --quiet
+  [ "$status" -eq 0 ]
+  [ "$output" = "$version_overline" ]
   [ "$stderr" = "" ]
 }

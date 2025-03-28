@@ -1,6 +1,786 @@
 #!/usr/bin/env bats
 bats_require_minimum_version 1.5.0
 load fixtures.sh
+@test "circumflex (flags: -h)" {
+  run --separate-stderr ./circumflex -h
+  [ "$status" -eq 0 ]
+  [ "${lines[0]}" = "$help_circumflex_0" ]
+  [ "${lines[1]}" = "$help_circumflex_1" ]
+  [ "${lines[2]}" = "$help_circumflex_2" ]
+  [ "${lines[3]}" = "$help_circumflex_3" ]
+  [ "${lines[4]}" = "$help_circumflex_4" ]
+  [ "${lines[5]}" = "$help_circumflex_5" ]
+  [ "${lines[6]}" = "$help_circumflex_6" ]
+  [ "${lines[7]}" = "$help_circumflex_7" ]
+  [ "$stderr" = "" ]
+}
+@test "circumflex (flags: -q -h)" {
+  run --separate-stderr ./circumflex -q -h
+  [ "$status" -eq 0 ]
+  [ "${lines[0]}" = "$help_circumflex_0" ]
+  [ "${lines[1]}" = "$help_circumflex_1" ]
+  [ "${lines[2]}" = "$help_circumflex_2" ]
+  [ "${lines[3]}" = "$help_circumflex_3" ]
+  [ "${lines[4]}" = "$help_circumflex_4" ]
+  [ "${lines[5]}" = "$help_circumflex_5" ]
+  [ "${lines[6]}" = "$help_circumflex_6" ]
+  [ "${lines[7]}" = "$help_circumflex_7" ]
+  [ "$stderr" = "" ]
+}
+@test "circumflex (flags: -h -q)" {
+  run --separate-stderr ./circumflex -h -q
+  [ "$status" -eq 0 ]
+  [ "${lines[0]}" = "$help_circumflex_0" ]
+  [ "${lines[1]}" = "$help_circumflex_1" ]
+  [ "${lines[2]}" = "$help_circumflex_2" ]
+  [ "${lines[3]}" = "$help_circumflex_3" ]
+  [ "${lines[4]}" = "$help_circumflex_4" ]
+  [ "${lines[5]}" = "$help_circumflex_5" ]
+  [ "${lines[6]}" = "$help_circumflex_6" ]
+  [ "${lines[7]}" = "$help_circumflex_7" ]
+  [ "$stderr" = "" ]
+}
+@test "circumflex (flags: -v -h)" {
+  run --separate-stderr ./circumflex -v -h
+  [ "$status" -eq 0 ]
+  [ "${lines[0]}" = "$help_circumflex_0" ]
+  [ "${lines[1]}" = "$help_circumflex_1" ]
+  [ "${lines[2]}" = "$help_circumflex_2" ]
+  [ "${lines[3]}" = "$help_circumflex_3" ]
+  [ "${lines[4]}" = "$help_circumflex_4" ]
+  [ "${lines[5]}" = "$help_circumflex_5" ]
+  [ "${lines[6]}" = "$help_circumflex_6" ]
+  [ "${lines[7]}" = "$help_circumflex_7" ]
+  [ "$stderr" = "" ]
+}
+@test "circumflex (flags: -h -v)" {
+  run --separate-stderr ./circumflex -h -v
+  [ "$status" -eq 0 ]
+  [ "${lines[0]}" = "$help_circumflex_0" ]
+  [ "${lines[1]}" = "$help_circumflex_1" ]
+  [ "${lines[2]}" = "$help_circumflex_2" ]
+  [ "${lines[3]}" = "$help_circumflex_3" ]
+  [ "${lines[4]}" = "$help_circumflex_4" ]
+  [ "${lines[5]}" = "$help_circumflex_5" ]
+  [ "${lines[6]}" = "$help_circumflex_6" ]
+  [ "${lines[7]}" = "$help_circumflex_7" ]
+  [ "$stderr" = "" ]
+}
+@test "circumflex (flags: -q -v -h)" {
+  run --separate-stderr ./circumflex -q -v -h
+  [ "$status" -eq 0 ]
+  [ "${lines[0]}" = "$help_circumflex_0" ]
+  [ "${lines[1]}" = "$help_circumflex_1" ]
+  [ "${lines[2]}" = "$help_circumflex_2" ]
+  [ "${lines[3]}" = "$help_circumflex_3" ]
+  [ "${lines[4]}" = "$help_circumflex_4" ]
+  [ "${lines[5]}" = "$help_circumflex_5" ]
+  [ "${lines[6]}" = "$help_circumflex_6" ]
+  [ "${lines[7]}" = "$help_circumflex_7" ]
+  [ "$stderr" = "" ]
+}
+@test "circumflex (flags: -v -q -h)" {
+  run --separate-stderr ./circumflex -v -q -h
+  [ "$status" -eq 0 ]
+  [ "${lines[0]}" = "$help_circumflex_0" ]
+  [ "${lines[1]}" = "$help_circumflex_1" ]
+  [ "${lines[2]}" = "$help_circumflex_2" ]
+  [ "${lines[3]}" = "$help_circumflex_3" ]
+  [ "${lines[4]}" = "$help_circumflex_4" ]
+  [ "${lines[5]}" = "$help_circumflex_5" ]
+  [ "${lines[6]}" = "$help_circumflex_6" ]
+  [ "${lines[7]}" = "$help_circumflex_7" ]
+  [ "$stderr" = "" ]
+}
+@test "circumflex (flags: -q -h -v)" {
+  run --separate-stderr ./circumflex -q -h -v
+  [ "$status" -eq 0 ]
+  [ "${lines[0]}" = "$help_circumflex_0" ]
+  [ "${lines[1]}" = "$help_circumflex_1" ]
+  [ "${lines[2]}" = "$help_circumflex_2" ]
+  [ "${lines[3]}" = "$help_circumflex_3" ]
+  [ "${lines[4]}" = "$help_circumflex_4" ]
+  [ "${lines[5]}" = "$help_circumflex_5" ]
+  [ "${lines[6]}" = "$help_circumflex_6" ]
+  [ "${lines[7]}" = "$help_circumflex_7" ]
+  [ "$stderr" = "" ]
+}
+@test "circumflex (flags: -v -h -q)" {
+  run --separate-stderr ./circumflex -v -h -q
+  [ "$status" -eq 0 ]
+  [ "${lines[0]}" = "$help_circumflex_0" ]
+  [ "${lines[1]}" = "$help_circumflex_1" ]
+  [ "${lines[2]}" = "$help_circumflex_2" ]
+  [ "${lines[3]}" = "$help_circumflex_3" ]
+  [ "${lines[4]}" = "$help_circumflex_4" ]
+  [ "${lines[5]}" = "$help_circumflex_5" ]
+  [ "${lines[6]}" = "$help_circumflex_6" ]
+  [ "${lines[7]}" = "$help_circumflex_7" ]
+  [ "$stderr" = "" ]
+}
+@test "circumflex (flags: -h -q -v)" {
+  run --separate-stderr ./circumflex -h -q -v
+  [ "$status" -eq 0 ]
+  [ "${lines[0]}" = "$help_circumflex_0" ]
+  [ "${lines[1]}" = "$help_circumflex_1" ]
+  [ "${lines[2]}" = "$help_circumflex_2" ]
+  [ "${lines[3]}" = "$help_circumflex_3" ]
+  [ "${lines[4]}" = "$help_circumflex_4" ]
+  [ "${lines[5]}" = "$help_circumflex_5" ]
+  [ "${lines[6]}" = "$help_circumflex_6" ]
+  [ "${lines[7]}" = "$help_circumflex_7" ]
+  [ "$stderr" = "" ]
+}
+@test "circumflex (flags: -h -v -q)" {
+  run --separate-stderr ./circumflex -h -v -q
+  [ "$status" -eq 0 ]
+  [ "${lines[0]}" = "$help_circumflex_0" ]
+  [ "${lines[1]}" = "$help_circumflex_1" ]
+  [ "${lines[2]}" = "$help_circumflex_2" ]
+  [ "${lines[3]}" = "$help_circumflex_3" ]
+  [ "${lines[4]}" = "$help_circumflex_4" ]
+  [ "${lines[5]}" = "$help_circumflex_5" ]
+  [ "${lines[6]}" = "$help_circumflex_6" ]
+  [ "${lines[7]}" = "$help_circumflex_7" ]
+  [ "$stderr" = "" ]
+}
+@test "circumflex (flags: --help)" {
+  run --separate-stderr ./circumflex --help
+  [ "$status" -eq 0 ]
+  [ "${lines[0]}" = "$help_circumflex_0" ]
+  [ "${lines[1]}" = "$help_circumflex_1" ]
+  [ "${lines[2]}" = "$help_circumflex_2" ]
+  [ "${lines[3]}" = "$help_circumflex_3" ]
+  [ "${lines[4]}" = "$help_circumflex_4" ]
+  [ "${lines[5]}" = "$help_circumflex_5" ]
+  [ "${lines[6]}" = "$help_circumflex_6" ]
+  [ "${lines[7]}" = "$help_circumflex_7" ]
+  [ "$stderr" = "" ]
+}
+@test "circumflex (flags: -q --help)" {
+  run --separate-stderr ./circumflex -q --help
+  [ "$status" -eq 0 ]
+  [ "${lines[0]}" = "$help_circumflex_0" ]
+  [ "${lines[1]}" = "$help_circumflex_1" ]
+  [ "${lines[2]}" = "$help_circumflex_2" ]
+  [ "${lines[3]}" = "$help_circumflex_3" ]
+  [ "${lines[4]}" = "$help_circumflex_4" ]
+  [ "${lines[5]}" = "$help_circumflex_5" ]
+  [ "${lines[6]}" = "$help_circumflex_6" ]
+  [ "${lines[7]}" = "$help_circumflex_7" ]
+  [ "$stderr" = "" ]
+}
+@test "circumflex (flags: --help -q)" {
+  run --separate-stderr ./circumflex --help -q
+  [ "$status" -eq 0 ]
+  [ "${lines[0]}" = "$help_circumflex_0" ]
+  [ "${lines[1]}" = "$help_circumflex_1" ]
+  [ "${lines[2]}" = "$help_circumflex_2" ]
+  [ "${lines[3]}" = "$help_circumflex_3" ]
+  [ "${lines[4]}" = "$help_circumflex_4" ]
+  [ "${lines[5]}" = "$help_circumflex_5" ]
+  [ "${lines[6]}" = "$help_circumflex_6" ]
+  [ "${lines[7]}" = "$help_circumflex_7" ]
+  [ "$stderr" = "" ]
+}
+@test "circumflex (flags: -v --help)" {
+  run --separate-stderr ./circumflex -v --help
+  [ "$status" -eq 0 ]
+  [ "${lines[0]}" = "$help_circumflex_0" ]
+  [ "${lines[1]}" = "$help_circumflex_1" ]
+  [ "${lines[2]}" = "$help_circumflex_2" ]
+  [ "${lines[3]}" = "$help_circumflex_3" ]
+  [ "${lines[4]}" = "$help_circumflex_4" ]
+  [ "${lines[5]}" = "$help_circumflex_5" ]
+  [ "${lines[6]}" = "$help_circumflex_6" ]
+  [ "${lines[7]}" = "$help_circumflex_7" ]
+  [ "$stderr" = "" ]
+}
+@test "circumflex (flags: --help -v)" {
+  run --separate-stderr ./circumflex --help -v
+  [ "$status" -eq 0 ]
+  [ "${lines[0]}" = "$help_circumflex_0" ]
+  [ "${lines[1]}" = "$help_circumflex_1" ]
+  [ "${lines[2]}" = "$help_circumflex_2" ]
+  [ "${lines[3]}" = "$help_circumflex_3" ]
+  [ "${lines[4]}" = "$help_circumflex_4" ]
+  [ "${lines[5]}" = "$help_circumflex_5" ]
+  [ "${lines[6]}" = "$help_circumflex_6" ]
+  [ "${lines[7]}" = "$help_circumflex_7" ]
+  [ "$stderr" = "" ]
+}
+@test "circumflex (flags: -q -v --help)" {
+  run --separate-stderr ./circumflex -q -v --help
+  [ "$status" -eq 0 ]
+  [ "${lines[0]}" = "$help_circumflex_0" ]
+  [ "${lines[1]}" = "$help_circumflex_1" ]
+  [ "${lines[2]}" = "$help_circumflex_2" ]
+  [ "${lines[3]}" = "$help_circumflex_3" ]
+  [ "${lines[4]}" = "$help_circumflex_4" ]
+  [ "${lines[5]}" = "$help_circumflex_5" ]
+  [ "${lines[6]}" = "$help_circumflex_6" ]
+  [ "${lines[7]}" = "$help_circumflex_7" ]
+  [ "$stderr" = "" ]
+}
+@test "circumflex (flags: -v -q --help)" {
+  run --separate-stderr ./circumflex -v -q --help
+  [ "$status" -eq 0 ]
+  [ "${lines[0]}" = "$help_circumflex_0" ]
+  [ "${lines[1]}" = "$help_circumflex_1" ]
+  [ "${lines[2]}" = "$help_circumflex_2" ]
+  [ "${lines[3]}" = "$help_circumflex_3" ]
+  [ "${lines[4]}" = "$help_circumflex_4" ]
+  [ "${lines[5]}" = "$help_circumflex_5" ]
+  [ "${lines[6]}" = "$help_circumflex_6" ]
+  [ "${lines[7]}" = "$help_circumflex_7" ]
+  [ "$stderr" = "" ]
+}
+@test "circumflex (flags: -q --help -v)" {
+  run --separate-stderr ./circumflex -q --help -v
+  [ "$status" -eq 0 ]
+  [ "${lines[0]}" = "$help_circumflex_0" ]
+  [ "${lines[1]}" = "$help_circumflex_1" ]
+  [ "${lines[2]}" = "$help_circumflex_2" ]
+  [ "${lines[3]}" = "$help_circumflex_3" ]
+  [ "${lines[4]}" = "$help_circumflex_4" ]
+  [ "${lines[5]}" = "$help_circumflex_5" ]
+  [ "${lines[6]}" = "$help_circumflex_6" ]
+  [ "${lines[7]}" = "$help_circumflex_7" ]
+  [ "$stderr" = "" ]
+}
+@test "circumflex (flags: -v --help -q)" {
+  run --separate-stderr ./circumflex -v --help -q
+  [ "$status" -eq 0 ]
+  [ "${lines[0]}" = "$help_circumflex_0" ]
+  [ "${lines[1]}" = "$help_circumflex_1" ]
+  [ "${lines[2]}" = "$help_circumflex_2" ]
+  [ "${lines[3]}" = "$help_circumflex_3" ]
+  [ "${lines[4]}" = "$help_circumflex_4" ]
+  [ "${lines[5]}" = "$help_circumflex_5" ]
+  [ "${lines[6]}" = "$help_circumflex_6" ]
+  [ "${lines[7]}" = "$help_circumflex_7" ]
+  [ "$stderr" = "" ]
+}
+@test "circumflex (flags: --help -q -v)" {
+  run --separate-stderr ./circumflex --help -q -v
+  [ "$status" -eq 0 ]
+  [ "${lines[0]}" = "$help_circumflex_0" ]
+  [ "${lines[1]}" = "$help_circumflex_1" ]
+  [ "${lines[2]}" = "$help_circumflex_2" ]
+  [ "${lines[3]}" = "$help_circumflex_3" ]
+  [ "${lines[4]}" = "$help_circumflex_4" ]
+  [ "${lines[5]}" = "$help_circumflex_5" ]
+  [ "${lines[6]}" = "$help_circumflex_6" ]
+  [ "${lines[7]}" = "$help_circumflex_7" ]
+  [ "$stderr" = "" ]
+}
+@test "circumflex (flags: --help -v -q)" {
+  run --separate-stderr ./circumflex --help -v -q
+  [ "$status" -eq 0 ]
+  [ "${lines[0]}" = "$help_circumflex_0" ]
+  [ "${lines[1]}" = "$help_circumflex_1" ]
+  [ "${lines[2]}" = "$help_circumflex_2" ]
+  [ "${lines[3]}" = "$help_circumflex_3" ]
+  [ "${lines[4]}" = "$help_circumflex_4" ]
+  [ "${lines[5]}" = "$help_circumflex_5" ]
+  [ "${lines[6]}" = "$help_circumflex_6" ]
+  [ "${lines[7]}" = "$help_circumflex_7" ]
+  [ "$stderr" = "" ]
+}
+@test "circumflex (flags: --quiet -h)" {
+  run --separate-stderr ./circumflex --quiet -h
+  [ "$status" -eq 0 ]
+  [ "${lines[0]}" = "$help_circumflex_0" ]
+  [ "${lines[1]}" = "$help_circumflex_1" ]
+  [ "${lines[2]}" = "$help_circumflex_2" ]
+  [ "${lines[3]}" = "$help_circumflex_3" ]
+  [ "${lines[4]}" = "$help_circumflex_4" ]
+  [ "${lines[5]}" = "$help_circumflex_5" ]
+  [ "${lines[6]}" = "$help_circumflex_6" ]
+  [ "${lines[7]}" = "$help_circumflex_7" ]
+  [ "$stderr" = "" ]
+}
+@test "circumflex (flags: -h --quiet)" {
+  run --separate-stderr ./circumflex -h --quiet
+  [ "$status" -eq 0 ]
+  [ "${lines[0]}" = "$help_circumflex_0" ]
+  [ "${lines[1]}" = "$help_circumflex_1" ]
+  [ "${lines[2]}" = "$help_circumflex_2" ]
+  [ "${lines[3]}" = "$help_circumflex_3" ]
+  [ "${lines[4]}" = "$help_circumflex_4" ]
+  [ "${lines[5]}" = "$help_circumflex_5" ]
+  [ "${lines[6]}" = "$help_circumflex_6" ]
+  [ "${lines[7]}" = "$help_circumflex_7" ]
+  [ "$stderr" = "" ]
+}
+@test "circumflex (flags: --quiet -v -h)" {
+  run --separate-stderr ./circumflex --quiet -v -h
+  [ "$status" -eq 0 ]
+  [ "${lines[0]}" = "$help_circumflex_0" ]
+  [ "${lines[1]}" = "$help_circumflex_1" ]
+  [ "${lines[2]}" = "$help_circumflex_2" ]
+  [ "${lines[3]}" = "$help_circumflex_3" ]
+  [ "${lines[4]}" = "$help_circumflex_4" ]
+  [ "${lines[5]}" = "$help_circumflex_5" ]
+  [ "${lines[6]}" = "$help_circumflex_6" ]
+  [ "${lines[7]}" = "$help_circumflex_7" ]
+  [ "$stderr" = "" ]
+}
+@test "circumflex (flags: -v --quiet -h)" {
+  run --separate-stderr ./circumflex -v --quiet -h
+  [ "$status" -eq 0 ]
+  [ "${lines[0]}" = "$help_circumflex_0" ]
+  [ "${lines[1]}" = "$help_circumflex_1" ]
+  [ "${lines[2]}" = "$help_circumflex_2" ]
+  [ "${lines[3]}" = "$help_circumflex_3" ]
+  [ "${lines[4]}" = "$help_circumflex_4" ]
+  [ "${lines[5]}" = "$help_circumflex_5" ]
+  [ "${lines[6]}" = "$help_circumflex_6" ]
+  [ "${lines[7]}" = "$help_circumflex_7" ]
+  [ "$stderr" = "" ]
+}
+@test "circumflex (flags: --quiet -h -v)" {
+  run --separate-stderr ./circumflex --quiet -h -v
+  [ "$status" -eq 0 ]
+  [ "${lines[0]}" = "$help_circumflex_0" ]
+  [ "${lines[1]}" = "$help_circumflex_1" ]
+  [ "${lines[2]}" = "$help_circumflex_2" ]
+  [ "${lines[3]}" = "$help_circumflex_3" ]
+  [ "${lines[4]}" = "$help_circumflex_4" ]
+  [ "${lines[5]}" = "$help_circumflex_5" ]
+  [ "${lines[6]}" = "$help_circumflex_6" ]
+  [ "${lines[7]}" = "$help_circumflex_7" ]
+  [ "$stderr" = "" ]
+}
+@test "circumflex (flags: -v -h --quiet)" {
+  run --separate-stderr ./circumflex -v -h --quiet
+  [ "$status" -eq 0 ]
+  [ "${lines[0]}" = "$help_circumflex_0" ]
+  [ "${lines[1]}" = "$help_circumflex_1" ]
+  [ "${lines[2]}" = "$help_circumflex_2" ]
+  [ "${lines[3]}" = "$help_circumflex_3" ]
+  [ "${lines[4]}" = "$help_circumflex_4" ]
+  [ "${lines[5]}" = "$help_circumflex_5" ]
+  [ "${lines[6]}" = "$help_circumflex_6" ]
+  [ "${lines[7]}" = "$help_circumflex_7" ]
+  [ "$stderr" = "" ]
+}
+@test "circumflex (flags: -h --quiet -v)" {
+  run --separate-stderr ./circumflex -h --quiet -v
+  [ "$status" -eq 0 ]
+  [ "${lines[0]}" = "$help_circumflex_0" ]
+  [ "${lines[1]}" = "$help_circumflex_1" ]
+  [ "${lines[2]}" = "$help_circumflex_2" ]
+  [ "${lines[3]}" = "$help_circumflex_3" ]
+  [ "${lines[4]}" = "$help_circumflex_4" ]
+  [ "${lines[5]}" = "$help_circumflex_5" ]
+  [ "${lines[6]}" = "$help_circumflex_6" ]
+  [ "${lines[7]}" = "$help_circumflex_7" ]
+  [ "$stderr" = "" ]
+}
+@test "circumflex (flags: -h -v --quiet)" {
+  run --separate-stderr ./circumflex -h -v --quiet
+  [ "$status" -eq 0 ]
+  [ "${lines[0]}" = "$help_circumflex_0" ]
+  [ "${lines[1]}" = "$help_circumflex_1" ]
+  [ "${lines[2]}" = "$help_circumflex_2" ]
+  [ "${lines[3]}" = "$help_circumflex_3" ]
+  [ "${lines[4]}" = "$help_circumflex_4" ]
+  [ "${lines[5]}" = "$help_circumflex_5" ]
+  [ "${lines[6]}" = "$help_circumflex_6" ]
+  [ "${lines[7]}" = "$help_circumflex_7" ]
+  [ "$stderr" = "" ]
+}
+@test "circumflex (flags: --verbose -h)" {
+  run --separate-stderr ./circumflex --verbose -h
+  [ "$status" -eq 0 ]
+  [ "${lines[0]}" = "$help_circumflex_0" ]
+  [ "${lines[1]}" = "$help_circumflex_1" ]
+  [ "${lines[2]}" = "$help_circumflex_2" ]
+  [ "${lines[3]}" = "$help_circumflex_3" ]
+  [ "${lines[4]}" = "$help_circumflex_4" ]
+  [ "${lines[5]}" = "$help_circumflex_5" ]
+  [ "${lines[6]}" = "$help_circumflex_6" ]
+  [ "${lines[7]}" = "$help_circumflex_7" ]
+  [ "$stderr" = "" ]
+}
+@test "circumflex (flags: -h --verbose)" {
+  run --separate-stderr ./circumflex -h --verbose
+  [ "$status" -eq 0 ]
+  [ "${lines[0]}" = "$help_circumflex_0" ]
+  [ "${lines[1]}" = "$help_circumflex_1" ]
+  [ "${lines[2]}" = "$help_circumflex_2" ]
+  [ "${lines[3]}" = "$help_circumflex_3" ]
+  [ "${lines[4]}" = "$help_circumflex_4" ]
+  [ "${lines[5]}" = "$help_circumflex_5" ]
+  [ "${lines[6]}" = "$help_circumflex_6" ]
+  [ "${lines[7]}" = "$help_circumflex_7" ]
+  [ "$stderr" = "" ]
+}
+@test "circumflex (flags: -q --verbose -h)" {
+  run --separate-stderr ./circumflex -q --verbose -h
+  [ "$status" -eq 0 ]
+  [ "${lines[0]}" = "$help_circumflex_0" ]
+  [ "${lines[1]}" = "$help_circumflex_1" ]
+  [ "${lines[2]}" = "$help_circumflex_2" ]
+  [ "${lines[3]}" = "$help_circumflex_3" ]
+  [ "${lines[4]}" = "$help_circumflex_4" ]
+  [ "${lines[5]}" = "$help_circumflex_5" ]
+  [ "${lines[6]}" = "$help_circumflex_6" ]
+  [ "${lines[7]}" = "$help_circumflex_7" ]
+  [ "$stderr" = "" ]
+}
+@test "circumflex (flags: --verbose -q -h)" {
+  run --separate-stderr ./circumflex --verbose -q -h
+  [ "$status" -eq 0 ]
+  [ "${lines[0]}" = "$help_circumflex_0" ]
+  [ "${lines[1]}" = "$help_circumflex_1" ]
+  [ "${lines[2]}" = "$help_circumflex_2" ]
+  [ "${lines[3]}" = "$help_circumflex_3" ]
+  [ "${lines[4]}" = "$help_circumflex_4" ]
+  [ "${lines[5]}" = "$help_circumflex_5" ]
+  [ "${lines[6]}" = "$help_circumflex_6" ]
+  [ "${lines[7]}" = "$help_circumflex_7" ]
+  [ "$stderr" = "" ]
+}
+@test "circumflex (flags: -q -h --verbose)" {
+  run --separate-stderr ./circumflex -q -h --verbose
+  [ "$status" -eq 0 ]
+  [ "${lines[0]}" = "$help_circumflex_0" ]
+  [ "${lines[1]}" = "$help_circumflex_1" ]
+  [ "${lines[2]}" = "$help_circumflex_2" ]
+  [ "${lines[3]}" = "$help_circumflex_3" ]
+  [ "${lines[4]}" = "$help_circumflex_4" ]
+  [ "${lines[5]}" = "$help_circumflex_5" ]
+  [ "${lines[6]}" = "$help_circumflex_6" ]
+  [ "${lines[7]}" = "$help_circumflex_7" ]
+  [ "$stderr" = "" ]
+}
+@test "circumflex (flags: --verbose -h -q)" {
+  run --separate-stderr ./circumflex --verbose -h -q
+  [ "$status" -eq 0 ]
+  [ "${lines[0]}" = "$help_circumflex_0" ]
+  [ "${lines[1]}" = "$help_circumflex_1" ]
+  [ "${lines[2]}" = "$help_circumflex_2" ]
+  [ "${lines[3]}" = "$help_circumflex_3" ]
+  [ "${lines[4]}" = "$help_circumflex_4" ]
+  [ "${lines[5]}" = "$help_circumflex_5" ]
+  [ "${lines[6]}" = "$help_circumflex_6" ]
+  [ "${lines[7]}" = "$help_circumflex_7" ]
+  [ "$stderr" = "" ]
+}
+@test "circumflex (flags: -h -q --verbose)" {
+  run --separate-stderr ./circumflex -h -q --verbose
+  [ "$status" -eq 0 ]
+  [ "${lines[0]}" = "$help_circumflex_0" ]
+  [ "${lines[1]}" = "$help_circumflex_1" ]
+  [ "${lines[2]}" = "$help_circumflex_2" ]
+  [ "${lines[3]}" = "$help_circumflex_3" ]
+  [ "${lines[4]}" = "$help_circumflex_4" ]
+  [ "${lines[5]}" = "$help_circumflex_5" ]
+  [ "${lines[6]}" = "$help_circumflex_6" ]
+  [ "${lines[7]}" = "$help_circumflex_7" ]
+  [ "$stderr" = "" ]
+}
+@test "circumflex (flags: -h --verbose -q)" {
+  run --separate-stderr ./circumflex -h --verbose -q
+  [ "$status" -eq 0 ]
+  [ "${lines[0]}" = "$help_circumflex_0" ]
+  [ "${lines[1]}" = "$help_circumflex_1" ]
+  [ "${lines[2]}" = "$help_circumflex_2" ]
+  [ "${lines[3]}" = "$help_circumflex_3" ]
+  [ "${lines[4]}" = "$help_circumflex_4" ]
+  [ "${lines[5]}" = "$help_circumflex_5" ]
+  [ "${lines[6]}" = "$help_circumflex_6" ]
+  [ "${lines[7]}" = "$help_circumflex_7" ]
+  [ "$stderr" = "" ]
+}
+@test "circumflex (flags: --quiet --help)" {
+  run --separate-stderr ./circumflex --quiet --help
+  [ "$status" -eq 0 ]
+  [ "${lines[0]}" = "$help_circumflex_0" ]
+  [ "${lines[1]}" = "$help_circumflex_1" ]
+  [ "${lines[2]}" = "$help_circumflex_2" ]
+  [ "${lines[3]}" = "$help_circumflex_3" ]
+  [ "${lines[4]}" = "$help_circumflex_4" ]
+  [ "${lines[5]}" = "$help_circumflex_5" ]
+  [ "${lines[6]}" = "$help_circumflex_6" ]
+  [ "${lines[7]}" = "$help_circumflex_7" ]
+  [ "$stderr" = "" ]
+}
+@test "circumflex (flags: --help --quiet)" {
+  run --separate-stderr ./circumflex --help --quiet
+  [ "$status" -eq 0 ]
+  [ "${lines[0]}" = "$help_circumflex_0" ]
+  [ "${lines[1]}" = "$help_circumflex_1" ]
+  [ "${lines[2]}" = "$help_circumflex_2" ]
+  [ "${lines[3]}" = "$help_circumflex_3" ]
+  [ "${lines[4]}" = "$help_circumflex_4" ]
+  [ "${lines[5]}" = "$help_circumflex_5" ]
+  [ "${lines[6]}" = "$help_circumflex_6" ]
+  [ "${lines[7]}" = "$help_circumflex_7" ]
+  [ "$stderr" = "" ]
+}
+@test "circumflex (flags: --quiet -v --help)" {
+  run --separate-stderr ./circumflex --quiet -v --help
+  [ "$status" -eq 0 ]
+  [ "${lines[0]}" = "$help_circumflex_0" ]
+  [ "${lines[1]}" = "$help_circumflex_1" ]
+  [ "${lines[2]}" = "$help_circumflex_2" ]
+  [ "${lines[3]}" = "$help_circumflex_3" ]
+  [ "${lines[4]}" = "$help_circumflex_4" ]
+  [ "${lines[5]}" = "$help_circumflex_5" ]
+  [ "${lines[6]}" = "$help_circumflex_6" ]
+  [ "${lines[7]}" = "$help_circumflex_7" ]
+  [ "$stderr" = "" ]
+}
+@test "circumflex (flags: -v --quiet --help)" {
+  run --separate-stderr ./circumflex -v --quiet --help
+  [ "$status" -eq 0 ]
+  [ "${lines[0]}" = "$help_circumflex_0" ]
+  [ "${lines[1]}" = "$help_circumflex_1" ]
+  [ "${lines[2]}" = "$help_circumflex_2" ]
+  [ "${lines[3]}" = "$help_circumflex_3" ]
+  [ "${lines[4]}" = "$help_circumflex_4" ]
+  [ "${lines[5]}" = "$help_circumflex_5" ]
+  [ "${lines[6]}" = "$help_circumflex_6" ]
+  [ "${lines[7]}" = "$help_circumflex_7" ]
+  [ "$stderr" = "" ]
+}
+@test "circumflex (flags: --quiet --help -v)" {
+  run --separate-stderr ./circumflex --quiet --help -v
+  [ "$status" -eq 0 ]
+  [ "${lines[0]}" = "$help_circumflex_0" ]
+  [ "${lines[1]}" = "$help_circumflex_1" ]
+  [ "${lines[2]}" = "$help_circumflex_2" ]
+  [ "${lines[3]}" = "$help_circumflex_3" ]
+  [ "${lines[4]}" = "$help_circumflex_4" ]
+  [ "${lines[5]}" = "$help_circumflex_5" ]
+  [ "${lines[6]}" = "$help_circumflex_6" ]
+  [ "${lines[7]}" = "$help_circumflex_7" ]
+  [ "$stderr" = "" ]
+}
+@test "circumflex (flags: -v --help --quiet)" {
+  run --separate-stderr ./circumflex -v --help --quiet
+  [ "$status" -eq 0 ]
+  [ "${lines[0]}" = "$help_circumflex_0" ]
+  [ "${lines[1]}" = "$help_circumflex_1" ]
+  [ "${lines[2]}" = "$help_circumflex_2" ]
+  [ "${lines[3]}" = "$help_circumflex_3" ]
+  [ "${lines[4]}" = "$help_circumflex_4" ]
+  [ "${lines[5]}" = "$help_circumflex_5" ]
+  [ "${lines[6]}" = "$help_circumflex_6" ]
+  [ "${lines[7]}" = "$help_circumflex_7" ]
+  [ "$stderr" = "" ]
+}
+@test "circumflex (flags: --help --quiet -v)" {
+  run --separate-stderr ./circumflex --help --quiet -v
+  [ "$status" -eq 0 ]
+  [ "${lines[0]}" = "$help_circumflex_0" ]
+  [ "${lines[1]}" = "$help_circumflex_1" ]
+  [ "${lines[2]}" = "$help_circumflex_2" ]
+  [ "${lines[3]}" = "$help_circumflex_3" ]
+  [ "${lines[4]}" = "$help_circumflex_4" ]
+  [ "${lines[5]}" = "$help_circumflex_5" ]
+  [ "${lines[6]}" = "$help_circumflex_6" ]
+  [ "${lines[7]}" = "$help_circumflex_7" ]
+  [ "$stderr" = "" ]
+}
+@test "circumflex (flags: --help -v --quiet)" {
+  run --separate-stderr ./circumflex --help -v --quiet
+  [ "$status" -eq 0 ]
+  [ "${lines[0]}" = "$help_circumflex_0" ]
+  [ "${lines[1]}" = "$help_circumflex_1" ]
+  [ "${lines[2]}" = "$help_circumflex_2" ]
+  [ "${lines[3]}" = "$help_circumflex_3" ]
+  [ "${lines[4]}" = "$help_circumflex_4" ]
+  [ "${lines[5]}" = "$help_circumflex_5" ]
+  [ "${lines[6]}" = "$help_circumflex_6" ]
+  [ "${lines[7]}" = "$help_circumflex_7" ]
+  [ "$stderr" = "" ]
+}
+@test "circumflex (flags: --verbose --help)" {
+  run --separate-stderr ./circumflex --verbose --help
+  [ "$status" -eq 0 ]
+  [ "${lines[0]}" = "$help_circumflex_0" ]
+  [ "${lines[1]}" = "$help_circumflex_1" ]
+  [ "${lines[2]}" = "$help_circumflex_2" ]
+  [ "${lines[3]}" = "$help_circumflex_3" ]
+  [ "${lines[4]}" = "$help_circumflex_4" ]
+  [ "${lines[5]}" = "$help_circumflex_5" ]
+  [ "${lines[6]}" = "$help_circumflex_6" ]
+  [ "${lines[7]}" = "$help_circumflex_7" ]
+  [ "$stderr" = "" ]
+}
+@test "circumflex (flags: --help --verbose)" {
+  run --separate-stderr ./circumflex --help --verbose
+  [ "$status" -eq 0 ]
+  [ "${lines[0]}" = "$help_circumflex_0" ]
+  [ "${lines[1]}" = "$help_circumflex_1" ]
+  [ "${lines[2]}" = "$help_circumflex_2" ]
+  [ "${lines[3]}" = "$help_circumflex_3" ]
+  [ "${lines[4]}" = "$help_circumflex_4" ]
+  [ "${lines[5]}" = "$help_circumflex_5" ]
+  [ "${lines[6]}" = "$help_circumflex_6" ]
+  [ "${lines[7]}" = "$help_circumflex_7" ]
+  [ "$stderr" = "" ]
+}
+@test "circumflex (flags: -q --verbose --help)" {
+  run --separate-stderr ./circumflex -q --verbose --help
+  [ "$status" -eq 0 ]
+  [ "${lines[0]}" = "$help_circumflex_0" ]
+  [ "${lines[1]}" = "$help_circumflex_1" ]
+  [ "${lines[2]}" = "$help_circumflex_2" ]
+  [ "${lines[3]}" = "$help_circumflex_3" ]
+  [ "${lines[4]}" = "$help_circumflex_4" ]
+  [ "${lines[5]}" = "$help_circumflex_5" ]
+  [ "${lines[6]}" = "$help_circumflex_6" ]
+  [ "${lines[7]}" = "$help_circumflex_7" ]
+  [ "$stderr" = "" ]
+}
+@test "circumflex (flags: --verbose -q --help)" {
+  run --separate-stderr ./circumflex --verbose -q --help
+  [ "$status" -eq 0 ]
+  [ "${lines[0]}" = "$help_circumflex_0" ]
+  [ "${lines[1]}" = "$help_circumflex_1" ]
+  [ "${lines[2]}" = "$help_circumflex_2" ]
+  [ "${lines[3]}" = "$help_circumflex_3" ]
+  [ "${lines[4]}" = "$help_circumflex_4" ]
+  [ "${lines[5]}" = "$help_circumflex_5" ]
+  [ "${lines[6]}" = "$help_circumflex_6" ]
+  [ "${lines[7]}" = "$help_circumflex_7" ]
+  [ "$stderr" = "" ]
+}
+@test "circumflex (flags: -q --help --verbose)" {
+  run --separate-stderr ./circumflex -q --help --verbose
+  [ "$status" -eq 0 ]
+  [ "${lines[0]}" = "$help_circumflex_0" ]
+  [ "${lines[1]}" = "$help_circumflex_1" ]
+  [ "${lines[2]}" = "$help_circumflex_2" ]
+  [ "${lines[3]}" = "$help_circumflex_3" ]
+  [ "${lines[4]}" = "$help_circumflex_4" ]
+  [ "${lines[5]}" = "$help_circumflex_5" ]
+  [ "${lines[6]}" = "$help_circumflex_6" ]
+  [ "${lines[7]}" = "$help_circumflex_7" ]
+  [ "$stderr" = "" ]
+}
+@test "circumflex (flags: --verbose --help -q)" {
+  run --separate-stderr ./circumflex --verbose --help -q
+  [ "$status" -eq 0 ]
+  [ "${lines[0]}" = "$help_circumflex_0" ]
+  [ "${lines[1]}" = "$help_circumflex_1" ]
+  [ "${lines[2]}" = "$help_circumflex_2" ]
+  [ "${lines[3]}" = "$help_circumflex_3" ]
+  [ "${lines[4]}" = "$help_circumflex_4" ]
+  [ "${lines[5]}" = "$help_circumflex_5" ]
+  [ "${lines[6]}" = "$help_circumflex_6" ]
+  [ "${lines[7]}" = "$help_circumflex_7" ]
+  [ "$stderr" = "" ]
+}
+@test "circumflex (flags: --help -q --verbose)" {
+  run --separate-stderr ./circumflex --help -q --verbose
+  [ "$status" -eq 0 ]
+  [ "${lines[0]}" = "$help_circumflex_0" ]
+  [ "${lines[1]}" = "$help_circumflex_1" ]
+  [ "${lines[2]}" = "$help_circumflex_2" ]
+  [ "${lines[3]}" = "$help_circumflex_3" ]
+  [ "${lines[4]}" = "$help_circumflex_4" ]
+  [ "${lines[5]}" = "$help_circumflex_5" ]
+  [ "${lines[6]}" = "$help_circumflex_6" ]
+  [ "${lines[7]}" = "$help_circumflex_7" ]
+  [ "$stderr" = "" ]
+}
+@test "circumflex (flags: --help --verbose -q)" {
+  run --separate-stderr ./circumflex --help --verbose -q
+  [ "$status" -eq 0 ]
+  [ "${lines[0]}" = "$help_circumflex_0" ]
+  [ "${lines[1]}" = "$help_circumflex_1" ]
+  [ "${lines[2]}" = "$help_circumflex_2" ]
+  [ "${lines[3]}" = "$help_circumflex_3" ]
+  [ "${lines[4]}" = "$help_circumflex_4" ]
+  [ "${lines[5]}" = "$help_circumflex_5" ]
+  [ "${lines[6]}" = "$help_circumflex_6" ]
+  [ "${lines[7]}" = "$help_circumflex_7" ]
+  [ "$stderr" = "" ]
+}
+@test "circumflex (flags: --quiet --verbose --help)" {
+  run --separate-stderr ./circumflex --quiet --verbose --help
+  [ "$status" -eq 0 ]
+  [ "${lines[0]}" = "$help_circumflex_0" ]
+  [ "${lines[1]}" = "$help_circumflex_1" ]
+  [ "${lines[2]}" = "$help_circumflex_2" ]
+  [ "${lines[3]}" = "$help_circumflex_3" ]
+  [ "${lines[4]}" = "$help_circumflex_4" ]
+  [ "${lines[5]}" = "$help_circumflex_5" ]
+  [ "${lines[6]}" = "$help_circumflex_6" ]
+  [ "${lines[7]}" = "$help_circumflex_7" ]
+  [ "$stderr" = "" ]
+}
+@test "circumflex (flags: --verbose --quiet --help)" {
+  run --separate-stderr ./circumflex --verbose --quiet --help
+  [ "$status" -eq 0 ]
+  [ "${lines[0]}" = "$help_circumflex_0" ]
+  [ "${lines[1]}" = "$help_circumflex_1" ]
+  [ "${lines[2]}" = "$help_circumflex_2" ]
+  [ "${lines[3]}" = "$help_circumflex_3" ]
+  [ "${lines[4]}" = "$help_circumflex_4" ]
+  [ "${lines[5]}" = "$help_circumflex_5" ]
+  [ "${lines[6]}" = "$help_circumflex_6" ]
+  [ "${lines[7]}" = "$help_circumflex_7" ]
+  [ "$stderr" = "" ]
+}
+@test "circumflex (flags: --quiet --help --verbose)" {
+  run --separate-stderr ./circumflex --quiet --help --verbose
+  [ "$status" -eq 0 ]
+  [ "${lines[0]}" = "$help_circumflex_0" ]
+  [ "${lines[1]}" = "$help_circumflex_1" ]
+  [ "${lines[2]}" = "$help_circumflex_2" ]
+  [ "${lines[3]}" = "$help_circumflex_3" ]
+  [ "${lines[4]}" = "$help_circumflex_4" ]
+  [ "${lines[5]}" = "$help_circumflex_5" ]
+  [ "${lines[6]}" = "$help_circumflex_6" ]
+  [ "${lines[7]}" = "$help_circumflex_7" ]
+  [ "$stderr" = "" ]
+}
+@test "circumflex (flags: --verbose --help --quiet)" {
+  run --separate-stderr ./circumflex --verbose --help --quiet
+  [ "$status" -eq 0 ]
+  [ "${lines[0]}" = "$help_circumflex_0" ]
+  [ "${lines[1]}" = "$help_circumflex_1" ]
+  [ "${lines[2]}" = "$help_circumflex_2" ]
+  [ "${lines[3]}" = "$help_circumflex_3" ]
+  [ "${lines[4]}" = "$help_circumflex_4" ]
+  [ "${lines[5]}" = "$help_circumflex_5" ]
+  [ "${lines[6]}" = "$help_circumflex_6" ]
+  [ "${lines[7]}" = "$help_circumflex_7" ]
+  [ "$stderr" = "" ]
+}
+@test "circumflex (flags: --help --quiet --verbose)" {
+  run --separate-stderr ./circumflex --help --quiet --verbose
+  [ "$status" -eq 0 ]
+  [ "${lines[0]}" = "$help_circumflex_0" ]
+  [ "${lines[1]}" = "$help_circumflex_1" ]
+  [ "${lines[2]}" = "$help_circumflex_2" ]
+  [ "${lines[3]}" = "$help_circumflex_3" ]
+  [ "${lines[4]}" = "$help_circumflex_4" ]
+  [ "${lines[5]}" = "$help_circumflex_5" ]
+  [ "${lines[6]}" = "$help_circumflex_6" ]
+  [ "${lines[7]}" = "$help_circumflex_7" ]
+  [ "$stderr" = "" ]
+}
+@test "circumflex (flags: --help --verbose --quiet)" {
+  run --separate-stderr ./circumflex --help --verbose --quiet
+  [ "$status" -eq 0 ]
+  [ "${lines[0]}" = "$help_circumflex_0" ]
+  [ "${lines[1]}" = "$help_circumflex_1" ]
+  [ "${lines[2]}" = "$help_circumflex_2" ]
+  [ "${lines[3]}" = "$help_circumflex_3" ]
+  [ "${lines[4]}" = "$help_circumflex_4" ]
+  [ "${lines[5]}" = "$help_circumflex_5" ]
+  [ "${lines[6]}" = "$help_circumflex_6" ]
+  [ "${lines[7]}" = "$help_circumflex_7" ]
+  [ "$stderr" = "" ]
+}
 @test "epub (flags: -h)" {
   run --separate-stderr ./epub -h
   [ "$status" -eq 0 ]
@@ -5519,5 +6299,1565 @@ load fixtures.sh
   [ "${lines[5]}" = "$help_hugotimestamp_5" ]
   [ "${lines[6]}" = "$help_hugotimestamp_6" ]
   [ "${lines[7]}" = "$help_hugotimestamp_7" ]
+  [ "$stderr" = "" ]
+}
+@test "overdot (flags: -h)" {
+  run --separate-stderr ./overdot -h
+  [ "$status" -eq 0 ]
+  [ "${lines[0]}" = "$help_overdot_0" ]
+  [ "${lines[1]}" = "$help_overdot_1" ]
+  [ "${lines[2]}" = "$help_overdot_2" ]
+  [ "${lines[3]}" = "$help_overdot_3" ]
+  [ "${lines[4]}" = "$help_overdot_4" ]
+  [ "${lines[5]}" = "$help_overdot_5" ]
+  [ "${lines[6]}" = "$help_overdot_6" ]
+  [ "${lines[7]}" = "$help_overdot_7" ]
+  [ "$stderr" = "" ]
+}
+@test "overdot (flags: -q -h)" {
+  run --separate-stderr ./overdot -q -h
+  [ "$status" -eq 0 ]
+  [ "${lines[0]}" = "$help_overdot_0" ]
+  [ "${lines[1]}" = "$help_overdot_1" ]
+  [ "${lines[2]}" = "$help_overdot_2" ]
+  [ "${lines[3]}" = "$help_overdot_3" ]
+  [ "${lines[4]}" = "$help_overdot_4" ]
+  [ "${lines[5]}" = "$help_overdot_5" ]
+  [ "${lines[6]}" = "$help_overdot_6" ]
+  [ "${lines[7]}" = "$help_overdot_7" ]
+  [ "$stderr" = "" ]
+}
+@test "overdot (flags: -h -q)" {
+  run --separate-stderr ./overdot -h -q
+  [ "$status" -eq 0 ]
+  [ "${lines[0]}" = "$help_overdot_0" ]
+  [ "${lines[1]}" = "$help_overdot_1" ]
+  [ "${lines[2]}" = "$help_overdot_2" ]
+  [ "${lines[3]}" = "$help_overdot_3" ]
+  [ "${lines[4]}" = "$help_overdot_4" ]
+  [ "${lines[5]}" = "$help_overdot_5" ]
+  [ "${lines[6]}" = "$help_overdot_6" ]
+  [ "${lines[7]}" = "$help_overdot_7" ]
+  [ "$stderr" = "" ]
+}
+@test "overdot (flags: -v -h)" {
+  run --separate-stderr ./overdot -v -h
+  [ "$status" -eq 0 ]
+  [ "${lines[0]}" = "$help_overdot_0" ]
+  [ "${lines[1]}" = "$help_overdot_1" ]
+  [ "${lines[2]}" = "$help_overdot_2" ]
+  [ "${lines[3]}" = "$help_overdot_3" ]
+  [ "${lines[4]}" = "$help_overdot_4" ]
+  [ "${lines[5]}" = "$help_overdot_5" ]
+  [ "${lines[6]}" = "$help_overdot_6" ]
+  [ "${lines[7]}" = "$help_overdot_7" ]
+  [ "$stderr" = "" ]
+}
+@test "overdot (flags: -h -v)" {
+  run --separate-stderr ./overdot -h -v
+  [ "$status" -eq 0 ]
+  [ "${lines[0]}" = "$help_overdot_0" ]
+  [ "${lines[1]}" = "$help_overdot_1" ]
+  [ "${lines[2]}" = "$help_overdot_2" ]
+  [ "${lines[3]}" = "$help_overdot_3" ]
+  [ "${lines[4]}" = "$help_overdot_4" ]
+  [ "${lines[5]}" = "$help_overdot_5" ]
+  [ "${lines[6]}" = "$help_overdot_6" ]
+  [ "${lines[7]}" = "$help_overdot_7" ]
+  [ "$stderr" = "" ]
+}
+@test "overdot (flags: -q -v -h)" {
+  run --separate-stderr ./overdot -q -v -h
+  [ "$status" -eq 0 ]
+  [ "${lines[0]}" = "$help_overdot_0" ]
+  [ "${lines[1]}" = "$help_overdot_1" ]
+  [ "${lines[2]}" = "$help_overdot_2" ]
+  [ "${lines[3]}" = "$help_overdot_3" ]
+  [ "${lines[4]}" = "$help_overdot_4" ]
+  [ "${lines[5]}" = "$help_overdot_5" ]
+  [ "${lines[6]}" = "$help_overdot_6" ]
+  [ "${lines[7]}" = "$help_overdot_7" ]
+  [ "$stderr" = "" ]
+}
+@test "overdot (flags: -v -q -h)" {
+  run --separate-stderr ./overdot -v -q -h
+  [ "$status" -eq 0 ]
+  [ "${lines[0]}" = "$help_overdot_0" ]
+  [ "${lines[1]}" = "$help_overdot_1" ]
+  [ "${lines[2]}" = "$help_overdot_2" ]
+  [ "${lines[3]}" = "$help_overdot_3" ]
+  [ "${lines[4]}" = "$help_overdot_4" ]
+  [ "${lines[5]}" = "$help_overdot_5" ]
+  [ "${lines[6]}" = "$help_overdot_6" ]
+  [ "${lines[7]}" = "$help_overdot_7" ]
+  [ "$stderr" = "" ]
+}
+@test "overdot (flags: -q -h -v)" {
+  run --separate-stderr ./overdot -q -h -v
+  [ "$status" -eq 0 ]
+  [ "${lines[0]}" = "$help_overdot_0" ]
+  [ "${lines[1]}" = "$help_overdot_1" ]
+  [ "${lines[2]}" = "$help_overdot_2" ]
+  [ "${lines[3]}" = "$help_overdot_3" ]
+  [ "${lines[4]}" = "$help_overdot_4" ]
+  [ "${lines[5]}" = "$help_overdot_5" ]
+  [ "${lines[6]}" = "$help_overdot_6" ]
+  [ "${lines[7]}" = "$help_overdot_7" ]
+  [ "$stderr" = "" ]
+}
+@test "overdot (flags: -v -h -q)" {
+  run --separate-stderr ./overdot -v -h -q
+  [ "$status" -eq 0 ]
+  [ "${lines[0]}" = "$help_overdot_0" ]
+  [ "${lines[1]}" = "$help_overdot_1" ]
+  [ "${lines[2]}" = "$help_overdot_2" ]
+  [ "${lines[3]}" = "$help_overdot_3" ]
+  [ "${lines[4]}" = "$help_overdot_4" ]
+  [ "${lines[5]}" = "$help_overdot_5" ]
+  [ "${lines[6]}" = "$help_overdot_6" ]
+  [ "${lines[7]}" = "$help_overdot_7" ]
+  [ "$stderr" = "" ]
+}
+@test "overdot (flags: -h -q -v)" {
+  run --separate-stderr ./overdot -h -q -v
+  [ "$status" -eq 0 ]
+  [ "${lines[0]}" = "$help_overdot_0" ]
+  [ "${lines[1]}" = "$help_overdot_1" ]
+  [ "${lines[2]}" = "$help_overdot_2" ]
+  [ "${lines[3]}" = "$help_overdot_3" ]
+  [ "${lines[4]}" = "$help_overdot_4" ]
+  [ "${lines[5]}" = "$help_overdot_5" ]
+  [ "${lines[6]}" = "$help_overdot_6" ]
+  [ "${lines[7]}" = "$help_overdot_7" ]
+  [ "$stderr" = "" ]
+}
+@test "overdot (flags: -h -v -q)" {
+  run --separate-stderr ./overdot -h -v -q
+  [ "$status" -eq 0 ]
+  [ "${lines[0]}" = "$help_overdot_0" ]
+  [ "${lines[1]}" = "$help_overdot_1" ]
+  [ "${lines[2]}" = "$help_overdot_2" ]
+  [ "${lines[3]}" = "$help_overdot_3" ]
+  [ "${lines[4]}" = "$help_overdot_4" ]
+  [ "${lines[5]}" = "$help_overdot_5" ]
+  [ "${lines[6]}" = "$help_overdot_6" ]
+  [ "${lines[7]}" = "$help_overdot_7" ]
+  [ "$stderr" = "" ]
+}
+@test "overdot (flags: --help)" {
+  run --separate-stderr ./overdot --help
+  [ "$status" -eq 0 ]
+  [ "${lines[0]}" = "$help_overdot_0" ]
+  [ "${lines[1]}" = "$help_overdot_1" ]
+  [ "${lines[2]}" = "$help_overdot_2" ]
+  [ "${lines[3]}" = "$help_overdot_3" ]
+  [ "${lines[4]}" = "$help_overdot_4" ]
+  [ "${lines[5]}" = "$help_overdot_5" ]
+  [ "${lines[6]}" = "$help_overdot_6" ]
+  [ "${lines[7]}" = "$help_overdot_7" ]
+  [ "$stderr" = "" ]
+}
+@test "overdot (flags: -q --help)" {
+  run --separate-stderr ./overdot -q --help
+  [ "$status" -eq 0 ]
+  [ "${lines[0]}" = "$help_overdot_0" ]
+  [ "${lines[1]}" = "$help_overdot_1" ]
+  [ "${lines[2]}" = "$help_overdot_2" ]
+  [ "${lines[3]}" = "$help_overdot_3" ]
+  [ "${lines[4]}" = "$help_overdot_4" ]
+  [ "${lines[5]}" = "$help_overdot_5" ]
+  [ "${lines[6]}" = "$help_overdot_6" ]
+  [ "${lines[7]}" = "$help_overdot_7" ]
+  [ "$stderr" = "" ]
+}
+@test "overdot (flags: --help -q)" {
+  run --separate-stderr ./overdot --help -q
+  [ "$status" -eq 0 ]
+  [ "${lines[0]}" = "$help_overdot_0" ]
+  [ "${lines[1]}" = "$help_overdot_1" ]
+  [ "${lines[2]}" = "$help_overdot_2" ]
+  [ "${lines[3]}" = "$help_overdot_3" ]
+  [ "${lines[4]}" = "$help_overdot_4" ]
+  [ "${lines[5]}" = "$help_overdot_5" ]
+  [ "${lines[6]}" = "$help_overdot_6" ]
+  [ "${lines[7]}" = "$help_overdot_7" ]
+  [ "$stderr" = "" ]
+}
+@test "overdot (flags: -v --help)" {
+  run --separate-stderr ./overdot -v --help
+  [ "$status" -eq 0 ]
+  [ "${lines[0]}" = "$help_overdot_0" ]
+  [ "${lines[1]}" = "$help_overdot_1" ]
+  [ "${lines[2]}" = "$help_overdot_2" ]
+  [ "${lines[3]}" = "$help_overdot_3" ]
+  [ "${lines[4]}" = "$help_overdot_4" ]
+  [ "${lines[5]}" = "$help_overdot_5" ]
+  [ "${lines[6]}" = "$help_overdot_6" ]
+  [ "${lines[7]}" = "$help_overdot_7" ]
+  [ "$stderr" = "" ]
+}
+@test "overdot (flags: --help -v)" {
+  run --separate-stderr ./overdot --help -v
+  [ "$status" -eq 0 ]
+  [ "${lines[0]}" = "$help_overdot_0" ]
+  [ "${lines[1]}" = "$help_overdot_1" ]
+  [ "${lines[2]}" = "$help_overdot_2" ]
+  [ "${lines[3]}" = "$help_overdot_3" ]
+  [ "${lines[4]}" = "$help_overdot_4" ]
+  [ "${lines[5]}" = "$help_overdot_5" ]
+  [ "${lines[6]}" = "$help_overdot_6" ]
+  [ "${lines[7]}" = "$help_overdot_7" ]
+  [ "$stderr" = "" ]
+}
+@test "overdot (flags: -q -v --help)" {
+  run --separate-stderr ./overdot -q -v --help
+  [ "$status" -eq 0 ]
+  [ "${lines[0]}" = "$help_overdot_0" ]
+  [ "${lines[1]}" = "$help_overdot_1" ]
+  [ "${lines[2]}" = "$help_overdot_2" ]
+  [ "${lines[3]}" = "$help_overdot_3" ]
+  [ "${lines[4]}" = "$help_overdot_4" ]
+  [ "${lines[5]}" = "$help_overdot_5" ]
+  [ "${lines[6]}" = "$help_overdot_6" ]
+  [ "${lines[7]}" = "$help_overdot_7" ]
+  [ "$stderr" = "" ]
+}
+@test "overdot (flags: -v -q --help)" {
+  run --separate-stderr ./overdot -v -q --help
+  [ "$status" -eq 0 ]
+  [ "${lines[0]}" = "$help_overdot_0" ]
+  [ "${lines[1]}" = "$help_overdot_1" ]
+  [ "${lines[2]}" = "$help_overdot_2" ]
+  [ "${lines[3]}" = "$help_overdot_3" ]
+  [ "${lines[4]}" = "$help_overdot_4" ]
+  [ "${lines[5]}" = "$help_overdot_5" ]
+  [ "${lines[6]}" = "$help_overdot_6" ]
+  [ "${lines[7]}" = "$help_overdot_7" ]
+  [ "$stderr" = "" ]
+}
+@test "overdot (flags: -q --help -v)" {
+  run --separate-stderr ./overdot -q --help -v
+  [ "$status" -eq 0 ]
+  [ "${lines[0]}" = "$help_overdot_0" ]
+  [ "${lines[1]}" = "$help_overdot_1" ]
+  [ "${lines[2]}" = "$help_overdot_2" ]
+  [ "${lines[3]}" = "$help_overdot_3" ]
+  [ "${lines[4]}" = "$help_overdot_4" ]
+  [ "${lines[5]}" = "$help_overdot_5" ]
+  [ "${lines[6]}" = "$help_overdot_6" ]
+  [ "${lines[7]}" = "$help_overdot_7" ]
+  [ "$stderr" = "" ]
+}
+@test "overdot (flags: -v --help -q)" {
+  run --separate-stderr ./overdot -v --help -q
+  [ "$status" -eq 0 ]
+  [ "${lines[0]}" = "$help_overdot_0" ]
+  [ "${lines[1]}" = "$help_overdot_1" ]
+  [ "${lines[2]}" = "$help_overdot_2" ]
+  [ "${lines[3]}" = "$help_overdot_3" ]
+  [ "${lines[4]}" = "$help_overdot_4" ]
+  [ "${lines[5]}" = "$help_overdot_5" ]
+  [ "${lines[6]}" = "$help_overdot_6" ]
+  [ "${lines[7]}" = "$help_overdot_7" ]
+  [ "$stderr" = "" ]
+}
+@test "overdot (flags: --help -q -v)" {
+  run --separate-stderr ./overdot --help -q -v
+  [ "$status" -eq 0 ]
+  [ "${lines[0]}" = "$help_overdot_0" ]
+  [ "${lines[1]}" = "$help_overdot_1" ]
+  [ "${lines[2]}" = "$help_overdot_2" ]
+  [ "${lines[3]}" = "$help_overdot_3" ]
+  [ "${lines[4]}" = "$help_overdot_4" ]
+  [ "${lines[5]}" = "$help_overdot_5" ]
+  [ "${lines[6]}" = "$help_overdot_6" ]
+  [ "${lines[7]}" = "$help_overdot_7" ]
+  [ "$stderr" = "" ]
+}
+@test "overdot (flags: --help -v -q)" {
+  run --separate-stderr ./overdot --help -v -q
+  [ "$status" -eq 0 ]
+  [ "${lines[0]}" = "$help_overdot_0" ]
+  [ "${lines[1]}" = "$help_overdot_1" ]
+  [ "${lines[2]}" = "$help_overdot_2" ]
+  [ "${lines[3]}" = "$help_overdot_3" ]
+  [ "${lines[4]}" = "$help_overdot_4" ]
+  [ "${lines[5]}" = "$help_overdot_5" ]
+  [ "${lines[6]}" = "$help_overdot_6" ]
+  [ "${lines[7]}" = "$help_overdot_7" ]
+  [ "$stderr" = "" ]
+}
+@test "overdot (flags: --quiet -h)" {
+  run --separate-stderr ./overdot --quiet -h
+  [ "$status" -eq 0 ]
+  [ "${lines[0]}" = "$help_overdot_0" ]
+  [ "${lines[1]}" = "$help_overdot_1" ]
+  [ "${lines[2]}" = "$help_overdot_2" ]
+  [ "${lines[3]}" = "$help_overdot_3" ]
+  [ "${lines[4]}" = "$help_overdot_4" ]
+  [ "${lines[5]}" = "$help_overdot_5" ]
+  [ "${lines[6]}" = "$help_overdot_6" ]
+  [ "${lines[7]}" = "$help_overdot_7" ]
+  [ "$stderr" = "" ]
+}
+@test "overdot (flags: -h --quiet)" {
+  run --separate-stderr ./overdot -h --quiet
+  [ "$status" -eq 0 ]
+  [ "${lines[0]}" = "$help_overdot_0" ]
+  [ "${lines[1]}" = "$help_overdot_1" ]
+  [ "${lines[2]}" = "$help_overdot_2" ]
+  [ "${lines[3]}" = "$help_overdot_3" ]
+  [ "${lines[4]}" = "$help_overdot_4" ]
+  [ "${lines[5]}" = "$help_overdot_5" ]
+  [ "${lines[6]}" = "$help_overdot_6" ]
+  [ "${lines[7]}" = "$help_overdot_7" ]
+  [ "$stderr" = "" ]
+}
+@test "overdot (flags: --quiet -v -h)" {
+  run --separate-stderr ./overdot --quiet -v -h
+  [ "$status" -eq 0 ]
+  [ "${lines[0]}" = "$help_overdot_0" ]
+  [ "${lines[1]}" = "$help_overdot_1" ]
+  [ "${lines[2]}" = "$help_overdot_2" ]
+  [ "${lines[3]}" = "$help_overdot_3" ]
+  [ "${lines[4]}" = "$help_overdot_4" ]
+  [ "${lines[5]}" = "$help_overdot_5" ]
+  [ "${lines[6]}" = "$help_overdot_6" ]
+  [ "${lines[7]}" = "$help_overdot_7" ]
+  [ "$stderr" = "" ]
+}
+@test "overdot (flags: -v --quiet -h)" {
+  run --separate-stderr ./overdot -v --quiet -h
+  [ "$status" -eq 0 ]
+  [ "${lines[0]}" = "$help_overdot_0" ]
+  [ "${lines[1]}" = "$help_overdot_1" ]
+  [ "${lines[2]}" = "$help_overdot_2" ]
+  [ "${lines[3]}" = "$help_overdot_3" ]
+  [ "${lines[4]}" = "$help_overdot_4" ]
+  [ "${lines[5]}" = "$help_overdot_5" ]
+  [ "${lines[6]}" = "$help_overdot_6" ]
+  [ "${lines[7]}" = "$help_overdot_7" ]
+  [ "$stderr" = "" ]
+}
+@test "overdot (flags: --quiet -h -v)" {
+  run --separate-stderr ./overdot --quiet -h -v
+  [ "$status" -eq 0 ]
+  [ "${lines[0]}" = "$help_overdot_0" ]
+  [ "${lines[1]}" = "$help_overdot_1" ]
+  [ "${lines[2]}" = "$help_overdot_2" ]
+  [ "${lines[3]}" = "$help_overdot_3" ]
+  [ "${lines[4]}" = "$help_overdot_4" ]
+  [ "${lines[5]}" = "$help_overdot_5" ]
+  [ "${lines[6]}" = "$help_overdot_6" ]
+  [ "${lines[7]}" = "$help_overdot_7" ]
+  [ "$stderr" = "" ]
+}
+@test "overdot (flags: -v -h --quiet)" {
+  run --separate-stderr ./overdot -v -h --quiet
+  [ "$status" -eq 0 ]
+  [ "${lines[0]}" = "$help_overdot_0" ]
+  [ "${lines[1]}" = "$help_overdot_1" ]
+  [ "${lines[2]}" = "$help_overdot_2" ]
+  [ "${lines[3]}" = "$help_overdot_3" ]
+  [ "${lines[4]}" = "$help_overdot_4" ]
+  [ "${lines[5]}" = "$help_overdot_5" ]
+  [ "${lines[6]}" = "$help_overdot_6" ]
+  [ "${lines[7]}" = "$help_overdot_7" ]
+  [ "$stderr" = "" ]
+}
+@test "overdot (flags: -h --quiet -v)" {
+  run --separate-stderr ./overdot -h --quiet -v
+  [ "$status" -eq 0 ]
+  [ "${lines[0]}" = "$help_overdot_0" ]
+  [ "${lines[1]}" = "$help_overdot_1" ]
+  [ "${lines[2]}" = "$help_overdot_2" ]
+  [ "${lines[3]}" = "$help_overdot_3" ]
+  [ "${lines[4]}" = "$help_overdot_4" ]
+  [ "${lines[5]}" = "$help_overdot_5" ]
+  [ "${lines[6]}" = "$help_overdot_6" ]
+  [ "${lines[7]}" = "$help_overdot_7" ]
+  [ "$stderr" = "" ]
+}
+@test "overdot (flags: -h -v --quiet)" {
+  run --separate-stderr ./overdot -h -v --quiet
+  [ "$status" -eq 0 ]
+  [ "${lines[0]}" = "$help_overdot_0" ]
+  [ "${lines[1]}" = "$help_overdot_1" ]
+  [ "${lines[2]}" = "$help_overdot_2" ]
+  [ "${lines[3]}" = "$help_overdot_3" ]
+  [ "${lines[4]}" = "$help_overdot_4" ]
+  [ "${lines[5]}" = "$help_overdot_5" ]
+  [ "${lines[6]}" = "$help_overdot_6" ]
+  [ "${lines[7]}" = "$help_overdot_7" ]
+  [ "$stderr" = "" ]
+}
+@test "overdot (flags: --verbose -h)" {
+  run --separate-stderr ./overdot --verbose -h
+  [ "$status" -eq 0 ]
+  [ "${lines[0]}" = "$help_overdot_0" ]
+  [ "${lines[1]}" = "$help_overdot_1" ]
+  [ "${lines[2]}" = "$help_overdot_2" ]
+  [ "${lines[3]}" = "$help_overdot_3" ]
+  [ "${lines[4]}" = "$help_overdot_4" ]
+  [ "${lines[5]}" = "$help_overdot_5" ]
+  [ "${lines[6]}" = "$help_overdot_6" ]
+  [ "${lines[7]}" = "$help_overdot_7" ]
+  [ "$stderr" = "" ]
+}
+@test "overdot (flags: -h --verbose)" {
+  run --separate-stderr ./overdot -h --verbose
+  [ "$status" -eq 0 ]
+  [ "${lines[0]}" = "$help_overdot_0" ]
+  [ "${lines[1]}" = "$help_overdot_1" ]
+  [ "${lines[2]}" = "$help_overdot_2" ]
+  [ "${lines[3]}" = "$help_overdot_3" ]
+  [ "${lines[4]}" = "$help_overdot_4" ]
+  [ "${lines[5]}" = "$help_overdot_5" ]
+  [ "${lines[6]}" = "$help_overdot_6" ]
+  [ "${lines[7]}" = "$help_overdot_7" ]
+  [ "$stderr" = "" ]
+}
+@test "overdot (flags: -q --verbose -h)" {
+  run --separate-stderr ./overdot -q --verbose -h
+  [ "$status" -eq 0 ]
+  [ "${lines[0]}" = "$help_overdot_0" ]
+  [ "${lines[1]}" = "$help_overdot_1" ]
+  [ "${lines[2]}" = "$help_overdot_2" ]
+  [ "${lines[3]}" = "$help_overdot_3" ]
+  [ "${lines[4]}" = "$help_overdot_4" ]
+  [ "${lines[5]}" = "$help_overdot_5" ]
+  [ "${lines[6]}" = "$help_overdot_6" ]
+  [ "${lines[7]}" = "$help_overdot_7" ]
+  [ "$stderr" = "" ]
+}
+@test "overdot (flags: --verbose -q -h)" {
+  run --separate-stderr ./overdot --verbose -q -h
+  [ "$status" -eq 0 ]
+  [ "${lines[0]}" = "$help_overdot_0" ]
+  [ "${lines[1]}" = "$help_overdot_1" ]
+  [ "${lines[2]}" = "$help_overdot_2" ]
+  [ "${lines[3]}" = "$help_overdot_3" ]
+  [ "${lines[4]}" = "$help_overdot_4" ]
+  [ "${lines[5]}" = "$help_overdot_5" ]
+  [ "${lines[6]}" = "$help_overdot_6" ]
+  [ "${lines[7]}" = "$help_overdot_7" ]
+  [ "$stderr" = "" ]
+}
+@test "overdot (flags: -q -h --verbose)" {
+  run --separate-stderr ./overdot -q -h --verbose
+  [ "$status" -eq 0 ]
+  [ "${lines[0]}" = "$help_overdot_0" ]
+  [ "${lines[1]}" = "$help_overdot_1" ]
+  [ "${lines[2]}" = "$help_overdot_2" ]
+  [ "${lines[3]}" = "$help_overdot_3" ]
+  [ "${lines[4]}" = "$help_overdot_4" ]
+  [ "${lines[5]}" = "$help_overdot_5" ]
+  [ "${lines[6]}" = "$help_overdot_6" ]
+  [ "${lines[7]}" = "$help_overdot_7" ]
+  [ "$stderr" = "" ]
+}
+@test "overdot (flags: --verbose -h -q)" {
+  run --separate-stderr ./overdot --verbose -h -q
+  [ "$status" -eq 0 ]
+  [ "${lines[0]}" = "$help_overdot_0" ]
+  [ "${lines[1]}" = "$help_overdot_1" ]
+  [ "${lines[2]}" = "$help_overdot_2" ]
+  [ "${lines[3]}" = "$help_overdot_3" ]
+  [ "${lines[4]}" = "$help_overdot_4" ]
+  [ "${lines[5]}" = "$help_overdot_5" ]
+  [ "${lines[6]}" = "$help_overdot_6" ]
+  [ "${lines[7]}" = "$help_overdot_7" ]
+  [ "$stderr" = "" ]
+}
+@test "overdot (flags: -h -q --verbose)" {
+  run --separate-stderr ./overdot -h -q --verbose
+  [ "$status" -eq 0 ]
+  [ "${lines[0]}" = "$help_overdot_0" ]
+  [ "${lines[1]}" = "$help_overdot_1" ]
+  [ "${lines[2]}" = "$help_overdot_2" ]
+  [ "${lines[3]}" = "$help_overdot_3" ]
+  [ "${lines[4]}" = "$help_overdot_4" ]
+  [ "${lines[5]}" = "$help_overdot_5" ]
+  [ "${lines[6]}" = "$help_overdot_6" ]
+  [ "${lines[7]}" = "$help_overdot_7" ]
+  [ "$stderr" = "" ]
+}
+@test "overdot (flags: -h --verbose -q)" {
+  run --separate-stderr ./overdot -h --verbose -q
+  [ "$status" -eq 0 ]
+  [ "${lines[0]}" = "$help_overdot_0" ]
+  [ "${lines[1]}" = "$help_overdot_1" ]
+  [ "${lines[2]}" = "$help_overdot_2" ]
+  [ "${lines[3]}" = "$help_overdot_3" ]
+  [ "${lines[4]}" = "$help_overdot_4" ]
+  [ "${lines[5]}" = "$help_overdot_5" ]
+  [ "${lines[6]}" = "$help_overdot_6" ]
+  [ "${lines[7]}" = "$help_overdot_7" ]
+  [ "$stderr" = "" ]
+}
+@test "overdot (flags: --quiet --help)" {
+  run --separate-stderr ./overdot --quiet --help
+  [ "$status" -eq 0 ]
+  [ "${lines[0]}" = "$help_overdot_0" ]
+  [ "${lines[1]}" = "$help_overdot_1" ]
+  [ "${lines[2]}" = "$help_overdot_2" ]
+  [ "${lines[3]}" = "$help_overdot_3" ]
+  [ "${lines[4]}" = "$help_overdot_4" ]
+  [ "${lines[5]}" = "$help_overdot_5" ]
+  [ "${lines[6]}" = "$help_overdot_6" ]
+  [ "${lines[7]}" = "$help_overdot_7" ]
+  [ "$stderr" = "" ]
+}
+@test "overdot (flags: --help --quiet)" {
+  run --separate-stderr ./overdot --help --quiet
+  [ "$status" -eq 0 ]
+  [ "${lines[0]}" = "$help_overdot_0" ]
+  [ "${lines[1]}" = "$help_overdot_1" ]
+  [ "${lines[2]}" = "$help_overdot_2" ]
+  [ "${lines[3]}" = "$help_overdot_3" ]
+  [ "${lines[4]}" = "$help_overdot_4" ]
+  [ "${lines[5]}" = "$help_overdot_5" ]
+  [ "${lines[6]}" = "$help_overdot_6" ]
+  [ "${lines[7]}" = "$help_overdot_7" ]
+  [ "$stderr" = "" ]
+}
+@test "overdot (flags: --quiet -v --help)" {
+  run --separate-stderr ./overdot --quiet -v --help
+  [ "$status" -eq 0 ]
+  [ "${lines[0]}" = "$help_overdot_0" ]
+  [ "${lines[1]}" = "$help_overdot_1" ]
+  [ "${lines[2]}" = "$help_overdot_2" ]
+  [ "${lines[3]}" = "$help_overdot_3" ]
+  [ "${lines[4]}" = "$help_overdot_4" ]
+  [ "${lines[5]}" = "$help_overdot_5" ]
+  [ "${lines[6]}" = "$help_overdot_6" ]
+  [ "${lines[7]}" = "$help_overdot_7" ]
+  [ "$stderr" = "" ]
+}
+@test "overdot (flags: -v --quiet --help)" {
+  run --separate-stderr ./overdot -v --quiet --help
+  [ "$status" -eq 0 ]
+  [ "${lines[0]}" = "$help_overdot_0" ]
+  [ "${lines[1]}" = "$help_overdot_1" ]
+  [ "${lines[2]}" = "$help_overdot_2" ]
+  [ "${lines[3]}" = "$help_overdot_3" ]
+  [ "${lines[4]}" = "$help_overdot_4" ]
+  [ "${lines[5]}" = "$help_overdot_5" ]
+  [ "${lines[6]}" = "$help_overdot_6" ]
+  [ "${lines[7]}" = "$help_overdot_7" ]
+  [ "$stderr" = "" ]
+}
+@test "overdot (flags: --quiet --help -v)" {
+  run --separate-stderr ./overdot --quiet --help -v
+  [ "$status" -eq 0 ]
+  [ "${lines[0]}" = "$help_overdot_0" ]
+  [ "${lines[1]}" = "$help_overdot_1" ]
+  [ "${lines[2]}" = "$help_overdot_2" ]
+  [ "${lines[3]}" = "$help_overdot_3" ]
+  [ "${lines[4]}" = "$help_overdot_4" ]
+  [ "${lines[5]}" = "$help_overdot_5" ]
+  [ "${lines[6]}" = "$help_overdot_6" ]
+  [ "${lines[7]}" = "$help_overdot_7" ]
+  [ "$stderr" = "" ]
+}
+@test "overdot (flags: -v --help --quiet)" {
+  run --separate-stderr ./overdot -v --help --quiet
+  [ "$status" -eq 0 ]
+  [ "${lines[0]}" = "$help_overdot_0" ]
+  [ "${lines[1]}" = "$help_overdot_1" ]
+  [ "${lines[2]}" = "$help_overdot_2" ]
+  [ "${lines[3]}" = "$help_overdot_3" ]
+  [ "${lines[4]}" = "$help_overdot_4" ]
+  [ "${lines[5]}" = "$help_overdot_5" ]
+  [ "${lines[6]}" = "$help_overdot_6" ]
+  [ "${lines[7]}" = "$help_overdot_7" ]
+  [ "$stderr" = "" ]
+}
+@test "overdot (flags: --help --quiet -v)" {
+  run --separate-stderr ./overdot --help --quiet -v
+  [ "$status" -eq 0 ]
+  [ "${lines[0]}" = "$help_overdot_0" ]
+  [ "${lines[1]}" = "$help_overdot_1" ]
+  [ "${lines[2]}" = "$help_overdot_2" ]
+  [ "${lines[3]}" = "$help_overdot_3" ]
+  [ "${lines[4]}" = "$help_overdot_4" ]
+  [ "${lines[5]}" = "$help_overdot_5" ]
+  [ "${lines[6]}" = "$help_overdot_6" ]
+  [ "${lines[7]}" = "$help_overdot_7" ]
+  [ "$stderr" = "" ]
+}
+@test "overdot (flags: --help -v --quiet)" {
+  run --separate-stderr ./overdot --help -v --quiet
+  [ "$status" -eq 0 ]
+  [ "${lines[0]}" = "$help_overdot_0" ]
+  [ "${lines[1]}" = "$help_overdot_1" ]
+  [ "${lines[2]}" = "$help_overdot_2" ]
+  [ "${lines[3]}" = "$help_overdot_3" ]
+  [ "${lines[4]}" = "$help_overdot_4" ]
+  [ "${lines[5]}" = "$help_overdot_5" ]
+  [ "${lines[6]}" = "$help_overdot_6" ]
+  [ "${lines[7]}" = "$help_overdot_7" ]
+  [ "$stderr" = "" ]
+}
+@test "overdot (flags: --verbose --help)" {
+  run --separate-stderr ./overdot --verbose --help
+  [ "$status" -eq 0 ]
+  [ "${lines[0]}" = "$help_overdot_0" ]
+  [ "${lines[1]}" = "$help_overdot_1" ]
+  [ "${lines[2]}" = "$help_overdot_2" ]
+  [ "${lines[3]}" = "$help_overdot_3" ]
+  [ "${lines[4]}" = "$help_overdot_4" ]
+  [ "${lines[5]}" = "$help_overdot_5" ]
+  [ "${lines[6]}" = "$help_overdot_6" ]
+  [ "${lines[7]}" = "$help_overdot_7" ]
+  [ "$stderr" = "" ]
+}
+@test "overdot (flags: --help --verbose)" {
+  run --separate-stderr ./overdot --help --verbose
+  [ "$status" -eq 0 ]
+  [ "${lines[0]}" = "$help_overdot_0" ]
+  [ "${lines[1]}" = "$help_overdot_1" ]
+  [ "${lines[2]}" = "$help_overdot_2" ]
+  [ "${lines[3]}" = "$help_overdot_3" ]
+  [ "${lines[4]}" = "$help_overdot_4" ]
+  [ "${lines[5]}" = "$help_overdot_5" ]
+  [ "${lines[6]}" = "$help_overdot_6" ]
+  [ "${lines[7]}" = "$help_overdot_7" ]
+  [ "$stderr" = "" ]
+}
+@test "overdot (flags: -q --verbose --help)" {
+  run --separate-stderr ./overdot -q --verbose --help
+  [ "$status" -eq 0 ]
+  [ "${lines[0]}" = "$help_overdot_0" ]
+  [ "${lines[1]}" = "$help_overdot_1" ]
+  [ "${lines[2]}" = "$help_overdot_2" ]
+  [ "${lines[3]}" = "$help_overdot_3" ]
+  [ "${lines[4]}" = "$help_overdot_4" ]
+  [ "${lines[5]}" = "$help_overdot_5" ]
+  [ "${lines[6]}" = "$help_overdot_6" ]
+  [ "${lines[7]}" = "$help_overdot_7" ]
+  [ "$stderr" = "" ]
+}
+@test "overdot (flags: --verbose -q --help)" {
+  run --separate-stderr ./overdot --verbose -q --help
+  [ "$status" -eq 0 ]
+  [ "${lines[0]}" = "$help_overdot_0" ]
+  [ "${lines[1]}" = "$help_overdot_1" ]
+  [ "${lines[2]}" = "$help_overdot_2" ]
+  [ "${lines[3]}" = "$help_overdot_3" ]
+  [ "${lines[4]}" = "$help_overdot_4" ]
+  [ "${lines[5]}" = "$help_overdot_5" ]
+  [ "${lines[6]}" = "$help_overdot_6" ]
+  [ "${lines[7]}" = "$help_overdot_7" ]
+  [ "$stderr" = "" ]
+}
+@test "overdot (flags: -q --help --verbose)" {
+  run --separate-stderr ./overdot -q --help --verbose
+  [ "$status" -eq 0 ]
+  [ "${lines[0]}" = "$help_overdot_0" ]
+  [ "${lines[1]}" = "$help_overdot_1" ]
+  [ "${lines[2]}" = "$help_overdot_2" ]
+  [ "${lines[3]}" = "$help_overdot_3" ]
+  [ "${lines[4]}" = "$help_overdot_4" ]
+  [ "${lines[5]}" = "$help_overdot_5" ]
+  [ "${lines[6]}" = "$help_overdot_6" ]
+  [ "${lines[7]}" = "$help_overdot_7" ]
+  [ "$stderr" = "" ]
+}
+@test "overdot (flags: --verbose --help -q)" {
+  run --separate-stderr ./overdot --verbose --help -q
+  [ "$status" -eq 0 ]
+  [ "${lines[0]}" = "$help_overdot_0" ]
+  [ "${lines[1]}" = "$help_overdot_1" ]
+  [ "${lines[2]}" = "$help_overdot_2" ]
+  [ "${lines[3]}" = "$help_overdot_3" ]
+  [ "${lines[4]}" = "$help_overdot_4" ]
+  [ "${lines[5]}" = "$help_overdot_5" ]
+  [ "${lines[6]}" = "$help_overdot_6" ]
+  [ "${lines[7]}" = "$help_overdot_7" ]
+  [ "$stderr" = "" ]
+}
+@test "overdot (flags: --help -q --verbose)" {
+  run --separate-stderr ./overdot --help -q --verbose
+  [ "$status" -eq 0 ]
+  [ "${lines[0]}" = "$help_overdot_0" ]
+  [ "${lines[1]}" = "$help_overdot_1" ]
+  [ "${lines[2]}" = "$help_overdot_2" ]
+  [ "${lines[3]}" = "$help_overdot_3" ]
+  [ "${lines[4]}" = "$help_overdot_4" ]
+  [ "${lines[5]}" = "$help_overdot_5" ]
+  [ "${lines[6]}" = "$help_overdot_6" ]
+  [ "${lines[7]}" = "$help_overdot_7" ]
+  [ "$stderr" = "" ]
+}
+@test "overdot (flags: --help --verbose -q)" {
+  run --separate-stderr ./overdot --help --verbose -q
+  [ "$status" -eq 0 ]
+  [ "${lines[0]}" = "$help_overdot_0" ]
+  [ "${lines[1]}" = "$help_overdot_1" ]
+  [ "${lines[2]}" = "$help_overdot_2" ]
+  [ "${lines[3]}" = "$help_overdot_3" ]
+  [ "${lines[4]}" = "$help_overdot_4" ]
+  [ "${lines[5]}" = "$help_overdot_5" ]
+  [ "${lines[6]}" = "$help_overdot_6" ]
+  [ "${lines[7]}" = "$help_overdot_7" ]
+  [ "$stderr" = "" ]
+}
+@test "overdot (flags: --quiet --verbose --help)" {
+  run --separate-stderr ./overdot --quiet --verbose --help
+  [ "$status" -eq 0 ]
+  [ "${lines[0]}" = "$help_overdot_0" ]
+  [ "${lines[1]}" = "$help_overdot_1" ]
+  [ "${lines[2]}" = "$help_overdot_2" ]
+  [ "${lines[3]}" = "$help_overdot_3" ]
+  [ "${lines[4]}" = "$help_overdot_4" ]
+  [ "${lines[5]}" = "$help_overdot_5" ]
+  [ "${lines[6]}" = "$help_overdot_6" ]
+  [ "${lines[7]}" = "$help_overdot_7" ]
+  [ "$stderr" = "" ]
+}
+@test "overdot (flags: --verbose --quiet --help)" {
+  run --separate-stderr ./overdot --verbose --quiet --help
+  [ "$status" -eq 0 ]
+  [ "${lines[0]}" = "$help_overdot_0" ]
+  [ "${lines[1]}" = "$help_overdot_1" ]
+  [ "${lines[2]}" = "$help_overdot_2" ]
+  [ "${lines[3]}" = "$help_overdot_3" ]
+  [ "${lines[4]}" = "$help_overdot_4" ]
+  [ "${lines[5]}" = "$help_overdot_5" ]
+  [ "${lines[6]}" = "$help_overdot_6" ]
+  [ "${lines[7]}" = "$help_overdot_7" ]
+  [ "$stderr" = "" ]
+}
+@test "overdot (flags: --quiet --help --verbose)" {
+  run --separate-stderr ./overdot --quiet --help --verbose
+  [ "$status" -eq 0 ]
+  [ "${lines[0]}" = "$help_overdot_0" ]
+  [ "${lines[1]}" = "$help_overdot_1" ]
+  [ "${lines[2]}" = "$help_overdot_2" ]
+  [ "${lines[3]}" = "$help_overdot_3" ]
+  [ "${lines[4]}" = "$help_overdot_4" ]
+  [ "${lines[5]}" = "$help_overdot_5" ]
+  [ "${lines[6]}" = "$help_overdot_6" ]
+  [ "${lines[7]}" = "$help_overdot_7" ]
+  [ "$stderr" = "" ]
+}
+@test "overdot (flags: --verbose --help --quiet)" {
+  run --separate-stderr ./overdot --verbose --help --quiet
+  [ "$status" -eq 0 ]
+  [ "${lines[0]}" = "$help_overdot_0" ]
+  [ "${lines[1]}" = "$help_overdot_1" ]
+  [ "${lines[2]}" = "$help_overdot_2" ]
+  [ "${lines[3]}" = "$help_overdot_3" ]
+  [ "${lines[4]}" = "$help_overdot_4" ]
+  [ "${lines[5]}" = "$help_overdot_5" ]
+  [ "${lines[6]}" = "$help_overdot_6" ]
+  [ "${lines[7]}" = "$help_overdot_7" ]
+  [ "$stderr" = "" ]
+}
+@test "overdot (flags: --help --quiet --verbose)" {
+  run --separate-stderr ./overdot --help --quiet --verbose
+  [ "$status" -eq 0 ]
+  [ "${lines[0]}" = "$help_overdot_0" ]
+  [ "${lines[1]}" = "$help_overdot_1" ]
+  [ "${lines[2]}" = "$help_overdot_2" ]
+  [ "${lines[3]}" = "$help_overdot_3" ]
+  [ "${lines[4]}" = "$help_overdot_4" ]
+  [ "${lines[5]}" = "$help_overdot_5" ]
+  [ "${lines[6]}" = "$help_overdot_6" ]
+  [ "${lines[7]}" = "$help_overdot_7" ]
+  [ "$stderr" = "" ]
+}
+@test "overdot (flags: --help --verbose --quiet)" {
+  run --separate-stderr ./overdot --help --verbose --quiet
+  [ "$status" -eq 0 ]
+  [ "${lines[0]}" = "$help_overdot_0" ]
+  [ "${lines[1]}" = "$help_overdot_1" ]
+  [ "${lines[2]}" = "$help_overdot_2" ]
+  [ "${lines[3]}" = "$help_overdot_3" ]
+  [ "${lines[4]}" = "$help_overdot_4" ]
+  [ "${lines[5]}" = "$help_overdot_5" ]
+  [ "${lines[6]}" = "$help_overdot_6" ]
+  [ "${lines[7]}" = "$help_overdot_7" ]
+  [ "$stderr" = "" ]
+}
+@test "overline (flags: -h)" {
+  run --separate-stderr ./overline -h
+  [ "$status" -eq 0 ]
+  [ "${lines[0]}" = "$help_overline_0" ]
+  [ "${lines[1]}" = "$help_overline_1" ]
+  [ "${lines[2]}" = "$help_overline_2" ]
+  [ "${lines[3]}" = "$help_overline_3" ]
+  [ "${lines[4]}" = "$help_overline_4" ]
+  [ "${lines[5]}" = "$help_overline_5" ]
+  [ "${lines[6]}" = "$help_overline_6" ]
+  [ "${lines[7]}" = "$help_overline_7" ]
+  [ "$stderr" = "" ]
+}
+@test "overline (flags: -q -h)" {
+  run --separate-stderr ./overline -q -h
+  [ "$status" -eq 0 ]
+  [ "${lines[0]}" = "$help_overline_0" ]
+  [ "${lines[1]}" = "$help_overline_1" ]
+  [ "${lines[2]}" = "$help_overline_2" ]
+  [ "${lines[3]}" = "$help_overline_3" ]
+  [ "${lines[4]}" = "$help_overline_4" ]
+  [ "${lines[5]}" = "$help_overline_5" ]
+  [ "${lines[6]}" = "$help_overline_6" ]
+  [ "${lines[7]}" = "$help_overline_7" ]
+  [ "$stderr" = "" ]
+}
+@test "overline (flags: -h -q)" {
+  run --separate-stderr ./overline -h -q
+  [ "$status" -eq 0 ]
+  [ "${lines[0]}" = "$help_overline_0" ]
+  [ "${lines[1]}" = "$help_overline_1" ]
+  [ "${lines[2]}" = "$help_overline_2" ]
+  [ "${lines[3]}" = "$help_overline_3" ]
+  [ "${lines[4]}" = "$help_overline_4" ]
+  [ "${lines[5]}" = "$help_overline_5" ]
+  [ "${lines[6]}" = "$help_overline_6" ]
+  [ "${lines[7]}" = "$help_overline_7" ]
+  [ "$stderr" = "" ]
+}
+@test "overline (flags: -v -h)" {
+  run --separate-stderr ./overline -v -h
+  [ "$status" -eq 0 ]
+  [ "${lines[0]}" = "$help_overline_0" ]
+  [ "${lines[1]}" = "$help_overline_1" ]
+  [ "${lines[2]}" = "$help_overline_2" ]
+  [ "${lines[3]}" = "$help_overline_3" ]
+  [ "${lines[4]}" = "$help_overline_4" ]
+  [ "${lines[5]}" = "$help_overline_5" ]
+  [ "${lines[6]}" = "$help_overline_6" ]
+  [ "${lines[7]}" = "$help_overline_7" ]
+  [ "$stderr" = "" ]
+}
+@test "overline (flags: -h -v)" {
+  run --separate-stderr ./overline -h -v
+  [ "$status" -eq 0 ]
+  [ "${lines[0]}" = "$help_overline_0" ]
+  [ "${lines[1]}" = "$help_overline_1" ]
+  [ "${lines[2]}" = "$help_overline_2" ]
+  [ "${lines[3]}" = "$help_overline_3" ]
+  [ "${lines[4]}" = "$help_overline_4" ]
+  [ "${lines[5]}" = "$help_overline_5" ]
+  [ "${lines[6]}" = "$help_overline_6" ]
+  [ "${lines[7]}" = "$help_overline_7" ]
+  [ "$stderr" = "" ]
+}
+@test "overline (flags: -q -v -h)" {
+  run --separate-stderr ./overline -q -v -h
+  [ "$status" -eq 0 ]
+  [ "${lines[0]}" = "$help_overline_0" ]
+  [ "${lines[1]}" = "$help_overline_1" ]
+  [ "${lines[2]}" = "$help_overline_2" ]
+  [ "${lines[3]}" = "$help_overline_3" ]
+  [ "${lines[4]}" = "$help_overline_4" ]
+  [ "${lines[5]}" = "$help_overline_5" ]
+  [ "${lines[6]}" = "$help_overline_6" ]
+  [ "${lines[7]}" = "$help_overline_7" ]
+  [ "$stderr" = "" ]
+}
+@test "overline (flags: -v -q -h)" {
+  run --separate-stderr ./overline -v -q -h
+  [ "$status" -eq 0 ]
+  [ "${lines[0]}" = "$help_overline_0" ]
+  [ "${lines[1]}" = "$help_overline_1" ]
+  [ "${lines[2]}" = "$help_overline_2" ]
+  [ "${lines[3]}" = "$help_overline_3" ]
+  [ "${lines[4]}" = "$help_overline_4" ]
+  [ "${lines[5]}" = "$help_overline_5" ]
+  [ "${lines[6]}" = "$help_overline_6" ]
+  [ "${lines[7]}" = "$help_overline_7" ]
+  [ "$stderr" = "" ]
+}
+@test "overline (flags: -q -h -v)" {
+  run --separate-stderr ./overline -q -h -v
+  [ "$status" -eq 0 ]
+  [ "${lines[0]}" = "$help_overline_0" ]
+  [ "${lines[1]}" = "$help_overline_1" ]
+  [ "${lines[2]}" = "$help_overline_2" ]
+  [ "${lines[3]}" = "$help_overline_3" ]
+  [ "${lines[4]}" = "$help_overline_4" ]
+  [ "${lines[5]}" = "$help_overline_5" ]
+  [ "${lines[6]}" = "$help_overline_6" ]
+  [ "${lines[7]}" = "$help_overline_7" ]
+  [ "$stderr" = "" ]
+}
+@test "overline (flags: -v -h -q)" {
+  run --separate-stderr ./overline -v -h -q
+  [ "$status" -eq 0 ]
+  [ "${lines[0]}" = "$help_overline_0" ]
+  [ "${lines[1]}" = "$help_overline_1" ]
+  [ "${lines[2]}" = "$help_overline_2" ]
+  [ "${lines[3]}" = "$help_overline_3" ]
+  [ "${lines[4]}" = "$help_overline_4" ]
+  [ "${lines[5]}" = "$help_overline_5" ]
+  [ "${lines[6]}" = "$help_overline_6" ]
+  [ "${lines[7]}" = "$help_overline_7" ]
+  [ "$stderr" = "" ]
+}
+@test "overline (flags: -h -q -v)" {
+  run --separate-stderr ./overline -h -q -v
+  [ "$status" -eq 0 ]
+  [ "${lines[0]}" = "$help_overline_0" ]
+  [ "${lines[1]}" = "$help_overline_1" ]
+  [ "${lines[2]}" = "$help_overline_2" ]
+  [ "${lines[3]}" = "$help_overline_3" ]
+  [ "${lines[4]}" = "$help_overline_4" ]
+  [ "${lines[5]}" = "$help_overline_5" ]
+  [ "${lines[6]}" = "$help_overline_6" ]
+  [ "${lines[7]}" = "$help_overline_7" ]
+  [ "$stderr" = "" ]
+}
+@test "overline (flags: -h -v -q)" {
+  run --separate-stderr ./overline -h -v -q
+  [ "$status" -eq 0 ]
+  [ "${lines[0]}" = "$help_overline_0" ]
+  [ "${lines[1]}" = "$help_overline_1" ]
+  [ "${lines[2]}" = "$help_overline_2" ]
+  [ "${lines[3]}" = "$help_overline_3" ]
+  [ "${lines[4]}" = "$help_overline_4" ]
+  [ "${lines[5]}" = "$help_overline_5" ]
+  [ "${lines[6]}" = "$help_overline_6" ]
+  [ "${lines[7]}" = "$help_overline_7" ]
+  [ "$stderr" = "" ]
+}
+@test "overline (flags: --help)" {
+  run --separate-stderr ./overline --help
+  [ "$status" -eq 0 ]
+  [ "${lines[0]}" = "$help_overline_0" ]
+  [ "${lines[1]}" = "$help_overline_1" ]
+  [ "${lines[2]}" = "$help_overline_2" ]
+  [ "${lines[3]}" = "$help_overline_3" ]
+  [ "${lines[4]}" = "$help_overline_4" ]
+  [ "${lines[5]}" = "$help_overline_5" ]
+  [ "${lines[6]}" = "$help_overline_6" ]
+  [ "${lines[7]}" = "$help_overline_7" ]
+  [ "$stderr" = "" ]
+}
+@test "overline (flags: -q --help)" {
+  run --separate-stderr ./overline -q --help
+  [ "$status" -eq 0 ]
+  [ "${lines[0]}" = "$help_overline_0" ]
+  [ "${lines[1]}" = "$help_overline_1" ]
+  [ "${lines[2]}" = "$help_overline_2" ]
+  [ "${lines[3]}" = "$help_overline_3" ]
+  [ "${lines[4]}" = "$help_overline_4" ]
+  [ "${lines[5]}" = "$help_overline_5" ]
+  [ "${lines[6]}" = "$help_overline_6" ]
+  [ "${lines[7]}" = "$help_overline_7" ]
+  [ "$stderr" = "" ]
+}
+@test "overline (flags: --help -q)" {
+  run --separate-stderr ./overline --help -q
+  [ "$status" -eq 0 ]
+  [ "${lines[0]}" = "$help_overline_0" ]
+  [ "${lines[1]}" = "$help_overline_1" ]
+  [ "${lines[2]}" = "$help_overline_2" ]
+  [ "${lines[3]}" = "$help_overline_3" ]
+  [ "${lines[4]}" = "$help_overline_4" ]
+  [ "${lines[5]}" = "$help_overline_5" ]
+  [ "${lines[6]}" = "$help_overline_6" ]
+  [ "${lines[7]}" = "$help_overline_7" ]
+  [ "$stderr" = "" ]
+}
+@test "overline (flags: -v --help)" {
+  run --separate-stderr ./overline -v --help
+  [ "$status" -eq 0 ]
+  [ "${lines[0]}" = "$help_overline_0" ]
+  [ "${lines[1]}" = "$help_overline_1" ]
+  [ "${lines[2]}" = "$help_overline_2" ]
+  [ "${lines[3]}" = "$help_overline_3" ]
+  [ "${lines[4]}" = "$help_overline_4" ]
+  [ "${lines[5]}" = "$help_overline_5" ]
+  [ "${lines[6]}" = "$help_overline_6" ]
+  [ "${lines[7]}" = "$help_overline_7" ]
+  [ "$stderr" = "" ]
+}
+@test "overline (flags: --help -v)" {
+  run --separate-stderr ./overline --help -v
+  [ "$status" -eq 0 ]
+  [ "${lines[0]}" = "$help_overline_0" ]
+  [ "${lines[1]}" = "$help_overline_1" ]
+  [ "${lines[2]}" = "$help_overline_2" ]
+  [ "${lines[3]}" = "$help_overline_3" ]
+  [ "${lines[4]}" = "$help_overline_4" ]
+  [ "${lines[5]}" = "$help_overline_5" ]
+  [ "${lines[6]}" = "$help_overline_6" ]
+  [ "${lines[7]}" = "$help_overline_7" ]
+  [ "$stderr" = "" ]
+}
+@test "overline (flags: -q -v --help)" {
+  run --separate-stderr ./overline -q -v --help
+  [ "$status" -eq 0 ]
+  [ "${lines[0]}" = "$help_overline_0" ]
+  [ "${lines[1]}" = "$help_overline_1" ]
+  [ "${lines[2]}" = "$help_overline_2" ]
+  [ "${lines[3]}" = "$help_overline_3" ]
+  [ "${lines[4]}" = "$help_overline_4" ]
+  [ "${lines[5]}" = "$help_overline_5" ]
+  [ "${lines[6]}" = "$help_overline_6" ]
+  [ "${lines[7]}" = "$help_overline_7" ]
+  [ "$stderr" = "" ]
+}
+@test "overline (flags: -v -q --help)" {
+  run --separate-stderr ./overline -v -q --help
+  [ "$status" -eq 0 ]
+  [ "${lines[0]}" = "$help_overline_0" ]
+  [ "${lines[1]}" = "$help_overline_1" ]
+  [ "${lines[2]}" = "$help_overline_2" ]
+  [ "${lines[3]}" = "$help_overline_3" ]
+  [ "${lines[4]}" = "$help_overline_4" ]
+  [ "${lines[5]}" = "$help_overline_5" ]
+  [ "${lines[6]}" = "$help_overline_6" ]
+  [ "${lines[7]}" = "$help_overline_7" ]
+  [ "$stderr" = "" ]
+}
+@test "overline (flags: -q --help -v)" {
+  run --separate-stderr ./overline -q --help -v
+  [ "$status" -eq 0 ]
+  [ "${lines[0]}" = "$help_overline_0" ]
+  [ "${lines[1]}" = "$help_overline_1" ]
+  [ "${lines[2]}" = "$help_overline_2" ]
+  [ "${lines[3]}" = "$help_overline_3" ]
+  [ "${lines[4]}" = "$help_overline_4" ]
+  [ "${lines[5]}" = "$help_overline_5" ]
+  [ "${lines[6]}" = "$help_overline_6" ]
+  [ "${lines[7]}" = "$help_overline_7" ]
+  [ "$stderr" = "" ]
+}
+@test "overline (flags: -v --help -q)" {
+  run --separate-stderr ./overline -v --help -q
+  [ "$status" -eq 0 ]
+  [ "${lines[0]}" = "$help_overline_0" ]
+  [ "${lines[1]}" = "$help_overline_1" ]
+  [ "${lines[2]}" = "$help_overline_2" ]
+  [ "${lines[3]}" = "$help_overline_3" ]
+  [ "${lines[4]}" = "$help_overline_4" ]
+  [ "${lines[5]}" = "$help_overline_5" ]
+  [ "${lines[6]}" = "$help_overline_6" ]
+  [ "${lines[7]}" = "$help_overline_7" ]
+  [ "$stderr" = "" ]
+}
+@test "overline (flags: --help -q -v)" {
+  run --separate-stderr ./overline --help -q -v
+  [ "$status" -eq 0 ]
+  [ "${lines[0]}" = "$help_overline_0" ]
+  [ "${lines[1]}" = "$help_overline_1" ]
+  [ "${lines[2]}" = "$help_overline_2" ]
+  [ "${lines[3]}" = "$help_overline_3" ]
+  [ "${lines[4]}" = "$help_overline_4" ]
+  [ "${lines[5]}" = "$help_overline_5" ]
+  [ "${lines[6]}" = "$help_overline_6" ]
+  [ "${lines[7]}" = "$help_overline_7" ]
+  [ "$stderr" = "" ]
+}
+@test "overline (flags: --help -v -q)" {
+  run --separate-stderr ./overline --help -v -q
+  [ "$status" -eq 0 ]
+  [ "${lines[0]}" = "$help_overline_0" ]
+  [ "${lines[1]}" = "$help_overline_1" ]
+  [ "${lines[2]}" = "$help_overline_2" ]
+  [ "${lines[3]}" = "$help_overline_3" ]
+  [ "${lines[4]}" = "$help_overline_4" ]
+  [ "${lines[5]}" = "$help_overline_5" ]
+  [ "${lines[6]}" = "$help_overline_6" ]
+  [ "${lines[7]}" = "$help_overline_7" ]
+  [ "$stderr" = "" ]
+}
+@test "overline (flags: --quiet -h)" {
+  run --separate-stderr ./overline --quiet -h
+  [ "$status" -eq 0 ]
+  [ "${lines[0]}" = "$help_overline_0" ]
+  [ "${lines[1]}" = "$help_overline_1" ]
+  [ "${lines[2]}" = "$help_overline_2" ]
+  [ "${lines[3]}" = "$help_overline_3" ]
+  [ "${lines[4]}" = "$help_overline_4" ]
+  [ "${lines[5]}" = "$help_overline_5" ]
+  [ "${lines[6]}" = "$help_overline_6" ]
+  [ "${lines[7]}" = "$help_overline_7" ]
+  [ "$stderr" = "" ]
+}
+@test "overline (flags: -h --quiet)" {
+  run --separate-stderr ./overline -h --quiet
+  [ "$status" -eq 0 ]
+  [ "${lines[0]}" = "$help_overline_0" ]
+  [ "${lines[1]}" = "$help_overline_1" ]
+  [ "${lines[2]}" = "$help_overline_2" ]
+  [ "${lines[3]}" = "$help_overline_3" ]
+  [ "${lines[4]}" = "$help_overline_4" ]
+  [ "${lines[5]}" = "$help_overline_5" ]
+  [ "${lines[6]}" = "$help_overline_6" ]
+  [ "${lines[7]}" = "$help_overline_7" ]
+  [ "$stderr" = "" ]
+}
+@test "overline (flags: --quiet -v -h)" {
+  run --separate-stderr ./overline --quiet -v -h
+  [ "$status" -eq 0 ]
+  [ "${lines[0]}" = "$help_overline_0" ]
+  [ "${lines[1]}" = "$help_overline_1" ]
+  [ "${lines[2]}" = "$help_overline_2" ]
+  [ "${lines[3]}" = "$help_overline_3" ]
+  [ "${lines[4]}" = "$help_overline_4" ]
+  [ "${lines[5]}" = "$help_overline_5" ]
+  [ "${lines[6]}" = "$help_overline_6" ]
+  [ "${lines[7]}" = "$help_overline_7" ]
+  [ "$stderr" = "" ]
+}
+@test "overline (flags: -v --quiet -h)" {
+  run --separate-stderr ./overline -v --quiet -h
+  [ "$status" -eq 0 ]
+  [ "${lines[0]}" = "$help_overline_0" ]
+  [ "${lines[1]}" = "$help_overline_1" ]
+  [ "${lines[2]}" = "$help_overline_2" ]
+  [ "${lines[3]}" = "$help_overline_3" ]
+  [ "${lines[4]}" = "$help_overline_4" ]
+  [ "${lines[5]}" = "$help_overline_5" ]
+  [ "${lines[6]}" = "$help_overline_6" ]
+  [ "${lines[7]}" = "$help_overline_7" ]
+  [ "$stderr" = "" ]
+}
+@test "overline (flags: --quiet -h -v)" {
+  run --separate-stderr ./overline --quiet -h -v
+  [ "$status" -eq 0 ]
+  [ "${lines[0]}" = "$help_overline_0" ]
+  [ "${lines[1]}" = "$help_overline_1" ]
+  [ "${lines[2]}" = "$help_overline_2" ]
+  [ "${lines[3]}" = "$help_overline_3" ]
+  [ "${lines[4]}" = "$help_overline_4" ]
+  [ "${lines[5]}" = "$help_overline_5" ]
+  [ "${lines[6]}" = "$help_overline_6" ]
+  [ "${lines[7]}" = "$help_overline_7" ]
+  [ "$stderr" = "" ]
+}
+@test "overline (flags: -v -h --quiet)" {
+  run --separate-stderr ./overline -v -h --quiet
+  [ "$status" -eq 0 ]
+  [ "${lines[0]}" = "$help_overline_0" ]
+  [ "${lines[1]}" = "$help_overline_1" ]
+  [ "${lines[2]}" = "$help_overline_2" ]
+  [ "${lines[3]}" = "$help_overline_3" ]
+  [ "${lines[4]}" = "$help_overline_4" ]
+  [ "${lines[5]}" = "$help_overline_5" ]
+  [ "${lines[6]}" = "$help_overline_6" ]
+  [ "${lines[7]}" = "$help_overline_7" ]
+  [ "$stderr" = "" ]
+}
+@test "overline (flags: -h --quiet -v)" {
+  run --separate-stderr ./overline -h --quiet -v
+  [ "$status" -eq 0 ]
+  [ "${lines[0]}" = "$help_overline_0" ]
+  [ "${lines[1]}" = "$help_overline_1" ]
+  [ "${lines[2]}" = "$help_overline_2" ]
+  [ "${lines[3]}" = "$help_overline_3" ]
+  [ "${lines[4]}" = "$help_overline_4" ]
+  [ "${lines[5]}" = "$help_overline_5" ]
+  [ "${lines[6]}" = "$help_overline_6" ]
+  [ "${lines[7]}" = "$help_overline_7" ]
+  [ "$stderr" = "" ]
+}
+@test "overline (flags: -h -v --quiet)" {
+  run --separate-stderr ./overline -h -v --quiet
+  [ "$status" -eq 0 ]
+  [ "${lines[0]}" = "$help_overline_0" ]
+  [ "${lines[1]}" = "$help_overline_1" ]
+  [ "${lines[2]}" = "$help_overline_2" ]
+  [ "${lines[3]}" = "$help_overline_3" ]
+  [ "${lines[4]}" = "$help_overline_4" ]
+  [ "${lines[5]}" = "$help_overline_5" ]
+  [ "${lines[6]}" = "$help_overline_6" ]
+  [ "${lines[7]}" = "$help_overline_7" ]
+  [ "$stderr" = "" ]
+}
+@test "overline (flags: --verbose -h)" {
+  run --separate-stderr ./overline --verbose -h
+  [ "$status" -eq 0 ]
+  [ "${lines[0]}" = "$help_overline_0" ]
+  [ "${lines[1]}" = "$help_overline_1" ]
+  [ "${lines[2]}" = "$help_overline_2" ]
+  [ "${lines[3]}" = "$help_overline_3" ]
+  [ "${lines[4]}" = "$help_overline_4" ]
+  [ "${lines[5]}" = "$help_overline_5" ]
+  [ "${lines[6]}" = "$help_overline_6" ]
+  [ "${lines[7]}" = "$help_overline_7" ]
+  [ "$stderr" = "" ]
+}
+@test "overline (flags: -h --verbose)" {
+  run --separate-stderr ./overline -h --verbose
+  [ "$status" -eq 0 ]
+  [ "${lines[0]}" = "$help_overline_0" ]
+  [ "${lines[1]}" = "$help_overline_1" ]
+  [ "${lines[2]}" = "$help_overline_2" ]
+  [ "${lines[3]}" = "$help_overline_3" ]
+  [ "${lines[4]}" = "$help_overline_4" ]
+  [ "${lines[5]}" = "$help_overline_5" ]
+  [ "${lines[6]}" = "$help_overline_6" ]
+  [ "${lines[7]}" = "$help_overline_7" ]
+  [ "$stderr" = "" ]
+}
+@test "overline (flags: -q --verbose -h)" {
+  run --separate-stderr ./overline -q --verbose -h
+  [ "$status" -eq 0 ]
+  [ "${lines[0]}" = "$help_overline_0" ]
+  [ "${lines[1]}" = "$help_overline_1" ]
+  [ "${lines[2]}" = "$help_overline_2" ]
+  [ "${lines[3]}" = "$help_overline_3" ]
+  [ "${lines[4]}" = "$help_overline_4" ]
+  [ "${lines[5]}" = "$help_overline_5" ]
+  [ "${lines[6]}" = "$help_overline_6" ]
+  [ "${lines[7]}" = "$help_overline_7" ]
+  [ "$stderr" = "" ]
+}
+@test "overline (flags: --verbose -q -h)" {
+  run --separate-stderr ./overline --verbose -q -h
+  [ "$status" -eq 0 ]
+  [ "${lines[0]}" = "$help_overline_0" ]
+  [ "${lines[1]}" = "$help_overline_1" ]
+  [ "${lines[2]}" = "$help_overline_2" ]
+  [ "${lines[3]}" = "$help_overline_3" ]
+  [ "${lines[4]}" = "$help_overline_4" ]
+  [ "${lines[5]}" = "$help_overline_5" ]
+  [ "${lines[6]}" = "$help_overline_6" ]
+  [ "${lines[7]}" = "$help_overline_7" ]
+  [ "$stderr" = "" ]
+}
+@test "overline (flags: -q -h --verbose)" {
+  run --separate-stderr ./overline -q -h --verbose
+  [ "$status" -eq 0 ]
+  [ "${lines[0]}" = "$help_overline_0" ]
+  [ "${lines[1]}" = "$help_overline_1" ]
+  [ "${lines[2]}" = "$help_overline_2" ]
+  [ "${lines[3]}" = "$help_overline_3" ]
+  [ "${lines[4]}" = "$help_overline_4" ]
+  [ "${lines[5]}" = "$help_overline_5" ]
+  [ "${lines[6]}" = "$help_overline_6" ]
+  [ "${lines[7]}" = "$help_overline_7" ]
+  [ "$stderr" = "" ]
+}
+@test "overline (flags: --verbose -h -q)" {
+  run --separate-stderr ./overline --verbose -h -q
+  [ "$status" -eq 0 ]
+  [ "${lines[0]}" = "$help_overline_0" ]
+  [ "${lines[1]}" = "$help_overline_1" ]
+  [ "${lines[2]}" = "$help_overline_2" ]
+  [ "${lines[3]}" = "$help_overline_3" ]
+  [ "${lines[4]}" = "$help_overline_4" ]
+  [ "${lines[5]}" = "$help_overline_5" ]
+  [ "${lines[6]}" = "$help_overline_6" ]
+  [ "${lines[7]}" = "$help_overline_7" ]
+  [ "$stderr" = "" ]
+}
+@test "overline (flags: -h -q --verbose)" {
+  run --separate-stderr ./overline -h -q --verbose
+  [ "$status" -eq 0 ]
+  [ "${lines[0]}" = "$help_overline_0" ]
+  [ "${lines[1]}" = "$help_overline_1" ]
+  [ "${lines[2]}" = "$help_overline_2" ]
+  [ "${lines[3]}" = "$help_overline_3" ]
+  [ "${lines[4]}" = "$help_overline_4" ]
+  [ "${lines[5]}" = "$help_overline_5" ]
+  [ "${lines[6]}" = "$help_overline_6" ]
+  [ "${lines[7]}" = "$help_overline_7" ]
+  [ "$stderr" = "" ]
+}
+@test "overline (flags: -h --verbose -q)" {
+  run --separate-stderr ./overline -h --verbose -q
+  [ "$status" -eq 0 ]
+  [ "${lines[0]}" = "$help_overline_0" ]
+  [ "${lines[1]}" = "$help_overline_1" ]
+  [ "${lines[2]}" = "$help_overline_2" ]
+  [ "${lines[3]}" = "$help_overline_3" ]
+  [ "${lines[4]}" = "$help_overline_4" ]
+  [ "${lines[5]}" = "$help_overline_5" ]
+  [ "${lines[6]}" = "$help_overline_6" ]
+  [ "${lines[7]}" = "$help_overline_7" ]
+  [ "$stderr" = "" ]
+}
+@test "overline (flags: --quiet --help)" {
+  run --separate-stderr ./overline --quiet --help
+  [ "$status" -eq 0 ]
+  [ "${lines[0]}" = "$help_overline_0" ]
+  [ "${lines[1]}" = "$help_overline_1" ]
+  [ "${lines[2]}" = "$help_overline_2" ]
+  [ "${lines[3]}" = "$help_overline_3" ]
+  [ "${lines[4]}" = "$help_overline_4" ]
+  [ "${lines[5]}" = "$help_overline_5" ]
+  [ "${lines[6]}" = "$help_overline_6" ]
+  [ "${lines[7]}" = "$help_overline_7" ]
+  [ "$stderr" = "" ]
+}
+@test "overline (flags: --help --quiet)" {
+  run --separate-stderr ./overline --help --quiet
+  [ "$status" -eq 0 ]
+  [ "${lines[0]}" = "$help_overline_0" ]
+  [ "${lines[1]}" = "$help_overline_1" ]
+  [ "${lines[2]}" = "$help_overline_2" ]
+  [ "${lines[3]}" = "$help_overline_3" ]
+  [ "${lines[4]}" = "$help_overline_4" ]
+  [ "${lines[5]}" = "$help_overline_5" ]
+  [ "${lines[6]}" = "$help_overline_6" ]
+  [ "${lines[7]}" = "$help_overline_7" ]
+  [ "$stderr" = "" ]
+}
+@test "overline (flags: --quiet -v --help)" {
+  run --separate-stderr ./overline --quiet -v --help
+  [ "$status" -eq 0 ]
+  [ "${lines[0]}" = "$help_overline_0" ]
+  [ "${lines[1]}" = "$help_overline_1" ]
+  [ "${lines[2]}" = "$help_overline_2" ]
+  [ "${lines[3]}" = "$help_overline_3" ]
+  [ "${lines[4]}" = "$help_overline_4" ]
+  [ "${lines[5]}" = "$help_overline_5" ]
+  [ "${lines[6]}" = "$help_overline_6" ]
+  [ "${lines[7]}" = "$help_overline_7" ]
+  [ "$stderr" = "" ]
+}
+@test "overline (flags: -v --quiet --help)" {
+  run --separate-stderr ./overline -v --quiet --help
+  [ "$status" -eq 0 ]
+  [ "${lines[0]}" = "$help_overline_0" ]
+  [ "${lines[1]}" = "$help_overline_1" ]
+  [ "${lines[2]}" = "$help_overline_2" ]
+  [ "${lines[3]}" = "$help_overline_3" ]
+  [ "${lines[4]}" = "$help_overline_4" ]
+  [ "${lines[5]}" = "$help_overline_5" ]
+  [ "${lines[6]}" = "$help_overline_6" ]
+  [ "${lines[7]}" = "$help_overline_7" ]
+  [ "$stderr" = "" ]
+}
+@test "overline (flags: --quiet --help -v)" {
+  run --separate-stderr ./overline --quiet --help -v
+  [ "$status" -eq 0 ]
+  [ "${lines[0]}" = "$help_overline_0" ]
+  [ "${lines[1]}" = "$help_overline_1" ]
+  [ "${lines[2]}" = "$help_overline_2" ]
+  [ "${lines[3]}" = "$help_overline_3" ]
+  [ "${lines[4]}" = "$help_overline_4" ]
+  [ "${lines[5]}" = "$help_overline_5" ]
+  [ "${lines[6]}" = "$help_overline_6" ]
+  [ "${lines[7]}" = "$help_overline_7" ]
+  [ "$stderr" = "" ]
+}
+@test "overline (flags: -v --help --quiet)" {
+  run --separate-stderr ./overline -v --help --quiet
+  [ "$status" -eq 0 ]
+  [ "${lines[0]}" = "$help_overline_0" ]
+  [ "${lines[1]}" = "$help_overline_1" ]
+  [ "${lines[2]}" = "$help_overline_2" ]
+  [ "${lines[3]}" = "$help_overline_3" ]
+  [ "${lines[4]}" = "$help_overline_4" ]
+  [ "${lines[5]}" = "$help_overline_5" ]
+  [ "${lines[6]}" = "$help_overline_6" ]
+  [ "${lines[7]}" = "$help_overline_7" ]
+  [ "$stderr" = "" ]
+}
+@test "overline (flags: --help --quiet -v)" {
+  run --separate-stderr ./overline --help --quiet -v
+  [ "$status" -eq 0 ]
+  [ "${lines[0]}" = "$help_overline_0" ]
+  [ "${lines[1]}" = "$help_overline_1" ]
+  [ "${lines[2]}" = "$help_overline_2" ]
+  [ "${lines[3]}" = "$help_overline_3" ]
+  [ "${lines[4]}" = "$help_overline_4" ]
+  [ "${lines[5]}" = "$help_overline_5" ]
+  [ "${lines[6]}" = "$help_overline_6" ]
+  [ "${lines[7]}" = "$help_overline_7" ]
+  [ "$stderr" = "" ]
+}
+@test "overline (flags: --help -v --quiet)" {
+  run --separate-stderr ./overline --help -v --quiet
+  [ "$status" -eq 0 ]
+  [ "${lines[0]}" = "$help_overline_0" ]
+  [ "${lines[1]}" = "$help_overline_1" ]
+  [ "${lines[2]}" = "$help_overline_2" ]
+  [ "${lines[3]}" = "$help_overline_3" ]
+  [ "${lines[4]}" = "$help_overline_4" ]
+  [ "${lines[5]}" = "$help_overline_5" ]
+  [ "${lines[6]}" = "$help_overline_6" ]
+  [ "${lines[7]}" = "$help_overline_7" ]
+  [ "$stderr" = "" ]
+}
+@test "overline (flags: --verbose --help)" {
+  run --separate-stderr ./overline --verbose --help
+  [ "$status" -eq 0 ]
+  [ "${lines[0]}" = "$help_overline_0" ]
+  [ "${lines[1]}" = "$help_overline_1" ]
+  [ "${lines[2]}" = "$help_overline_2" ]
+  [ "${lines[3]}" = "$help_overline_3" ]
+  [ "${lines[4]}" = "$help_overline_4" ]
+  [ "${lines[5]}" = "$help_overline_5" ]
+  [ "${lines[6]}" = "$help_overline_6" ]
+  [ "${lines[7]}" = "$help_overline_7" ]
+  [ "$stderr" = "" ]
+}
+@test "overline (flags: --help --verbose)" {
+  run --separate-stderr ./overline --help --verbose
+  [ "$status" -eq 0 ]
+  [ "${lines[0]}" = "$help_overline_0" ]
+  [ "${lines[1]}" = "$help_overline_1" ]
+  [ "${lines[2]}" = "$help_overline_2" ]
+  [ "${lines[3]}" = "$help_overline_3" ]
+  [ "${lines[4]}" = "$help_overline_4" ]
+  [ "${lines[5]}" = "$help_overline_5" ]
+  [ "${lines[6]}" = "$help_overline_6" ]
+  [ "${lines[7]}" = "$help_overline_7" ]
+  [ "$stderr" = "" ]
+}
+@test "overline (flags: -q --verbose --help)" {
+  run --separate-stderr ./overline -q --verbose --help
+  [ "$status" -eq 0 ]
+  [ "${lines[0]}" = "$help_overline_0" ]
+  [ "${lines[1]}" = "$help_overline_1" ]
+  [ "${lines[2]}" = "$help_overline_2" ]
+  [ "${lines[3]}" = "$help_overline_3" ]
+  [ "${lines[4]}" = "$help_overline_4" ]
+  [ "${lines[5]}" = "$help_overline_5" ]
+  [ "${lines[6]}" = "$help_overline_6" ]
+  [ "${lines[7]}" = "$help_overline_7" ]
+  [ "$stderr" = "" ]
+}
+@test "overline (flags: --verbose -q --help)" {
+  run --separate-stderr ./overline --verbose -q --help
+  [ "$status" -eq 0 ]
+  [ "${lines[0]}" = "$help_overline_0" ]
+  [ "${lines[1]}" = "$help_overline_1" ]
+  [ "${lines[2]}" = "$help_overline_2" ]
+  [ "${lines[3]}" = "$help_overline_3" ]
+  [ "${lines[4]}" = "$help_overline_4" ]
+  [ "${lines[5]}" = "$help_overline_5" ]
+  [ "${lines[6]}" = "$help_overline_6" ]
+  [ "${lines[7]}" = "$help_overline_7" ]
+  [ "$stderr" = "" ]
+}
+@test "overline (flags: -q --help --verbose)" {
+  run --separate-stderr ./overline -q --help --verbose
+  [ "$status" -eq 0 ]
+  [ "${lines[0]}" = "$help_overline_0" ]
+  [ "${lines[1]}" = "$help_overline_1" ]
+  [ "${lines[2]}" = "$help_overline_2" ]
+  [ "${lines[3]}" = "$help_overline_3" ]
+  [ "${lines[4]}" = "$help_overline_4" ]
+  [ "${lines[5]}" = "$help_overline_5" ]
+  [ "${lines[6]}" = "$help_overline_6" ]
+  [ "${lines[7]}" = "$help_overline_7" ]
+  [ "$stderr" = "" ]
+}
+@test "overline (flags: --verbose --help -q)" {
+  run --separate-stderr ./overline --verbose --help -q
+  [ "$status" -eq 0 ]
+  [ "${lines[0]}" = "$help_overline_0" ]
+  [ "${lines[1]}" = "$help_overline_1" ]
+  [ "${lines[2]}" = "$help_overline_2" ]
+  [ "${lines[3]}" = "$help_overline_3" ]
+  [ "${lines[4]}" = "$help_overline_4" ]
+  [ "${lines[5]}" = "$help_overline_5" ]
+  [ "${lines[6]}" = "$help_overline_6" ]
+  [ "${lines[7]}" = "$help_overline_7" ]
+  [ "$stderr" = "" ]
+}
+@test "overline (flags: --help -q --verbose)" {
+  run --separate-stderr ./overline --help -q --verbose
+  [ "$status" -eq 0 ]
+  [ "${lines[0]}" = "$help_overline_0" ]
+  [ "${lines[1]}" = "$help_overline_1" ]
+  [ "${lines[2]}" = "$help_overline_2" ]
+  [ "${lines[3]}" = "$help_overline_3" ]
+  [ "${lines[4]}" = "$help_overline_4" ]
+  [ "${lines[5]}" = "$help_overline_5" ]
+  [ "${lines[6]}" = "$help_overline_6" ]
+  [ "${lines[7]}" = "$help_overline_7" ]
+  [ "$stderr" = "" ]
+}
+@test "overline (flags: --help --verbose -q)" {
+  run --separate-stderr ./overline --help --verbose -q
+  [ "$status" -eq 0 ]
+  [ "${lines[0]}" = "$help_overline_0" ]
+  [ "${lines[1]}" = "$help_overline_1" ]
+  [ "${lines[2]}" = "$help_overline_2" ]
+  [ "${lines[3]}" = "$help_overline_3" ]
+  [ "${lines[4]}" = "$help_overline_4" ]
+  [ "${lines[5]}" = "$help_overline_5" ]
+  [ "${lines[6]}" = "$help_overline_6" ]
+  [ "${lines[7]}" = "$help_overline_7" ]
+  [ "$stderr" = "" ]
+}
+@test "overline (flags: --quiet --verbose --help)" {
+  run --separate-stderr ./overline --quiet --verbose --help
+  [ "$status" -eq 0 ]
+  [ "${lines[0]}" = "$help_overline_0" ]
+  [ "${lines[1]}" = "$help_overline_1" ]
+  [ "${lines[2]}" = "$help_overline_2" ]
+  [ "${lines[3]}" = "$help_overline_3" ]
+  [ "${lines[4]}" = "$help_overline_4" ]
+  [ "${lines[5]}" = "$help_overline_5" ]
+  [ "${lines[6]}" = "$help_overline_6" ]
+  [ "${lines[7]}" = "$help_overline_7" ]
+  [ "$stderr" = "" ]
+}
+@test "overline (flags: --verbose --quiet --help)" {
+  run --separate-stderr ./overline --verbose --quiet --help
+  [ "$status" -eq 0 ]
+  [ "${lines[0]}" = "$help_overline_0" ]
+  [ "${lines[1]}" = "$help_overline_1" ]
+  [ "${lines[2]}" = "$help_overline_2" ]
+  [ "${lines[3]}" = "$help_overline_3" ]
+  [ "${lines[4]}" = "$help_overline_4" ]
+  [ "${lines[5]}" = "$help_overline_5" ]
+  [ "${lines[6]}" = "$help_overline_6" ]
+  [ "${lines[7]}" = "$help_overline_7" ]
+  [ "$stderr" = "" ]
+}
+@test "overline (flags: --quiet --help --verbose)" {
+  run --separate-stderr ./overline --quiet --help --verbose
+  [ "$status" -eq 0 ]
+  [ "${lines[0]}" = "$help_overline_0" ]
+  [ "${lines[1]}" = "$help_overline_1" ]
+  [ "${lines[2]}" = "$help_overline_2" ]
+  [ "${lines[3]}" = "$help_overline_3" ]
+  [ "${lines[4]}" = "$help_overline_4" ]
+  [ "${lines[5]}" = "$help_overline_5" ]
+  [ "${lines[6]}" = "$help_overline_6" ]
+  [ "${lines[7]}" = "$help_overline_7" ]
+  [ "$stderr" = "" ]
+}
+@test "overline (flags: --verbose --help --quiet)" {
+  run --separate-stderr ./overline --verbose --help --quiet
+  [ "$status" -eq 0 ]
+  [ "${lines[0]}" = "$help_overline_0" ]
+  [ "${lines[1]}" = "$help_overline_1" ]
+  [ "${lines[2]}" = "$help_overline_2" ]
+  [ "${lines[3]}" = "$help_overline_3" ]
+  [ "${lines[4]}" = "$help_overline_4" ]
+  [ "${lines[5]}" = "$help_overline_5" ]
+  [ "${lines[6]}" = "$help_overline_6" ]
+  [ "${lines[7]}" = "$help_overline_7" ]
+  [ "$stderr" = "" ]
+}
+@test "overline (flags: --help --quiet --verbose)" {
+  run --separate-stderr ./overline --help --quiet --verbose
+  [ "$status" -eq 0 ]
+  [ "${lines[0]}" = "$help_overline_0" ]
+  [ "${lines[1]}" = "$help_overline_1" ]
+  [ "${lines[2]}" = "$help_overline_2" ]
+  [ "${lines[3]}" = "$help_overline_3" ]
+  [ "${lines[4]}" = "$help_overline_4" ]
+  [ "${lines[5]}" = "$help_overline_5" ]
+  [ "${lines[6]}" = "$help_overline_6" ]
+  [ "${lines[7]}" = "$help_overline_7" ]
+  [ "$stderr" = "" ]
+}
+@test "overline (flags: --help --verbose --quiet)" {
+  run --separate-stderr ./overline --help --verbose --quiet
+  [ "$status" -eq 0 ]
+  [ "${lines[0]}" = "$help_overline_0" ]
+  [ "${lines[1]}" = "$help_overline_1" ]
+  [ "${lines[2]}" = "$help_overline_2" ]
+  [ "${lines[3]}" = "$help_overline_3" ]
+  [ "${lines[4]}" = "$help_overline_4" ]
+  [ "${lines[5]}" = "$help_overline_5" ]
+  [ "${lines[6]}" = "$help_overline_6" ]
+  [ "${lines[7]}" = "$help_overline_7" ]
   [ "$stderr" = "" ]
 }
