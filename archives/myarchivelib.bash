@@ -37,7 +37,7 @@ SupportedArchive() {
     return 0;;
   *.zip|*.epub|*.cbz)
     return 0;;
-  *.rar)
+  *.rar|*.cbr)
     return 0;;
   *.rpa)
     return 0;;
@@ -171,7 +171,7 @@ PrintArchive() {
     use_zip=1
     local zip_flags=('-p')
     ;;
-  *.rar)
+  *.rar|*.cbr)
     use_rar=1
     local rar_flags=('p')
     ;;
@@ -253,7 +253,7 @@ ListArchive() {
     use_zip=1
     local zip_flags=('-l')
     ;;
-  *.rar)
+  *.rar|*.cbr)
     use_rar=1
     local rar_flags=('l')
     ;;
