@@ -22,5 +22,9 @@ RequirePositionalArguments
 # behavior is the wildcard `?` (any single character). Simply put, the first
 # letter of every word is capitalized.
 
+# TODO: read from STDIN if no input
+
+# TODO: add option to adjust all *other* characters to lowercase
+
 echo "${positional[@]^}"
 

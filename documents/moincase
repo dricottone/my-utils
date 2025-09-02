@@ -26,5 +26,9 @@ RequirePositionalArguments
 # field separator (IFS). Setting the IFS (in a subshell!) to nothing simply
 # concatenates the members.
 
+# TODO: read from STDIN if no input
+
+# TODO: add option to adjust all *other* characters to lowercase
+
 (IFS=; echo "${positional[*]^}")
 

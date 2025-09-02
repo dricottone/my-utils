@@ -8,6 +8,9 @@ positional=()
 quiet=0
 verbose=0
 
+# TODO: if an argument of '--' is reached, pass over it then process all
+# remaining arguments as positional
+
 while [[ "${#}" -gt 0 ]]; do
   case "${1}" in
 
