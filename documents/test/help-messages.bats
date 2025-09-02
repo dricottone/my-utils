@@ -1681,6 +1681,786 @@ load fixtures.sh
   [ "${lines[9]}" = "$help_epub_9" ]
   [ "$stderr" = "" ]
 }
+@test "greek (flags: -h)" {
+  run --separate-stderr ./greek -h
+  [ "$status" -eq 0 ]
+  [ "${lines[0]}" = "$help_greek_0" ]
+  [ "${lines[1]}" = "$help_greek_1" ]
+  [ "${lines[2]}" = "$help_greek_2" ]
+  [ "${lines[3]}" = "$help_greek_3" ]
+  [ "${lines[4]}" = "$help_greek_4" ]
+  [ "${lines[5]}" = "$help_greek_5" ]
+  [ "${lines[6]}" = "$help_greek_6" ]
+  [ "${lines[7]}" = "$help_greek_7" ]
+  [ "$stderr" = "" ]
+}
+@test "greek (flags: -q -h)" {
+  run --separate-stderr ./greek -q -h
+  [ "$status" -eq 0 ]
+  [ "${lines[0]}" = "$help_greek_0" ]
+  [ "${lines[1]}" = "$help_greek_1" ]
+  [ "${lines[2]}" = "$help_greek_2" ]
+  [ "${lines[3]}" = "$help_greek_3" ]
+  [ "${lines[4]}" = "$help_greek_4" ]
+  [ "${lines[5]}" = "$help_greek_5" ]
+  [ "${lines[6]}" = "$help_greek_6" ]
+  [ "${lines[7]}" = "$help_greek_7" ]
+  [ "$stderr" = "" ]
+}
+@test "greek (flags: -h -q)" {
+  run --separate-stderr ./greek -h -q
+  [ "$status" -eq 0 ]
+  [ "${lines[0]}" = "$help_greek_0" ]
+  [ "${lines[1]}" = "$help_greek_1" ]
+  [ "${lines[2]}" = "$help_greek_2" ]
+  [ "${lines[3]}" = "$help_greek_3" ]
+  [ "${lines[4]}" = "$help_greek_4" ]
+  [ "${lines[5]}" = "$help_greek_5" ]
+  [ "${lines[6]}" = "$help_greek_6" ]
+  [ "${lines[7]}" = "$help_greek_7" ]
+  [ "$stderr" = "" ]
+}
+@test "greek (flags: -v -h)" {
+  run --separate-stderr ./greek -v -h
+  [ "$status" -eq 0 ]
+  [ "${lines[0]}" = "$help_greek_0" ]
+  [ "${lines[1]}" = "$help_greek_1" ]
+  [ "${lines[2]}" = "$help_greek_2" ]
+  [ "${lines[3]}" = "$help_greek_3" ]
+  [ "${lines[4]}" = "$help_greek_4" ]
+  [ "${lines[5]}" = "$help_greek_5" ]
+  [ "${lines[6]}" = "$help_greek_6" ]
+  [ "${lines[7]}" = "$help_greek_7" ]
+  [ "$stderr" = "" ]
+}
+@test "greek (flags: -h -v)" {
+  run --separate-stderr ./greek -h -v
+  [ "$status" -eq 0 ]
+  [ "${lines[0]}" = "$help_greek_0" ]
+  [ "${lines[1]}" = "$help_greek_1" ]
+  [ "${lines[2]}" = "$help_greek_2" ]
+  [ "${lines[3]}" = "$help_greek_3" ]
+  [ "${lines[4]}" = "$help_greek_4" ]
+  [ "${lines[5]}" = "$help_greek_5" ]
+  [ "${lines[6]}" = "$help_greek_6" ]
+  [ "${lines[7]}" = "$help_greek_7" ]
+  [ "$stderr" = "" ]
+}
+@test "greek (flags: -q -v -h)" {
+  run --separate-stderr ./greek -q -v -h
+  [ "$status" -eq 0 ]
+  [ "${lines[0]}" = "$help_greek_0" ]
+  [ "${lines[1]}" = "$help_greek_1" ]
+  [ "${lines[2]}" = "$help_greek_2" ]
+  [ "${lines[3]}" = "$help_greek_3" ]
+  [ "${lines[4]}" = "$help_greek_4" ]
+  [ "${lines[5]}" = "$help_greek_5" ]
+  [ "${lines[6]}" = "$help_greek_6" ]
+  [ "${lines[7]}" = "$help_greek_7" ]
+  [ "$stderr" = "" ]
+}
+@test "greek (flags: -v -q -h)" {
+  run --separate-stderr ./greek -v -q -h
+  [ "$status" -eq 0 ]
+  [ "${lines[0]}" = "$help_greek_0" ]
+  [ "${lines[1]}" = "$help_greek_1" ]
+  [ "${lines[2]}" = "$help_greek_2" ]
+  [ "${lines[3]}" = "$help_greek_3" ]
+  [ "${lines[4]}" = "$help_greek_4" ]
+  [ "${lines[5]}" = "$help_greek_5" ]
+  [ "${lines[6]}" = "$help_greek_6" ]
+  [ "${lines[7]}" = "$help_greek_7" ]
+  [ "$stderr" = "" ]
+}
+@test "greek (flags: -q -h -v)" {
+  run --separate-stderr ./greek -q -h -v
+  [ "$status" -eq 0 ]
+  [ "${lines[0]}" = "$help_greek_0" ]
+  [ "${lines[1]}" = "$help_greek_1" ]
+  [ "${lines[2]}" = "$help_greek_2" ]
+  [ "${lines[3]}" = "$help_greek_3" ]
+  [ "${lines[4]}" = "$help_greek_4" ]
+  [ "${lines[5]}" = "$help_greek_5" ]
+  [ "${lines[6]}" = "$help_greek_6" ]
+  [ "${lines[7]}" = "$help_greek_7" ]
+  [ "$stderr" = "" ]
+}
+@test "greek (flags: -v -h -q)" {
+  run --separate-stderr ./greek -v -h -q
+  [ "$status" -eq 0 ]
+  [ "${lines[0]}" = "$help_greek_0" ]
+  [ "${lines[1]}" = "$help_greek_1" ]
+  [ "${lines[2]}" = "$help_greek_2" ]
+  [ "${lines[3]}" = "$help_greek_3" ]
+  [ "${lines[4]}" = "$help_greek_4" ]
+  [ "${lines[5]}" = "$help_greek_5" ]
+  [ "${lines[6]}" = "$help_greek_6" ]
+  [ "${lines[7]}" = "$help_greek_7" ]
+  [ "$stderr" = "" ]
+}
+@test "greek (flags: -h -q -v)" {
+  run --separate-stderr ./greek -h -q -v
+  [ "$status" -eq 0 ]
+  [ "${lines[0]}" = "$help_greek_0" ]
+  [ "${lines[1]}" = "$help_greek_1" ]
+  [ "${lines[2]}" = "$help_greek_2" ]
+  [ "${lines[3]}" = "$help_greek_3" ]
+  [ "${lines[4]}" = "$help_greek_4" ]
+  [ "${lines[5]}" = "$help_greek_5" ]
+  [ "${lines[6]}" = "$help_greek_6" ]
+  [ "${lines[7]}" = "$help_greek_7" ]
+  [ "$stderr" = "" ]
+}
+@test "greek (flags: -h -v -q)" {
+  run --separate-stderr ./greek -h -v -q
+  [ "$status" -eq 0 ]
+  [ "${lines[0]}" = "$help_greek_0" ]
+  [ "${lines[1]}" = "$help_greek_1" ]
+  [ "${lines[2]}" = "$help_greek_2" ]
+  [ "${lines[3]}" = "$help_greek_3" ]
+  [ "${lines[4]}" = "$help_greek_4" ]
+  [ "${lines[5]}" = "$help_greek_5" ]
+  [ "${lines[6]}" = "$help_greek_6" ]
+  [ "${lines[7]}" = "$help_greek_7" ]
+  [ "$stderr" = "" ]
+}
+@test "greek (flags: --help)" {
+  run --separate-stderr ./greek --help
+  [ "$status" -eq 0 ]
+  [ "${lines[0]}" = "$help_greek_0" ]
+  [ "${lines[1]}" = "$help_greek_1" ]
+  [ "${lines[2]}" = "$help_greek_2" ]
+  [ "${lines[3]}" = "$help_greek_3" ]
+  [ "${lines[4]}" = "$help_greek_4" ]
+  [ "${lines[5]}" = "$help_greek_5" ]
+  [ "${lines[6]}" = "$help_greek_6" ]
+  [ "${lines[7]}" = "$help_greek_7" ]
+  [ "$stderr" = "" ]
+}
+@test "greek (flags: -q --help)" {
+  run --separate-stderr ./greek -q --help
+  [ "$status" -eq 0 ]
+  [ "${lines[0]}" = "$help_greek_0" ]
+  [ "${lines[1]}" = "$help_greek_1" ]
+  [ "${lines[2]}" = "$help_greek_2" ]
+  [ "${lines[3]}" = "$help_greek_3" ]
+  [ "${lines[4]}" = "$help_greek_4" ]
+  [ "${lines[5]}" = "$help_greek_5" ]
+  [ "${lines[6]}" = "$help_greek_6" ]
+  [ "${lines[7]}" = "$help_greek_7" ]
+  [ "$stderr" = "" ]
+}
+@test "greek (flags: --help -q)" {
+  run --separate-stderr ./greek --help -q
+  [ "$status" -eq 0 ]
+  [ "${lines[0]}" = "$help_greek_0" ]
+  [ "${lines[1]}" = "$help_greek_1" ]
+  [ "${lines[2]}" = "$help_greek_2" ]
+  [ "${lines[3]}" = "$help_greek_3" ]
+  [ "${lines[4]}" = "$help_greek_4" ]
+  [ "${lines[5]}" = "$help_greek_5" ]
+  [ "${lines[6]}" = "$help_greek_6" ]
+  [ "${lines[7]}" = "$help_greek_7" ]
+  [ "$stderr" = "" ]
+}
+@test "greek (flags: -v --help)" {
+  run --separate-stderr ./greek -v --help
+  [ "$status" -eq 0 ]
+  [ "${lines[0]}" = "$help_greek_0" ]
+  [ "${lines[1]}" = "$help_greek_1" ]
+  [ "${lines[2]}" = "$help_greek_2" ]
+  [ "${lines[3]}" = "$help_greek_3" ]
+  [ "${lines[4]}" = "$help_greek_4" ]
+  [ "${lines[5]}" = "$help_greek_5" ]
+  [ "${lines[6]}" = "$help_greek_6" ]
+  [ "${lines[7]}" = "$help_greek_7" ]
+  [ "$stderr" = "" ]
+}
+@test "greek (flags: --help -v)" {
+  run --separate-stderr ./greek --help -v
+  [ "$status" -eq 0 ]
+  [ "${lines[0]}" = "$help_greek_0" ]
+  [ "${lines[1]}" = "$help_greek_1" ]
+  [ "${lines[2]}" = "$help_greek_2" ]
+  [ "${lines[3]}" = "$help_greek_3" ]
+  [ "${lines[4]}" = "$help_greek_4" ]
+  [ "${lines[5]}" = "$help_greek_5" ]
+  [ "${lines[6]}" = "$help_greek_6" ]
+  [ "${lines[7]}" = "$help_greek_7" ]
+  [ "$stderr" = "" ]
+}
+@test "greek (flags: -q -v --help)" {
+  run --separate-stderr ./greek -q -v --help
+  [ "$status" -eq 0 ]
+  [ "${lines[0]}" = "$help_greek_0" ]
+  [ "${lines[1]}" = "$help_greek_1" ]
+  [ "${lines[2]}" = "$help_greek_2" ]
+  [ "${lines[3]}" = "$help_greek_3" ]
+  [ "${lines[4]}" = "$help_greek_4" ]
+  [ "${lines[5]}" = "$help_greek_5" ]
+  [ "${lines[6]}" = "$help_greek_6" ]
+  [ "${lines[7]}" = "$help_greek_7" ]
+  [ "$stderr" = "" ]
+}
+@test "greek (flags: -v -q --help)" {
+  run --separate-stderr ./greek -v -q --help
+  [ "$status" -eq 0 ]
+  [ "${lines[0]}" = "$help_greek_0" ]
+  [ "${lines[1]}" = "$help_greek_1" ]
+  [ "${lines[2]}" = "$help_greek_2" ]
+  [ "${lines[3]}" = "$help_greek_3" ]
+  [ "${lines[4]}" = "$help_greek_4" ]
+  [ "${lines[5]}" = "$help_greek_5" ]
+  [ "${lines[6]}" = "$help_greek_6" ]
+  [ "${lines[7]}" = "$help_greek_7" ]
+  [ "$stderr" = "" ]
+}
+@test "greek (flags: -q --help -v)" {
+  run --separate-stderr ./greek -q --help -v
+  [ "$status" -eq 0 ]
+  [ "${lines[0]}" = "$help_greek_0" ]
+  [ "${lines[1]}" = "$help_greek_1" ]
+  [ "${lines[2]}" = "$help_greek_2" ]
+  [ "${lines[3]}" = "$help_greek_3" ]
+  [ "${lines[4]}" = "$help_greek_4" ]
+  [ "${lines[5]}" = "$help_greek_5" ]
+  [ "${lines[6]}" = "$help_greek_6" ]
+  [ "${lines[7]}" = "$help_greek_7" ]
+  [ "$stderr" = "" ]
+}
+@test "greek (flags: -v --help -q)" {
+  run --separate-stderr ./greek -v --help -q
+  [ "$status" -eq 0 ]
+  [ "${lines[0]}" = "$help_greek_0" ]
+  [ "${lines[1]}" = "$help_greek_1" ]
+  [ "${lines[2]}" = "$help_greek_2" ]
+  [ "${lines[3]}" = "$help_greek_3" ]
+  [ "${lines[4]}" = "$help_greek_4" ]
+  [ "${lines[5]}" = "$help_greek_5" ]
+  [ "${lines[6]}" = "$help_greek_6" ]
+  [ "${lines[7]}" = "$help_greek_7" ]
+  [ "$stderr" = "" ]
+}
+@test "greek (flags: --help -q -v)" {
+  run --separate-stderr ./greek --help -q -v
+  [ "$status" -eq 0 ]
+  [ "${lines[0]}" = "$help_greek_0" ]
+  [ "${lines[1]}" = "$help_greek_1" ]
+  [ "${lines[2]}" = "$help_greek_2" ]
+  [ "${lines[3]}" = "$help_greek_3" ]
+  [ "${lines[4]}" = "$help_greek_4" ]
+  [ "${lines[5]}" = "$help_greek_5" ]
+  [ "${lines[6]}" = "$help_greek_6" ]
+  [ "${lines[7]}" = "$help_greek_7" ]
+  [ "$stderr" = "" ]
+}
+@test "greek (flags: --help -v -q)" {
+  run --separate-stderr ./greek --help -v -q
+  [ "$status" -eq 0 ]
+  [ "${lines[0]}" = "$help_greek_0" ]
+  [ "${lines[1]}" = "$help_greek_1" ]
+  [ "${lines[2]}" = "$help_greek_2" ]
+  [ "${lines[3]}" = "$help_greek_3" ]
+  [ "${lines[4]}" = "$help_greek_4" ]
+  [ "${lines[5]}" = "$help_greek_5" ]
+  [ "${lines[6]}" = "$help_greek_6" ]
+  [ "${lines[7]}" = "$help_greek_7" ]
+  [ "$stderr" = "" ]
+}
+@test "greek (flags: --quiet -h)" {
+  run --separate-stderr ./greek --quiet -h
+  [ "$status" -eq 0 ]
+  [ "${lines[0]}" = "$help_greek_0" ]
+  [ "${lines[1]}" = "$help_greek_1" ]
+  [ "${lines[2]}" = "$help_greek_2" ]
+  [ "${lines[3]}" = "$help_greek_3" ]
+  [ "${lines[4]}" = "$help_greek_4" ]
+  [ "${lines[5]}" = "$help_greek_5" ]
+  [ "${lines[6]}" = "$help_greek_6" ]
+  [ "${lines[7]}" = "$help_greek_7" ]
+  [ "$stderr" = "" ]
+}
+@test "greek (flags: -h --quiet)" {
+  run --separate-stderr ./greek -h --quiet
+  [ "$status" -eq 0 ]
+  [ "${lines[0]}" = "$help_greek_0" ]
+  [ "${lines[1]}" = "$help_greek_1" ]
+  [ "${lines[2]}" = "$help_greek_2" ]
+  [ "${lines[3]}" = "$help_greek_3" ]
+  [ "${lines[4]}" = "$help_greek_4" ]
+  [ "${lines[5]}" = "$help_greek_5" ]
+  [ "${lines[6]}" = "$help_greek_6" ]
+  [ "${lines[7]}" = "$help_greek_7" ]
+  [ "$stderr" = "" ]
+}
+@test "greek (flags: --quiet -v -h)" {
+  run --separate-stderr ./greek --quiet -v -h
+  [ "$status" -eq 0 ]
+  [ "${lines[0]}" = "$help_greek_0" ]
+  [ "${lines[1]}" = "$help_greek_1" ]
+  [ "${lines[2]}" = "$help_greek_2" ]
+  [ "${lines[3]}" = "$help_greek_3" ]
+  [ "${lines[4]}" = "$help_greek_4" ]
+  [ "${lines[5]}" = "$help_greek_5" ]
+  [ "${lines[6]}" = "$help_greek_6" ]
+  [ "${lines[7]}" = "$help_greek_7" ]
+  [ "$stderr" = "" ]
+}
+@test "greek (flags: -v --quiet -h)" {
+  run --separate-stderr ./greek -v --quiet -h
+  [ "$status" -eq 0 ]
+  [ "${lines[0]}" = "$help_greek_0" ]
+  [ "${lines[1]}" = "$help_greek_1" ]
+  [ "${lines[2]}" = "$help_greek_2" ]
+  [ "${lines[3]}" = "$help_greek_3" ]
+  [ "${lines[4]}" = "$help_greek_4" ]
+  [ "${lines[5]}" = "$help_greek_5" ]
+  [ "${lines[6]}" = "$help_greek_6" ]
+  [ "${lines[7]}" = "$help_greek_7" ]
+  [ "$stderr" = "" ]
+}
+@test "greek (flags: --quiet -h -v)" {
+  run --separate-stderr ./greek --quiet -h -v
+  [ "$status" -eq 0 ]
+  [ "${lines[0]}" = "$help_greek_0" ]
+  [ "${lines[1]}" = "$help_greek_1" ]
+  [ "${lines[2]}" = "$help_greek_2" ]
+  [ "${lines[3]}" = "$help_greek_3" ]
+  [ "${lines[4]}" = "$help_greek_4" ]
+  [ "${lines[5]}" = "$help_greek_5" ]
+  [ "${lines[6]}" = "$help_greek_6" ]
+  [ "${lines[7]}" = "$help_greek_7" ]
+  [ "$stderr" = "" ]
+}
+@test "greek (flags: -v -h --quiet)" {
+  run --separate-stderr ./greek -v -h --quiet
+  [ "$status" -eq 0 ]
+  [ "${lines[0]}" = "$help_greek_0" ]
+  [ "${lines[1]}" = "$help_greek_1" ]
+  [ "${lines[2]}" = "$help_greek_2" ]
+  [ "${lines[3]}" = "$help_greek_3" ]
+  [ "${lines[4]}" = "$help_greek_4" ]
+  [ "${lines[5]}" = "$help_greek_5" ]
+  [ "${lines[6]}" = "$help_greek_6" ]
+  [ "${lines[7]}" = "$help_greek_7" ]
+  [ "$stderr" = "" ]
+}
+@test "greek (flags: -h --quiet -v)" {
+  run --separate-stderr ./greek -h --quiet -v
+  [ "$status" -eq 0 ]
+  [ "${lines[0]}" = "$help_greek_0" ]
+  [ "${lines[1]}" = "$help_greek_1" ]
+  [ "${lines[2]}" = "$help_greek_2" ]
+  [ "${lines[3]}" = "$help_greek_3" ]
+  [ "${lines[4]}" = "$help_greek_4" ]
+  [ "${lines[5]}" = "$help_greek_5" ]
+  [ "${lines[6]}" = "$help_greek_6" ]
+  [ "${lines[7]}" = "$help_greek_7" ]
+  [ "$stderr" = "" ]
+}
+@test "greek (flags: -h -v --quiet)" {
+  run --separate-stderr ./greek -h -v --quiet
+  [ "$status" -eq 0 ]
+  [ "${lines[0]}" = "$help_greek_0" ]
+  [ "${lines[1]}" = "$help_greek_1" ]
+  [ "${lines[2]}" = "$help_greek_2" ]
+  [ "${lines[3]}" = "$help_greek_3" ]
+  [ "${lines[4]}" = "$help_greek_4" ]
+  [ "${lines[5]}" = "$help_greek_5" ]
+  [ "${lines[6]}" = "$help_greek_6" ]
+  [ "${lines[7]}" = "$help_greek_7" ]
+  [ "$stderr" = "" ]
+}
+@test "greek (flags: --verbose -h)" {
+  run --separate-stderr ./greek --verbose -h
+  [ "$status" -eq 0 ]
+  [ "${lines[0]}" = "$help_greek_0" ]
+  [ "${lines[1]}" = "$help_greek_1" ]
+  [ "${lines[2]}" = "$help_greek_2" ]
+  [ "${lines[3]}" = "$help_greek_3" ]
+  [ "${lines[4]}" = "$help_greek_4" ]
+  [ "${lines[5]}" = "$help_greek_5" ]
+  [ "${lines[6]}" = "$help_greek_6" ]
+  [ "${lines[7]}" = "$help_greek_7" ]
+  [ "$stderr" = "" ]
+}
+@test "greek (flags: -h --verbose)" {
+  run --separate-stderr ./greek -h --verbose
+  [ "$status" -eq 0 ]
+  [ "${lines[0]}" = "$help_greek_0" ]
+  [ "${lines[1]}" = "$help_greek_1" ]
+  [ "${lines[2]}" = "$help_greek_2" ]
+  [ "${lines[3]}" = "$help_greek_3" ]
+  [ "${lines[4]}" = "$help_greek_4" ]
+  [ "${lines[5]}" = "$help_greek_5" ]
+  [ "${lines[6]}" = "$help_greek_6" ]
+  [ "${lines[7]}" = "$help_greek_7" ]
+  [ "$stderr" = "" ]
+}
+@test "greek (flags: -q --verbose -h)" {
+  run --separate-stderr ./greek -q --verbose -h
+  [ "$status" -eq 0 ]
+  [ "${lines[0]}" = "$help_greek_0" ]
+  [ "${lines[1]}" = "$help_greek_1" ]
+  [ "${lines[2]}" = "$help_greek_2" ]
+  [ "${lines[3]}" = "$help_greek_3" ]
+  [ "${lines[4]}" = "$help_greek_4" ]
+  [ "${lines[5]}" = "$help_greek_5" ]
+  [ "${lines[6]}" = "$help_greek_6" ]
+  [ "${lines[7]}" = "$help_greek_7" ]
+  [ "$stderr" = "" ]
+}
+@test "greek (flags: --verbose -q -h)" {
+  run --separate-stderr ./greek --verbose -q -h
+  [ "$status" -eq 0 ]
+  [ "${lines[0]}" = "$help_greek_0" ]
+  [ "${lines[1]}" = "$help_greek_1" ]
+  [ "${lines[2]}" = "$help_greek_2" ]
+  [ "${lines[3]}" = "$help_greek_3" ]
+  [ "${lines[4]}" = "$help_greek_4" ]
+  [ "${lines[5]}" = "$help_greek_5" ]
+  [ "${lines[6]}" = "$help_greek_6" ]
+  [ "${lines[7]}" = "$help_greek_7" ]
+  [ "$stderr" = "" ]
+}
+@test "greek (flags: -q -h --verbose)" {
+  run --separate-stderr ./greek -q -h --verbose
+  [ "$status" -eq 0 ]
+  [ "${lines[0]}" = "$help_greek_0" ]
+  [ "${lines[1]}" = "$help_greek_1" ]
+  [ "${lines[2]}" = "$help_greek_2" ]
+  [ "${lines[3]}" = "$help_greek_3" ]
+  [ "${lines[4]}" = "$help_greek_4" ]
+  [ "${lines[5]}" = "$help_greek_5" ]
+  [ "${lines[6]}" = "$help_greek_6" ]
+  [ "${lines[7]}" = "$help_greek_7" ]
+  [ "$stderr" = "" ]
+}
+@test "greek (flags: --verbose -h -q)" {
+  run --separate-stderr ./greek --verbose -h -q
+  [ "$status" -eq 0 ]
+  [ "${lines[0]}" = "$help_greek_0" ]
+  [ "${lines[1]}" = "$help_greek_1" ]
+  [ "${lines[2]}" = "$help_greek_2" ]
+  [ "${lines[3]}" = "$help_greek_3" ]
+  [ "${lines[4]}" = "$help_greek_4" ]
+  [ "${lines[5]}" = "$help_greek_5" ]
+  [ "${lines[6]}" = "$help_greek_6" ]
+  [ "${lines[7]}" = "$help_greek_7" ]
+  [ "$stderr" = "" ]
+}
+@test "greek (flags: -h -q --verbose)" {
+  run --separate-stderr ./greek -h -q --verbose
+  [ "$status" -eq 0 ]
+  [ "${lines[0]}" = "$help_greek_0" ]
+  [ "${lines[1]}" = "$help_greek_1" ]
+  [ "${lines[2]}" = "$help_greek_2" ]
+  [ "${lines[3]}" = "$help_greek_3" ]
+  [ "${lines[4]}" = "$help_greek_4" ]
+  [ "${lines[5]}" = "$help_greek_5" ]
+  [ "${lines[6]}" = "$help_greek_6" ]
+  [ "${lines[7]}" = "$help_greek_7" ]
+  [ "$stderr" = "" ]
+}
+@test "greek (flags: -h --verbose -q)" {
+  run --separate-stderr ./greek -h --verbose -q
+  [ "$status" -eq 0 ]
+  [ "${lines[0]}" = "$help_greek_0" ]
+  [ "${lines[1]}" = "$help_greek_1" ]
+  [ "${lines[2]}" = "$help_greek_2" ]
+  [ "${lines[3]}" = "$help_greek_3" ]
+  [ "${lines[4]}" = "$help_greek_4" ]
+  [ "${lines[5]}" = "$help_greek_5" ]
+  [ "${lines[6]}" = "$help_greek_6" ]
+  [ "${lines[7]}" = "$help_greek_7" ]
+  [ "$stderr" = "" ]
+}
+@test "greek (flags: --quiet --help)" {
+  run --separate-stderr ./greek --quiet --help
+  [ "$status" -eq 0 ]
+  [ "${lines[0]}" = "$help_greek_0" ]
+  [ "${lines[1]}" = "$help_greek_1" ]
+  [ "${lines[2]}" = "$help_greek_2" ]
+  [ "${lines[3]}" = "$help_greek_3" ]
+  [ "${lines[4]}" = "$help_greek_4" ]
+  [ "${lines[5]}" = "$help_greek_5" ]
+  [ "${lines[6]}" = "$help_greek_6" ]
+  [ "${lines[7]}" = "$help_greek_7" ]
+  [ "$stderr" = "" ]
+}
+@test "greek (flags: --help --quiet)" {
+  run --separate-stderr ./greek --help --quiet
+  [ "$status" -eq 0 ]
+  [ "${lines[0]}" = "$help_greek_0" ]
+  [ "${lines[1]}" = "$help_greek_1" ]
+  [ "${lines[2]}" = "$help_greek_2" ]
+  [ "${lines[3]}" = "$help_greek_3" ]
+  [ "${lines[4]}" = "$help_greek_4" ]
+  [ "${lines[5]}" = "$help_greek_5" ]
+  [ "${lines[6]}" = "$help_greek_6" ]
+  [ "${lines[7]}" = "$help_greek_7" ]
+  [ "$stderr" = "" ]
+}
+@test "greek (flags: --quiet -v --help)" {
+  run --separate-stderr ./greek --quiet -v --help
+  [ "$status" -eq 0 ]
+  [ "${lines[0]}" = "$help_greek_0" ]
+  [ "${lines[1]}" = "$help_greek_1" ]
+  [ "${lines[2]}" = "$help_greek_2" ]
+  [ "${lines[3]}" = "$help_greek_3" ]
+  [ "${lines[4]}" = "$help_greek_4" ]
+  [ "${lines[5]}" = "$help_greek_5" ]
+  [ "${lines[6]}" = "$help_greek_6" ]
+  [ "${lines[7]}" = "$help_greek_7" ]
+  [ "$stderr" = "" ]
+}
+@test "greek (flags: -v --quiet --help)" {
+  run --separate-stderr ./greek -v --quiet --help
+  [ "$status" -eq 0 ]
+  [ "${lines[0]}" = "$help_greek_0" ]
+  [ "${lines[1]}" = "$help_greek_1" ]
+  [ "${lines[2]}" = "$help_greek_2" ]
+  [ "${lines[3]}" = "$help_greek_3" ]
+  [ "${lines[4]}" = "$help_greek_4" ]
+  [ "${lines[5]}" = "$help_greek_5" ]
+  [ "${lines[6]}" = "$help_greek_6" ]
+  [ "${lines[7]}" = "$help_greek_7" ]
+  [ "$stderr" = "" ]
+}
+@test "greek (flags: --quiet --help -v)" {
+  run --separate-stderr ./greek --quiet --help -v
+  [ "$status" -eq 0 ]
+  [ "${lines[0]}" = "$help_greek_0" ]
+  [ "${lines[1]}" = "$help_greek_1" ]
+  [ "${lines[2]}" = "$help_greek_2" ]
+  [ "${lines[3]}" = "$help_greek_3" ]
+  [ "${lines[4]}" = "$help_greek_4" ]
+  [ "${lines[5]}" = "$help_greek_5" ]
+  [ "${lines[6]}" = "$help_greek_6" ]
+  [ "${lines[7]}" = "$help_greek_7" ]
+  [ "$stderr" = "" ]
+}
+@test "greek (flags: -v --help --quiet)" {
+  run --separate-stderr ./greek -v --help --quiet
+  [ "$status" -eq 0 ]
+  [ "${lines[0]}" = "$help_greek_0" ]
+  [ "${lines[1]}" = "$help_greek_1" ]
+  [ "${lines[2]}" = "$help_greek_2" ]
+  [ "${lines[3]}" = "$help_greek_3" ]
+  [ "${lines[4]}" = "$help_greek_4" ]
+  [ "${lines[5]}" = "$help_greek_5" ]
+  [ "${lines[6]}" = "$help_greek_6" ]
+  [ "${lines[7]}" = "$help_greek_7" ]
+  [ "$stderr" = "" ]
+}
+@test "greek (flags: --help --quiet -v)" {
+  run --separate-stderr ./greek --help --quiet -v
+  [ "$status" -eq 0 ]
+  [ "${lines[0]}" = "$help_greek_0" ]
+  [ "${lines[1]}" = "$help_greek_1" ]
+  [ "${lines[2]}" = "$help_greek_2" ]
+  [ "${lines[3]}" = "$help_greek_3" ]
+  [ "${lines[4]}" = "$help_greek_4" ]
+  [ "${lines[5]}" = "$help_greek_5" ]
+  [ "${lines[6]}" = "$help_greek_6" ]
+  [ "${lines[7]}" = "$help_greek_7" ]
+  [ "$stderr" = "" ]
+}
+@test "greek (flags: --help -v --quiet)" {
+  run --separate-stderr ./greek --help -v --quiet
+  [ "$status" -eq 0 ]
+  [ "${lines[0]}" = "$help_greek_0" ]
+  [ "${lines[1]}" = "$help_greek_1" ]
+  [ "${lines[2]}" = "$help_greek_2" ]
+  [ "${lines[3]}" = "$help_greek_3" ]
+  [ "${lines[4]}" = "$help_greek_4" ]
+  [ "${lines[5]}" = "$help_greek_5" ]
+  [ "${lines[6]}" = "$help_greek_6" ]
+  [ "${lines[7]}" = "$help_greek_7" ]
+  [ "$stderr" = "" ]
+}
+@test "greek (flags: --verbose --help)" {
+  run --separate-stderr ./greek --verbose --help
+  [ "$status" -eq 0 ]
+  [ "${lines[0]}" = "$help_greek_0" ]
+  [ "${lines[1]}" = "$help_greek_1" ]
+  [ "${lines[2]}" = "$help_greek_2" ]
+  [ "${lines[3]}" = "$help_greek_3" ]
+  [ "${lines[4]}" = "$help_greek_4" ]
+  [ "${lines[5]}" = "$help_greek_5" ]
+  [ "${lines[6]}" = "$help_greek_6" ]
+  [ "${lines[7]}" = "$help_greek_7" ]
+  [ "$stderr" = "" ]
+}
+@test "greek (flags: --help --verbose)" {
+  run --separate-stderr ./greek --help --verbose
+  [ "$status" -eq 0 ]
+  [ "${lines[0]}" = "$help_greek_0" ]
+  [ "${lines[1]}" = "$help_greek_1" ]
+  [ "${lines[2]}" = "$help_greek_2" ]
+  [ "${lines[3]}" = "$help_greek_3" ]
+  [ "${lines[4]}" = "$help_greek_4" ]
+  [ "${lines[5]}" = "$help_greek_5" ]
+  [ "${lines[6]}" = "$help_greek_6" ]
+  [ "${lines[7]}" = "$help_greek_7" ]
+  [ "$stderr" = "" ]
+}
+@test "greek (flags: -q --verbose --help)" {
+  run --separate-stderr ./greek -q --verbose --help
+  [ "$status" -eq 0 ]
+  [ "${lines[0]}" = "$help_greek_0" ]
+  [ "${lines[1]}" = "$help_greek_1" ]
+  [ "${lines[2]}" = "$help_greek_2" ]
+  [ "${lines[3]}" = "$help_greek_3" ]
+  [ "${lines[4]}" = "$help_greek_4" ]
+  [ "${lines[5]}" = "$help_greek_5" ]
+  [ "${lines[6]}" = "$help_greek_6" ]
+  [ "${lines[7]}" = "$help_greek_7" ]
+  [ "$stderr" = "" ]
+}
+@test "greek (flags: --verbose -q --help)" {
+  run --separate-stderr ./greek --verbose -q --help
+  [ "$status" -eq 0 ]
+  [ "${lines[0]}" = "$help_greek_0" ]
+  [ "${lines[1]}" = "$help_greek_1" ]
+  [ "${lines[2]}" = "$help_greek_2" ]
+  [ "${lines[3]}" = "$help_greek_3" ]
+  [ "${lines[4]}" = "$help_greek_4" ]
+  [ "${lines[5]}" = "$help_greek_5" ]
+  [ "${lines[6]}" = "$help_greek_6" ]
+  [ "${lines[7]}" = "$help_greek_7" ]
+  [ "$stderr" = "" ]
+}
+@test "greek (flags: -q --help --verbose)" {
+  run --separate-stderr ./greek -q --help --verbose
+  [ "$status" -eq 0 ]
+  [ "${lines[0]}" = "$help_greek_0" ]
+  [ "${lines[1]}" = "$help_greek_1" ]
+  [ "${lines[2]}" = "$help_greek_2" ]
+  [ "${lines[3]}" = "$help_greek_3" ]
+  [ "${lines[4]}" = "$help_greek_4" ]
+  [ "${lines[5]}" = "$help_greek_5" ]
+  [ "${lines[6]}" = "$help_greek_6" ]
+  [ "${lines[7]}" = "$help_greek_7" ]
+  [ "$stderr" = "" ]
+}
+@test "greek (flags: --verbose --help -q)" {
+  run --separate-stderr ./greek --verbose --help -q
+  [ "$status" -eq 0 ]
+  [ "${lines[0]}" = "$help_greek_0" ]
+  [ "${lines[1]}" = "$help_greek_1" ]
+  [ "${lines[2]}" = "$help_greek_2" ]
+  [ "${lines[3]}" = "$help_greek_3" ]
+  [ "${lines[4]}" = "$help_greek_4" ]
+  [ "${lines[5]}" = "$help_greek_5" ]
+  [ "${lines[6]}" = "$help_greek_6" ]
+  [ "${lines[7]}" = "$help_greek_7" ]
+  [ "$stderr" = "" ]
+}
+@test "greek (flags: --help -q --verbose)" {
+  run --separate-stderr ./greek --help -q --verbose
+  [ "$status" -eq 0 ]
+  [ "${lines[0]}" = "$help_greek_0" ]
+  [ "${lines[1]}" = "$help_greek_1" ]
+  [ "${lines[2]}" = "$help_greek_2" ]
+  [ "${lines[3]}" = "$help_greek_3" ]
+  [ "${lines[4]}" = "$help_greek_4" ]
+  [ "${lines[5]}" = "$help_greek_5" ]
+  [ "${lines[6]}" = "$help_greek_6" ]
+  [ "${lines[7]}" = "$help_greek_7" ]
+  [ "$stderr" = "" ]
+}
+@test "greek (flags: --help --verbose -q)" {
+  run --separate-stderr ./greek --help --verbose -q
+  [ "$status" -eq 0 ]
+  [ "${lines[0]}" = "$help_greek_0" ]
+  [ "${lines[1]}" = "$help_greek_1" ]
+  [ "${lines[2]}" = "$help_greek_2" ]
+  [ "${lines[3]}" = "$help_greek_3" ]
+  [ "${lines[4]}" = "$help_greek_4" ]
+  [ "${lines[5]}" = "$help_greek_5" ]
+  [ "${lines[6]}" = "$help_greek_6" ]
+  [ "${lines[7]}" = "$help_greek_7" ]
+  [ "$stderr" = "" ]
+}
+@test "greek (flags: --quiet --verbose --help)" {
+  run --separate-stderr ./greek --quiet --verbose --help
+  [ "$status" -eq 0 ]
+  [ "${lines[0]}" = "$help_greek_0" ]
+  [ "${lines[1]}" = "$help_greek_1" ]
+  [ "${lines[2]}" = "$help_greek_2" ]
+  [ "${lines[3]}" = "$help_greek_3" ]
+  [ "${lines[4]}" = "$help_greek_4" ]
+  [ "${lines[5]}" = "$help_greek_5" ]
+  [ "${lines[6]}" = "$help_greek_6" ]
+  [ "${lines[7]}" = "$help_greek_7" ]
+  [ "$stderr" = "" ]
+}
+@test "greek (flags: --verbose --quiet --help)" {
+  run --separate-stderr ./greek --verbose --quiet --help
+  [ "$status" -eq 0 ]
+  [ "${lines[0]}" = "$help_greek_0" ]
+  [ "${lines[1]}" = "$help_greek_1" ]
+  [ "${lines[2]}" = "$help_greek_2" ]
+  [ "${lines[3]}" = "$help_greek_3" ]
+  [ "${lines[4]}" = "$help_greek_4" ]
+  [ "${lines[5]}" = "$help_greek_5" ]
+  [ "${lines[6]}" = "$help_greek_6" ]
+  [ "${lines[7]}" = "$help_greek_7" ]
+  [ "$stderr" = "" ]
+}
+@test "greek (flags: --quiet --help --verbose)" {
+  run --separate-stderr ./greek --quiet --help --verbose
+  [ "$status" -eq 0 ]
+  [ "${lines[0]}" = "$help_greek_0" ]
+  [ "${lines[1]}" = "$help_greek_1" ]
+  [ "${lines[2]}" = "$help_greek_2" ]
+  [ "${lines[3]}" = "$help_greek_3" ]
+  [ "${lines[4]}" = "$help_greek_4" ]
+  [ "${lines[5]}" = "$help_greek_5" ]
+  [ "${lines[6]}" = "$help_greek_6" ]
+  [ "${lines[7]}" = "$help_greek_7" ]
+  [ "$stderr" = "" ]
+}
+@test "greek (flags: --verbose --help --quiet)" {
+  run --separate-stderr ./greek --verbose --help --quiet
+  [ "$status" -eq 0 ]
+  [ "${lines[0]}" = "$help_greek_0" ]
+  [ "${lines[1]}" = "$help_greek_1" ]
+  [ "${lines[2]}" = "$help_greek_2" ]
+  [ "${lines[3]}" = "$help_greek_3" ]
+  [ "${lines[4]}" = "$help_greek_4" ]
+  [ "${lines[5]}" = "$help_greek_5" ]
+  [ "${lines[6]}" = "$help_greek_6" ]
+  [ "${lines[7]}" = "$help_greek_7" ]
+  [ "$stderr" = "" ]
+}
+@test "greek (flags: --help --quiet --verbose)" {
+  run --separate-stderr ./greek --help --quiet --verbose
+  [ "$status" -eq 0 ]
+  [ "${lines[0]}" = "$help_greek_0" ]
+  [ "${lines[1]}" = "$help_greek_1" ]
+  [ "${lines[2]}" = "$help_greek_2" ]
+  [ "${lines[3]}" = "$help_greek_3" ]
+  [ "${lines[4]}" = "$help_greek_4" ]
+  [ "${lines[5]}" = "$help_greek_5" ]
+  [ "${lines[6]}" = "$help_greek_6" ]
+  [ "${lines[7]}" = "$help_greek_7" ]
+  [ "$stderr" = "" ]
+}
+@test "greek (flags: --help --verbose --quiet)" {
+  run --separate-stderr ./greek --help --verbose --quiet
+  [ "$status" -eq 0 ]
+  [ "${lines[0]}" = "$help_greek_0" ]
+  [ "${lines[1]}" = "$help_greek_1" ]
+  [ "${lines[2]}" = "$help_greek_2" ]
+  [ "${lines[3]}" = "$help_greek_3" ]
+  [ "${lines[4]}" = "$help_greek_4" ]
+  [ "${lines[5]}" = "$help_greek_5" ]
+  [ "${lines[6]}" = "$help_greek_6" ]
+  [ "${lines[7]}" = "$help_greek_7" ]
+  [ "$stderr" = "" ]
+}
 @test "hugo-bump (flags: -h)" {
   run --separate-stderr ./hugo-bump -h
   [ "$status" -eq 0 ]
@@ -6301,6 +7081,846 @@ load fixtures.sh
   [ "${lines[7]}" = "$help_hugotimestamp_7" ]
   [ "$stderr" = "" ]
 }
+@test "moincase (flags: -h)" {
+  run --separate-stderr ./moincase -h
+  [ "$status" -eq 0 ]
+  [ "${lines[0]}" = "$help_moincase_0" ]
+  [ "${lines[1]}" = "$help_moincase_1" ]
+  [ "${lines[2]}" = "$help_moincase_2" ]
+  [ "${lines[3]}" = "$help_moincase_3" ]
+  [ "${lines[4]}" = "$help_moincase_4" ]
+  [ "${lines[5]}" = "$help_moincase_5" ]
+  [ "${lines[6]}" = "$help_moincase_6" ]
+  [ "${lines[7]}" = "$help_moincase_7" ]
+  [ "${lines[8]}" = "$help_moincase_8" ]
+  [ "$stderr" = "" ]
+}
+@test "moincase (flags: -q -h)" {
+  run --separate-stderr ./moincase -q -h
+  [ "$status" -eq 0 ]
+  [ "${lines[0]}" = "$help_moincase_0" ]
+  [ "${lines[1]}" = "$help_moincase_1" ]
+  [ "${lines[2]}" = "$help_moincase_2" ]
+  [ "${lines[3]}" = "$help_moincase_3" ]
+  [ "${lines[4]}" = "$help_moincase_4" ]
+  [ "${lines[5]}" = "$help_moincase_5" ]
+  [ "${lines[6]}" = "$help_moincase_6" ]
+  [ "${lines[7]}" = "$help_moincase_7" ]
+  [ "${lines[8]}" = "$help_moincase_8" ]
+  [ "$stderr" = "" ]
+}
+@test "moincase (flags: -h -q)" {
+  run --separate-stderr ./moincase -h -q
+  [ "$status" -eq 0 ]
+  [ "${lines[0]}" = "$help_moincase_0" ]
+  [ "${lines[1]}" = "$help_moincase_1" ]
+  [ "${lines[2]}" = "$help_moincase_2" ]
+  [ "${lines[3]}" = "$help_moincase_3" ]
+  [ "${lines[4]}" = "$help_moincase_4" ]
+  [ "${lines[5]}" = "$help_moincase_5" ]
+  [ "${lines[6]}" = "$help_moincase_6" ]
+  [ "${lines[7]}" = "$help_moincase_7" ]
+  [ "${lines[8]}" = "$help_moincase_8" ]
+  [ "$stderr" = "" ]
+}
+@test "moincase (flags: -v -h)" {
+  run --separate-stderr ./moincase -v -h
+  [ "$status" -eq 0 ]
+  [ "${lines[0]}" = "$help_moincase_0" ]
+  [ "${lines[1]}" = "$help_moincase_1" ]
+  [ "${lines[2]}" = "$help_moincase_2" ]
+  [ "${lines[3]}" = "$help_moincase_3" ]
+  [ "${lines[4]}" = "$help_moincase_4" ]
+  [ "${lines[5]}" = "$help_moincase_5" ]
+  [ "${lines[6]}" = "$help_moincase_6" ]
+  [ "${lines[7]}" = "$help_moincase_7" ]
+  [ "${lines[8]}" = "$help_moincase_8" ]
+  [ "$stderr" = "" ]
+}
+@test "moincase (flags: -h -v)" {
+  run --separate-stderr ./moincase -h -v
+  [ "$status" -eq 0 ]
+  [ "${lines[0]}" = "$help_moincase_0" ]
+  [ "${lines[1]}" = "$help_moincase_1" ]
+  [ "${lines[2]}" = "$help_moincase_2" ]
+  [ "${lines[3]}" = "$help_moincase_3" ]
+  [ "${lines[4]}" = "$help_moincase_4" ]
+  [ "${lines[5]}" = "$help_moincase_5" ]
+  [ "${lines[6]}" = "$help_moincase_6" ]
+  [ "${lines[7]}" = "$help_moincase_7" ]
+  [ "${lines[8]}" = "$help_moincase_8" ]
+  [ "$stderr" = "" ]
+}
+@test "moincase (flags: -q -v -h)" {
+  run --separate-stderr ./moincase -q -v -h
+  [ "$status" -eq 0 ]
+  [ "${lines[0]}" = "$help_moincase_0" ]
+  [ "${lines[1]}" = "$help_moincase_1" ]
+  [ "${lines[2]}" = "$help_moincase_2" ]
+  [ "${lines[3]}" = "$help_moincase_3" ]
+  [ "${lines[4]}" = "$help_moincase_4" ]
+  [ "${lines[5]}" = "$help_moincase_5" ]
+  [ "${lines[6]}" = "$help_moincase_6" ]
+  [ "${lines[7]}" = "$help_moincase_7" ]
+  [ "${lines[8]}" = "$help_moincase_8" ]
+  [ "$stderr" = "" ]
+}
+@test "moincase (flags: -v -q -h)" {
+  run --separate-stderr ./moincase -v -q -h
+  [ "$status" -eq 0 ]
+  [ "${lines[0]}" = "$help_moincase_0" ]
+  [ "${lines[1]}" = "$help_moincase_1" ]
+  [ "${lines[2]}" = "$help_moincase_2" ]
+  [ "${lines[3]}" = "$help_moincase_3" ]
+  [ "${lines[4]}" = "$help_moincase_4" ]
+  [ "${lines[5]}" = "$help_moincase_5" ]
+  [ "${lines[6]}" = "$help_moincase_6" ]
+  [ "${lines[7]}" = "$help_moincase_7" ]
+  [ "${lines[8]}" = "$help_moincase_8" ]
+  [ "$stderr" = "" ]
+}
+@test "moincase (flags: -q -h -v)" {
+  run --separate-stderr ./moincase -q -h -v
+  [ "$status" -eq 0 ]
+  [ "${lines[0]}" = "$help_moincase_0" ]
+  [ "${lines[1]}" = "$help_moincase_1" ]
+  [ "${lines[2]}" = "$help_moincase_2" ]
+  [ "${lines[3]}" = "$help_moincase_3" ]
+  [ "${lines[4]}" = "$help_moincase_4" ]
+  [ "${lines[5]}" = "$help_moincase_5" ]
+  [ "${lines[6]}" = "$help_moincase_6" ]
+  [ "${lines[7]}" = "$help_moincase_7" ]
+  [ "${lines[8]}" = "$help_moincase_8" ]
+  [ "$stderr" = "" ]
+}
+@test "moincase (flags: -v -h -q)" {
+  run --separate-stderr ./moincase -v -h -q
+  [ "$status" -eq 0 ]
+  [ "${lines[0]}" = "$help_moincase_0" ]
+  [ "${lines[1]}" = "$help_moincase_1" ]
+  [ "${lines[2]}" = "$help_moincase_2" ]
+  [ "${lines[3]}" = "$help_moincase_3" ]
+  [ "${lines[4]}" = "$help_moincase_4" ]
+  [ "${lines[5]}" = "$help_moincase_5" ]
+  [ "${lines[6]}" = "$help_moincase_6" ]
+  [ "${lines[7]}" = "$help_moincase_7" ]
+  [ "${lines[8]}" = "$help_moincase_8" ]
+  [ "$stderr" = "" ]
+}
+@test "moincase (flags: -h -q -v)" {
+  run --separate-stderr ./moincase -h -q -v
+  [ "$status" -eq 0 ]
+  [ "${lines[0]}" = "$help_moincase_0" ]
+  [ "${lines[1]}" = "$help_moincase_1" ]
+  [ "${lines[2]}" = "$help_moincase_2" ]
+  [ "${lines[3]}" = "$help_moincase_3" ]
+  [ "${lines[4]}" = "$help_moincase_4" ]
+  [ "${lines[5]}" = "$help_moincase_5" ]
+  [ "${lines[6]}" = "$help_moincase_6" ]
+  [ "${lines[7]}" = "$help_moincase_7" ]
+  [ "${lines[8]}" = "$help_moincase_8" ]
+  [ "$stderr" = "" ]
+}
+@test "moincase (flags: -h -v -q)" {
+  run --separate-stderr ./moincase -h -v -q
+  [ "$status" -eq 0 ]
+  [ "${lines[0]}" = "$help_moincase_0" ]
+  [ "${lines[1]}" = "$help_moincase_1" ]
+  [ "${lines[2]}" = "$help_moincase_2" ]
+  [ "${lines[3]}" = "$help_moincase_3" ]
+  [ "${lines[4]}" = "$help_moincase_4" ]
+  [ "${lines[5]}" = "$help_moincase_5" ]
+  [ "${lines[6]}" = "$help_moincase_6" ]
+  [ "${lines[7]}" = "$help_moincase_7" ]
+  [ "${lines[8]}" = "$help_moincase_8" ]
+  [ "$stderr" = "" ]
+}
+@test "moincase (flags: --help)" {
+  run --separate-stderr ./moincase --help
+  [ "$status" -eq 0 ]
+  [ "${lines[0]}" = "$help_moincase_0" ]
+  [ "${lines[1]}" = "$help_moincase_1" ]
+  [ "${lines[2]}" = "$help_moincase_2" ]
+  [ "${lines[3]}" = "$help_moincase_3" ]
+  [ "${lines[4]}" = "$help_moincase_4" ]
+  [ "${lines[5]}" = "$help_moincase_5" ]
+  [ "${lines[6]}" = "$help_moincase_6" ]
+  [ "${lines[7]}" = "$help_moincase_7" ]
+  [ "${lines[8]}" = "$help_moincase_8" ]
+  [ "$stderr" = "" ]
+}
+@test "moincase (flags: -q --help)" {
+  run --separate-stderr ./moincase -q --help
+  [ "$status" -eq 0 ]
+  [ "${lines[0]}" = "$help_moincase_0" ]
+  [ "${lines[1]}" = "$help_moincase_1" ]
+  [ "${lines[2]}" = "$help_moincase_2" ]
+  [ "${lines[3]}" = "$help_moincase_3" ]
+  [ "${lines[4]}" = "$help_moincase_4" ]
+  [ "${lines[5]}" = "$help_moincase_5" ]
+  [ "${lines[6]}" = "$help_moincase_6" ]
+  [ "${lines[7]}" = "$help_moincase_7" ]
+  [ "${lines[8]}" = "$help_moincase_8" ]
+  [ "$stderr" = "" ]
+}
+@test "moincase (flags: --help -q)" {
+  run --separate-stderr ./moincase --help -q
+  [ "$status" -eq 0 ]
+  [ "${lines[0]}" = "$help_moincase_0" ]
+  [ "${lines[1]}" = "$help_moincase_1" ]
+  [ "${lines[2]}" = "$help_moincase_2" ]
+  [ "${lines[3]}" = "$help_moincase_3" ]
+  [ "${lines[4]}" = "$help_moincase_4" ]
+  [ "${lines[5]}" = "$help_moincase_5" ]
+  [ "${lines[6]}" = "$help_moincase_6" ]
+  [ "${lines[7]}" = "$help_moincase_7" ]
+  [ "${lines[8]}" = "$help_moincase_8" ]
+  [ "$stderr" = "" ]
+}
+@test "moincase (flags: -v --help)" {
+  run --separate-stderr ./moincase -v --help
+  [ "$status" -eq 0 ]
+  [ "${lines[0]}" = "$help_moincase_0" ]
+  [ "${lines[1]}" = "$help_moincase_1" ]
+  [ "${lines[2]}" = "$help_moincase_2" ]
+  [ "${lines[3]}" = "$help_moincase_3" ]
+  [ "${lines[4]}" = "$help_moincase_4" ]
+  [ "${lines[5]}" = "$help_moincase_5" ]
+  [ "${lines[6]}" = "$help_moincase_6" ]
+  [ "${lines[7]}" = "$help_moincase_7" ]
+  [ "${lines[8]}" = "$help_moincase_8" ]
+  [ "$stderr" = "" ]
+}
+@test "moincase (flags: --help -v)" {
+  run --separate-stderr ./moincase --help -v
+  [ "$status" -eq 0 ]
+  [ "${lines[0]}" = "$help_moincase_0" ]
+  [ "${lines[1]}" = "$help_moincase_1" ]
+  [ "${lines[2]}" = "$help_moincase_2" ]
+  [ "${lines[3]}" = "$help_moincase_3" ]
+  [ "${lines[4]}" = "$help_moincase_4" ]
+  [ "${lines[5]}" = "$help_moincase_5" ]
+  [ "${lines[6]}" = "$help_moincase_6" ]
+  [ "${lines[7]}" = "$help_moincase_7" ]
+  [ "${lines[8]}" = "$help_moincase_8" ]
+  [ "$stderr" = "" ]
+}
+@test "moincase (flags: -q -v --help)" {
+  run --separate-stderr ./moincase -q -v --help
+  [ "$status" -eq 0 ]
+  [ "${lines[0]}" = "$help_moincase_0" ]
+  [ "${lines[1]}" = "$help_moincase_1" ]
+  [ "${lines[2]}" = "$help_moincase_2" ]
+  [ "${lines[3]}" = "$help_moincase_3" ]
+  [ "${lines[4]}" = "$help_moincase_4" ]
+  [ "${lines[5]}" = "$help_moincase_5" ]
+  [ "${lines[6]}" = "$help_moincase_6" ]
+  [ "${lines[7]}" = "$help_moincase_7" ]
+  [ "${lines[8]}" = "$help_moincase_8" ]
+  [ "$stderr" = "" ]
+}
+@test "moincase (flags: -v -q --help)" {
+  run --separate-stderr ./moincase -v -q --help
+  [ "$status" -eq 0 ]
+  [ "${lines[0]}" = "$help_moincase_0" ]
+  [ "${lines[1]}" = "$help_moincase_1" ]
+  [ "${lines[2]}" = "$help_moincase_2" ]
+  [ "${lines[3]}" = "$help_moincase_3" ]
+  [ "${lines[4]}" = "$help_moincase_4" ]
+  [ "${lines[5]}" = "$help_moincase_5" ]
+  [ "${lines[6]}" = "$help_moincase_6" ]
+  [ "${lines[7]}" = "$help_moincase_7" ]
+  [ "${lines[8]}" = "$help_moincase_8" ]
+  [ "$stderr" = "" ]
+}
+@test "moincase (flags: -q --help -v)" {
+  run --separate-stderr ./moincase -q --help -v
+  [ "$status" -eq 0 ]
+  [ "${lines[0]}" = "$help_moincase_0" ]
+  [ "${lines[1]}" = "$help_moincase_1" ]
+  [ "${lines[2]}" = "$help_moincase_2" ]
+  [ "${lines[3]}" = "$help_moincase_3" ]
+  [ "${lines[4]}" = "$help_moincase_4" ]
+  [ "${lines[5]}" = "$help_moincase_5" ]
+  [ "${lines[6]}" = "$help_moincase_6" ]
+  [ "${lines[7]}" = "$help_moincase_7" ]
+  [ "${lines[8]}" = "$help_moincase_8" ]
+  [ "$stderr" = "" ]
+}
+@test "moincase (flags: -v --help -q)" {
+  run --separate-stderr ./moincase -v --help -q
+  [ "$status" -eq 0 ]
+  [ "${lines[0]}" = "$help_moincase_0" ]
+  [ "${lines[1]}" = "$help_moincase_1" ]
+  [ "${lines[2]}" = "$help_moincase_2" ]
+  [ "${lines[3]}" = "$help_moincase_3" ]
+  [ "${lines[4]}" = "$help_moincase_4" ]
+  [ "${lines[5]}" = "$help_moincase_5" ]
+  [ "${lines[6]}" = "$help_moincase_6" ]
+  [ "${lines[7]}" = "$help_moincase_7" ]
+  [ "${lines[8]}" = "$help_moincase_8" ]
+  [ "$stderr" = "" ]
+}
+@test "moincase (flags: --help -q -v)" {
+  run --separate-stderr ./moincase --help -q -v
+  [ "$status" -eq 0 ]
+  [ "${lines[0]}" = "$help_moincase_0" ]
+  [ "${lines[1]}" = "$help_moincase_1" ]
+  [ "${lines[2]}" = "$help_moincase_2" ]
+  [ "${lines[3]}" = "$help_moincase_3" ]
+  [ "${lines[4]}" = "$help_moincase_4" ]
+  [ "${lines[5]}" = "$help_moincase_5" ]
+  [ "${lines[6]}" = "$help_moincase_6" ]
+  [ "${lines[7]}" = "$help_moincase_7" ]
+  [ "${lines[8]}" = "$help_moincase_8" ]
+  [ "$stderr" = "" ]
+}
+@test "moincase (flags: --help -v -q)" {
+  run --separate-stderr ./moincase --help -v -q
+  [ "$status" -eq 0 ]
+  [ "${lines[0]}" = "$help_moincase_0" ]
+  [ "${lines[1]}" = "$help_moincase_1" ]
+  [ "${lines[2]}" = "$help_moincase_2" ]
+  [ "${lines[3]}" = "$help_moincase_3" ]
+  [ "${lines[4]}" = "$help_moincase_4" ]
+  [ "${lines[5]}" = "$help_moincase_5" ]
+  [ "${lines[6]}" = "$help_moincase_6" ]
+  [ "${lines[7]}" = "$help_moincase_7" ]
+  [ "${lines[8]}" = "$help_moincase_8" ]
+  [ "$stderr" = "" ]
+}
+@test "moincase (flags: --quiet -h)" {
+  run --separate-stderr ./moincase --quiet -h
+  [ "$status" -eq 0 ]
+  [ "${lines[0]}" = "$help_moincase_0" ]
+  [ "${lines[1]}" = "$help_moincase_1" ]
+  [ "${lines[2]}" = "$help_moincase_2" ]
+  [ "${lines[3]}" = "$help_moincase_3" ]
+  [ "${lines[4]}" = "$help_moincase_4" ]
+  [ "${lines[5]}" = "$help_moincase_5" ]
+  [ "${lines[6]}" = "$help_moincase_6" ]
+  [ "${lines[7]}" = "$help_moincase_7" ]
+  [ "${lines[8]}" = "$help_moincase_8" ]
+  [ "$stderr" = "" ]
+}
+@test "moincase (flags: -h --quiet)" {
+  run --separate-stderr ./moincase -h --quiet
+  [ "$status" -eq 0 ]
+  [ "${lines[0]}" = "$help_moincase_0" ]
+  [ "${lines[1]}" = "$help_moincase_1" ]
+  [ "${lines[2]}" = "$help_moincase_2" ]
+  [ "${lines[3]}" = "$help_moincase_3" ]
+  [ "${lines[4]}" = "$help_moincase_4" ]
+  [ "${lines[5]}" = "$help_moincase_5" ]
+  [ "${lines[6]}" = "$help_moincase_6" ]
+  [ "${lines[7]}" = "$help_moincase_7" ]
+  [ "${lines[8]}" = "$help_moincase_8" ]
+  [ "$stderr" = "" ]
+}
+@test "moincase (flags: --quiet -v -h)" {
+  run --separate-stderr ./moincase --quiet -v -h
+  [ "$status" -eq 0 ]
+  [ "${lines[0]}" = "$help_moincase_0" ]
+  [ "${lines[1]}" = "$help_moincase_1" ]
+  [ "${lines[2]}" = "$help_moincase_2" ]
+  [ "${lines[3]}" = "$help_moincase_3" ]
+  [ "${lines[4]}" = "$help_moincase_4" ]
+  [ "${lines[5]}" = "$help_moincase_5" ]
+  [ "${lines[6]}" = "$help_moincase_6" ]
+  [ "${lines[7]}" = "$help_moincase_7" ]
+  [ "${lines[8]}" = "$help_moincase_8" ]
+  [ "$stderr" = "" ]
+}
+@test "moincase (flags: -v --quiet -h)" {
+  run --separate-stderr ./moincase -v --quiet -h
+  [ "$status" -eq 0 ]
+  [ "${lines[0]}" = "$help_moincase_0" ]
+  [ "${lines[1]}" = "$help_moincase_1" ]
+  [ "${lines[2]}" = "$help_moincase_2" ]
+  [ "${lines[3]}" = "$help_moincase_3" ]
+  [ "${lines[4]}" = "$help_moincase_4" ]
+  [ "${lines[5]}" = "$help_moincase_5" ]
+  [ "${lines[6]}" = "$help_moincase_6" ]
+  [ "${lines[7]}" = "$help_moincase_7" ]
+  [ "${lines[8]}" = "$help_moincase_8" ]
+  [ "$stderr" = "" ]
+}
+@test "moincase (flags: --quiet -h -v)" {
+  run --separate-stderr ./moincase --quiet -h -v
+  [ "$status" -eq 0 ]
+  [ "${lines[0]}" = "$help_moincase_0" ]
+  [ "${lines[1]}" = "$help_moincase_1" ]
+  [ "${lines[2]}" = "$help_moincase_2" ]
+  [ "${lines[3]}" = "$help_moincase_3" ]
+  [ "${lines[4]}" = "$help_moincase_4" ]
+  [ "${lines[5]}" = "$help_moincase_5" ]
+  [ "${lines[6]}" = "$help_moincase_6" ]
+  [ "${lines[7]}" = "$help_moincase_7" ]
+  [ "${lines[8]}" = "$help_moincase_8" ]
+  [ "$stderr" = "" ]
+}
+@test "moincase (flags: -v -h --quiet)" {
+  run --separate-stderr ./moincase -v -h --quiet
+  [ "$status" -eq 0 ]
+  [ "${lines[0]}" = "$help_moincase_0" ]
+  [ "${lines[1]}" = "$help_moincase_1" ]
+  [ "${lines[2]}" = "$help_moincase_2" ]
+  [ "${lines[3]}" = "$help_moincase_3" ]
+  [ "${lines[4]}" = "$help_moincase_4" ]
+  [ "${lines[5]}" = "$help_moincase_5" ]
+  [ "${lines[6]}" = "$help_moincase_6" ]
+  [ "${lines[7]}" = "$help_moincase_7" ]
+  [ "${lines[8]}" = "$help_moincase_8" ]
+  [ "$stderr" = "" ]
+}
+@test "moincase (flags: -h --quiet -v)" {
+  run --separate-stderr ./moincase -h --quiet -v
+  [ "$status" -eq 0 ]
+  [ "${lines[0]}" = "$help_moincase_0" ]
+  [ "${lines[1]}" = "$help_moincase_1" ]
+  [ "${lines[2]}" = "$help_moincase_2" ]
+  [ "${lines[3]}" = "$help_moincase_3" ]
+  [ "${lines[4]}" = "$help_moincase_4" ]
+  [ "${lines[5]}" = "$help_moincase_5" ]
+  [ "${lines[6]}" = "$help_moincase_6" ]
+  [ "${lines[7]}" = "$help_moincase_7" ]
+  [ "${lines[8]}" = "$help_moincase_8" ]
+  [ "$stderr" = "" ]
+}
+@test "moincase (flags: -h -v --quiet)" {
+  run --separate-stderr ./moincase -h -v --quiet
+  [ "$status" -eq 0 ]
+  [ "${lines[0]}" = "$help_moincase_0" ]
+  [ "${lines[1]}" = "$help_moincase_1" ]
+  [ "${lines[2]}" = "$help_moincase_2" ]
+  [ "${lines[3]}" = "$help_moincase_3" ]
+  [ "${lines[4]}" = "$help_moincase_4" ]
+  [ "${lines[5]}" = "$help_moincase_5" ]
+  [ "${lines[6]}" = "$help_moincase_6" ]
+  [ "${lines[7]}" = "$help_moincase_7" ]
+  [ "${lines[8]}" = "$help_moincase_8" ]
+  [ "$stderr" = "" ]
+}
+@test "moincase (flags: --verbose -h)" {
+  run --separate-stderr ./moincase --verbose -h
+  [ "$status" -eq 0 ]
+  [ "${lines[0]}" = "$help_moincase_0" ]
+  [ "${lines[1]}" = "$help_moincase_1" ]
+  [ "${lines[2]}" = "$help_moincase_2" ]
+  [ "${lines[3]}" = "$help_moincase_3" ]
+  [ "${lines[4]}" = "$help_moincase_4" ]
+  [ "${lines[5]}" = "$help_moincase_5" ]
+  [ "${lines[6]}" = "$help_moincase_6" ]
+  [ "${lines[7]}" = "$help_moincase_7" ]
+  [ "${lines[8]}" = "$help_moincase_8" ]
+  [ "$stderr" = "" ]
+}
+@test "moincase (flags: -h --verbose)" {
+  run --separate-stderr ./moincase -h --verbose
+  [ "$status" -eq 0 ]
+  [ "${lines[0]}" = "$help_moincase_0" ]
+  [ "${lines[1]}" = "$help_moincase_1" ]
+  [ "${lines[2]}" = "$help_moincase_2" ]
+  [ "${lines[3]}" = "$help_moincase_3" ]
+  [ "${lines[4]}" = "$help_moincase_4" ]
+  [ "${lines[5]}" = "$help_moincase_5" ]
+  [ "${lines[6]}" = "$help_moincase_6" ]
+  [ "${lines[7]}" = "$help_moincase_7" ]
+  [ "${lines[8]}" = "$help_moincase_8" ]
+  [ "$stderr" = "" ]
+}
+@test "moincase (flags: -q --verbose -h)" {
+  run --separate-stderr ./moincase -q --verbose -h
+  [ "$status" -eq 0 ]
+  [ "${lines[0]}" = "$help_moincase_0" ]
+  [ "${lines[1]}" = "$help_moincase_1" ]
+  [ "${lines[2]}" = "$help_moincase_2" ]
+  [ "${lines[3]}" = "$help_moincase_3" ]
+  [ "${lines[4]}" = "$help_moincase_4" ]
+  [ "${lines[5]}" = "$help_moincase_5" ]
+  [ "${lines[6]}" = "$help_moincase_6" ]
+  [ "${lines[7]}" = "$help_moincase_7" ]
+  [ "${lines[8]}" = "$help_moincase_8" ]
+  [ "$stderr" = "" ]
+}
+@test "moincase (flags: --verbose -q -h)" {
+  run --separate-stderr ./moincase --verbose -q -h
+  [ "$status" -eq 0 ]
+  [ "${lines[0]}" = "$help_moincase_0" ]
+  [ "${lines[1]}" = "$help_moincase_1" ]
+  [ "${lines[2]}" = "$help_moincase_2" ]
+  [ "${lines[3]}" = "$help_moincase_3" ]
+  [ "${lines[4]}" = "$help_moincase_4" ]
+  [ "${lines[5]}" = "$help_moincase_5" ]
+  [ "${lines[6]}" = "$help_moincase_6" ]
+  [ "${lines[7]}" = "$help_moincase_7" ]
+  [ "${lines[8]}" = "$help_moincase_8" ]
+  [ "$stderr" = "" ]
+}
+@test "moincase (flags: -q -h --verbose)" {
+  run --separate-stderr ./moincase -q -h --verbose
+  [ "$status" -eq 0 ]
+  [ "${lines[0]}" = "$help_moincase_0" ]
+  [ "${lines[1]}" = "$help_moincase_1" ]
+  [ "${lines[2]}" = "$help_moincase_2" ]
+  [ "${lines[3]}" = "$help_moincase_3" ]
+  [ "${lines[4]}" = "$help_moincase_4" ]
+  [ "${lines[5]}" = "$help_moincase_5" ]
+  [ "${lines[6]}" = "$help_moincase_6" ]
+  [ "${lines[7]}" = "$help_moincase_7" ]
+  [ "${lines[8]}" = "$help_moincase_8" ]
+  [ "$stderr" = "" ]
+}
+@test "moincase (flags: --verbose -h -q)" {
+  run --separate-stderr ./moincase --verbose -h -q
+  [ "$status" -eq 0 ]
+  [ "${lines[0]}" = "$help_moincase_0" ]
+  [ "${lines[1]}" = "$help_moincase_1" ]
+  [ "${lines[2]}" = "$help_moincase_2" ]
+  [ "${lines[3]}" = "$help_moincase_3" ]
+  [ "${lines[4]}" = "$help_moincase_4" ]
+  [ "${lines[5]}" = "$help_moincase_5" ]
+  [ "${lines[6]}" = "$help_moincase_6" ]
+  [ "${lines[7]}" = "$help_moincase_7" ]
+  [ "${lines[8]}" = "$help_moincase_8" ]
+  [ "$stderr" = "" ]
+}
+@test "moincase (flags: -h -q --verbose)" {
+  run --separate-stderr ./moincase -h -q --verbose
+  [ "$status" -eq 0 ]
+  [ "${lines[0]}" = "$help_moincase_0" ]
+  [ "${lines[1]}" = "$help_moincase_1" ]
+  [ "${lines[2]}" = "$help_moincase_2" ]
+  [ "${lines[3]}" = "$help_moincase_3" ]
+  [ "${lines[4]}" = "$help_moincase_4" ]
+  [ "${lines[5]}" = "$help_moincase_5" ]
+  [ "${lines[6]}" = "$help_moincase_6" ]
+  [ "${lines[7]}" = "$help_moincase_7" ]
+  [ "${lines[8]}" = "$help_moincase_8" ]
+  [ "$stderr" = "" ]
+}
+@test "moincase (flags: -h --verbose -q)" {
+  run --separate-stderr ./moincase -h --verbose -q
+  [ "$status" -eq 0 ]
+  [ "${lines[0]}" = "$help_moincase_0" ]
+  [ "${lines[1]}" = "$help_moincase_1" ]
+  [ "${lines[2]}" = "$help_moincase_2" ]
+  [ "${lines[3]}" = "$help_moincase_3" ]
+  [ "${lines[4]}" = "$help_moincase_4" ]
+  [ "${lines[5]}" = "$help_moincase_5" ]
+  [ "${lines[6]}" = "$help_moincase_6" ]
+  [ "${lines[7]}" = "$help_moincase_7" ]
+  [ "${lines[8]}" = "$help_moincase_8" ]
+  [ "$stderr" = "" ]
+}
+@test "moincase (flags: --quiet --help)" {
+  run --separate-stderr ./moincase --quiet --help
+  [ "$status" -eq 0 ]
+  [ "${lines[0]}" = "$help_moincase_0" ]
+  [ "${lines[1]}" = "$help_moincase_1" ]
+  [ "${lines[2]}" = "$help_moincase_2" ]
+  [ "${lines[3]}" = "$help_moincase_3" ]
+  [ "${lines[4]}" = "$help_moincase_4" ]
+  [ "${lines[5]}" = "$help_moincase_5" ]
+  [ "${lines[6]}" = "$help_moincase_6" ]
+  [ "${lines[7]}" = "$help_moincase_7" ]
+  [ "${lines[8]}" = "$help_moincase_8" ]
+  [ "$stderr" = "" ]
+}
+@test "moincase (flags: --help --quiet)" {
+  run --separate-stderr ./moincase --help --quiet
+  [ "$status" -eq 0 ]
+  [ "${lines[0]}" = "$help_moincase_0" ]
+  [ "${lines[1]}" = "$help_moincase_1" ]
+  [ "${lines[2]}" = "$help_moincase_2" ]
+  [ "${lines[3]}" = "$help_moincase_3" ]
+  [ "${lines[4]}" = "$help_moincase_4" ]
+  [ "${lines[5]}" = "$help_moincase_5" ]
+  [ "${lines[6]}" = "$help_moincase_6" ]
+  [ "${lines[7]}" = "$help_moincase_7" ]
+  [ "${lines[8]}" = "$help_moincase_8" ]
+  [ "$stderr" = "" ]
+}
+@test "moincase (flags: --quiet -v --help)" {
+  run --separate-stderr ./moincase --quiet -v --help
+  [ "$status" -eq 0 ]
+  [ "${lines[0]}" = "$help_moincase_0" ]
+  [ "${lines[1]}" = "$help_moincase_1" ]
+  [ "${lines[2]}" = "$help_moincase_2" ]
+  [ "${lines[3]}" = "$help_moincase_3" ]
+  [ "${lines[4]}" = "$help_moincase_4" ]
+  [ "${lines[5]}" = "$help_moincase_5" ]
+  [ "${lines[6]}" = "$help_moincase_6" ]
+  [ "${lines[7]}" = "$help_moincase_7" ]
+  [ "${lines[8]}" = "$help_moincase_8" ]
+  [ "$stderr" = "" ]
+}
+@test "moincase (flags: -v --quiet --help)" {
+  run --separate-stderr ./moincase -v --quiet --help
+  [ "$status" -eq 0 ]
+  [ "${lines[0]}" = "$help_moincase_0" ]
+  [ "${lines[1]}" = "$help_moincase_1" ]
+  [ "${lines[2]}" = "$help_moincase_2" ]
+  [ "${lines[3]}" = "$help_moincase_3" ]
+  [ "${lines[4]}" = "$help_moincase_4" ]
+  [ "${lines[5]}" = "$help_moincase_5" ]
+  [ "${lines[6]}" = "$help_moincase_6" ]
+  [ "${lines[7]}" = "$help_moincase_7" ]
+  [ "${lines[8]}" = "$help_moincase_8" ]
+  [ "$stderr" = "" ]
+}
+@test "moincase (flags: --quiet --help -v)" {
+  run --separate-stderr ./moincase --quiet --help -v
+  [ "$status" -eq 0 ]
+  [ "${lines[0]}" = "$help_moincase_0" ]
+  [ "${lines[1]}" = "$help_moincase_1" ]
+  [ "${lines[2]}" = "$help_moincase_2" ]
+  [ "${lines[3]}" = "$help_moincase_3" ]
+  [ "${lines[4]}" = "$help_moincase_4" ]
+  [ "${lines[5]}" = "$help_moincase_5" ]
+  [ "${lines[6]}" = "$help_moincase_6" ]
+  [ "${lines[7]}" = "$help_moincase_7" ]
+  [ "${lines[8]}" = "$help_moincase_8" ]
+  [ "$stderr" = "" ]
+}
+@test "moincase (flags: -v --help --quiet)" {
+  run --separate-stderr ./moincase -v --help --quiet
+  [ "$status" -eq 0 ]
+  [ "${lines[0]}" = "$help_moincase_0" ]
+  [ "${lines[1]}" = "$help_moincase_1" ]
+  [ "${lines[2]}" = "$help_moincase_2" ]
+  [ "${lines[3]}" = "$help_moincase_3" ]
+  [ "${lines[4]}" = "$help_moincase_4" ]
+  [ "${lines[5]}" = "$help_moincase_5" ]
+  [ "${lines[6]}" = "$help_moincase_6" ]
+  [ "${lines[7]}" = "$help_moincase_7" ]
+  [ "${lines[8]}" = "$help_moincase_8" ]
+  [ "$stderr" = "" ]
+}
+@test "moincase (flags: --help --quiet -v)" {
+  run --separate-stderr ./moincase --help --quiet -v
+  [ "$status" -eq 0 ]
+  [ "${lines[0]}" = "$help_moincase_0" ]
+  [ "${lines[1]}" = "$help_moincase_1" ]
+  [ "${lines[2]}" = "$help_moincase_2" ]
+  [ "${lines[3]}" = "$help_moincase_3" ]
+  [ "${lines[4]}" = "$help_moincase_4" ]
+  [ "${lines[5]}" = "$help_moincase_5" ]
+  [ "${lines[6]}" = "$help_moincase_6" ]
+  [ "${lines[7]}" = "$help_moincase_7" ]
+  [ "${lines[8]}" = "$help_moincase_8" ]
+  [ "$stderr" = "" ]
+}
+@test "moincase (flags: --help -v --quiet)" {
+  run --separate-stderr ./moincase --help -v --quiet
+  [ "$status" -eq 0 ]
+  [ "${lines[0]}" = "$help_moincase_0" ]
+  [ "${lines[1]}" = "$help_moincase_1" ]
+  [ "${lines[2]}" = "$help_moincase_2" ]
+  [ "${lines[3]}" = "$help_moincase_3" ]
+  [ "${lines[4]}" = "$help_moincase_4" ]
+  [ "${lines[5]}" = "$help_moincase_5" ]
+  [ "${lines[6]}" = "$help_moincase_6" ]
+  [ "${lines[7]}" = "$help_moincase_7" ]
+  [ "${lines[8]}" = "$help_moincase_8" ]
+  [ "$stderr" = "" ]
+}
+@test "moincase (flags: --verbose --help)" {
+  run --separate-stderr ./moincase --verbose --help
+  [ "$status" -eq 0 ]
+  [ "${lines[0]}" = "$help_moincase_0" ]
+  [ "${lines[1]}" = "$help_moincase_1" ]
+  [ "${lines[2]}" = "$help_moincase_2" ]
+  [ "${lines[3]}" = "$help_moincase_3" ]
+  [ "${lines[4]}" = "$help_moincase_4" ]
+  [ "${lines[5]}" = "$help_moincase_5" ]
+  [ "${lines[6]}" = "$help_moincase_6" ]
+  [ "${lines[7]}" = "$help_moincase_7" ]
+  [ "${lines[8]}" = "$help_moincase_8" ]
+  [ "$stderr" = "" ]
+}
+@test "moincase (flags: --help --verbose)" {
+  run --separate-stderr ./moincase --help --verbose
+  [ "$status" -eq 0 ]
+  [ "${lines[0]}" = "$help_moincase_0" ]
+  [ "${lines[1]}" = "$help_moincase_1" ]
+  [ "${lines[2]}" = "$help_moincase_2" ]
+  [ "${lines[3]}" = "$help_moincase_3" ]
+  [ "${lines[4]}" = "$help_moincase_4" ]
+  [ "${lines[5]}" = "$help_moincase_5" ]
+  [ "${lines[6]}" = "$help_moincase_6" ]
+  [ "${lines[7]}" = "$help_moincase_7" ]
+  [ "${lines[8]}" = "$help_moincase_8" ]
+  [ "$stderr" = "" ]
+}
+@test "moincase (flags: -q --verbose --help)" {
+  run --separate-stderr ./moincase -q --verbose --help
+  [ "$status" -eq 0 ]
+  [ "${lines[0]}" = "$help_moincase_0" ]
+  [ "${lines[1]}" = "$help_moincase_1" ]
+  [ "${lines[2]}" = "$help_moincase_2" ]
+  [ "${lines[3]}" = "$help_moincase_3" ]
+  [ "${lines[4]}" = "$help_moincase_4" ]
+  [ "${lines[5]}" = "$help_moincase_5" ]
+  [ "${lines[6]}" = "$help_moincase_6" ]
+  [ "${lines[7]}" = "$help_moincase_7" ]
+  [ "${lines[8]}" = "$help_moincase_8" ]
+  [ "$stderr" = "" ]
+}
+@test "moincase (flags: --verbose -q --help)" {
+  run --separate-stderr ./moincase --verbose -q --help
+  [ "$status" -eq 0 ]
+  [ "${lines[0]}" = "$help_moincase_0" ]
+  [ "${lines[1]}" = "$help_moincase_1" ]
+  [ "${lines[2]}" = "$help_moincase_2" ]
+  [ "${lines[3]}" = "$help_moincase_3" ]
+  [ "${lines[4]}" = "$help_moincase_4" ]
+  [ "${lines[5]}" = "$help_moincase_5" ]
+  [ "${lines[6]}" = "$help_moincase_6" ]
+  [ "${lines[7]}" = "$help_moincase_7" ]
+  [ "${lines[8]}" = "$help_moincase_8" ]
+  [ "$stderr" = "" ]
+}
+@test "moincase (flags: -q --help --verbose)" {
+  run --separate-stderr ./moincase -q --help --verbose
+  [ "$status" -eq 0 ]
+  [ "${lines[0]}" = "$help_moincase_0" ]
+  [ "${lines[1]}" = "$help_moincase_1" ]
+  [ "${lines[2]}" = "$help_moincase_2" ]
+  [ "${lines[3]}" = "$help_moincase_3" ]
+  [ "${lines[4]}" = "$help_moincase_4" ]
+  [ "${lines[5]}" = "$help_moincase_5" ]
+  [ "${lines[6]}" = "$help_moincase_6" ]
+  [ "${lines[7]}" = "$help_moincase_7" ]
+  [ "${lines[8]}" = "$help_moincase_8" ]
+  [ "$stderr" = "" ]
+}
+@test "moincase (flags: --verbose --help -q)" {
+  run --separate-stderr ./moincase --verbose --help -q
+  [ "$status" -eq 0 ]
+  [ "${lines[0]}" = "$help_moincase_0" ]
+  [ "${lines[1]}" = "$help_moincase_1" ]
+  [ "${lines[2]}" = "$help_moincase_2" ]
+  [ "${lines[3]}" = "$help_moincase_3" ]
+  [ "${lines[4]}" = "$help_moincase_4" ]
+  [ "${lines[5]}" = "$help_moincase_5" ]
+  [ "${lines[6]}" = "$help_moincase_6" ]
+  [ "${lines[7]}" = "$help_moincase_7" ]
+  [ "${lines[8]}" = "$help_moincase_8" ]
+  [ "$stderr" = "" ]
+}
+@test "moincase (flags: --help -q --verbose)" {
+  run --separate-stderr ./moincase --help -q --verbose
+  [ "$status" -eq 0 ]
+  [ "${lines[0]}" = "$help_moincase_0" ]
+  [ "${lines[1]}" = "$help_moincase_1" ]
+  [ "${lines[2]}" = "$help_moincase_2" ]
+  [ "${lines[3]}" = "$help_moincase_3" ]
+  [ "${lines[4]}" = "$help_moincase_4" ]
+  [ "${lines[5]}" = "$help_moincase_5" ]
+  [ "${lines[6]}" = "$help_moincase_6" ]
+  [ "${lines[7]}" = "$help_moincase_7" ]
+  [ "${lines[8]}" = "$help_moincase_8" ]
+  [ "$stderr" = "" ]
+}
+@test "moincase (flags: --help --verbose -q)" {
+  run --separate-stderr ./moincase --help --verbose -q
+  [ "$status" -eq 0 ]
+  [ "${lines[0]}" = "$help_moincase_0" ]
+  [ "${lines[1]}" = "$help_moincase_1" ]
+  [ "${lines[2]}" = "$help_moincase_2" ]
+  [ "${lines[3]}" = "$help_moincase_3" ]
+  [ "${lines[4]}" = "$help_moincase_4" ]
+  [ "${lines[5]}" = "$help_moincase_5" ]
+  [ "${lines[6]}" = "$help_moincase_6" ]
+  [ "${lines[7]}" = "$help_moincase_7" ]
+  [ "${lines[8]}" = "$help_moincase_8" ]
+  [ "$stderr" = "" ]
+}
+@test "moincase (flags: --quiet --verbose --help)" {
+  run --separate-stderr ./moincase --quiet --verbose --help
+  [ "$status" -eq 0 ]
+  [ "${lines[0]}" = "$help_moincase_0" ]
+  [ "${lines[1]}" = "$help_moincase_1" ]
+  [ "${lines[2]}" = "$help_moincase_2" ]
+  [ "${lines[3]}" = "$help_moincase_3" ]
+  [ "${lines[4]}" = "$help_moincase_4" ]
+  [ "${lines[5]}" = "$help_moincase_5" ]
+  [ "${lines[6]}" = "$help_moincase_6" ]
+  [ "${lines[7]}" = "$help_moincase_7" ]
+  [ "${lines[8]}" = "$help_moincase_8" ]
+  [ "$stderr" = "" ]
+}
+@test "moincase (flags: --verbose --quiet --help)" {
+  run --separate-stderr ./moincase --verbose --quiet --help
+  [ "$status" -eq 0 ]
+  [ "${lines[0]}" = "$help_moincase_0" ]
+  [ "${lines[1]}" = "$help_moincase_1" ]
+  [ "${lines[2]}" = "$help_moincase_2" ]
+  [ "${lines[3]}" = "$help_moincase_3" ]
+  [ "${lines[4]}" = "$help_moincase_4" ]
+  [ "${lines[5]}" = "$help_moincase_5" ]
+  [ "${lines[6]}" = "$help_moincase_6" ]
+  [ "${lines[7]}" = "$help_moincase_7" ]
+  [ "${lines[8]}" = "$help_moincase_8" ]
+  [ "$stderr" = "" ]
+}
+@test "moincase (flags: --quiet --help --verbose)" {
+  run --separate-stderr ./moincase --quiet --help --verbose
+  [ "$status" -eq 0 ]
+  [ "${lines[0]}" = "$help_moincase_0" ]
+  [ "${lines[1]}" = "$help_moincase_1" ]
+  [ "${lines[2]}" = "$help_moincase_2" ]
+  [ "${lines[3]}" = "$help_moincase_3" ]
+  [ "${lines[4]}" = "$help_moincase_4" ]
+  [ "${lines[5]}" = "$help_moincase_5" ]
+  [ "${lines[6]}" = "$help_moincase_6" ]
+  [ "${lines[7]}" = "$help_moincase_7" ]
+  [ "${lines[8]}" = "$help_moincase_8" ]
+  [ "$stderr" = "" ]
+}
+@test "moincase (flags: --verbose --help --quiet)" {
+  run --separate-stderr ./moincase --verbose --help --quiet
+  [ "$status" -eq 0 ]
+  [ "${lines[0]}" = "$help_moincase_0" ]
+  [ "${lines[1]}" = "$help_moincase_1" ]
+  [ "${lines[2]}" = "$help_moincase_2" ]
+  [ "${lines[3]}" = "$help_moincase_3" ]
+  [ "${lines[4]}" = "$help_moincase_4" ]
+  [ "${lines[5]}" = "$help_moincase_5" ]
+  [ "${lines[6]}" = "$help_moincase_6" ]
+  [ "${lines[7]}" = "$help_moincase_7" ]
+  [ "${lines[8]}" = "$help_moincase_8" ]
+  [ "$stderr" = "" ]
+}
+@test "moincase (flags: --help --quiet --verbose)" {
+  run --separate-stderr ./moincase --help --quiet --verbose
+  [ "$status" -eq 0 ]
+  [ "${lines[0]}" = "$help_moincase_0" ]
+  [ "${lines[1]}" = "$help_moincase_1" ]
+  [ "${lines[2]}" = "$help_moincase_2" ]
+  [ "${lines[3]}" = "$help_moincase_3" ]
+  [ "${lines[4]}" = "$help_moincase_4" ]
+  [ "${lines[5]}" = "$help_moincase_5" ]
+  [ "${lines[6]}" = "$help_moincase_6" ]
+  [ "${lines[7]}" = "$help_moincase_7" ]
+  [ "${lines[8]}" = "$help_moincase_8" ]
+  [ "$stderr" = "" ]
+}
+@test "moincase (flags: --help --verbose --quiet)" {
+  run --separate-stderr ./moincase --help --verbose --quiet
+  [ "$status" -eq 0 ]
+  [ "${lines[0]}" = "$help_moincase_0" ]
+  [ "${lines[1]}" = "$help_moincase_1" ]
+  [ "${lines[2]}" = "$help_moincase_2" ]
+  [ "${lines[3]}" = "$help_moincase_3" ]
+  [ "${lines[4]}" = "$help_moincase_4" ]
+  [ "${lines[5]}" = "$help_moincase_5" ]
+  [ "${lines[6]}" = "$help_moincase_6" ]
+  [ "${lines[7]}" = "$help_moincase_7" ]
+  [ "${lines[8]}" = "$help_moincase_8" ]
+  [ "$stderr" = "" ]
+}
 @test "overdot (flags: -h)" {
   run --separate-stderr ./overdot -h
   [ "$status" -eq 0 ]
@@ -7859,5 +9479,845 @@ load fixtures.sh
   [ "${lines[5]}" = "$help_overline_5" ]
   [ "${lines[6]}" = "$help_overline_6" ]
   [ "${lines[7]}" = "$help_overline_7" ]
+  [ "$stderr" = "" ]
+}
+@test "titlecase (flags: -h)" {
+  run --separate-stderr ./titlecase -h
+  [ "$status" -eq 0 ]
+  [ "${lines[0]}" = "$help_titlecase_0" ]
+  [ "${lines[1]}" = "$help_titlecase_1" ]
+  [ "${lines[2]}" = "$help_titlecase_2" ]
+  [ "${lines[3]}" = "$help_titlecase_3" ]
+  [ "${lines[4]}" = "$help_titlecase_4" ]
+  [ "${lines[5]}" = "$help_titlecase_5" ]
+  [ "${lines[6]}" = "$help_titlecase_6" ]
+  [ "${lines[7]}" = "$help_titlecase_7" ]
+  [ "${lines[8]}" = "$help_titlecase_8" ]
+  [ "$stderr" = "" ]
+}
+@test "titlecase (flags: -q -h)" {
+  run --separate-stderr ./titlecase -q -h
+  [ "$status" -eq 0 ]
+  [ "${lines[0]}" = "$help_titlecase_0" ]
+  [ "${lines[1]}" = "$help_titlecase_1" ]
+  [ "${lines[2]}" = "$help_titlecase_2" ]
+  [ "${lines[3]}" = "$help_titlecase_3" ]
+  [ "${lines[4]}" = "$help_titlecase_4" ]
+  [ "${lines[5]}" = "$help_titlecase_5" ]
+  [ "${lines[6]}" = "$help_titlecase_6" ]
+  [ "${lines[7]}" = "$help_titlecase_7" ]
+  [ "${lines[8]}" = "$help_titlecase_8" ]
+  [ "$stderr" = "" ]
+}
+@test "titlecase (flags: -h -q)" {
+  run --separate-stderr ./titlecase -h -q
+  [ "$status" -eq 0 ]
+  [ "${lines[0]}" = "$help_titlecase_0" ]
+  [ "${lines[1]}" = "$help_titlecase_1" ]
+  [ "${lines[2]}" = "$help_titlecase_2" ]
+  [ "${lines[3]}" = "$help_titlecase_3" ]
+  [ "${lines[4]}" = "$help_titlecase_4" ]
+  [ "${lines[5]}" = "$help_titlecase_5" ]
+  [ "${lines[6]}" = "$help_titlecase_6" ]
+  [ "${lines[7]}" = "$help_titlecase_7" ]
+  [ "${lines[8]}" = "$help_titlecase_8" ]
+  [ "$stderr" = "" ]
+}
+@test "titlecase (flags: -v -h)" {
+  run --separate-stderr ./titlecase -v -h
+  [ "$status" -eq 0 ]
+  [ "${lines[0]}" = "$help_titlecase_0" ]
+  [ "${lines[1]}" = "$help_titlecase_1" ]
+  [ "${lines[2]}" = "$help_titlecase_2" ]
+  [ "${lines[3]}" = "$help_titlecase_3" ]
+  [ "${lines[4]}" = "$help_titlecase_4" ]
+  [ "${lines[5]}" = "$help_titlecase_5" ]
+  [ "${lines[6]}" = "$help_titlecase_6" ]
+  [ "${lines[7]}" = "$help_titlecase_7" ]
+  [ "${lines[8]}" = "$help_titlecase_8" ]
+  [ "$stderr" = "" ]
+}
+@test "titlecase (flags: -h -v)" {
+  run --separate-stderr ./titlecase -h -v
+  [ "$status" -eq 0 ]
+  [ "${lines[0]}" = "$help_titlecase_0" ]
+  [ "${lines[1]}" = "$help_titlecase_1" ]
+  [ "${lines[2]}" = "$help_titlecase_2" ]
+  [ "${lines[3]}" = "$help_titlecase_3" ]
+  [ "${lines[4]}" = "$help_titlecase_4" ]
+  [ "${lines[5]}" = "$help_titlecase_5" ]
+  [ "${lines[6]}" = "$help_titlecase_6" ]
+  [ "${lines[7]}" = "$help_titlecase_7" ]
+  [ "${lines[8]}" = "$help_titlecase_8" ]
+  [ "$stderr" = "" ]
+}
+@test "titlecase (flags: -q -v -h)" {
+  run --separate-stderr ./titlecase -q -v -h
+  [ "$status" -eq 0 ]
+  [ "${lines[0]}" = "$help_titlecase_0" ]
+  [ "${lines[1]}" = "$help_titlecase_1" ]
+  [ "${lines[2]}" = "$help_titlecase_2" ]
+  [ "${lines[3]}" = "$help_titlecase_3" ]
+  [ "${lines[4]}" = "$help_titlecase_4" ]
+  [ "${lines[5]}" = "$help_titlecase_5" ]
+  [ "${lines[6]}" = "$help_titlecase_6" ]
+  [ "${lines[7]}" = "$help_titlecase_7" ]
+  [ "${lines[8]}" = "$help_titlecase_8" ]
+  [ "$stderr" = "" ]
+}
+@test "titlecase (flags: -v -q -h)" {
+  run --separate-stderr ./titlecase -v -q -h
+  [ "$status" -eq 0 ]
+  [ "${lines[0]}" = "$help_titlecase_0" ]
+  [ "${lines[1]}" = "$help_titlecase_1" ]
+  [ "${lines[2]}" = "$help_titlecase_2" ]
+  [ "${lines[3]}" = "$help_titlecase_3" ]
+  [ "${lines[4]}" = "$help_titlecase_4" ]
+  [ "${lines[5]}" = "$help_titlecase_5" ]
+  [ "${lines[6]}" = "$help_titlecase_6" ]
+  [ "${lines[7]}" = "$help_titlecase_7" ]
+  [ "${lines[8]}" = "$help_titlecase_8" ]
+  [ "$stderr" = "" ]
+}
+@test "titlecase (flags: -q -h -v)" {
+  run --separate-stderr ./titlecase -q -h -v
+  [ "$status" -eq 0 ]
+  [ "${lines[0]}" = "$help_titlecase_0" ]
+  [ "${lines[1]}" = "$help_titlecase_1" ]
+  [ "${lines[2]}" = "$help_titlecase_2" ]
+  [ "${lines[3]}" = "$help_titlecase_3" ]
+  [ "${lines[4]}" = "$help_titlecase_4" ]
+  [ "${lines[5]}" = "$help_titlecase_5" ]
+  [ "${lines[6]}" = "$help_titlecase_6" ]
+  [ "${lines[7]}" = "$help_titlecase_7" ]
+  [ "${lines[8]}" = "$help_titlecase_8" ]
+  [ "$stderr" = "" ]
+}
+@test "titlecase (flags: -v -h -q)" {
+  run --separate-stderr ./titlecase -v -h -q
+  [ "$status" -eq 0 ]
+  [ "${lines[0]}" = "$help_titlecase_0" ]
+  [ "${lines[1]}" = "$help_titlecase_1" ]
+  [ "${lines[2]}" = "$help_titlecase_2" ]
+  [ "${lines[3]}" = "$help_titlecase_3" ]
+  [ "${lines[4]}" = "$help_titlecase_4" ]
+  [ "${lines[5]}" = "$help_titlecase_5" ]
+  [ "${lines[6]}" = "$help_titlecase_6" ]
+  [ "${lines[7]}" = "$help_titlecase_7" ]
+  [ "${lines[8]}" = "$help_titlecase_8" ]
+  [ "$stderr" = "" ]
+}
+@test "titlecase (flags: -h -q -v)" {
+  run --separate-stderr ./titlecase -h -q -v
+  [ "$status" -eq 0 ]
+  [ "${lines[0]}" = "$help_titlecase_0" ]
+  [ "${lines[1]}" = "$help_titlecase_1" ]
+  [ "${lines[2]}" = "$help_titlecase_2" ]
+  [ "${lines[3]}" = "$help_titlecase_3" ]
+  [ "${lines[4]}" = "$help_titlecase_4" ]
+  [ "${lines[5]}" = "$help_titlecase_5" ]
+  [ "${lines[6]}" = "$help_titlecase_6" ]
+  [ "${lines[7]}" = "$help_titlecase_7" ]
+  [ "${lines[8]}" = "$help_titlecase_8" ]
+  [ "$stderr" = "" ]
+}
+@test "titlecase (flags: -h -v -q)" {
+  run --separate-stderr ./titlecase -h -v -q
+  [ "$status" -eq 0 ]
+  [ "${lines[0]}" = "$help_titlecase_0" ]
+  [ "${lines[1]}" = "$help_titlecase_1" ]
+  [ "${lines[2]}" = "$help_titlecase_2" ]
+  [ "${lines[3]}" = "$help_titlecase_3" ]
+  [ "${lines[4]}" = "$help_titlecase_4" ]
+  [ "${lines[5]}" = "$help_titlecase_5" ]
+  [ "${lines[6]}" = "$help_titlecase_6" ]
+  [ "${lines[7]}" = "$help_titlecase_7" ]
+  [ "${lines[8]}" = "$help_titlecase_8" ]
+  [ "$stderr" = "" ]
+}
+@test "titlecase (flags: --help)" {
+  run --separate-stderr ./titlecase --help
+  [ "$status" -eq 0 ]
+  [ "${lines[0]}" = "$help_titlecase_0" ]
+  [ "${lines[1]}" = "$help_titlecase_1" ]
+  [ "${lines[2]}" = "$help_titlecase_2" ]
+  [ "${lines[3]}" = "$help_titlecase_3" ]
+  [ "${lines[4]}" = "$help_titlecase_4" ]
+  [ "${lines[5]}" = "$help_titlecase_5" ]
+  [ "${lines[6]}" = "$help_titlecase_6" ]
+  [ "${lines[7]}" = "$help_titlecase_7" ]
+  [ "${lines[8]}" = "$help_titlecase_8" ]
+  [ "$stderr" = "" ]
+}
+@test "titlecase (flags: -q --help)" {
+  run --separate-stderr ./titlecase -q --help
+  [ "$status" -eq 0 ]
+  [ "${lines[0]}" = "$help_titlecase_0" ]
+  [ "${lines[1]}" = "$help_titlecase_1" ]
+  [ "${lines[2]}" = "$help_titlecase_2" ]
+  [ "${lines[3]}" = "$help_titlecase_3" ]
+  [ "${lines[4]}" = "$help_titlecase_4" ]
+  [ "${lines[5]}" = "$help_titlecase_5" ]
+  [ "${lines[6]}" = "$help_titlecase_6" ]
+  [ "${lines[7]}" = "$help_titlecase_7" ]
+  [ "${lines[8]}" = "$help_titlecase_8" ]
+  [ "$stderr" = "" ]
+}
+@test "titlecase (flags: --help -q)" {
+  run --separate-stderr ./titlecase --help -q
+  [ "$status" -eq 0 ]
+  [ "${lines[0]}" = "$help_titlecase_0" ]
+  [ "${lines[1]}" = "$help_titlecase_1" ]
+  [ "${lines[2]}" = "$help_titlecase_2" ]
+  [ "${lines[3]}" = "$help_titlecase_3" ]
+  [ "${lines[4]}" = "$help_titlecase_4" ]
+  [ "${lines[5]}" = "$help_titlecase_5" ]
+  [ "${lines[6]}" = "$help_titlecase_6" ]
+  [ "${lines[7]}" = "$help_titlecase_7" ]
+  [ "${lines[8]}" = "$help_titlecase_8" ]
+  [ "$stderr" = "" ]
+}
+@test "titlecase (flags: -v --help)" {
+  run --separate-stderr ./titlecase -v --help
+  [ "$status" -eq 0 ]
+  [ "${lines[0]}" = "$help_titlecase_0" ]
+  [ "${lines[1]}" = "$help_titlecase_1" ]
+  [ "${lines[2]}" = "$help_titlecase_2" ]
+  [ "${lines[3]}" = "$help_titlecase_3" ]
+  [ "${lines[4]}" = "$help_titlecase_4" ]
+  [ "${lines[5]}" = "$help_titlecase_5" ]
+  [ "${lines[6]}" = "$help_titlecase_6" ]
+  [ "${lines[7]}" = "$help_titlecase_7" ]
+  [ "${lines[8]}" = "$help_titlecase_8" ]
+  [ "$stderr" = "" ]
+}
+@test "titlecase (flags: --help -v)" {
+  run --separate-stderr ./titlecase --help -v
+  [ "$status" -eq 0 ]
+  [ "${lines[0]}" = "$help_titlecase_0" ]
+  [ "${lines[1]}" = "$help_titlecase_1" ]
+  [ "${lines[2]}" = "$help_titlecase_2" ]
+  [ "${lines[3]}" = "$help_titlecase_3" ]
+  [ "${lines[4]}" = "$help_titlecase_4" ]
+  [ "${lines[5]}" = "$help_titlecase_5" ]
+  [ "${lines[6]}" = "$help_titlecase_6" ]
+  [ "${lines[7]}" = "$help_titlecase_7" ]
+  [ "${lines[8]}" = "$help_titlecase_8" ]
+  [ "$stderr" = "" ]
+}
+@test "titlecase (flags: -q -v --help)" {
+  run --separate-stderr ./titlecase -q -v --help
+  [ "$status" -eq 0 ]
+  [ "${lines[0]}" = "$help_titlecase_0" ]
+  [ "${lines[1]}" = "$help_titlecase_1" ]
+  [ "${lines[2]}" = "$help_titlecase_2" ]
+  [ "${lines[3]}" = "$help_titlecase_3" ]
+  [ "${lines[4]}" = "$help_titlecase_4" ]
+  [ "${lines[5]}" = "$help_titlecase_5" ]
+  [ "${lines[6]}" = "$help_titlecase_6" ]
+  [ "${lines[7]}" = "$help_titlecase_7" ]
+  [ "${lines[8]}" = "$help_titlecase_8" ]
+  [ "$stderr" = "" ]
+}
+@test "titlecase (flags: -v -q --help)" {
+  run --separate-stderr ./titlecase -v -q --help
+  [ "$status" -eq 0 ]
+  [ "${lines[0]}" = "$help_titlecase_0" ]
+  [ "${lines[1]}" = "$help_titlecase_1" ]
+  [ "${lines[2]}" = "$help_titlecase_2" ]
+  [ "${lines[3]}" = "$help_titlecase_3" ]
+  [ "${lines[4]}" = "$help_titlecase_4" ]
+  [ "${lines[5]}" = "$help_titlecase_5" ]
+  [ "${lines[6]}" = "$help_titlecase_6" ]
+  [ "${lines[7]}" = "$help_titlecase_7" ]
+  [ "${lines[8]}" = "$help_titlecase_8" ]
+  [ "$stderr" = "" ]
+}
+@test "titlecase (flags: -q --help -v)" {
+  run --separate-stderr ./titlecase -q --help -v
+  [ "$status" -eq 0 ]
+  [ "${lines[0]}" = "$help_titlecase_0" ]
+  [ "${lines[1]}" = "$help_titlecase_1" ]
+  [ "${lines[2]}" = "$help_titlecase_2" ]
+  [ "${lines[3]}" = "$help_titlecase_3" ]
+  [ "${lines[4]}" = "$help_titlecase_4" ]
+  [ "${lines[5]}" = "$help_titlecase_5" ]
+  [ "${lines[6]}" = "$help_titlecase_6" ]
+  [ "${lines[7]}" = "$help_titlecase_7" ]
+  [ "${lines[8]}" = "$help_titlecase_8" ]
+  [ "$stderr" = "" ]
+}
+@test "titlecase (flags: -v --help -q)" {
+  run --separate-stderr ./titlecase -v --help -q
+  [ "$status" -eq 0 ]
+  [ "${lines[0]}" = "$help_titlecase_0" ]
+  [ "${lines[1]}" = "$help_titlecase_1" ]
+  [ "${lines[2]}" = "$help_titlecase_2" ]
+  [ "${lines[3]}" = "$help_titlecase_3" ]
+  [ "${lines[4]}" = "$help_titlecase_4" ]
+  [ "${lines[5]}" = "$help_titlecase_5" ]
+  [ "${lines[6]}" = "$help_titlecase_6" ]
+  [ "${lines[7]}" = "$help_titlecase_7" ]
+  [ "${lines[8]}" = "$help_titlecase_8" ]
+  [ "$stderr" = "" ]
+}
+@test "titlecase (flags: --help -q -v)" {
+  run --separate-stderr ./titlecase --help -q -v
+  [ "$status" -eq 0 ]
+  [ "${lines[0]}" = "$help_titlecase_0" ]
+  [ "${lines[1]}" = "$help_titlecase_1" ]
+  [ "${lines[2]}" = "$help_titlecase_2" ]
+  [ "${lines[3]}" = "$help_titlecase_3" ]
+  [ "${lines[4]}" = "$help_titlecase_4" ]
+  [ "${lines[5]}" = "$help_titlecase_5" ]
+  [ "${lines[6]}" = "$help_titlecase_6" ]
+  [ "${lines[7]}" = "$help_titlecase_7" ]
+  [ "${lines[8]}" = "$help_titlecase_8" ]
+  [ "$stderr" = "" ]
+}
+@test "titlecase (flags: --help -v -q)" {
+  run --separate-stderr ./titlecase --help -v -q
+  [ "$status" -eq 0 ]
+  [ "${lines[0]}" = "$help_titlecase_0" ]
+  [ "${lines[1]}" = "$help_titlecase_1" ]
+  [ "${lines[2]}" = "$help_titlecase_2" ]
+  [ "${lines[3]}" = "$help_titlecase_3" ]
+  [ "${lines[4]}" = "$help_titlecase_4" ]
+  [ "${lines[5]}" = "$help_titlecase_5" ]
+  [ "${lines[6]}" = "$help_titlecase_6" ]
+  [ "${lines[7]}" = "$help_titlecase_7" ]
+  [ "${lines[8]}" = "$help_titlecase_8" ]
+  [ "$stderr" = "" ]
+}
+@test "titlecase (flags: --quiet -h)" {
+  run --separate-stderr ./titlecase --quiet -h
+  [ "$status" -eq 0 ]
+  [ "${lines[0]}" = "$help_titlecase_0" ]
+  [ "${lines[1]}" = "$help_titlecase_1" ]
+  [ "${lines[2]}" = "$help_titlecase_2" ]
+  [ "${lines[3]}" = "$help_titlecase_3" ]
+  [ "${lines[4]}" = "$help_titlecase_4" ]
+  [ "${lines[5]}" = "$help_titlecase_5" ]
+  [ "${lines[6]}" = "$help_titlecase_6" ]
+  [ "${lines[7]}" = "$help_titlecase_7" ]
+  [ "${lines[8]}" = "$help_titlecase_8" ]
+  [ "$stderr" = "" ]
+}
+@test "titlecase (flags: -h --quiet)" {
+  run --separate-stderr ./titlecase -h --quiet
+  [ "$status" -eq 0 ]
+  [ "${lines[0]}" = "$help_titlecase_0" ]
+  [ "${lines[1]}" = "$help_titlecase_1" ]
+  [ "${lines[2]}" = "$help_titlecase_2" ]
+  [ "${lines[3]}" = "$help_titlecase_3" ]
+  [ "${lines[4]}" = "$help_titlecase_4" ]
+  [ "${lines[5]}" = "$help_titlecase_5" ]
+  [ "${lines[6]}" = "$help_titlecase_6" ]
+  [ "${lines[7]}" = "$help_titlecase_7" ]
+  [ "${lines[8]}" = "$help_titlecase_8" ]
+  [ "$stderr" = "" ]
+}
+@test "titlecase (flags: --quiet -v -h)" {
+  run --separate-stderr ./titlecase --quiet -v -h
+  [ "$status" -eq 0 ]
+  [ "${lines[0]}" = "$help_titlecase_0" ]
+  [ "${lines[1]}" = "$help_titlecase_1" ]
+  [ "${lines[2]}" = "$help_titlecase_2" ]
+  [ "${lines[3]}" = "$help_titlecase_3" ]
+  [ "${lines[4]}" = "$help_titlecase_4" ]
+  [ "${lines[5]}" = "$help_titlecase_5" ]
+  [ "${lines[6]}" = "$help_titlecase_6" ]
+  [ "${lines[7]}" = "$help_titlecase_7" ]
+  [ "${lines[8]}" = "$help_titlecase_8" ]
+  [ "$stderr" = "" ]
+}
+@test "titlecase (flags: -v --quiet -h)" {
+  run --separate-stderr ./titlecase -v --quiet -h
+  [ "$status" -eq 0 ]
+  [ "${lines[0]}" = "$help_titlecase_0" ]
+  [ "${lines[1]}" = "$help_titlecase_1" ]
+  [ "${lines[2]}" = "$help_titlecase_2" ]
+  [ "${lines[3]}" = "$help_titlecase_3" ]
+  [ "${lines[4]}" = "$help_titlecase_4" ]
+  [ "${lines[5]}" = "$help_titlecase_5" ]
+  [ "${lines[6]}" = "$help_titlecase_6" ]
+  [ "${lines[7]}" = "$help_titlecase_7" ]
+  [ "${lines[8]}" = "$help_titlecase_8" ]
+  [ "$stderr" = "" ]
+}
+@test "titlecase (flags: --quiet -h -v)" {
+  run --separate-stderr ./titlecase --quiet -h -v
+  [ "$status" -eq 0 ]
+  [ "${lines[0]}" = "$help_titlecase_0" ]
+  [ "${lines[1]}" = "$help_titlecase_1" ]
+  [ "${lines[2]}" = "$help_titlecase_2" ]
+  [ "${lines[3]}" = "$help_titlecase_3" ]
+  [ "${lines[4]}" = "$help_titlecase_4" ]
+  [ "${lines[5]}" = "$help_titlecase_5" ]
+  [ "${lines[6]}" = "$help_titlecase_6" ]
+  [ "${lines[7]}" = "$help_titlecase_7" ]
+  [ "${lines[8]}" = "$help_titlecase_8" ]
+  [ "$stderr" = "" ]
+}
+@test "titlecase (flags: -v -h --quiet)" {
+  run --separate-stderr ./titlecase -v -h --quiet
+  [ "$status" -eq 0 ]
+  [ "${lines[0]}" = "$help_titlecase_0" ]
+  [ "${lines[1]}" = "$help_titlecase_1" ]
+  [ "${lines[2]}" = "$help_titlecase_2" ]
+  [ "${lines[3]}" = "$help_titlecase_3" ]
+  [ "${lines[4]}" = "$help_titlecase_4" ]
+  [ "${lines[5]}" = "$help_titlecase_5" ]
+  [ "${lines[6]}" = "$help_titlecase_6" ]
+  [ "${lines[7]}" = "$help_titlecase_7" ]
+  [ "${lines[8]}" = "$help_titlecase_8" ]
+  [ "$stderr" = "" ]
+}
+@test "titlecase (flags: -h --quiet -v)" {
+  run --separate-stderr ./titlecase -h --quiet -v
+  [ "$status" -eq 0 ]
+  [ "${lines[0]}" = "$help_titlecase_0" ]
+  [ "${lines[1]}" = "$help_titlecase_1" ]
+  [ "${lines[2]}" = "$help_titlecase_2" ]
+  [ "${lines[3]}" = "$help_titlecase_3" ]
+  [ "${lines[4]}" = "$help_titlecase_4" ]
+  [ "${lines[5]}" = "$help_titlecase_5" ]
+  [ "${lines[6]}" = "$help_titlecase_6" ]
+  [ "${lines[7]}" = "$help_titlecase_7" ]
+  [ "${lines[8]}" = "$help_titlecase_8" ]
+  [ "$stderr" = "" ]
+}
+@test "titlecase (flags: -h -v --quiet)" {
+  run --separate-stderr ./titlecase -h -v --quiet
+  [ "$status" -eq 0 ]
+  [ "${lines[0]}" = "$help_titlecase_0" ]
+  [ "${lines[1]}" = "$help_titlecase_1" ]
+  [ "${lines[2]}" = "$help_titlecase_2" ]
+  [ "${lines[3]}" = "$help_titlecase_3" ]
+  [ "${lines[4]}" = "$help_titlecase_4" ]
+  [ "${lines[5]}" = "$help_titlecase_5" ]
+  [ "${lines[6]}" = "$help_titlecase_6" ]
+  [ "${lines[7]}" = "$help_titlecase_7" ]
+  [ "${lines[8]}" = "$help_titlecase_8" ]
+  [ "$stderr" = "" ]
+}
+@test "titlecase (flags: --verbose -h)" {
+  run --separate-stderr ./titlecase --verbose -h
+  [ "$status" -eq 0 ]
+  [ "${lines[0]}" = "$help_titlecase_0" ]
+  [ "${lines[1]}" = "$help_titlecase_1" ]
+  [ "${lines[2]}" = "$help_titlecase_2" ]
+  [ "${lines[3]}" = "$help_titlecase_3" ]
+  [ "${lines[4]}" = "$help_titlecase_4" ]
+  [ "${lines[5]}" = "$help_titlecase_5" ]
+  [ "${lines[6]}" = "$help_titlecase_6" ]
+  [ "${lines[7]}" = "$help_titlecase_7" ]
+  [ "${lines[8]}" = "$help_titlecase_8" ]
+  [ "$stderr" = "" ]
+}
+@test "titlecase (flags: -h --verbose)" {
+  run --separate-stderr ./titlecase -h --verbose
+  [ "$status" -eq 0 ]
+  [ "${lines[0]}" = "$help_titlecase_0" ]
+  [ "${lines[1]}" = "$help_titlecase_1" ]
+  [ "${lines[2]}" = "$help_titlecase_2" ]
+  [ "${lines[3]}" = "$help_titlecase_3" ]
+  [ "${lines[4]}" = "$help_titlecase_4" ]
+  [ "${lines[5]}" = "$help_titlecase_5" ]
+  [ "${lines[6]}" = "$help_titlecase_6" ]
+  [ "${lines[7]}" = "$help_titlecase_7" ]
+  [ "${lines[8]}" = "$help_titlecase_8" ]
+  [ "$stderr" = "" ]
+}
+@test "titlecase (flags: -q --verbose -h)" {
+  run --separate-stderr ./titlecase -q --verbose -h
+  [ "$status" -eq 0 ]
+  [ "${lines[0]}" = "$help_titlecase_0" ]
+  [ "${lines[1]}" = "$help_titlecase_1" ]
+  [ "${lines[2]}" = "$help_titlecase_2" ]
+  [ "${lines[3]}" = "$help_titlecase_3" ]
+  [ "${lines[4]}" = "$help_titlecase_4" ]
+  [ "${lines[5]}" = "$help_titlecase_5" ]
+  [ "${lines[6]}" = "$help_titlecase_6" ]
+  [ "${lines[7]}" = "$help_titlecase_7" ]
+  [ "${lines[8]}" = "$help_titlecase_8" ]
+  [ "$stderr" = "" ]
+}
+@test "titlecase (flags: --verbose -q -h)" {
+  run --separate-stderr ./titlecase --verbose -q -h
+  [ "$status" -eq 0 ]
+  [ "${lines[0]}" = "$help_titlecase_0" ]
+  [ "${lines[1]}" = "$help_titlecase_1" ]
+  [ "${lines[2]}" = "$help_titlecase_2" ]
+  [ "${lines[3]}" = "$help_titlecase_3" ]
+  [ "${lines[4]}" = "$help_titlecase_4" ]
+  [ "${lines[5]}" = "$help_titlecase_5" ]
+  [ "${lines[6]}" = "$help_titlecase_6" ]
+  [ "${lines[7]}" = "$help_titlecase_7" ]
+  [ "${lines[8]}" = "$help_titlecase_8" ]
+  [ "$stderr" = "" ]
+}
+@test "titlecase (flags: -q -h --verbose)" {
+  run --separate-stderr ./titlecase -q -h --verbose
+  [ "$status" -eq 0 ]
+  [ "${lines[0]}" = "$help_titlecase_0" ]
+  [ "${lines[1]}" = "$help_titlecase_1" ]
+  [ "${lines[2]}" = "$help_titlecase_2" ]
+  [ "${lines[3]}" = "$help_titlecase_3" ]
+  [ "${lines[4]}" = "$help_titlecase_4" ]
+  [ "${lines[5]}" = "$help_titlecase_5" ]
+  [ "${lines[6]}" = "$help_titlecase_6" ]
+  [ "${lines[7]}" = "$help_titlecase_7" ]
+  [ "${lines[8]}" = "$help_titlecase_8" ]
+  [ "$stderr" = "" ]
+}
+@test "titlecase (flags: --verbose -h -q)" {
+  run --separate-stderr ./titlecase --verbose -h -q
+  [ "$status" -eq 0 ]
+  [ "${lines[0]}" = "$help_titlecase_0" ]
+  [ "${lines[1]}" = "$help_titlecase_1" ]
+  [ "${lines[2]}" = "$help_titlecase_2" ]
+  [ "${lines[3]}" = "$help_titlecase_3" ]
+  [ "${lines[4]}" = "$help_titlecase_4" ]
+  [ "${lines[5]}" = "$help_titlecase_5" ]
+  [ "${lines[6]}" = "$help_titlecase_6" ]
+  [ "${lines[7]}" = "$help_titlecase_7" ]
+  [ "${lines[8]}" = "$help_titlecase_8" ]
+  [ "$stderr" = "" ]
+}
+@test "titlecase (flags: -h -q --verbose)" {
+  run --separate-stderr ./titlecase -h -q --verbose
+  [ "$status" -eq 0 ]
+  [ "${lines[0]}" = "$help_titlecase_0" ]
+  [ "${lines[1]}" = "$help_titlecase_1" ]
+  [ "${lines[2]}" = "$help_titlecase_2" ]
+  [ "${lines[3]}" = "$help_titlecase_3" ]
+  [ "${lines[4]}" = "$help_titlecase_4" ]
+  [ "${lines[5]}" = "$help_titlecase_5" ]
+  [ "${lines[6]}" = "$help_titlecase_6" ]
+  [ "${lines[7]}" = "$help_titlecase_7" ]
+  [ "${lines[8]}" = "$help_titlecase_8" ]
+  [ "$stderr" = "" ]
+}
+@test "titlecase (flags: -h --verbose -q)" {
+  run --separate-stderr ./titlecase -h --verbose -q
+  [ "$status" -eq 0 ]
+  [ "${lines[0]}" = "$help_titlecase_0" ]
+  [ "${lines[1]}" = "$help_titlecase_1" ]
+  [ "${lines[2]}" = "$help_titlecase_2" ]
+  [ "${lines[3]}" = "$help_titlecase_3" ]
+  [ "${lines[4]}" = "$help_titlecase_4" ]
+  [ "${lines[5]}" = "$help_titlecase_5" ]
+  [ "${lines[6]}" = "$help_titlecase_6" ]
+  [ "${lines[7]}" = "$help_titlecase_7" ]
+  [ "${lines[8]}" = "$help_titlecase_8" ]
+  [ "$stderr" = "" ]
+}
+@test "titlecase (flags: --quiet --help)" {
+  run --separate-stderr ./titlecase --quiet --help
+  [ "$status" -eq 0 ]
+  [ "${lines[0]}" = "$help_titlecase_0" ]
+  [ "${lines[1]}" = "$help_titlecase_1" ]
+  [ "${lines[2]}" = "$help_titlecase_2" ]
+  [ "${lines[3]}" = "$help_titlecase_3" ]
+  [ "${lines[4]}" = "$help_titlecase_4" ]
+  [ "${lines[5]}" = "$help_titlecase_5" ]
+  [ "${lines[6]}" = "$help_titlecase_6" ]
+  [ "${lines[7]}" = "$help_titlecase_7" ]
+  [ "${lines[8]}" = "$help_titlecase_8" ]
+  [ "$stderr" = "" ]
+}
+@test "titlecase (flags: --help --quiet)" {
+  run --separate-stderr ./titlecase --help --quiet
+  [ "$status" -eq 0 ]
+  [ "${lines[0]}" = "$help_titlecase_0" ]
+  [ "${lines[1]}" = "$help_titlecase_1" ]
+  [ "${lines[2]}" = "$help_titlecase_2" ]
+  [ "${lines[3]}" = "$help_titlecase_3" ]
+  [ "${lines[4]}" = "$help_titlecase_4" ]
+  [ "${lines[5]}" = "$help_titlecase_5" ]
+  [ "${lines[6]}" = "$help_titlecase_6" ]
+  [ "${lines[7]}" = "$help_titlecase_7" ]
+  [ "${lines[8]}" = "$help_titlecase_8" ]
+  [ "$stderr" = "" ]
+}
+@test "titlecase (flags: --quiet -v --help)" {
+  run --separate-stderr ./titlecase --quiet -v --help
+  [ "$status" -eq 0 ]
+  [ "${lines[0]}" = "$help_titlecase_0" ]
+  [ "${lines[1]}" = "$help_titlecase_1" ]
+  [ "${lines[2]}" = "$help_titlecase_2" ]
+  [ "${lines[3]}" = "$help_titlecase_3" ]
+  [ "${lines[4]}" = "$help_titlecase_4" ]
+  [ "${lines[5]}" = "$help_titlecase_5" ]
+  [ "${lines[6]}" = "$help_titlecase_6" ]
+  [ "${lines[7]}" = "$help_titlecase_7" ]
+  [ "${lines[8]}" = "$help_titlecase_8" ]
+  [ "$stderr" = "" ]
+}
+@test "titlecase (flags: -v --quiet --help)" {
+  run --separate-stderr ./titlecase -v --quiet --help
+  [ "$status" -eq 0 ]
+  [ "${lines[0]}" = "$help_titlecase_0" ]
+  [ "${lines[1]}" = "$help_titlecase_1" ]
+  [ "${lines[2]}" = "$help_titlecase_2" ]
+  [ "${lines[3]}" = "$help_titlecase_3" ]
+  [ "${lines[4]}" = "$help_titlecase_4" ]
+  [ "${lines[5]}" = "$help_titlecase_5" ]
+  [ "${lines[6]}" = "$help_titlecase_6" ]
+  [ "${lines[7]}" = "$help_titlecase_7" ]
+  [ "${lines[8]}" = "$help_titlecase_8" ]
+  [ "$stderr" = "" ]
+}
+@test "titlecase (flags: --quiet --help -v)" {
+  run --separate-stderr ./titlecase --quiet --help -v
+  [ "$status" -eq 0 ]
+  [ "${lines[0]}" = "$help_titlecase_0" ]
+  [ "${lines[1]}" = "$help_titlecase_1" ]
+  [ "${lines[2]}" = "$help_titlecase_2" ]
+  [ "${lines[3]}" = "$help_titlecase_3" ]
+  [ "${lines[4]}" = "$help_titlecase_4" ]
+  [ "${lines[5]}" = "$help_titlecase_5" ]
+  [ "${lines[6]}" = "$help_titlecase_6" ]
+  [ "${lines[7]}" = "$help_titlecase_7" ]
+  [ "${lines[8]}" = "$help_titlecase_8" ]
+  [ "$stderr" = "" ]
+}
+@test "titlecase (flags: -v --help --quiet)" {
+  run --separate-stderr ./titlecase -v --help --quiet
+  [ "$status" -eq 0 ]
+  [ "${lines[0]}" = "$help_titlecase_0" ]
+  [ "${lines[1]}" = "$help_titlecase_1" ]
+  [ "${lines[2]}" = "$help_titlecase_2" ]
+  [ "${lines[3]}" = "$help_titlecase_3" ]
+  [ "${lines[4]}" = "$help_titlecase_4" ]
+  [ "${lines[5]}" = "$help_titlecase_5" ]
+  [ "${lines[6]}" = "$help_titlecase_6" ]
+  [ "${lines[7]}" = "$help_titlecase_7" ]
+  [ "${lines[8]}" = "$help_titlecase_8" ]
+  [ "$stderr" = "" ]
+}
+@test "titlecase (flags: --help --quiet -v)" {
+  run --separate-stderr ./titlecase --help --quiet -v
+  [ "$status" -eq 0 ]
+  [ "${lines[0]}" = "$help_titlecase_0" ]
+  [ "${lines[1]}" = "$help_titlecase_1" ]
+  [ "${lines[2]}" = "$help_titlecase_2" ]
+  [ "${lines[3]}" = "$help_titlecase_3" ]
+  [ "${lines[4]}" = "$help_titlecase_4" ]
+  [ "${lines[5]}" = "$help_titlecase_5" ]
+  [ "${lines[6]}" = "$help_titlecase_6" ]
+  [ "${lines[7]}" = "$help_titlecase_7" ]
+  [ "${lines[8]}" = "$help_titlecase_8" ]
+  [ "$stderr" = "" ]
+}
+@test "titlecase (flags: --help -v --quiet)" {
+  run --separate-stderr ./titlecase --help -v --quiet
+  [ "$status" -eq 0 ]
+  [ "${lines[0]}" = "$help_titlecase_0" ]
+  [ "${lines[1]}" = "$help_titlecase_1" ]
+  [ "${lines[2]}" = "$help_titlecase_2" ]
+  [ "${lines[3]}" = "$help_titlecase_3" ]
+  [ "${lines[4]}" = "$help_titlecase_4" ]
+  [ "${lines[5]}" = "$help_titlecase_5" ]
+  [ "${lines[6]}" = "$help_titlecase_6" ]
+  [ "${lines[7]}" = "$help_titlecase_7" ]
+  [ "${lines[8]}" = "$help_titlecase_8" ]
+  [ "$stderr" = "" ]
+}
+@test "titlecase (flags: --verbose --help)" {
+  run --separate-stderr ./titlecase --verbose --help
+  [ "$status" -eq 0 ]
+  [ "${lines[0]}" = "$help_titlecase_0" ]
+  [ "${lines[1]}" = "$help_titlecase_1" ]
+  [ "${lines[2]}" = "$help_titlecase_2" ]
+  [ "${lines[3]}" = "$help_titlecase_3" ]
+  [ "${lines[4]}" = "$help_titlecase_4" ]
+  [ "${lines[5]}" = "$help_titlecase_5" ]
+  [ "${lines[6]}" = "$help_titlecase_6" ]
+  [ "${lines[7]}" = "$help_titlecase_7" ]
+  [ "${lines[8]}" = "$help_titlecase_8" ]
+  [ "$stderr" = "" ]
+}
+@test "titlecase (flags: --help --verbose)" {
+  run --separate-stderr ./titlecase --help --verbose
+  [ "$status" -eq 0 ]
+  [ "${lines[0]}" = "$help_titlecase_0" ]
+  [ "${lines[1]}" = "$help_titlecase_1" ]
+  [ "${lines[2]}" = "$help_titlecase_2" ]
+  [ "${lines[3]}" = "$help_titlecase_3" ]
+  [ "${lines[4]}" = "$help_titlecase_4" ]
+  [ "${lines[5]}" = "$help_titlecase_5" ]
+  [ "${lines[6]}" = "$help_titlecase_6" ]
+  [ "${lines[7]}" = "$help_titlecase_7" ]
+  [ "${lines[8]}" = "$help_titlecase_8" ]
+  [ "$stderr" = "" ]
+}
+@test "titlecase (flags: -q --verbose --help)" {
+  run --separate-stderr ./titlecase -q --verbose --help
+  [ "$status" -eq 0 ]
+  [ "${lines[0]}" = "$help_titlecase_0" ]
+  [ "${lines[1]}" = "$help_titlecase_1" ]
+  [ "${lines[2]}" = "$help_titlecase_2" ]
+  [ "${lines[3]}" = "$help_titlecase_3" ]
+  [ "${lines[4]}" = "$help_titlecase_4" ]
+  [ "${lines[5]}" = "$help_titlecase_5" ]
+  [ "${lines[6]}" = "$help_titlecase_6" ]
+  [ "${lines[7]}" = "$help_titlecase_7" ]
+  [ "${lines[8]}" = "$help_titlecase_8" ]
+  [ "$stderr" = "" ]
+}
+@test "titlecase (flags: --verbose -q --help)" {
+  run --separate-stderr ./titlecase --verbose -q --help
+  [ "$status" -eq 0 ]
+  [ "${lines[0]}" = "$help_titlecase_0" ]
+  [ "${lines[1]}" = "$help_titlecase_1" ]
+  [ "${lines[2]}" = "$help_titlecase_2" ]
+  [ "${lines[3]}" = "$help_titlecase_3" ]
+  [ "${lines[4]}" = "$help_titlecase_4" ]
+  [ "${lines[5]}" = "$help_titlecase_5" ]
+  [ "${lines[6]}" = "$help_titlecase_6" ]
+  [ "${lines[7]}" = "$help_titlecase_7" ]
+  [ "${lines[8]}" = "$help_titlecase_8" ]
+  [ "$stderr" = "" ]
+}
+@test "titlecase (flags: -q --help --verbose)" {
+  run --separate-stderr ./titlecase -q --help --verbose
+  [ "$status" -eq 0 ]
+  [ "${lines[0]}" = "$help_titlecase_0" ]
+  [ "${lines[1]}" = "$help_titlecase_1" ]
+  [ "${lines[2]}" = "$help_titlecase_2" ]
+  [ "${lines[3]}" = "$help_titlecase_3" ]
+  [ "${lines[4]}" = "$help_titlecase_4" ]
+  [ "${lines[5]}" = "$help_titlecase_5" ]
+  [ "${lines[6]}" = "$help_titlecase_6" ]
+  [ "${lines[7]}" = "$help_titlecase_7" ]
+  [ "${lines[8]}" = "$help_titlecase_8" ]
+  [ "$stderr" = "" ]
+}
+@test "titlecase (flags: --verbose --help -q)" {
+  run --separate-stderr ./titlecase --verbose --help -q
+  [ "$status" -eq 0 ]
+  [ "${lines[0]}" = "$help_titlecase_0" ]
+  [ "${lines[1]}" = "$help_titlecase_1" ]
+  [ "${lines[2]}" = "$help_titlecase_2" ]
+  [ "${lines[3]}" = "$help_titlecase_3" ]
+  [ "${lines[4]}" = "$help_titlecase_4" ]
+  [ "${lines[5]}" = "$help_titlecase_5" ]
+  [ "${lines[6]}" = "$help_titlecase_6" ]
+  [ "${lines[7]}" = "$help_titlecase_7" ]
+  [ "${lines[8]}" = "$help_titlecase_8" ]
+  [ "$stderr" = "" ]
+}
+@test "titlecase (flags: --help -q --verbose)" {
+  run --separate-stderr ./titlecase --help -q --verbose
+  [ "$status" -eq 0 ]
+  [ "${lines[0]}" = "$help_titlecase_0" ]
+  [ "${lines[1]}" = "$help_titlecase_1" ]
+  [ "${lines[2]}" = "$help_titlecase_2" ]
+  [ "${lines[3]}" = "$help_titlecase_3" ]
+  [ "${lines[4]}" = "$help_titlecase_4" ]
+  [ "${lines[5]}" = "$help_titlecase_5" ]
+  [ "${lines[6]}" = "$help_titlecase_6" ]
+  [ "${lines[7]}" = "$help_titlecase_7" ]
+  [ "${lines[8]}" = "$help_titlecase_8" ]
+  [ "$stderr" = "" ]
+}
+@test "titlecase (flags: --help --verbose -q)" {
+  run --separate-stderr ./titlecase --help --verbose -q
+  [ "$status" -eq 0 ]
+  [ "${lines[0]}" = "$help_titlecase_0" ]
+  [ "${lines[1]}" = "$help_titlecase_1" ]
+  [ "${lines[2]}" = "$help_titlecase_2" ]
+  [ "${lines[3]}" = "$help_titlecase_3" ]
+  [ "${lines[4]}" = "$help_titlecase_4" ]
+  [ "${lines[5]}" = "$help_titlecase_5" ]
+  [ "${lines[6]}" = "$help_titlecase_6" ]
+  [ "${lines[7]}" = "$help_titlecase_7" ]
+  [ "${lines[8]}" = "$help_titlecase_8" ]
+  [ "$stderr" = "" ]
+}
+@test "titlecase (flags: --quiet --verbose --help)" {
+  run --separate-stderr ./titlecase --quiet --verbose --help
+  [ "$status" -eq 0 ]
+  [ "${lines[0]}" = "$help_titlecase_0" ]
+  [ "${lines[1]}" = "$help_titlecase_1" ]
+  [ "${lines[2]}" = "$help_titlecase_2" ]
+  [ "${lines[3]}" = "$help_titlecase_3" ]
+  [ "${lines[4]}" = "$help_titlecase_4" ]
+  [ "${lines[5]}" = "$help_titlecase_5" ]
+  [ "${lines[6]}" = "$help_titlecase_6" ]
+  [ "${lines[7]}" = "$help_titlecase_7" ]
+  [ "${lines[8]}" = "$help_titlecase_8" ]
+  [ "$stderr" = "" ]
+}
+@test "titlecase (flags: --verbose --quiet --help)" {
+  run --separate-stderr ./titlecase --verbose --quiet --help
+  [ "$status" -eq 0 ]
+  [ "${lines[0]}" = "$help_titlecase_0" ]
+  [ "${lines[1]}" = "$help_titlecase_1" ]
+  [ "${lines[2]}" = "$help_titlecase_2" ]
+  [ "${lines[3]}" = "$help_titlecase_3" ]
+  [ "${lines[4]}" = "$help_titlecase_4" ]
+  [ "${lines[5]}" = "$help_titlecase_5" ]
+  [ "${lines[6]}" = "$help_titlecase_6" ]
+  [ "${lines[7]}" = "$help_titlecase_7" ]
+  [ "${lines[8]}" = "$help_titlecase_8" ]
+  [ "$stderr" = "" ]
+}
+@test "titlecase (flags: --quiet --help --verbose)" {
+  run --separate-stderr ./titlecase --quiet --help --verbose
+  [ "$status" -eq 0 ]
+  [ "${lines[0]}" = "$help_titlecase_0" ]
+  [ "${lines[1]}" = "$help_titlecase_1" ]
+  [ "${lines[2]}" = "$help_titlecase_2" ]
+  [ "${lines[3]}" = "$help_titlecase_3" ]
+  [ "${lines[4]}" = "$help_titlecase_4" ]
+  [ "${lines[5]}" = "$help_titlecase_5" ]
+  [ "${lines[6]}" = "$help_titlecase_6" ]
+  [ "${lines[7]}" = "$help_titlecase_7" ]
+  [ "${lines[8]}" = "$help_titlecase_8" ]
+  [ "$stderr" = "" ]
+}
+@test "titlecase (flags: --verbose --help --quiet)" {
+  run --separate-stderr ./titlecase --verbose --help --quiet
+  [ "$status" -eq 0 ]
+  [ "${lines[0]}" = "$help_titlecase_0" ]
+  [ "${lines[1]}" = "$help_titlecase_1" ]
+  [ "${lines[2]}" = "$help_titlecase_2" ]
+  [ "${lines[3]}" = "$help_titlecase_3" ]
+  [ "${lines[4]}" = "$help_titlecase_4" ]
+  [ "${lines[5]}" = "$help_titlecase_5" ]
+  [ "${lines[6]}" = "$help_titlecase_6" ]
+  [ "${lines[7]}" = "$help_titlecase_7" ]
+  [ "${lines[8]}" = "$help_titlecase_8" ]
+  [ "$stderr" = "" ]
+}
+@test "titlecase (flags: --help --quiet --verbose)" {
+  run --separate-stderr ./titlecase --help --quiet --verbose
+  [ "$status" -eq 0 ]
+  [ "${lines[0]}" = "$help_titlecase_0" ]
+  [ "${lines[1]}" = "$help_titlecase_1" ]
+  [ "${lines[2]}" = "$help_titlecase_2" ]
+  [ "${lines[3]}" = "$help_titlecase_3" ]
+  [ "${lines[4]}" = "$help_titlecase_4" ]
+  [ "${lines[5]}" = "$help_titlecase_5" ]
+  [ "${lines[6]}" = "$help_titlecase_6" ]
+  [ "${lines[7]}" = "$help_titlecase_7" ]
+  [ "${lines[8]}" = "$help_titlecase_8" ]
+  [ "$stderr" = "" ]
+}
+@test "titlecase (flags: --help --verbose --quiet)" {
+  run --separate-stderr ./titlecase --help --verbose --quiet
+  [ "$status" -eq 0 ]
+  [ "${lines[0]}" = "$help_titlecase_0" ]
+  [ "${lines[1]}" = "$help_titlecase_1" ]
+  [ "${lines[2]}" = "$help_titlecase_2" ]
+  [ "${lines[3]}" = "$help_titlecase_3" ]
+  [ "${lines[4]}" = "$help_titlecase_4" ]
+  [ "${lines[5]}" = "$help_titlecase_5" ]
+  [ "${lines[6]}" = "$help_titlecase_6" ]
+  [ "${lines[7]}" = "$help_titlecase_7" ]
+  [ "${lines[8]}" = "$help_titlecase_8" ]
   [ "$stderr" = "" ]
 }

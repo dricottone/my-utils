@@ -2,7 +2,7 @@ BIN_DIR?=/usr/local/bin
 LIB_DIR?=/usr/local/lib
 COMP_DIR?=/usr/local/etc/bash_completion.d
 
-BINS=circumflex epub hugo-bump hugo-date hugo-extract-timestamp hugo-new hugo-post hugo-timestamp overdot overline
+BINS=circumflex epub greek hugo-bump hugo-date hugo-extract-timestamp hugo-new hugo-post hugo-timestamp moincase overdot overline titlecase
 
 INSTALL_FLAGS?=
 INSTALL_FLAGS+=--mode=755
@@ -20,7 +20,7 @@ test/usage-messages.bats: ../testing/testing-bats-start-test.sh ../testing/testi
 	rm -f test/usage-messages.bats
 	../testing/testing-bats-start-test.sh >test/usage-messages.bats
 	# commands that produce a usage message when called without an argument
-	for cmd in epub hugo-bump hugo-extract-timestamp hugo-post hugo-timestamp ; do \
+	for cmd in epub hugo-bump hugo-extract-timestamp hugo-post hugo-timestamp titlecase moincase ; do \
 		../testing/testing-bats-test-usage-message.sh $$cmd >>test/usage-messages.bats ; \
 	done
 
@@ -46,7 +46,7 @@ test/fixtures.sh: ../testing/testing-bats-extract-usage-message.sh
 	mkdir -p test
 	rm -f test/fixtures.sh
 	# commands that produce a usage message when called without an argument
-	for cmd in epub hugo-bump hugo-extract-timestamp hugo-post hugo-timestamp ; do \
+	for cmd in epub hugo-bump hugo-extract-timestamp hugo-post hugo-timestamp titlecase moincase ; do \
 		../testing/testing-bats-extract-usage-message.sh $$cmd >>test/fixtures.sh ; \
 	done
 	# commands that produce a help/version message when requested; should be all

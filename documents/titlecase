@@ -1,0 +1,26 @@
+#!/bin/bash
+
+name="titlecase"
+version="1.0"
+read -r -d '' help_message <<-EOF
+	Adjust casing for a title
+	Usage: titlecase [OPTIONS] TITLE
+	Note:  Quoted elements in TITLE are treated as a single word, and therefore may not be adjusted
+	Options:
+	 -h, --help     print this message and exit
+	 -q, --quiet    suppress error messages
+	 -v, --verbose  show additional messages
+	 -V, --version  print version number and exit
+EOF
+
+. /usr/local/lib/mylib.bash
+. /usr/local/lib/myparse.bash
+RequirePositionalArguments
+
+# NOTE: The (bash) shell expansion `${parameter^pattern}` converts lowercase
+# letters matching `pattern` to uppercase. If `pattern` is omitted, the default
+# behavior is the wildcard `?` (any single character). Simply put, the first
+# letter of every word is capitalized.
+
+echo "${positional[@]^}"
+

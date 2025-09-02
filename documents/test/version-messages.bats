@@ -721,6 +721,366 @@ load fixtures.sh
   [ "$output" = "$version_epub" ]
   [ "$stderr" = "" ]
 }
+@test "greek (flags: -V)" {
+  run --separate-stderr ./greek -V
+  [ "$status" -eq 0 ]
+  [ "$output" = "$version_greek" ]
+  [ "$stderr" = "" ]
+}
+@test "greek (flags: -q -V)" {
+  run --separate-stderr ./greek -q -V
+  [ "$status" -eq 0 ]
+  [ "$output" = "$version_greek" ]
+  [ "$stderr" = "" ]
+}
+@test "greek (flags: -V -q)" {
+  run --separate-stderr ./greek -V -q
+  [ "$status" -eq 0 ]
+  [ "$output" = "$version_greek" ]
+  [ "$stderr" = "" ]
+}
+@test "greek (flags: -v -V)" {
+  run --separate-stderr ./greek -v -V
+  [ "$status" -eq 0 ]
+  [ "$output" = "$version_greek" ]
+  [ "$stderr" = "" ]
+}
+@test "greek (flags: -V -v)" {
+  run --separate-stderr ./greek -V -v
+  [ "$status" -eq 0 ]
+  [ "$output" = "$version_greek" ]
+  [ "$stderr" = "" ]
+}
+@test "greek (flags: -q -v -V)" {
+  run --separate-stderr ./greek -q -v -V
+  [ "$status" -eq 0 ]
+  [ "$output" = "$version_greek" ]
+  [ "$stderr" = "" ]
+}
+@test "greek (flags: -v -q -V)" {
+  run --separate-stderr ./greek -v -q -V
+  [ "$status" -eq 0 ]
+  [ "$output" = "$version_greek" ]
+  [ "$stderr" = "" ]
+}
+@test "greek (flags: -q -V -v)" {
+  run --separate-stderr ./greek -q -V -v
+  [ "$status" -eq 0 ]
+  [ "$output" = "$version_greek" ]
+  [ "$stderr" = "" ]
+}
+@test "greek (flags: -v -V -q)" {
+  run --separate-stderr ./greek -v -V -q
+  [ "$status" -eq 0 ]
+  [ "$output" = "$version_greek" ]
+  [ "$stderr" = "" ]
+}
+@test "greek (flags: -V -q -v)" {
+  run --separate-stderr ./greek -V -q -v
+  [ "$status" -eq 0 ]
+  [ "$output" = "$version_greek" ]
+  [ "$stderr" = "" ]
+}
+@test "greek (flags: -V -v -q)" {
+  run --separate-stderr ./greek -V -v -q
+  [ "$status" -eq 0 ]
+  [ "$output" = "$version_greek" ]
+  [ "$stderr" = "" ]
+}
+@test "greek (flags: --version)" {
+  run --separate-stderr ./greek --version
+  [ "$status" -eq 0 ]
+  [ "$output" = "$version_greek" ]
+  [ "$stderr" = "" ]
+}
+@test "greek (flags: -q --version)" {
+  run --separate-stderr ./greek -q --version
+  [ "$status" -eq 0 ]
+  [ "$output" = "$version_greek" ]
+  [ "$stderr" = "" ]
+}
+@test "greek (flags: --version -q)" {
+  run --separate-stderr ./greek --version -q
+  [ "$status" -eq 0 ]
+  [ "$output" = "$version_greek" ]
+  [ "$stderr" = "" ]
+}
+@test "greek (flags: -v --version)" {
+  run --separate-stderr ./greek -v --version
+  [ "$status" -eq 0 ]
+  [ "$output" = "$version_greek" ]
+  [ "$stderr" = "" ]
+}
+@test "greek (flags: --version -v)" {
+  run --separate-stderr ./greek --version -v
+  [ "$status" -eq 0 ]
+  [ "$output" = "$version_greek" ]
+  [ "$stderr" = "" ]
+}
+@test "greek (flags: -q -v --version)" {
+  run --separate-stderr ./greek -q -v --version
+  [ "$status" -eq 0 ]
+  [ "$output" = "$version_greek" ]
+  [ "$stderr" = "" ]
+}
+@test "greek (flags: -v -q --version)" {
+  run --separate-stderr ./greek -v -q --version
+  [ "$status" -eq 0 ]
+  [ "$output" = "$version_greek" ]
+  [ "$stderr" = "" ]
+}
+@test "greek (flags: -q --version -v)" {
+  run --separate-stderr ./greek -q --version -v
+  [ "$status" -eq 0 ]
+  [ "$output" = "$version_greek" ]
+  [ "$stderr" = "" ]
+}
+@test "greek (flags: -v --version -q)" {
+  run --separate-stderr ./greek -v --version -q
+  [ "$status" -eq 0 ]
+  [ "$output" = "$version_greek" ]
+  [ "$stderr" = "" ]
+}
+@test "greek (flags: --version -q -v)" {
+  run --separate-stderr ./greek --version -q -v
+  [ "$status" -eq 0 ]
+  [ "$output" = "$version_greek" ]
+  [ "$stderr" = "" ]
+}
+@test "greek (flags: --version -v -q)" {
+  run --separate-stderr ./greek --version -v -q
+  [ "$status" -eq 0 ]
+  [ "$output" = "$version_greek" ]
+  [ "$stderr" = "" ]
+}
+@test "greek (flags: --quiet -V)" {
+  run --separate-stderr ./greek --quiet -V
+  [ "$status" -eq 0 ]
+  [ "$output" = "$version_greek" ]
+  [ "$stderr" = "" ]
+}
+@test "greek (flags: -V --quiet)" {
+  run --separate-stderr ./greek -V --quiet
+  [ "$status" -eq 0 ]
+  [ "$output" = "$version_greek" ]
+  [ "$stderr" = "" ]
+}
+@test "greek (flags: --quiet -v -V)" {
+  run --separate-stderr ./greek --quiet -v -V
+  [ "$status" -eq 0 ]
+  [ "$output" = "$version_greek" ]
+  [ "$stderr" = "" ]
+}
+@test "greek (flags: -v --quiet -V)" {
+  run --separate-stderr ./greek -v --quiet -V
+  [ "$status" -eq 0 ]
+  [ "$output" = "$version_greek" ]
+  [ "$stderr" = "" ]
+}
+@test "greek (flags: --quiet -V -v)" {
+  run --separate-stderr ./greek --quiet -V -v
+  [ "$status" -eq 0 ]
+  [ "$output" = "$version_greek" ]
+  [ "$stderr" = "" ]
+}
+@test "greek (flags: -v -V --quiet)" {
+  run --separate-stderr ./greek -v -V --quiet
+  [ "$status" -eq 0 ]
+  [ "$output" = "$version_greek" ]
+  [ "$stderr" = "" ]
+}
+@test "greek (flags: -V --quiet -v)" {
+  run --separate-stderr ./greek -V --quiet -v
+  [ "$status" -eq 0 ]
+  [ "$output" = "$version_greek" ]
+  [ "$stderr" = "" ]
+}
+@test "greek (flags: -V -v --quiet)" {
+  run --separate-stderr ./greek -V -v --quiet
+  [ "$status" -eq 0 ]
+  [ "$output" = "$version_greek" ]
+  [ "$stderr" = "" ]
+}
+@test "greek (flags: --verbose -V)" {
+  run --separate-stderr ./greek --verbose -V
+  [ "$status" -eq 0 ]
+  [ "$output" = "$version_greek" ]
+  [ "$stderr" = "" ]
+}
+@test "greek (flags: -V --verbose)" {
+  run --separate-stderr ./greek -V --verbose
+  [ "$status" -eq 0 ]
+  [ "$output" = "$version_greek" ]
+  [ "$stderr" = "" ]
+}
+@test "greek (flags: -q --verbose -V)" {
+  run --separate-stderr ./greek -q --verbose -V
+  [ "$status" -eq 0 ]
+  [ "$output" = "$version_greek" ]
+  [ "$stderr" = "" ]
+}
+@test "greek (flags: --verbose -q -V)" {
+  run --separate-stderr ./greek --verbose -q -V
+  [ "$status" -eq 0 ]
+  [ "$output" = "$version_greek" ]
+  [ "$stderr" = "" ]
+}
+@test "greek (flags: -q -V --verbose)" {
+  run --separate-stderr ./greek -q -V --verbose
+  [ "$status" -eq 0 ]
+  [ "$output" = "$version_greek" ]
+  [ "$stderr" = "" ]
+}
+@test "greek (flags: --verbose -V -q)" {
+  run --separate-stderr ./greek --verbose -V -q
+  [ "$status" -eq 0 ]
+  [ "$output" = "$version_greek" ]
+  [ "$stderr" = "" ]
+}
+@test "greek (flags: -V -q --verbose)" {
+  run --separate-stderr ./greek -V -q --verbose
+  [ "$status" -eq 0 ]
+  [ "$output" = "$version_greek" ]
+  [ "$stderr" = "" ]
+}
+@test "greek (flags: -V --verbose -q)" {
+  run --separate-stderr ./greek -V --verbose -q
+  [ "$status" -eq 0 ]
+  [ "$output" = "$version_greek" ]
+  [ "$stderr" = "" ]
+}
+@test "greek (flags: --quiet --version)" {
+  run --separate-stderr ./greek --quiet --version
+  [ "$status" -eq 0 ]
+  [ "$output" = "$version_greek" ]
+  [ "$stderr" = "" ]
+}
+@test "greek (flags: --version --quiet)" {
+  run --separate-stderr ./greek --version --quiet
+  [ "$status" -eq 0 ]
+  [ "$output" = "$version_greek" ]
+  [ "$stderr" = "" ]
+}
+@test "greek (flags: --quiet -v --version)" {
+  run --separate-stderr ./greek --quiet -v --version
+  [ "$status" -eq 0 ]
+  [ "$output" = "$version_greek" ]
+  [ "$stderr" = "" ]
+}
+@test "greek (flags: -v --quiet --version)" {
+  run --separate-stderr ./greek -v --quiet --version
+  [ "$status" -eq 0 ]
+  [ "$output" = "$version_greek" ]
+  [ "$stderr" = "" ]
+}
+@test "greek (flags: --quiet --version -v)" {
+  run --separate-stderr ./greek --quiet --version -v
+  [ "$status" -eq 0 ]
+  [ "$output" = "$version_greek" ]
+  [ "$stderr" = "" ]
+}
+@test "greek (flags: -v --version --quiet)" {
+  run --separate-stderr ./greek -v --version --quiet
+  [ "$status" -eq 0 ]
+  [ "$output" = "$version_greek" ]
+  [ "$stderr" = "" ]
+}
+@test "greek (flags: --version --quiet -v)" {
+  run --separate-stderr ./greek --version --quiet -v
+  [ "$status" -eq 0 ]
+  [ "$output" = "$version_greek" ]
+  [ "$stderr" = "" ]
+}
+@test "greek (flags: --version -v --quiet)" {
+  run --separate-stderr ./greek --version -v --quiet
+  [ "$status" -eq 0 ]
+  [ "$output" = "$version_greek" ]
+  [ "$stderr" = "" ]
+}
+@test "greek (flags: --verbose --version)" {
+  run --separate-stderr ./greek --verbose --version
+  [ "$status" -eq 0 ]
+  [ "$output" = "$version_greek" ]
+  [ "$stderr" = "" ]
+}
+@test "greek (flags: --version --verbose)" {
+  run --separate-stderr ./greek --version --verbose
+  [ "$status" -eq 0 ]
+  [ "$output" = "$version_greek" ]
+  [ "$stderr" = "" ]
+}
+@test "greek (flags: -q --verbose --version)" {
+  run --separate-stderr ./greek -q --verbose --version
+  [ "$status" -eq 0 ]
+  [ "$output" = "$version_greek" ]
+  [ "$stderr" = "" ]
+}
+@test "greek (flags: --verbose -q --version)" {
+  run --separate-stderr ./greek --verbose -q --version
+  [ "$status" -eq 0 ]
+  [ "$output" = "$version_greek" ]
+  [ "$stderr" = "" ]
+}
+@test "greek (flags: -q --version --verbose)" {
+  run --separate-stderr ./greek -q --version --verbose
+  [ "$status" -eq 0 ]
+  [ "$output" = "$version_greek" ]
+  [ "$stderr" = "" ]
+}
+@test "greek (flags: --verbose --version -q)" {
+  run --separate-stderr ./greek --verbose --version -q
+  [ "$status" -eq 0 ]
+  [ "$output" = "$version_greek" ]
+  [ "$stderr" = "" ]
+}
+@test "greek (flags: --version -q --verbose)" {
+  run --separate-stderr ./greek --version -q --verbose
+  [ "$status" -eq 0 ]
+  [ "$output" = "$version_greek" ]
+  [ "$stderr" = "" ]
+}
+@test "greek (flags: --version --verbose -q)" {
+  run --separate-stderr ./greek --version --verbose -q
+  [ "$status" -eq 0 ]
+  [ "$output" = "$version_greek" ]
+  [ "$stderr" = "" ]
+}
+@test "greek (flags: --quiet --verbose --version)" {
+  run --separate-stderr ./greek --quiet --verbose --version
+  [ "$status" -eq 0 ]
+  [ "$output" = "$version_greek" ]
+  [ "$stderr" = "" ]
+}
+@test "greek (flags: --verbose --quiet --version)" {
+  run --separate-stderr ./greek --verbose --quiet --version
+  [ "$status" -eq 0 ]
+  [ "$output" = "$version_greek" ]
+  [ "$stderr" = "" ]
+}
+@test "greek (flags: --quiet --version --verbose)" {
+  run --separate-stderr ./greek --quiet --version --verbose
+  [ "$status" -eq 0 ]
+  [ "$output" = "$version_greek" ]
+  [ "$stderr" = "" ]
+}
+@test "greek (flags: --verbose --version --quiet)" {
+  run --separate-stderr ./greek --verbose --version --quiet
+  [ "$status" -eq 0 ]
+  [ "$output" = "$version_greek" ]
+  [ "$stderr" = "" ]
+}
+@test "greek (flags: --version --quiet --verbose)" {
+  run --separate-stderr ./greek --version --quiet --verbose
+  [ "$status" -eq 0 ]
+  [ "$output" = "$version_greek" ]
+  [ "$stderr" = "" ]
+}
+@test "greek (flags: --version --verbose --quiet)" {
+  run --separate-stderr ./greek --version --verbose --quiet
+  [ "$status" -eq 0 ]
+  [ "$output" = "$version_greek" ]
+  [ "$stderr" = "" ]
+}
 @test "hugo-bump (flags: -V)" {
   run --separate-stderr ./hugo-bump -V
   [ "$status" -eq 0 ]
@@ -2881,6 +3241,366 @@ load fixtures.sh
   [ "$output" = "$version_hugotimestamp" ]
   [ "$stderr" = "" ]
 }
+@test "moincase (flags: -V)" {
+  run --separate-stderr ./moincase -V
+  [ "$status" -eq 0 ]
+  [ "$output" = "$version_moincase" ]
+  [ "$stderr" = "" ]
+}
+@test "moincase (flags: -q -V)" {
+  run --separate-stderr ./moincase -q -V
+  [ "$status" -eq 0 ]
+  [ "$output" = "$version_moincase" ]
+  [ "$stderr" = "" ]
+}
+@test "moincase (flags: -V -q)" {
+  run --separate-stderr ./moincase -V -q
+  [ "$status" -eq 0 ]
+  [ "$output" = "$version_moincase" ]
+  [ "$stderr" = "" ]
+}
+@test "moincase (flags: -v -V)" {
+  run --separate-stderr ./moincase -v -V
+  [ "$status" -eq 0 ]
+  [ "$output" = "$version_moincase" ]
+  [ "$stderr" = "" ]
+}
+@test "moincase (flags: -V -v)" {
+  run --separate-stderr ./moincase -V -v
+  [ "$status" -eq 0 ]
+  [ "$output" = "$version_moincase" ]
+  [ "$stderr" = "" ]
+}
+@test "moincase (flags: -q -v -V)" {
+  run --separate-stderr ./moincase -q -v -V
+  [ "$status" -eq 0 ]
+  [ "$output" = "$version_moincase" ]
+  [ "$stderr" = "" ]
+}
+@test "moincase (flags: -v -q -V)" {
+  run --separate-stderr ./moincase -v -q -V
+  [ "$status" -eq 0 ]
+  [ "$output" = "$version_moincase" ]
+  [ "$stderr" = "" ]
+}
+@test "moincase (flags: -q -V -v)" {
+  run --separate-stderr ./moincase -q -V -v
+  [ "$status" -eq 0 ]
+  [ "$output" = "$version_moincase" ]
+  [ "$stderr" = "" ]
+}
+@test "moincase (flags: -v -V -q)" {
+  run --separate-stderr ./moincase -v -V -q
+  [ "$status" -eq 0 ]
+  [ "$output" = "$version_moincase" ]
+  [ "$stderr" = "" ]
+}
+@test "moincase (flags: -V -q -v)" {
+  run --separate-stderr ./moincase -V -q -v
+  [ "$status" -eq 0 ]
+  [ "$output" = "$version_moincase" ]
+  [ "$stderr" = "" ]
+}
+@test "moincase (flags: -V -v -q)" {
+  run --separate-stderr ./moincase -V -v -q
+  [ "$status" -eq 0 ]
+  [ "$output" = "$version_moincase" ]
+  [ "$stderr" = "" ]
+}
+@test "moincase (flags: --version)" {
+  run --separate-stderr ./moincase --version
+  [ "$status" -eq 0 ]
+  [ "$output" = "$version_moincase" ]
+  [ "$stderr" = "" ]
+}
+@test "moincase (flags: -q --version)" {
+  run --separate-stderr ./moincase -q --version
+  [ "$status" -eq 0 ]
+  [ "$output" = "$version_moincase" ]
+  [ "$stderr" = "" ]
+}
+@test "moincase (flags: --version -q)" {
+  run --separate-stderr ./moincase --version -q
+  [ "$status" -eq 0 ]
+  [ "$output" = "$version_moincase" ]
+  [ "$stderr" = "" ]
+}
+@test "moincase (flags: -v --version)" {
+  run --separate-stderr ./moincase -v --version
+  [ "$status" -eq 0 ]
+  [ "$output" = "$version_moincase" ]
+  [ "$stderr" = "" ]
+}
+@test "moincase (flags: --version -v)" {
+  run --separate-stderr ./moincase --version -v
+  [ "$status" -eq 0 ]
+  [ "$output" = "$version_moincase" ]
+  [ "$stderr" = "" ]
+}
+@test "moincase (flags: -q -v --version)" {
+  run --separate-stderr ./moincase -q -v --version
+  [ "$status" -eq 0 ]
+  [ "$output" = "$version_moincase" ]
+  [ "$stderr" = "" ]
+}
+@test "moincase (flags: -v -q --version)" {
+  run --separate-stderr ./moincase -v -q --version
+  [ "$status" -eq 0 ]
+  [ "$output" = "$version_moincase" ]
+  [ "$stderr" = "" ]
+}
+@test "moincase (flags: -q --version -v)" {
+  run --separate-stderr ./moincase -q --version -v
+  [ "$status" -eq 0 ]
+  [ "$output" = "$version_moincase" ]
+  [ "$stderr" = "" ]
+}
+@test "moincase (flags: -v --version -q)" {
+  run --separate-stderr ./moincase -v --version -q
+  [ "$status" -eq 0 ]
+  [ "$output" = "$version_moincase" ]
+  [ "$stderr" = "" ]
+}
+@test "moincase (flags: --version -q -v)" {
+  run --separate-stderr ./moincase --version -q -v
+  [ "$status" -eq 0 ]
+  [ "$output" = "$version_moincase" ]
+  [ "$stderr" = "" ]
+}
+@test "moincase (flags: --version -v -q)" {
+  run --separate-stderr ./moincase --version -v -q
+  [ "$status" -eq 0 ]
+  [ "$output" = "$version_moincase" ]
+  [ "$stderr" = "" ]
+}
+@test "moincase (flags: --quiet -V)" {
+  run --separate-stderr ./moincase --quiet -V
+  [ "$status" -eq 0 ]
+  [ "$output" = "$version_moincase" ]
+  [ "$stderr" = "" ]
+}
+@test "moincase (flags: -V --quiet)" {
+  run --separate-stderr ./moincase -V --quiet
+  [ "$status" -eq 0 ]
+  [ "$output" = "$version_moincase" ]
+  [ "$stderr" = "" ]
+}
+@test "moincase (flags: --quiet -v -V)" {
+  run --separate-stderr ./moincase --quiet -v -V
+  [ "$status" -eq 0 ]
+  [ "$output" = "$version_moincase" ]
+  [ "$stderr" = "" ]
+}
+@test "moincase (flags: -v --quiet -V)" {
+  run --separate-stderr ./moincase -v --quiet -V
+  [ "$status" -eq 0 ]
+  [ "$output" = "$version_moincase" ]
+  [ "$stderr" = "" ]
+}
+@test "moincase (flags: --quiet -V -v)" {
+  run --separate-stderr ./moincase --quiet -V -v
+  [ "$status" -eq 0 ]
+  [ "$output" = "$version_moincase" ]
+  [ "$stderr" = "" ]
+}
+@test "moincase (flags: -v -V --quiet)" {
+  run --separate-stderr ./moincase -v -V --quiet
+  [ "$status" -eq 0 ]
+  [ "$output" = "$version_moincase" ]
+  [ "$stderr" = "" ]
+}
+@test "moincase (flags: -V --quiet -v)" {
+  run --separate-stderr ./moincase -V --quiet -v
+  [ "$status" -eq 0 ]
+  [ "$output" = "$version_moincase" ]
+  [ "$stderr" = "" ]
+}
+@test "moincase (flags: -V -v --quiet)" {
+  run --separate-stderr ./moincase -V -v --quiet
+  [ "$status" -eq 0 ]
+  [ "$output" = "$version_moincase" ]
+  [ "$stderr" = "" ]
+}
+@test "moincase (flags: --verbose -V)" {
+  run --separate-stderr ./moincase --verbose -V
+  [ "$status" -eq 0 ]
+  [ "$output" = "$version_moincase" ]
+  [ "$stderr" = "" ]
+}
+@test "moincase (flags: -V --verbose)" {
+  run --separate-stderr ./moincase -V --verbose
+  [ "$status" -eq 0 ]
+  [ "$output" = "$version_moincase" ]
+  [ "$stderr" = "" ]
+}
+@test "moincase (flags: -q --verbose -V)" {
+  run --separate-stderr ./moincase -q --verbose -V
+  [ "$status" -eq 0 ]
+  [ "$output" = "$version_moincase" ]
+  [ "$stderr" = "" ]
+}
+@test "moincase (flags: --verbose -q -V)" {
+  run --separate-stderr ./moincase --verbose -q -V
+  [ "$status" -eq 0 ]
+  [ "$output" = "$version_moincase" ]
+  [ "$stderr" = "" ]
+}
+@test "moincase (flags: -q -V --verbose)" {
+  run --separate-stderr ./moincase -q -V --verbose
+  [ "$status" -eq 0 ]
+  [ "$output" = "$version_moincase" ]
+  [ "$stderr" = "" ]
+}
+@test "moincase (flags: --verbose -V -q)" {
+  run --separate-stderr ./moincase --verbose -V -q
+  [ "$status" -eq 0 ]
+  [ "$output" = "$version_moincase" ]
+  [ "$stderr" = "" ]
+}
+@test "moincase (flags: -V -q --verbose)" {
+  run --separate-stderr ./moincase -V -q --verbose
+  [ "$status" -eq 0 ]
+  [ "$output" = "$version_moincase" ]
+  [ "$stderr" = "" ]
+}
+@test "moincase (flags: -V --verbose -q)" {
+  run --separate-stderr ./moincase -V --verbose -q
+  [ "$status" -eq 0 ]
+  [ "$output" = "$version_moincase" ]
+  [ "$stderr" = "" ]
+}
+@test "moincase (flags: --quiet --version)" {
+  run --separate-stderr ./moincase --quiet --version
+  [ "$status" -eq 0 ]
+  [ "$output" = "$version_moincase" ]
+  [ "$stderr" = "" ]
+}
+@test "moincase (flags: --version --quiet)" {
+  run --separate-stderr ./moincase --version --quiet
+  [ "$status" -eq 0 ]
+  [ "$output" = "$version_moincase" ]
+  [ "$stderr" = "" ]
+}
+@test "moincase (flags: --quiet -v --version)" {
+  run --separate-stderr ./moincase --quiet -v --version
+  [ "$status" -eq 0 ]
+  [ "$output" = "$version_moincase" ]
+  [ "$stderr" = "" ]
+}
+@test "moincase (flags: -v --quiet --version)" {
+  run --separate-stderr ./moincase -v --quiet --version
+  [ "$status" -eq 0 ]
+  [ "$output" = "$version_moincase" ]
+  [ "$stderr" = "" ]
+}
+@test "moincase (flags: --quiet --version -v)" {
+  run --separate-stderr ./moincase --quiet --version -v
+  [ "$status" -eq 0 ]
+  [ "$output" = "$version_moincase" ]
+  [ "$stderr" = "" ]
+}
+@test "moincase (flags: -v --version --quiet)" {
+  run --separate-stderr ./moincase -v --version --quiet
+  [ "$status" -eq 0 ]
+  [ "$output" = "$version_moincase" ]
+  [ "$stderr" = "" ]
+}
+@test "moincase (flags: --version --quiet -v)" {
+  run --separate-stderr ./moincase --version --quiet -v
+  [ "$status" -eq 0 ]
+  [ "$output" = "$version_moincase" ]
+  [ "$stderr" = "" ]
+}
+@test "moincase (flags: --version -v --quiet)" {
+  run --separate-stderr ./moincase --version -v --quiet
+  [ "$status" -eq 0 ]
+  [ "$output" = "$version_moincase" ]
+  [ "$stderr" = "" ]
+}
+@test "moincase (flags: --verbose --version)" {
+  run --separate-stderr ./moincase --verbose --version
+  [ "$status" -eq 0 ]
+  [ "$output" = "$version_moincase" ]
+  [ "$stderr" = "" ]
+}
+@test "moincase (flags: --version --verbose)" {
+  run --separate-stderr ./moincase --version --verbose
+  [ "$status" -eq 0 ]
+  [ "$output" = "$version_moincase" ]
+  [ "$stderr" = "" ]
+}
+@test "moincase (flags: -q --verbose --version)" {
+  run --separate-stderr ./moincase -q --verbose --version
+  [ "$status" -eq 0 ]
+  [ "$output" = "$version_moincase" ]
+  [ "$stderr" = "" ]
+}
+@test "moincase (flags: --verbose -q --version)" {
+  run --separate-stderr ./moincase --verbose -q --version
+  [ "$status" -eq 0 ]
+  [ "$output" = "$version_moincase" ]
+  [ "$stderr" = "" ]
+}
+@test "moincase (flags: -q --version --verbose)" {
+  run --separate-stderr ./moincase -q --version --verbose
+  [ "$status" -eq 0 ]
+  [ "$output" = "$version_moincase" ]
+  [ "$stderr" = "" ]
+}
+@test "moincase (flags: --verbose --version -q)" {
+  run --separate-stderr ./moincase --verbose --version -q
+  [ "$status" -eq 0 ]
+  [ "$output" = "$version_moincase" ]
+  [ "$stderr" = "" ]
+}
+@test "moincase (flags: --version -q --verbose)" {
+  run --separate-stderr ./moincase --version -q --verbose
+  [ "$status" -eq 0 ]
+  [ "$output" = "$version_moincase" ]
+  [ "$stderr" = "" ]
+}
+@test "moincase (flags: --version --verbose -q)" {
+  run --separate-stderr ./moincase --version --verbose -q
+  [ "$status" -eq 0 ]
+  [ "$output" = "$version_moincase" ]
+  [ "$stderr" = "" ]
+}
+@test "moincase (flags: --quiet --verbose --version)" {
+  run --separate-stderr ./moincase --quiet --verbose --version
+  [ "$status" -eq 0 ]
+  [ "$output" = "$version_moincase" ]
+  [ "$stderr" = "" ]
+}
+@test "moincase (flags: --verbose --quiet --version)" {
+  run --separate-stderr ./moincase --verbose --quiet --version
+  [ "$status" -eq 0 ]
+  [ "$output" = "$version_moincase" ]
+  [ "$stderr" = "" ]
+}
+@test "moincase (flags: --quiet --version --verbose)" {
+  run --separate-stderr ./moincase --quiet --version --verbose
+  [ "$status" -eq 0 ]
+  [ "$output" = "$version_moincase" ]
+  [ "$stderr" = "" ]
+}
+@test "moincase (flags: --verbose --version --quiet)" {
+  run --separate-stderr ./moincase --verbose --version --quiet
+  [ "$status" -eq 0 ]
+  [ "$output" = "$version_moincase" ]
+  [ "$stderr" = "" ]
+}
+@test "moincase (flags: --version --quiet --verbose)" {
+  run --separate-stderr ./moincase --version --quiet --verbose
+  [ "$status" -eq 0 ]
+  [ "$output" = "$version_moincase" ]
+  [ "$stderr" = "" ]
+}
+@test "moincase (flags: --version --verbose --quiet)" {
+  run --separate-stderr ./moincase --version --verbose --quiet
+  [ "$status" -eq 0 ]
+  [ "$output" = "$version_moincase" ]
+  [ "$stderr" = "" ]
+}
 @test "overdot (flags: -V)" {
   run --separate-stderr ./overdot -V
   [ "$status" -eq 0 ]
@@ -3599,5 +4319,365 @@ load fixtures.sh
   run --separate-stderr ./overline --version --verbose --quiet
   [ "$status" -eq 0 ]
   [ "$output" = "$version_overline" ]
+  [ "$stderr" = "" ]
+}
+@test "titlecase (flags: -V)" {
+  run --separate-stderr ./titlecase -V
+  [ "$status" -eq 0 ]
+  [ "$output" = "$version_titlecase" ]
+  [ "$stderr" = "" ]
+}
+@test "titlecase (flags: -q -V)" {
+  run --separate-stderr ./titlecase -q -V
+  [ "$status" -eq 0 ]
+  [ "$output" = "$version_titlecase" ]
+  [ "$stderr" = "" ]
+}
+@test "titlecase (flags: -V -q)" {
+  run --separate-stderr ./titlecase -V -q
+  [ "$status" -eq 0 ]
+  [ "$output" = "$version_titlecase" ]
+  [ "$stderr" = "" ]
+}
+@test "titlecase (flags: -v -V)" {
+  run --separate-stderr ./titlecase -v -V
+  [ "$status" -eq 0 ]
+  [ "$output" = "$version_titlecase" ]
+  [ "$stderr" = "" ]
+}
+@test "titlecase (flags: -V -v)" {
+  run --separate-stderr ./titlecase -V -v
+  [ "$status" -eq 0 ]
+  [ "$output" = "$version_titlecase" ]
+  [ "$stderr" = "" ]
+}
+@test "titlecase (flags: -q -v -V)" {
+  run --separate-stderr ./titlecase -q -v -V
+  [ "$status" -eq 0 ]
+  [ "$output" = "$version_titlecase" ]
+  [ "$stderr" = "" ]
+}
+@test "titlecase (flags: -v -q -V)" {
+  run --separate-stderr ./titlecase -v -q -V
+  [ "$status" -eq 0 ]
+  [ "$output" = "$version_titlecase" ]
+  [ "$stderr" = "" ]
+}
+@test "titlecase (flags: -q -V -v)" {
+  run --separate-stderr ./titlecase -q -V -v
+  [ "$status" -eq 0 ]
+  [ "$output" = "$version_titlecase" ]
+  [ "$stderr" = "" ]
+}
+@test "titlecase (flags: -v -V -q)" {
+  run --separate-stderr ./titlecase -v -V -q
+  [ "$status" -eq 0 ]
+  [ "$output" = "$version_titlecase" ]
+  [ "$stderr" = "" ]
+}
+@test "titlecase (flags: -V -q -v)" {
+  run --separate-stderr ./titlecase -V -q -v
+  [ "$status" -eq 0 ]
+  [ "$output" = "$version_titlecase" ]
+  [ "$stderr" = "" ]
+}
+@test "titlecase (flags: -V -v -q)" {
+  run --separate-stderr ./titlecase -V -v -q
+  [ "$status" -eq 0 ]
+  [ "$output" = "$version_titlecase" ]
+  [ "$stderr" = "" ]
+}
+@test "titlecase (flags: --version)" {
+  run --separate-stderr ./titlecase --version
+  [ "$status" -eq 0 ]
+  [ "$output" = "$version_titlecase" ]
+  [ "$stderr" = "" ]
+}
+@test "titlecase (flags: -q --version)" {
+  run --separate-stderr ./titlecase -q --version
+  [ "$status" -eq 0 ]
+  [ "$output" = "$version_titlecase" ]
+  [ "$stderr" = "" ]
+}
+@test "titlecase (flags: --version -q)" {
+  run --separate-stderr ./titlecase --version -q
+  [ "$status" -eq 0 ]
+  [ "$output" = "$version_titlecase" ]
+  [ "$stderr" = "" ]
+}
+@test "titlecase (flags: -v --version)" {
+  run --separate-stderr ./titlecase -v --version
+  [ "$status" -eq 0 ]
+  [ "$output" = "$version_titlecase" ]
+  [ "$stderr" = "" ]
+}
+@test "titlecase (flags: --version -v)" {
+  run --separate-stderr ./titlecase --version -v
+  [ "$status" -eq 0 ]
+  [ "$output" = "$version_titlecase" ]
+  [ "$stderr" = "" ]
+}
+@test "titlecase (flags: -q -v --version)" {
+  run --separate-stderr ./titlecase -q -v --version
+  [ "$status" -eq 0 ]
+  [ "$output" = "$version_titlecase" ]
+  [ "$stderr" = "" ]
+}
+@test "titlecase (flags: -v -q --version)" {
+  run --separate-stderr ./titlecase -v -q --version
+  [ "$status" -eq 0 ]
+  [ "$output" = "$version_titlecase" ]
+  [ "$stderr" = "" ]
+}
+@test "titlecase (flags: -q --version -v)" {
+  run --separate-stderr ./titlecase -q --version -v
+  [ "$status" -eq 0 ]
+  [ "$output" = "$version_titlecase" ]
+  [ "$stderr" = "" ]
+}
+@test "titlecase (flags: -v --version -q)" {
+  run --separate-stderr ./titlecase -v --version -q
+  [ "$status" -eq 0 ]
+  [ "$output" = "$version_titlecase" ]
+  [ "$stderr" = "" ]
+}
+@test "titlecase (flags: --version -q -v)" {
+  run --separate-stderr ./titlecase --version -q -v
+  [ "$status" -eq 0 ]
+  [ "$output" = "$version_titlecase" ]
+  [ "$stderr" = "" ]
+}
+@test "titlecase (flags: --version -v -q)" {
+  run --separate-stderr ./titlecase --version -v -q
+  [ "$status" -eq 0 ]
+  [ "$output" = "$version_titlecase" ]
+  [ "$stderr" = "" ]
+}
+@test "titlecase (flags: --quiet -V)" {
+  run --separate-stderr ./titlecase --quiet -V
+  [ "$status" -eq 0 ]
+  [ "$output" = "$version_titlecase" ]
+  [ "$stderr" = "" ]
+}
+@test "titlecase (flags: -V --quiet)" {
+  run --separate-stderr ./titlecase -V --quiet
+  [ "$status" -eq 0 ]
+  [ "$output" = "$version_titlecase" ]
+  [ "$stderr" = "" ]
+}
+@test "titlecase (flags: --quiet -v -V)" {
+  run --separate-stderr ./titlecase --quiet -v -V
+  [ "$status" -eq 0 ]
+  [ "$output" = "$version_titlecase" ]
+  [ "$stderr" = "" ]
+}
+@test "titlecase (flags: -v --quiet -V)" {
+  run --separate-stderr ./titlecase -v --quiet -V
+  [ "$status" -eq 0 ]
+  [ "$output" = "$version_titlecase" ]
+  [ "$stderr" = "" ]
+}
+@test "titlecase (flags: --quiet -V -v)" {
+  run --separate-stderr ./titlecase --quiet -V -v
+  [ "$status" -eq 0 ]
+  [ "$output" = "$version_titlecase" ]
+  [ "$stderr" = "" ]
+}
+@test "titlecase (flags: -v -V --quiet)" {
+  run --separate-stderr ./titlecase -v -V --quiet
+  [ "$status" -eq 0 ]
+  [ "$output" = "$version_titlecase" ]
+  [ "$stderr" = "" ]
+}
+@test "titlecase (flags: -V --quiet -v)" {
+  run --separate-stderr ./titlecase -V --quiet -v
+  [ "$status" -eq 0 ]
+  [ "$output" = "$version_titlecase" ]
+  [ "$stderr" = "" ]
+}
+@test "titlecase (flags: -V -v --quiet)" {
+  run --separate-stderr ./titlecase -V -v --quiet
+  [ "$status" -eq 0 ]
+  [ "$output" = "$version_titlecase" ]
+  [ "$stderr" = "" ]
+}
+@test "titlecase (flags: --verbose -V)" {
+  run --separate-stderr ./titlecase --verbose -V
+  [ "$status" -eq 0 ]
+  [ "$output" = "$version_titlecase" ]
+  [ "$stderr" = "" ]
+}
+@test "titlecase (flags: -V --verbose)" {
+  run --separate-stderr ./titlecase -V --verbose
+  [ "$status" -eq 0 ]
+  [ "$output" = "$version_titlecase" ]
+  [ "$stderr" = "" ]
+}
+@test "titlecase (flags: -q --verbose -V)" {
+  run --separate-stderr ./titlecase -q --verbose -V
+  [ "$status" -eq 0 ]
+  [ "$output" = "$version_titlecase" ]
+  [ "$stderr" = "" ]
+}
+@test "titlecase (flags: --verbose -q -V)" {
+  run --separate-stderr ./titlecase --verbose -q -V
+  [ "$status" -eq 0 ]
+  [ "$output" = "$version_titlecase" ]
+  [ "$stderr" = "" ]
+}
+@test "titlecase (flags: -q -V --verbose)" {
+  run --separate-stderr ./titlecase -q -V --verbose
+  [ "$status" -eq 0 ]
+  [ "$output" = "$version_titlecase" ]
+  [ "$stderr" = "" ]
+}
+@test "titlecase (flags: --verbose -V -q)" {
+  run --separate-stderr ./titlecase --verbose -V -q
+  [ "$status" -eq 0 ]
+  [ "$output" = "$version_titlecase" ]
+  [ "$stderr" = "" ]
+}
+@test "titlecase (flags: -V -q --verbose)" {
+  run --separate-stderr ./titlecase -V -q --verbose
+  [ "$status" -eq 0 ]
+  [ "$output" = "$version_titlecase" ]
+  [ "$stderr" = "" ]
+}
+@test "titlecase (flags: -V --verbose -q)" {
+  run --separate-stderr ./titlecase -V --verbose -q
+  [ "$status" -eq 0 ]
+  [ "$output" = "$version_titlecase" ]
+  [ "$stderr" = "" ]
+}
+@test "titlecase (flags: --quiet --version)" {
+  run --separate-stderr ./titlecase --quiet --version
+  [ "$status" -eq 0 ]
+  [ "$output" = "$version_titlecase" ]
+  [ "$stderr" = "" ]
+}
+@test "titlecase (flags: --version --quiet)" {
+  run --separate-stderr ./titlecase --version --quiet
+  [ "$status" -eq 0 ]
+  [ "$output" = "$version_titlecase" ]
+  [ "$stderr" = "" ]
+}
+@test "titlecase (flags: --quiet -v --version)" {
+  run --separate-stderr ./titlecase --quiet -v --version
+  [ "$status" -eq 0 ]
+  [ "$output" = "$version_titlecase" ]
+  [ "$stderr" = "" ]
+}
+@test "titlecase (flags: -v --quiet --version)" {
+  run --separate-stderr ./titlecase -v --quiet --version
+  [ "$status" -eq 0 ]
+  [ "$output" = "$version_titlecase" ]
+  [ "$stderr" = "" ]
+}
+@test "titlecase (flags: --quiet --version -v)" {
+  run --separate-stderr ./titlecase --quiet --version -v
+  [ "$status" -eq 0 ]
+  [ "$output" = "$version_titlecase" ]
+  [ "$stderr" = "" ]
+}
+@test "titlecase (flags: -v --version --quiet)" {
+  run --separate-stderr ./titlecase -v --version --quiet
+  [ "$status" -eq 0 ]
+  [ "$output" = "$version_titlecase" ]
+  [ "$stderr" = "" ]
+}
+@test "titlecase (flags: --version --quiet -v)" {
+  run --separate-stderr ./titlecase --version --quiet -v
+  [ "$status" -eq 0 ]
+  [ "$output" = "$version_titlecase" ]
+  [ "$stderr" = "" ]
+}
+@test "titlecase (flags: --version -v --quiet)" {
+  run --separate-stderr ./titlecase --version -v --quiet
+  [ "$status" -eq 0 ]
+  [ "$output" = "$version_titlecase" ]
+  [ "$stderr" = "" ]
+}
+@test "titlecase (flags: --verbose --version)" {
+  run --separate-stderr ./titlecase --verbose --version
+  [ "$status" -eq 0 ]
+  [ "$output" = "$version_titlecase" ]
+  [ "$stderr" = "" ]
+}
+@test "titlecase (flags: --version --verbose)" {
+  run --separate-stderr ./titlecase --version --verbose
+  [ "$status" -eq 0 ]
+  [ "$output" = "$version_titlecase" ]
+  [ "$stderr" = "" ]
+}
+@test "titlecase (flags: -q --verbose --version)" {
+  run --separate-stderr ./titlecase -q --verbose --version
+  [ "$status" -eq 0 ]
+  [ "$output" = "$version_titlecase" ]
+  [ "$stderr" = "" ]
+}
+@test "titlecase (flags: --verbose -q --version)" {
+  run --separate-stderr ./titlecase --verbose -q --version
+  [ "$status" -eq 0 ]
+  [ "$output" = "$version_titlecase" ]
+  [ "$stderr" = "" ]
+}
+@test "titlecase (flags: -q --version --verbose)" {
+  run --separate-stderr ./titlecase -q --version --verbose
+  [ "$status" -eq 0 ]
+  [ "$output" = "$version_titlecase" ]
+  [ "$stderr" = "" ]
+}
+@test "titlecase (flags: --verbose --version -q)" {
+  run --separate-stderr ./titlecase --verbose --version -q
+  [ "$status" -eq 0 ]
+  [ "$output" = "$version_titlecase" ]
+  [ "$stderr" = "" ]
+}
+@test "titlecase (flags: --version -q --verbose)" {
+  run --separate-stderr ./titlecase --version -q --verbose
+  [ "$status" -eq 0 ]
+  [ "$output" = "$version_titlecase" ]
+  [ "$stderr" = "" ]
+}
+@test "titlecase (flags: --version --verbose -q)" {
+  run --separate-stderr ./titlecase --version --verbose -q
+  [ "$status" -eq 0 ]
+  [ "$output" = "$version_titlecase" ]
+  [ "$stderr" = "" ]
+}
+@test "titlecase (flags: --quiet --verbose --version)" {
+  run --separate-stderr ./titlecase --quiet --verbose --version
+  [ "$status" -eq 0 ]
+  [ "$output" = "$version_titlecase" ]
+  [ "$stderr" = "" ]
+}
+@test "titlecase (flags: --verbose --quiet --version)" {
+  run --separate-stderr ./titlecase --verbose --quiet --version
+  [ "$status" -eq 0 ]
+  [ "$output" = "$version_titlecase" ]
+  [ "$stderr" = "" ]
+}
+@test "titlecase (flags: --quiet --version --verbose)" {
+  run --separate-stderr ./titlecase --quiet --version --verbose
+  [ "$status" -eq 0 ]
+  [ "$output" = "$version_titlecase" ]
+  [ "$stderr" = "" ]
+}
+@test "titlecase (flags: --verbose --version --quiet)" {
+  run --separate-stderr ./titlecase --verbose --version --quiet
+  [ "$status" -eq 0 ]
+  [ "$output" = "$version_titlecase" ]
+  [ "$stderr" = "" ]
+}
+@test "titlecase (flags: --version --quiet --verbose)" {
+  run --separate-stderr ./titlecase --version --quiet --verbose
+  [ "$status" -eq 0 ]
+  [ "$output" = "$version_titlecase" ]
+  [ "$stderr" = "" ]
+}
+@test "titlecase (flags: --version --verbose --quiet)" {
+  run --separate-stderr ./titlecase --version --verbose --quiet
+  [ "$status" -eq 0 ]
+  [ "$output" = "$version_titlecase" ]
   [ "$stderr" = "" ]
 }

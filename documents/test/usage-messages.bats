@@ -751,3 +751,303 @@ load fixtures.sh
   [ "$output" = "hugo-timestamp: parser: --verbose=1 (was 1)" ]
   [ "$stderr" = "$usage_hugotimestamp" ]
 }
+@test "titlecase usage" {
+  run --separate-stderr ./titlecase
+  [ "$status" -eq 1 ]
+  [ "$output" = "" ]
+  [ "$stderr" = "$usage_titlecase" ]
+}
+@test "titlecase (flags: -q)" {
+  run --separate-stderr ./titlecase -q
+  [ "$status" -eq 1 ]
+  [ "$output" = "" ]
+  [ "$stderr" = "$usage_titlecase" ]
+}
+@test "titlecase (flags: --quiet)" {
+  run --separate-stderr ./titlecase --quiet
+  [ "$status" -eq 1 ]
+  [ "$output" = "" ]
+  [ "$stderr" = "$usage_titlecase" ]
+}
+@test "titlecase (flags: -v)" {
+  run --separate-stderr ./titlecase -v
+  [ "$status" -eq 1 ]
+  [ "$output" = "" ]
+  [ "$stderr" = "$usage_titlecase" ]
+}
+@test "titlecase (flags: --verbose)" {
+  run --separate-stderr ./titlecase --verbose
+  [ "$status" -eq 1 ]
+  [ "$output" = "" ]
+  [ "$stderr" = "$usage_titlecase" ]
+}
+@test "titlecase (flags: -v -q)" {
+  run --separate-stderr ./titlecase -v -q
+  [ "$status" -eq 1 ]
+  [ "$output" = "" ]
+  [ "$stderr" = "$usage_titlecase" ]
+}
+@test "titlecase (flags: --verbose -q)" {
+  run --separate-stderr ./titlecase --verbose -q
+  [ "$status" -eq 1 ]
+  [ "$output" = "" ]
+  [ "$stderr" = "$usage_titlecase" ]
+}
+@test "titlecase (flags: -v --quiet)" {
+  run --separate-stderr ./titlecase -v --quiet
+  [ "$status" -eq 1 ]
+  [ "$output" = "" ]
+  [ "$stderr" = "$usage_titlecase" ]
+}
+@test "titlecase (flags: --verbose --quiet)" {
+  run --separate-stderr ./titlecase --verbose --quiet
+  [ "$status" -eq 1 ]
+  [ "$output" = "" ]
+  [ "$stderr" = "$usage_titlecase" ]
+}
+@test "titlecase (flags: -q -v)" {
+  run --separate-stderr ./titlecase -q -v
+  [ "$status" -eq 1 ]
+  [ "$output" = "" ]
+  [ "$stderr" = "$usage_titlecase" ]
+}
+@test "titlecase (flags: -q --verbose)" {
+  run --separate-stderr ./titlecase -q --verbose
+  [ "$status" -eq 1 ]
+  [ "$output" = "" ]
+  [ "$stderr" = "$usage_titlecase" ]
+}
+@test "titlecase (flags: --quiet -v)" {
+  run --separate-stderr ./titlecase --quiet -v
+  [ "$status" -eq 1 ]
+  [ "$output" = "" ]
+  [ "$stderr" = "$usage_titlecase" ]
+}
+@test "titlecase (flags: --quiet --verbose)" {
+  run --separate-stderr ./titlecase --quiet --verbose
+  [ "$status" -eq 1 ]
+  [ "$output" = "" ]
+  [ "$stderr" = "$usage_titlecase" ]
+}
+@test "titlecase (flags: -v -v)" {
+  run --separate-stderr ./titlecase -v -v
+  [ "$status" -eq 1 ]
+  [ "$output" = "titlecase: parser: --verbose=1 (was 1)" ]
+  [ "$stderr" = "$usage_titlecase" ]
+}
+@test "titlecase (flags: --verbose -v)" {
+  run --separate-stderr ./titlecase --verbose -v
+  [ "$status" -eq 1 ]
+  [ "$output" = "titlecase: parser: --verbose=1 (was 1)" ]
+  [ "$stderr" = "$usage_titlecase" ]
+}
+@test "titlecase (flags: -v --verbose)" {
+  run --separate-stderr ./titlecase -v --verbose
+  [ "$status" -eq 1 ]
+  [ "$output" = "titlecase: parser: --verbose=1 (was 1)" ]
+  [ "$stderr" = "$usage_titlecase" ]
+}
+@test "titlecase (flags: --verbose --verbose)" {
+  run --separate-stderr ./titlecase --verbose --verbose
+  [ "$status" -eq 1 ]
+  [ "$output" = "titlecase: parser: --verbose=1 (was 1)" ]
+  [ "$stderr" = "$usage_titlecase" ]
+}
+@test "titlecase (flags: -v -v -q)" {
+  run --separate-stderr ./titlecase -v -v -q
+  [ "$status" -eq 1 ]
+  [ "$output" = "titlecase: parser: --verbose=1 (was 1)" ]
+  [ "$stderr" = "$usage_titlecase" ]
+}
+@test "titlecase (flags: --verbose -v -q)" {
+  run --separate-stderr ./titlecase --verbose -v -q
+  [ "$status" -eq 1 ]
+  [ "$output" = "titlecase: parser: --verbose=1 (was 1)" ]
+  [ "$stderr" = "$usage_titlecase" ]
+}
+@test "titlecase (flags: -v --verbose -q)" {
+  run --separate-stderr ./titlecase -v --verbose -q
+  [ "$status" -eq 1 ]
+  [ "$output" = "titlecase: parser: --verbose=1 (was 1)" ]
+  [ "$stderr" = "$usage_titlecase" ]
+}
+@test "titlecase (flags: --verbose --verbose -q)" {
+  run --separate-stderr ./titlecase --verbose --verbose -q
+  [ "$status" -eq 1 ]
+  [ "$output" = "titlecase: parser: --verbose=1 (was 1)" ]
+  [ "$stderr" = "$usage_titlecase" ]
+}
+@test "titlecase (flags: -v -v --quiet)" {
+  run --separate-stderr ./titlecase -v -v --quiet
+  [ "$status" -eq 1 ]
+  [ "$output" = "titlecase: parser: --verbose=1 (was 1)" ]
+  [ "$stderr" = "$usage_titlecase" ]
+}
+@test "titlecase (flags: --verbose -v --quiet)" {
+  run --separate-stderr ./titlecase --verbose -v --quiet
+  [ "$status" -eq 1 ]
+  [ "$output" = "titlecase: parser: --verbose=1 (was 1)" ]
+  [ "$stderr" = "$usage_titlecase" ]
+}
+@test "titlecase (flags: -v --verbose --quiet)" {
+  run --separate-stderr ./titlecase -v --verbose --quiet
+  [ "$status" -eq 1 ]
+  [ "$output" = "titlecase: parser: --verbose=1 (was 1)" ]
+  [ "$stderr" = "$usage_titlecase" ]
+}
+@test "titlecase (flags: --verbose --verbose --quiet)" {
+  run --separate-stderr ./titlecase --verbose --verbose --quiet
+  [ "$status" -eq 1 ]
+  [ "$output" = "titlecase: parser: --verbose=1 (was 1)" ]
+  [ "$stderr" = "$usage_titlecase" ]
+}
+@test "moincase usage" {
+  run --separate-stderr ./moincase
+  [ "$status" -eq 1 ]
+  [ "$output" = "" ]
+  [ "$stderr" = "$usage_moincase" ]
+}
+@test "moincase (flags: -q)" {
+  run --separate-stderr ./moincase -q
+  [ "$status" -eq 1 ]
+  [ "$output" = "" ]
+  [ "$stderr" = "$usage_moincase" ]
+}
+@test "moincase (flags: --quiet)" {
+  run --separate-stderr ./moincase --quiet
+  [ "$status" -eq 1 ]
+  [ "$output" = "" ]
+  [ "$stderr" = "$usage_moincase" ]
+}
+@test "moincase (flags: -v)" {
+  run --separate-stderr ./moincase -v
+  [ "$status" -eq 1 ]
+  [ "$output" = "" ]
+  [ "$stderr" = "$usage_moincase" ]
+}
+@test "moincase (flags: --verbose)" {
+  run --separate-stderr ./moincase --verbose
+  [ "$status" -eq 1 ]
+  [ "$output" = "" ]
+  [ "$stderr" = "$usage_moincase" ]
+}
+@test "moincase (flags: -v -q)" {
+  run --separate-stderr ./moincase -v -q
+  [ "$status" -eq 1 ]
+  [ "$output" = "" ]
+  [ "$stderr" = "$usage_moincase" ]
+}
+@test "moincase (flags: --verbose -q)" {
+  run --separate-stderr ./moincase --verbose -q
+  [ "$status" -eq 1 ]
+  [ "$output" = "" ]
+  [ "$stderr" = "$usage_moincase" ]
+}
+@test "moincase (flags: -v --quiet)" {
+  run --separate-stderr ./moincase -v --quiet
+  [ "$status" -eq 1 ]
+  [ "$output" = "" ]
+  [ "$stderr" = "$usage_moincase" ]
+}
+@test "moincase (flags: --verbose --quiet)" {
+  run --separate-stderr ./moincase --verbose --quiet
+  [ "$status" -eq 1 ]
+  [ "$output" = "" ]
+  [ "$stderr" = "$usage_moincase" ]
+}
+@test "moincase (flags: -q -v)" {
+  run --separate-stderr ./moincase -q -v
+  [ "$status" -eq 1 ]
+  [ "$output" = "" ]
+  [ "$stderr" = "$usage_moincase" ]
+}
+@test "moincase (flags: -q --verbose)" {
+  run --separate-stderr ./moincase -q --verbose
+  [ "$status" -eq 1 ]
+  [ "$output" = "" ]
+  [ "$stderr" = "$usage_moincase" ]
+}
+@test "moincase (flags: --quiet -v)" {
+  run --separate-stderr ./moincase --quiet -v
+  [ "$status" -eq 1 ]
+  [ "$output" = "" ]
+  [ "$stderr" = "$usage_moincase" ]
+}
+@test "moincase (flags: --quiet --verbose)" {
+  run --separate-stderr ./moincase --quiet --verbose
+  [ "$status" -eq 1 ]
+  [ "$output" = "" ]
+  [ "$stderr" = "$usage_moincase" ]
+}
+@test "moincase (flags: -v -v)" {
+  run --separate-stderr ./moincase -v -v
+  [ "$status" -eq 1 ]
+  [ "$output" = "moincase: parser: --verbose=1 (was 1)" ]
+  [ "$stderr" = "$usage_moincase" ]
+}
+@test "moincase (flags: --verbose -v)" {
+  run --separate-stderr ./moincase --verbose -v
+  [ "$status" -eq 1 ]
+  [ "$output" = "moincase: parser: --verbose=1 (was 1)" ]
+  [ "$stderr" = "$usage_moincase" ]
+}
+@test "moincase (flags: -v --verbose)" {
+  run --separate-stderr ./moincase -v --verbose
+  [ "$status" -eq 1 ]
+  [ "$output" = "moincase: parser: --verbose=1 (was 1)" ]
+  [ "$stderr" = "$usage_moincase" ]
+}
+@test "moincase (flags: --verbose --verbose)" {
+  run --separate-stderr ./moincase --verbose --verbose
+  [ "$status" -eq 1 ]
+  [ "$output" = "moincase: parser: --verbose=1 (was 1)" ]
+  [ "$stderr" = "$usage_moincase" ]
+}
+@test "moincase (flags: -v -v -q)" {
+  run --separate-stderr ./moincase -v -v -q
+  [ "$status" -eq 1 ]
+  [ "$output" = "moincase: parser: --verbose=1 (was 1)" ]
+  [ "$stderr" = "$usage_moincase" ]
+}
+@test "moincase (flags: --verbose -v -q)" {
+  run --separate-stderr ./moincase --verbose -v -q
+  [ "$status" -eq 1 ]
+  [ "$output" = "moincase: parser: --verbose=1 (was 1)" ]
+  [ "$stderr" = "$usage_moincase" ]
+}
+@test "moincase (flags: -v --verbose -q)" {
+  run --separate-stderr ./moincase -v --verbose -q
+  [ "$status" -eq 1 ]
+  [ "$output" = "moincase: parser: --verbose=1 (was 1)" ]
+  [ "$stderr" = "$usage_moincase" ]
+}
+@test "moincase (flags: --verbose --verbose -q)" {
+  run --separate-stderr ./moincase --verbose --verbose -q
+  [ "$status" -eq 1 ]
+  [ "$output" = "moincase: parser: --verbose=1 (was 1)" ]
+  [ "$stderr" = "$usage_moincase" ]
+}
+@test "moincase (flags: -v -v --quiet)" {
+  run --separate-stderr ./moincase -v -v --quiet
+  [ "$status" -eq 1 ]
+  [ "$output" = "moincase: parser: --verbose=1 (was 1)" ]
+  [ "$stderr" = "$usage_moincase" ]
+}
+@test "moincase (flags: --verbose -v --quiet)" {
+  run --separate-stderr ./moincase --verbose -v --quiet
+  [ "$status" -eq 1 ]
+  [ "$output" = "moincase: parser: --verbose=1 (was 1)" ]
+  [ "$stderr" = "$usage_moincase" ]
+}
+@test "moincase (flags: -v --verbose --quiet)" {
+  run --separate-stderr ./moincase -v --verbose --quiet
+  [ "$status" -eq 1 ]
+  [ "$output" = "moincase: parser: --verbose=1 (was 1)" ]
+  [ "$stderr" = "$usage_moincase" ]
+}
+@test "moincase (flags: --verbose --verbose --quiet)" {
+  run --separate-stderr ./moincase --verbose --verbose --quiet
+  [ "$status" -eq 1 ]
+  [ "$output" = "moincase: parser: --verbose=1 (was 1)" ]
+  [ "$stderr" = "$usage_moincase" ]
+}
