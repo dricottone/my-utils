@@ -7,6 +7,7 @@ Tools for manipulating document files.
 
 Executable             |Description                                       |Extra Dependencies
 :----------------------|:-------------------------------------------------|:-----------------
+arrow-above            |Dump all possible arrow-above'd ASCII letters
 circumflex             |Dump all possible circumflex'ed ASCII letters
 epub                   |Dumps HTML from an 'epub' e-book archive          |`zipinfo`, `unzip`, `w3m`
 greek                  |Dump the Greek alphabet
@@ -19,5 +20,6 @@ hugo-timestamp         |Set a timestamp into a Hugo content file          |
 moincase               |Adjust casing for a MoinMoin-markup title
 overdot                |Dump all possible overdot'ed ASCII letters
 overline               |Dump all possible overlined ASCII letters
+tilde                  |Dump all possible tilde'd ASCII letters
 titlecase              |Adjust casing for a title
 

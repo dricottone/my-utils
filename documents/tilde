@@ -1,0 +1,26 @@
+#!/bin/bash
+
+name="tidle"
+version="1.0"
+read -r -d '' help_message <<-EOF
+	Dump all possible tilde'd ASCII letters
+	Usage: tilde [OPTIONS]
+	Options:
+	 -h, --help     print this message and exit
+	 -q, --quiet    suppress error messages
+	 -v, --verbose  show additional messages
+	 -V, --version  print version number and exit
+EOF
+
+. /usr/local/lib/mylib.bash
+. /usr/local/lib/myparse.bash
+
+( \
+  for n in $(/usr/bin/seq 65 90); do
+    /usr/bin/printf -- "\x$(dec2hex $n)\xCC\x83\n"
+  done
+  for n in $(/usr/bin/seq 97 122); do
+    /usr/bin/printf -- "\x$(dec2hex $n)\xCC\x83\n"
+  done
+) | /usr/bin/column
+

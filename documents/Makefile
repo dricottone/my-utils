@@ -2,7 +2,7 @@ BIN_DIR?=/usr/local/bin
 LIB_DIR?=/usr/local/lib
 COMP_DIR?=/usr/local/etc/bash_completion.d
 
-BINS=circumflex epub greek hugo-bump hugo-date hugo-extract-timestamp hugo-new hugo-post hugo-timestamp moincase overdot overline titlecase
+BINS=arrow-above circumflex epub greek hugo-bump hugo-date hugo-extract-timestamp hugo-new hugo-post hugo-timestamp moincase overdot overline tilde titlecase
 
 INSTALL_FLAGS?=
 INSTALL_FLAGS+=--mode=755

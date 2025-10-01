@@ -1,0 +1,28 @@
+#!/bin/bash
+
+name="arrow-above"
+version="1.0"
+read -r -d '' help_message <<-EOF
+	Dump all possible arrow-above'd ASCII letters
+	Usage: overline [OPTIONS]
+	Options:
+	 -h, --help     print this message and exit
+	 -q, --quiet    suppress error messages
+	 -v, --verbose  show additional messages
+	 -V, --version  print version number and exit
+EOF
+
+. /usr/local/lib/mylib.bash
+. /usr/local/lib/myparse.bash
+
+( \
+  for n in $(/usr/bin/seq 65 90); do
+    temp=$'\u20D7\n'
+    temp="\x$(dec2hex $n)$temp"
+    /usr/bin/printf -- "$temp"
+  done
+  for n in $(/usr/bin/seq 97 122); do
+    /usr/bin/printf -- "\x$(dec2hex $n)\u20D7\n"
+  done
+) | /usr/bin/column
+
