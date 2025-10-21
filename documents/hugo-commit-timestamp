@@ -1,0 +1,50 @@
+#!/bin/bash
+
+name="hugo-commit-timestamp"
+version="1.0"
+read -r -d '' help_message <<-EOF
+	Set the date in Hugo content files according to git commits
+	Usage: hugo-commit-timestamp [OPTIONS] TARGETS..
+	Options:
+	 -h, --help     print this message and exit
+	 -q, --quiet    suppress error messages
+	 -v, --verbose  show additional messages
+	 -V, --version  print version number and exit
+EOF
+
+. /usr/local/lib/mylib.bash
+. /usr/local/lib/myparse.bash
+RequirePositionalArguments
+
+code=0
+for filename in "${positional[@]}"; do
+  if [[ ! -f "${filename}" ]]; then
+    Error "no such file '${filename}'"
+    code=1
+
+  else
+    newdate="$(git log --format="format:%ci" --name-only --diff-filter=A -- "${filename}")
+
+    if [[ "${quiet}" -eq 1 ]]; then
+      if ! hugo-timestamp --quiet "${filename}"
+        code=1
+      fi
+
+    elif [[ "${verbose}" -eq 1 ]]; then
+      if ! hugo-timestamp --verbose "${filename}"
+        Debug "encountered an issue with ${filename}"
+
+        code=1
+      fi
+
+    else
+      if ! hugo-timestamp "${filename}"; then
+        code=1
+      fi
+
+    fi
+  fi
+done
+
+exit "${code}"
+

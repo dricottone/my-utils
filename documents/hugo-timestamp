@@ -38,13 +38,12 @@ EOF
 }
 
 filename="${positional[0]}"
-newdate="${positional[1]}"
-
 if [[ ! -f "${filename}" ]]; then
   Fatal "no such file '${filename}'"
+fi
 
+newdate="${positional[1]}"
 olddate="$(hugo-extract-timestamp "${filename}")"
-
 if [[ -z "${olddate}" ]]; then
   Debug "no timestamp, appending..."
 

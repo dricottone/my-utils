@@ -2,7 +2,7 @@ BIN_DIR?=/usr/local/bin
 LIB_DIR?=/usr/local/lib
 COMP_DIR?=/usr/local/etc/bash_completion.d
 
-BINS=arrow-above circumflex epub greek hugo-bump hugo-date hugo-extract-timestamp hugo-new hugo-post hugo-timestamp moincase overdot overline tilde titlecase
+BINS=arrow-above circumflex epub greek hugo-bump hugo-commit-timestamp hugo-date hugo-extract-timestamp hugo-new hugo-post hugo-timestamp moincase overdot overline tilde titlecase
 
 INSTALL_FLAGS?=
 INSTALL_FLAGS+=--mode=755
@@ -20,7 +20,7 @@ test/usage-messages.bats: ../testing/testing-bats-start-test.sh ../testing/testi
 	rm -f test/usage-messages.bats
 	../testing/testing-bats-start-test.sh >test/usage-messages.bats
 	# commands that produce a usage message when called without an argument
-	for cmd in epub hugo-bump hugo-extract-timestamp hugo-post hugo-timestamp titlecase moincase ; do \
+	for cmd in epub hugo-bump hugo-commit-timestamp hugo-extract-timestamp hugo-post hugo-timestamp titlecase moincase ; do \
 		../testing/testing-bats-test-usage-message.sh $$cmd >>test/usage-messages.bats ; \
 	done
 
