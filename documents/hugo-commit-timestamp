@@ -23,7 +23,7 @@ for filename in "${positional[@]}"; do
     code=1
 
   else
-    newdate="$(git log --format="format:%ci" --name-only --diff-filter=A -- "${filename}")"
+    newdate="$(/usr/bin/git log --format="format:%ci" --diff-filter=A -- "${filename}" | /usr/bin/cut --delimiter=' ' --fields=1)"
 
     if [[ "${quiet}" -eq 1 ]]; then
       if ! hugo-timestamp --quiet "${filename}" "${newdate}"; then
