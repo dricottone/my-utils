@@ -1,7 +1,7 @@
 #!/bin/bash
 
 name="enumerate"
-version="1.1"
+version="1.2"
 read -r -d '' help_message <<-EOF
 	Rename files in a target directory (or current directory) sequentially
 	Usage: enumerate [OPTIONS] [TARGET]
