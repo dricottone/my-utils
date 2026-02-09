@@ -9,6 +9,7 @@ Executable             |Description                                             
 :----------------------|:----------------------------------------------------------|:-----------------
 arrow-above            |Dump all possible arrow-above'd ASCII letters
 circumflex             |Dump all possible circumflex'ed ASCII letters
+curly                  |Dump all possible curly'ed ASCII letters
 epub                   |Dumps HTML from an 'epub' e-book archive                   |`zipinfo`, `unzip`, `w3m`
 greek                  |Dump the Greek alphabet
 greek-circumflex       |Dump all possible circumflex'ed Greek letters

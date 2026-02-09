@@ -1,0 +1,68 @@
+#!/bin/bash
+
+name="curly"
+version="1.0"
+read -r -d '' help_message <<-EOF
+	Dump all possible curly'd ASCII letters
+	Usage: curly [OPTIONS]
+	Options:
+	 -h, --help     print this message and exit
+	 -q, --quiet    suppress error messages
+	 -v, --verbose  show additional messages
+	 -V, --version  print version number and exit
+EOF
+
+
+. /usr/local/lib/mylib.bash
+. /usr/local/lib/myparse.bash
+
+# Who do I get to blame for this nonsense
+
+( \
+
+  for n in 156; do
+    /usr/bin/printf -- "\xF0\x9D\x92\x$(dec2hex $n)\n"
+  done
+
+  for n in 172; do
+    /usr/bin/printf -- "\xE2\x84\x$(dec2hex $n)\n"
+  done
+
+  for n in 158 159; do
+    /usr/bin/printf -- "\xF0\x9D\x92\x$(dec2hex $n)\n"
+  done
+
+  for n in 176 177; do
+    /usr/bin/printf -- "\xE2\x84\x$(dec2hex $n)\n"
+  done
+
+  for n in 162; do
+    /usr/bin/printf -- "\xF0\x9D\x92\x$(dec2hex $n)\n"
+  done
+
+  for n in 139 144; do
+    /usr/bin/printf -- "\xE2\x84\x$(dec2hex $n)\n"
+  done
+
+  for n in 165 166; do
+    /usr/bin/printf -- "\xF0\x9D\x92\x$(dec2hex $n)\n"
+  done
+
+  for n in 146 179; do
+    /usr/bin/printf -- "\xE2\x84\x$(dec2hex $n)\n"
+  done
+
+  for n in $(/usr/bin/seq 169 172); do
+    /usr/bin/printf -- "\xF0\x9D\x92\x$(dec2hex $n)\n"
+  done
+
+  for n in 155; do
+    /usr/bin/printf -- "\xE2\x84\x$(dec2hex $n)\n"
+  done
+
+  for n in $(/usr/bin/seq 174 181); do
+    /usr/bin/printf -- "\xF0\x9D\x92\x$(dec2hex $n)\n"
+  done
+
+) | /usr/bin/column
+
