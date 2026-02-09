@@ -1,0 +1,53 @@
+#!/bin/bash
+
+name="greek-circumflex"
+version="1.0"
+read -r -d '' help_message <<-EOF
+	Dump all possible circumflex'ed Greek letters
+	Usage: greek-circumflex [OPTIONS]
+	Options:
+	 -h, --help     print this message and exit
+	 -q, --quiet    suppress error messages
+	 -v, --verbose  show additional messages
+	 -V, --version  print version number and exit
+EOF
+
+. /usr/local/lib/mylib.bash
+. /usr/local/lib/myparse.bash
+
+# I really can't think of a better way, unfortunately.
+names=()
+names[145]="alpha:  "
+names[146]="beta:   "
+names[147]="gamma:  "
+names[148]="delta:  "
+names[149]="epsilon:"
+names[150]="zeta:   "
+names[151]="eta:    "
+names[152]="theta:  "
+names[153]="iota:   "
+names[154]="kappa:  "
+names[155]="lambda: "
+names[156]="mu:     "
+names[157]="nu:     "
+names[158]="xi:     "
+names[159]="omicron:"
+names[160]="pi:     "
+names[161]="rho:    "
+names[163]="sigma:  "
+names[164]="tau:    "
+names[165]="upsilon:"
+names[166]="phi:    "
+names[167]="chi:    "
+names[168]="psi:    "
+names[169]="omega:  "
+
+( \
+  for n in $(/usr/bin/seq 145 161); do
+    /usr/bin/printf -- "${names[$n]} \u03$(dec2hex $n)\xCC\x82 \u03$(dec2hex $(($n+32)))\xCC\x82\n"
+  done
+  for n in $(/usr/bin/seq 163 169); do
+    /usr/bin/printf -- "${names[$n]} \u03$(dec2hex $n)\xCC\x82 \u03$(dec2hex $(($n+32)))\xCC\x82\n"
+  done
+) | /usr/bin/column
+

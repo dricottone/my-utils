@@ -11,6 +11,7 @@ arrow-above            |Dump all possible arrow-above'd ASCII letters
 circumflex             |Dump all possible circumflex'ed ASCII letters
 epub                   |Dumps HTML from an 'epub' e-book archive                   |`zipinfo`, `unzip`, `w3m`
 greek                  |Dump the Greek alphabet
+greek-circumflex       |Dump all possible circumflex'ed Greek letters
 hugo-bump              |Bump the date in Hugo content files
 hugo-commit-timestamp  |Set the date in Hugo content files according to git commits|`git`
 hugo-date              |Print current date and time in the Hugo/Go format
