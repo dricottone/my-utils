@@ -1,6 +1,6 @@
 #!/bin/bash
 
-name="tidle"
+name="tilde"
 version="1.0"
 read -r -d '' help_message <<-EOF
 	Dump all possible tilde'd ASCII letters
