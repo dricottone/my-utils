@@ -1,13 +1,13 @@
 #!/bin/bash
 
 name="curly"
-version="1.0"
+version="1.1"
 read -r -d '' help_message <<-EOF
 	Dump all possible curly'd ASCII letters
 	Usage: curly [OPTIONS]
 	Options:
-	 -h, --help     print this message and exit
-	 -q, --quiet    suppress error messages
+	 -h, --help  print this message and exit
+	 -q, --quiet  suppress error messages
 	 -v, --verbose  show additional messages
 	 -V, --version  print version number and exit
 EOF
@@ -18,51 +18,77 @@ EOF
 
 # Who do I get to blame for this nonsense
 
+# Script block (1D4)
+# See https://www.unicode.org/charts/nameslist/n_1D400.html
+# MOSTLY encoded in UTF-8 as 0xF0 0x9D 0x92 0x##
+# (Some stragglers as         ''   ''  0x93  '' )
+_sc1_pre=$'\xF0\x9D\x92'
+_sc2_pre=$'\xF0\x9D\x93'
+
+# Letterlike symbols block (21)
+# See https://www.unicode.org/charts/nameslist/c_2100.html
+# Encoded in UTF-8 as 0xE2 0x84 0x##
+_lls_pre=$'\xE2\x84'
+
+codes1=()
+codes1[ 1]="${_sc1_pre}\x$(dec2hex 156)"  #A, U+1D49C
+codes1[ 2]="${_lls_pre}\x$(dec2hex 172)"  #B, U+212C
+codes1[ 3]="${_sc1_pre}\x$(dec2hex 158)"  #C, U+1D49E
+codes1[ 4]="${_sc1_pre}\x$(dec2hex 159)"  #D, U+1D49F
+codes1[ 5]="${_lls_pre}\x$(dec2hex 176)"  #E, U+2130
+codes1[ 6]="${_lls_pre}\x$(dec2hex 177)"  #F, U+2131
+codes1[ 7]="${_sc1_pre}\x$(dec2hex 162)"  #G, U+1D4A2
+codes1[ 8]="${_lls_pre}\x$(dec2hex 139)"  #H, U+210B
+codes1[ 9]="${_lls_pre}\x$(dec2hex 144)"  #I, U+2110
+codes1[10]="${_sc1_pre}\x$(dec2hex 165)"  #J, U+1D4A5
+codes1[11]="${_sc1_pre}\x$(dec2hex 166)"  #K, U+1D4A6
+codes1[12]="${_lls_pre}\x$(dec2hex 146)"  #L, U+2112
+codes1[13]="${_lls_pre}\x$(dec2hex 179)"  #M, U+2133
+codes1[14]="${_sc1_pre}\x$(dec2hex 169)"  #N, U+1D4A9
+codes1[15]="${_sc1_pre}\x$(dec2hex 170)"  #O, U+1D4AA
+codes1[16]="${_sc1_pre}\x$(dec2hex 171)"  #P, U+1D4AB
+codes1[17]="${_sc1_pre}\x$(dec2hex 172)"  #Q, U+1D4AC
+codes1[18]="${_lls_pre}\x$(dec2hex 155)"  #R, U+211B
+codes1[19]="${_sc1_pre}\x$(dec2hex 174)"  #S, U+1D4AE
+codes1[20]="${_sc1_pre}\x$(dec2hex 175)"  #T, U+1D4AF
+codes1[21]="${_sc1_pre}\x$(dec2hex 176)"  #U, U+1D4B0
+codes1[22]="${_sc1_pre}\x$(dec2hex 177)"  #V, U+1D4B1
+codes1[23]="${_sc1_pre}\x$(dec2hex 178)"  #W, U+1D4B2
+codes1[24]="${_sc1_pre}\x$(dec2hex 179)"  #X, U+1D4B3
+codes1[25]="${_sc1_pre}\x$(dec2hex 180)"  #Y, U+1D4B4
+codes1[26]="${_sc1_pre}\x$(dec2hex 181)"  #Z, U+1D4B5
+
+codes2=()
+codes2[ 1]="${_sc1_pre}\x$(dec2hex 182)"  #a, U+1D4B6
+codes2[ 2]="${_sc1_pre}\x$(dec2hex 183)"  #b, U+1D4B7
+codes2[ 3]="${_sc1_pre}\x$(dec2hex 184)"  #c, U+1D4B8
+codes2[ 4]="${_sc1_pre}\x$(dec2hex 185)"  #d, U+1D4B9
+codes2[ 5]="${_lls_pre}\x$(dec2hex 175)"  #e, U+212F
+codes2[ 6]="${_sc1_pre}\x$(dec2hex 187)"  #f, U+1D4BB
+codes2[ 7]="${_lls_pre}\x$(dec2hex 138)"  #g, U+210A
+codes2[ 8]="${_sc1_pre}\x$(dec2hex 189)"  #h, U+1D4BD
+codes2[ 9]="${_sc1_pre}\x$(dec2hex 190)"  #i, U+1D4BE
+codes2[10]="${_sc1_pre}\x$(dec2hex 191)"  #j, U+1D4BF
+codes2[11]="${_sc2_pre}\x$(dec2hex 128)"  #k, U+1D4C0
+codes2[12]="${_sc2_pre}\x$(dec2hex 129)"  #l  U+1D4C1
+codes2[13]="${_sc2_pre}\x$(dec2hex 130)"  #m  U+1D4C2
+codes2[14]="${_sc2_pre}\x$(dec2hex 131)"  #n  U+1D4C3
+codes2[15]="${_lls_pre}\x$(dec2hex 180)"  #o  U+2134
+codes2[16]="${_sc2_pre}\x$(dec2hex 133)"  #p  U+1D4C5
+codes2[17]="${_sc2_pre}\x$(dec2hex 134)"  #q  U+1D4C6
+codes2[18]="${_sc2_pre}\x$(dec2hex 135)"  #r  U+1D4C7
+codes2[19]="${_sc2_pre}\x$(dec2hex 136)"  #s  U+1D4C8
+codes2[20]="${_sc2_pre}\x$(dec2hex 137)"  #t  U+1D4C9
+codes2[21]="${_sc2_pre}\x$(dec2hex 138)"  #u  U+1D4CA
+codes2[22]="${_sc2_pre}\x$(dec2hex 139)"  #v  U+1D4CB
+codes2[23]="${_sc2_pre}\x$(dec2hex 140)"  #w  U+1D4CC
+codes2[24]="${_sc2_pre}\x$(dec2hex 141)"  #x  U+1D4CD
+codes2[25]="${_sc2_pre}\x$(dec2hex 142)"  #y  U+1D4CE
+codes2[26]="${_sc2_pre}\x$(dec2hex 143)"  #z  U+1D4CF
+
 ( \
-
-  for n in 156; do
-    /usr/bin/printf -- "\xF0\x9D\x92\x$(dec2hex $n)\n"
+  for n in $(/usr/bin/seq 1 26); do
+    /usr/bin/printf -- "${codes1[$n]} ${codes2[$n]}\n"
   done
-
-  for n in 172; do
-    /usr/bin/printf -- "\xE2\x84\x$(dec2hex $n)\n"
-  done
-
-  for n in 158 159; do
-    /usr/bin/printf -- "\xF0\x9D\x92\x$(dec2hex $n)\n"
-  done
-
-  for n in 176 177; do
-    /usr/bin/printf -- "\xE2\x84\x$(dec2hex $n)\n"
-  done
-
-  for n in 162; do
-    /usr/bin/printf -- "\xF0\x9D\x92\x$(dec2hex $n)\n"
-  done
-
-  for n in 139 144; do
-    /usr/bin/printf -- "\xE2\x84\x$(dec2hex $n)\n"
-  done
-
-  for n in 165 166; do
-    /usr/bin/printf -- "\xF0\x9D\x92\x$(dec2hex $n)\n"
-  done
-
-  for n in 146 179; do
-    /usr/bin/printf -- "\xE2\x84\x$(dec2hex $n)\n"
-  done
-
-  for n in $(/usr/bin/seq 169 172); do
-    /usr/bin/printf -- "\xF0\x9D\x92\x$(dec2hex $n)\n"
-  done
-
-  for n in 155; do
-    /usr/bin/printf -- "\xE2\x84\x$(dec2hex $n)\n"
-  done
-
-  for n in $(/usr/bin/seq 174 181); do
-    /usr/bin/printf -- "\xF0\x9D\x92\x$(dec2hex $n)\n"
-  done
-
 ) | /usr/bin/column
 
